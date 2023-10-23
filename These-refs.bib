@@ -1,0 +1,3892 @@
+###### HOW-TO ######
+
+To add a new entry in your bibliography chose the proper template below, copy-
+paste it in the end of this file, replace the "_" by an "at-symbol" (this
+symbol cannot be typed here otherwise the bibliography processing program
+would think there's an entry inside this how-to), and fill its fields. Check
+an proper entry example in the end of this file.
+
+You can use the month macros (jan, feb, mar, apr, may, jun, jul, aug, sep,
+oct, nov, dec) WITHOUT QUOTES to let the bib-style handle the language of the
+month (French or English), like in the example in the end of the file.
+
+Optional fields in the templates are commented out with a '%'. Note that not
+all external programs that process bibliography information in .bib files
+support comments inside the reference entry (notably bibtex doesn't), so you
+may need to remove the fields you don't want/need in your entry instead of
+leaving it commented out. Moreover, anything not starting with a "at-symbol"
+is normally not processed by the bibliography processing program (like it was
+just comments).
+
+
+
+###### TEMPLATES ######
+
+Source: https://en.wikibooks.org/wiki/LaTeX/Bibliography_Management
+
+_article{Xarticle,
+    author    = "",
+    title     = "",
+    journal   = "",
+    %volume   = "",
+    %number   = "",
+    %pages    = "",
+    year      = "XXXX",
+    %month    = "",
+    %note     = "",
+}
+
+_book{Xbook,
+    author    = "",
+    title     = "",
+    publisher = "",
+    %volume   = "",
+    %number   = "",
+    %series   = "",
+    %address  = "",
+    %edition  = "",
+    year      = "XXXX",
+    %month    = "",
+    %note     = "",
+}
+
+_booklet{Xbooklet,
+    %author   = "",
+    title     = "",
+    %howpublished   = "",
+    %address  = "",
+    %year      = "XXXX",
+    %month    = "",
+    %note     = "",
+}
+
+_conference{Xconference,
+    author    = "",
+    title     = "",
+    booktitle = "",
+    %editor   = "",
+    %volume   = "",
+    %number   = "",
+    %series   = "",
+    %pages    = "",
+    %address  = "",
+    year      = "XXXX",
+    %month    = "",
+    %publisher= "",
+    %note     = "",
+}
+
+_inbook{Xinbook,
+	author	= "",
+	editor	= "",
+	title	= "",
+	chapter	= "",
+	pages	= "",
+	publisher= "",
+	%volume	= "",
+	%number	= "",
+	%series	= "",
+	%type	= "",
+	%address= "",
+	%edition= "",
+	year	= "",
+	%month	= "",
+	%note	= "",
+}
+
+_incollection{Xincollection,
+	author	= "",
+	title	= "",
+	booktitle= "",
+	publisher= "",
+	%editor	= "",
+	%volume	= "",
+	%number	= "",
+	%series	= "",
+	%type	= "",
+	%chapter= "",
+	%pages	= "",
+	%address= "",
+	%edition= "",
+	year	= "",
+	%month	= "",
+	%note	= "",
+}
+
+_inproceedings{Xinproceedings,
+	author		= "",
+	title		= "",
+	booktitle	= "",
+	%editor		= "",
+	%volume		= "",
+	%number		= "",
+	%series		= "",
+	%pages		= "",
+	%address	= "",
+	%organization	= "",
+	%publisher	= "",
+	year		= "",
+	%month		= "",
+	%note		= "",
+}
+
+_manual{Xmanual,
+	title		= "",
+	%author		= "",
+	%organization	= "",
+	%address	= "",
+	%edition	= "",
+	year		= "",
+	%month		= "",
+	%note		= "",
+}
+
+_mastersthesis{Xthesis,
+    author    = "",
+    title     = "",
+    school    = "",
+    %type     = "diploma thesis",
+    %address  = "",
+    year      = "XXXX",
+    %month    = "",
+    %note     = "",
+}
+
+_misc{Xmisc,
+    %author    = "",
+    %title     = "",
+    %howpublished = "",
+    %year     = "XXXX",
+    %month    = "",
+    %note     = "",
+}
+
+_phdthesis{Xphdthesis,
+	author		= "",
+	title		= "",
+	school		= "",
+	%address	= "",
+	year		= "",
+	%month		= "",
+	%keywords	= "",
+	%note		= "",
+}
+
+_proceedings{Xproceedings,
+	title		= "",
+	%editor		= "",
+	%volume		= "",
+	%number		= "",
+	%series		= "",
+	%address	= "",
+	%organization	= "",
+	%publisher	= "",
+	year		= "",
+	%month		= "",
+	%note		= "",
+}
+
+_techreport{Xtreport,
+    author    = "",
+    title     = "",
+    institution = "",
+    %type     = "", 
+    %number   = "",
+    %address  = "",
+    year      = "XXXX",
+    %month    = "",
+    %note     = "",
+}
+
+_unpublished{Xunpublished,
+	author	= "",
+	title	= "",
+	%year	= "",
+	%month	= "",
+	note	= "",
+}
+
+###### Introduction ######
+@article{latombe1999motion,
+  title={Motion planning: A journey of robots, molecules, digital actors, and other artifacts},
+  author={Latombe, Jean-Claude},
+  journal={The International Journal of Robotics Research},
+  volume={18},
+  number={11},
+  pages={1119--1128},
+  year={1999},
+  publisher={SAGE Publications}
+}
+
+@inproceedings{guldenring2020learning,
+  title={Learning local planners for human-aware navigation in indoor environments},
+  author={Guldenring, Ronja and G{\"o}rner, Michael and Hendrich, Norman and Jacobsen, Niels Jul and Zhang, Jianwei},
+  booktitle={2020 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+  pages={6053--6060},
+  year={2020},
+  organization={IEEE}
+}
+
+@inproceedings{ferrer2013social,
+  title={Social-aware robot navigation in urban environments},
+  author={Ferrer, Gonzalo and Garrell, Anais and Sanfeliu, Alberto},
+  booktitle={2013 European Conference on Mobile Robots},
+  pages={331--336},
+  year={2013},
+  organization={IEEE}
+}
+
+@article{bogue2016growth,
+  title={Growth in e-commerce boosts innovation in the warehouse robot market},
+  author={Bogue, Robert},
+  journal={Industrial Robot: An International Journal},
+  year={2016},
+  publisher={Emerald Group Publishing Limited}
+}
+
+@inproceedings{repiso2017line,
+  title={On-line adaptive side-by-side human robot companion in dynamic urban environments},
+  author={Repiso, Ely and Ferrer, Gonzalo and Sanfeliu, Alberto},
+  booktitle={2017 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+  pages={872--877},
+  year={2017},
+  organization={IEEE}
+}
+
+@article{rasouli2019autonomous,
+  title={Autonomous vehicles that interact with pedestrians: A survey of theory and practice},
+  author={Rasouli, Amir and Tsotsos, John K},
+  journal={IEEE transactions on intelligent transportation systems},
+  volume={21},
+  number={3},
+  pages={900--918},
+  year={2019},
+  publisher={IEEE}
+}
+
+@article{curioni2019joint,
+  title={Joint action in humans: A model for human-robot interactions},
+  author={Curioni, Arianna and Knoblich, Gunther and Sebanz, Natalie and Goswami, A and Vadakkepat, P},
+  journal={Humanoid Robotics: A Reference},
+  pages={2149--2167},
+  year={2019},
+  publisher={Springer Dordrecht, The Netherlands}
+}
+
+@inproceedings{trautman2010unfreezing,
+  title={Unfreezing the robot: Navigation in dense, interacting crowds},
+  author={Trautman, Peter and Krause, Andreas},
+  booktitle={2010 IEEE/RSJ International Conference on Intelligent Robots and Systems},
+  pages={797--803},
+  year={2010},
+  organization={IEEE}
+}
+
+
+###### Chapter 1 ######
+@inproceedings{quigley2009ros,
+  title={ROS: an open-source Robot Operating System},
+  author={Quigley, Morgan and Conley, Ken and others},
+  booktitle={ICRA workshop on open source software},
+  volume={},
+  number={},
+  pages={},
+  year={2009},
+  organization={}
+}
+
+@article{chik2016review,
+  title={A review of social-aware navigation frameworks for service robot in dynamic human environments},
+  author={Chik, SF and Yeong, CF and Su, ELM and Lim, TY and Subramaniam, Y and Chin, PJH},
+  journal={Journal of Telecommunication, Electronic and Computer Engineering (JTEC)},
+  volume={8},
+  number={11},
+  pages={41--50},
+  year={2016}
+}
+
+@article{bretto2013hypergraph,
+  title={Hypergraph theory},
+  author={Bretto, Alain},
+  journal={An introduction. Mathematical Engineering. Cham: Springer},
+  year={2013},
+  publisher={Springer}
+}
+
+@inproceedings{rosmann2013efficient,
+  title={Efficient trajectory optimization using a sparse model},
+  author={R{\"o}smann, Christoph and Feiten, Wendelin and W{\"o}sch, Thomas and Hoffmann, Frank and Bertram, Torsten},
+  booktitle={2013 European Conference on Mobile Robots},
+  pages={138--143},
+  year={2013},
+  organization={IEEE}
+}
+
+@book{lavalle2006sampling,
+  title={Sampling-based motion planning},
+  author={Lavalle, Steven M},
+  year={2006},
+  publisher={Citeseer}
+}
+
+@inproceedings{yap2002grid,
+  title={Grid-based path-finding},
+  author={Yap, Peter},
+  booktitle={Conference of the canadian society for computational studies of intelligence},
+  pages={44--55},
+  year={2002},
+  organization={Springer}
+}
+
+@inproceedings{warren1993fast,
+  title={Fast path planning using modified A* method},
+  author={Warren, Charles W},
+  booktitle={[1993] Proceedings IEEE International Conference on Robotics and Automation},
+  pages={662--667},
+  year={1993},
+  organization={IEEE}
+}
+
+@inproceedings{kuffner2000rrt,
+  title={RRT-connect: An efficient approach to single-query path planning},
+  author={Kuffner, James J and LaValle, Steven M},
+  booktitle={Proceedings 2000 ICRA. Millennium Conference. IEEE International Conference on Robotics and Automation. Symposia Proceedings (Cat. No. 00CH37065)},
+  volume={2},
+  pages={995--1001},
+  year={2000},
+  organization={IEEE}
+}
+
+@article{kavraki1996probabilistic,
+  title={Probabilistic roadmaps for path planning in high-dimensional configuration spaces},
+  author={Kavraki, Lydia E and Svestka, Petr and Latombe, J-C and Overmars, Mark H},
+  journal={IEEE transactions on Robotics and Automation},
+  volume={12},
+  number={4},
+  pages={566--580},
+  year={1996},
+  publisher={IEEE}
+}
+
+@article{gasparetto2015path,
+  title={Path planning and trajectory planning algorithms: A general overview},
+  author={Gasparetto, Alessandro and Boscariol, Paolo and Lanzutti, Albano and Vidoni, Renato},
+  journal={Motion and operation planning of robotic systems},
+  pages={3--27},
+  year={2015},
+  publisher={Springer}
+}
+
+@article{vathsal1977minimax,
+  title={Minimax approach to trajectory optimization of multistage launch vehicles},
+  author={Vathsal, S and Menon, KAP and Swaminathan, R},
+  journal={IEEE Transactions on Aerospace and Electronic Systems},
+  number={2},
+  pages={179--187},
+  year={1977},
+  publisher={IEEE}
+}
+
+@article{tian2004effective,
+  title={An effective robot trajectory planning method using a genetic algorithm},
+  author={Tian, Lianfang and Collins, Curtis},
+  journal={Mechatronics},
+  volume={14},
+  number={5},
+  pages={455--470},
+  year={2004},
+  publisher={Elsevier}
+}
+
+@inproceedings{oleiwi2014multi,
+  title={Multi objective optimization of trajectory planning of non-holonomic mobile robot in dynamic environment using enhanced GA by fuzzy motion control and A},
+  author={Oleiwi, Bashra Kadhim and Al-Jarrah, Rami and Roth, Hubert and Kazem, Bahaa I},
+  booktitle={International Conference on Neural Networks and Artificial Intelligence},
+  pages={34--49},
+  year={2014},
+  organization={Springer}
+}
+
+@inproceedings{rosmann2015timed,
+  title={Timed-elastic-bands for time-optimal point-to-point nonlinear model predictive control},
+  author={R{\"o}smann, Christoph and Hoffmann, Frank and Bertram, Torsten},
+  booktitle={2015 european control conference (ECC)},
+  pages={3352--3357},
+  year={2015},
+  organization={IEEE}
+}
+
+@inproceedings{ardakani2015real,
+  title={Real-time trajectory generation using model predictive control},
+  author={Ardakani, M Mahdi Ghazaei and Olofsson, Bj{\"o}rn and Robertsson, Anders and Johansson, Rolf},
+  booktitle={2015 IEEE International Conference on Automation Science and Engineering (CASE)},
+  pages={942--948},
+  year={2015},
+  organization={IEEE}
+}
+
+@article{mishra1983proxemics,
+  title={Proxemics: Theory and research.},
+  author={Mishra, Pravash K},
+  journal={Perspectives in Psychological Researches},
+  year={1983},
+  publisher={Post-Graduate Department of Psychology}
+}
+
+@article{rios2015proxemics,
+  title={From proxemics theory to socially-aware navigation: A survey},
+  author={Rios-Martinez, Jorge and Spalanzani, Anne and Laugier, Christian},
+  journal={International Journal of Social Robotics},
+  volume={7},
+  number={2},
+  pages={137--153},
+  year={2015},
+  publisher={Springer}
+}
+
+@incollection{kitazawa2010pedestrian,
+  title={Pedestrian vision and collision avoidance behavior: Investigation of the information process space of pedestrians using an eye tracker},
+  author={Kitazawa, Kay and Fujiyama, Taku},
+  booktitle={Pedestrian and evacuation dynamics 2008},
+  pages={95--108},
+  year={2010},
+  publisher={Springer}
+}
+
+@inproceedings{kostavelis2016human,
+  title={Human aware robot navigation in semantically annotated domestic environments},
+  author={Kostavelis, Ioannis and Giakoumis, Dimitrios and Malassiotis, Sotiris and Tzovaras, Dimitrios},
+  booktitle={International Conference on Universal Access in Human-Computer Interaction},
+  pages={414--423},
+  year={2016},
+  organization={Springer}
+}
+@article{helbing1995social,
+  title={Social force model for pedestrian dynamics},
+  author={Helbing, Dirk and Molnar, Peter},
+  journal={Physical review E},
+  volume={51},
+  number={5},
+  pages={4282},
+  year={1995},
+  publisher={APS}
+}
+
+@incollection{berg2011reciprocal,
+  title={Reciprocal n-body collision avoidance},
+  author={Berg, Jur van den and Guy, Stephen J and Lin, Ming and Manocha, Dinesh},
+  booktitle={Robotics research},
+  pages={3--19},
+  year={2011},
+  publisher={Springer}
+}
+
+@inproceedings{alahi2016social,
+  title={Social lstm: Human trajectory prediction in crowded spaces},
+  author={Alahi, Alexandre and Goel, Kratarth and Ramanathan, Vignesh and Robicquet, Alexandre and Fei-Fei, Li and Savarese, Silvio},
+  booktitle={Proceedings of the IEEE conference on computer vision and pattern recognition},
+  pages={961--971},
+  year={2016}
+}
+
+@article{gomes2022review,
+  title={A Review on Intention-aware and Interaction-aware Trajectory Prediction for Autonomous Vehicles},
+  author={Gomes, Iago and Wolf, Denis},
+  year={2022},
+  publisher={TechRxiv}
+}
+
+@inproceedings{kohler2012early,
+  title={Early detection of the pedestrian's intention to cross the street},
+  author={K{\"o}hler, Sebastian and Goldhammer, Michael and Bauer, Sebastian and Doll, Konrad and Brunsmann, Ulrich and Dietmayer, Klaus},
+  booktitle={2012 15th International IEEE Conference on Intelligent Transportation Systems},
+  pages={1759--1764},
+  year={2012},
+  organization={IEEE}
+}
+
+@inproceedings{ratsamee2013social,
+  title={Social navigation model based on human intention analysis using face orientation},
+  author={Ratsamee, Photchara and Mae, Yasushi and Ohara, Kenichi and Kojima, Masaru and Arai, Tatsuo},
+  booktitle={2013 IEEE/RSJ International Conference on Intelligent Robots and Systems},
+  pages={1682--1687},
+  year={2013},
+  organization={IEEE}
+}
+
+@inproceedings{peddi2020data,
+  title={A data-driven framework for proactive intention-aware motion planning of a robot in a human environment},
+  author={Peddi, Rahul and Di Franco, Carmelo and Gao, Shijie and Bezzo, Nicola},
+  booktitle={2020 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+  pages={5738--5744},
+  year={2020},
+  organization={IEEE}
+}
+
+@inproceedings{rosmann2021online,
+  title={Online motion planning based on nonlinear model predictive control with non-Euclidean rotation groups},
+  author={R{\"o}smann, Christoph and Makarow, Artemi and Bertram, Torsten},
+  booktitle={2021 European Control Conference (ECC)},
+  pages={1583--1590},
+  year={2021},
+  organization={IEEE}
+}
+
+@inproceedings{forer2018socially,
+  title={Socially-aware navigation using non-linear multi-objective optimization},
+  author={Forer, Scott and Banisetty, Santosh Balajee and Yliniemi, Logan and Nicolescu, Monica and Feil-Seifer, David},
+  booktitle={2018 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+  pages={1--9},
+  year={2018},
+  organization={IEEE}
+}
+
+@inproceedings{grisetti2011g2o,
+  title={g2o: A general framework for (hyper) graph optimization},
+  author={Grisetti, Giorgio and K{\"u}mmerle, Rainer and Strasdat, Hauke and Konolige, Kurt},
+  booktitle={Proceedings of the IEEE international conference on robotics and automation (ICRA), Shanghai, China},
+  pages={9--13},
+  year={2011}
+}
+
+@inproceedings{truong2014dynamic,
+  title={Dynamic social zone for human safety in human-robot shared workspaces},
+  author={Truong, Xuan-Tung and Yoong, Voo Nyuk and Ngo, Trung-Dung},
+  booktitle={2014 11th International Conference on Ubiquitous Robots and Ambient Intelligence (URAI)},
+  pages={391--396},
+  year={2014},
+  organization={IEEE}
+}
+
+@inproceedings{kollmitz2015time,
+  title={Time dependent planning on a layered social cost map for human-aware robot navigation},
+  author={Kollmitz, Marina and Hsiao, Kaijen and Gaa, Johannes and Burgard, Wolfram},
+  booktitle={2015 European Conference on Mobile Robots (ECMR)},
+  pages={1--6},
+  year={2015},
+  organization={IEEE}
+}
+
+@inproceedings{guzzi2013human,
+  title={Human-friendly robot navigation in dynamic environments},
+  author={Guzzi, J{\'e}r{\^o}me and Giusti, Alessandro and Gambardella, Luca M and Theraulaz, Guy and Di Caro, Gianni A},
+  booktitle={2013 IEEE international conference on robotics and automation},
+  pages={423--430},
+  year={2013},
+  organization={IEEE}
+}
+
+@article{fox1997dynamic,
+  title={The dynamic window approach to collision avoidance},
+  author={Fox, Dieter and Burgard, Wolfram and Thrun, Sebastian},
+  journal={IEEE Robotics \& Automation Magazine},
+  volume={4},
+  number={1},
+  pages={23--33},
+  year={1997},
+  publisher={IEEE}
+}
+
+@inproceedings{rios2011understanding,
+  title={Understanding human interaction for probabilistic autonomous navigation using Risk-RRT approach},
+  author={Rios-Martinez, Jorge and Spalanzani, Anne and Laugier, Christian},
+  booktitle={2011 IEEE/RSJ International Conference on Intelligent Robots and Systems},
+  pages={2014--2019},
+  year={2011},
+  organization={IEEE}
+}
+
+@inproceedings{lichtenthaler2013towards,
+  title={Towards legible robot navigation-how to increase the intend expressiveness of robot navigation behavior},
+  author={Lichtenth{\"a}ler, Christina and Kirsch, Alexandra},
+  booktitle={International Conference on Social Robotics-Workshop Embodied Communication of Goals and Intentions},
+  year={2013}
+}
+
+@inproceedings{kruse2014evaluating,
+  title={Evaluating directional cost models in navigation},
+  author={Kruse, Thibault and Kirsch, Alexandra and Khambhaita, Harmish and Alami, Rachid},
+  booktitle={Proceedings of the 2014 ACM/IEEE international conference on Human-robot interaction},
+  pages={350--357},
+  year={2014}
+}
+
+@inproceedings{may2015show,
+  title={Show me your moves! Conveying navigation intention of a mobile robot to humans},
+  author={May, Alyxander David and Dondrup, Christian and Hanheide, Marc},
+  booktitle={2015 European Conference on Mobile Robots (ECMR)},
+  pages={1--6},
+  year={2015},
+  organization={IEEE}
+}
+
+@inproceedings{shrestha2018communicating,
+  title={Communicating directional intent in robot navigation using projection indicators},
+  author={Shrestha, Moondeep C and Onishi, Tomoya and Kobayashi, Ayano and Kamezaki, Mitsuhiro and Sugano, Shigeki},
+  booktitle={2018 27th IEEE International Symposium on Robot and Human Interactive Communication (RO-MAN)},
+  pages={746--751},
+  year={2018},
+  organization={IEEE}
+}
+
+@inproceedings{lu2013towards,
+  title={Towards more efficient navigation for robots and humans},
+  author={Lu, David V and Smart, William D},
+  booktitle={2013 IEEE/RSJ International Conference on Intelligent Robots and Systems},
+  pages={1707--1713},
+  year={2013},
+  organization={IEEE}
+}
+
+
+@article{qian2013decision,
+  title={Decision-theoretical navigation of service robots using POMDPs with human-robot co-occurrence prediction},
+  author={Qian, Kun and Ma, Xudong and Dai, Xianzhong and Fang, Fang and Zhou, Bo},
+  journal={International Journal of Advanced Robotic Systems},
+  volume={10},
+  number={2},
+  pages={143},
+  year={2013},
+  publisher={SAGE Publications Sage UK: London, England}
+}
+
+@inproceedings{banisetty2020deep,
+  title={A deep learning approach to multi-context socially-aware navigation},
+  author={Banisetty, Santosh Balajee and Rajamohan, Vineeth and others},
+  booktitle={IEEE/RSJ IROS},
+  year={2020}
+}
+
+@inproceedings{hansen2009adaptive,
+  title={Adaptive human aware navigation based on motion pattern analysis},
+  author={Hansen, Soren Tranberg and Svenstrup, Mikael and Andersen, Hans Jorgen and Bak, Thomas},
+  booktitle={RO-MAN 2009-The 18th IEEE International Symposium on Robot and Human Interactive Communication},
+  pages={927--932},
+  year={2009},
+  organization={IEEE}
+}
+
+@inproceedings{khambhaita2017viewing,
+  title={Viewing Robot Navigation in Human Environment as a Cooperative Activity},
+  author={Khambhaita, Harmish and Alami, Rachid},
+  booktitle={International Symposium on Robotics Research (ISSR 2017)},
+  pages={18p},
+  year={2017}
+}
+
+@inproceedings{quinlan1993elastic,
+  title={Elastic bands: Connecting path planning and control},
+  author={Quinlan, Sean and Khatib, Oussama},
+  booktitle={[1993] Proceedings IEEE International Conference on Robotics and Automation},
+  pages={802--807},
+  year={1993},
+  organization={IEEE}
+}
+
+
+@article{fiorini_ijrr_1998,
+  title = {Motion {{Planning}} in {{Dynamic Environments Using Velocity Obstacles}}},
+  volume = {17},
+  number = {7},
+  journal = {The Int. J. of Robotics Research},
+  author = {Fiorini, Paolo and Shiller, Zvi},
+  year = {1998},
+  pages = {760--772}
+}
+
+@inproceedings{rosmann_robotik_2012,
+  title = {Trajectory Modification Considering Dynamic Constraints of Autonomous Robots},
+  booktitle = {{{German Conf.}} on {{Robotics}}},
+  author = {R{\"o}smann, Christoph and Feiten, Wendelin and Woesch, Thomas and Hoffmann, Frank and Bertram, Torsten},
+  year = {2012},
+  pages = {1--6}
+}
+
+@misc{marder-eppstein_software,
+  title = {\texttt{move\_base}: {{A ROS}} Package That Lets You Move a Robot to Desired Positions Using the Navigation Stack.},
+  author = {Marder-Eppstein, Eitan},
+  collaborator = {Lu, David V. and Ferguson, Michael}
+}
+
+@inproceedings{khambhaita_hri-lbr_2017,
+  title = {A {{Human}}-{{Robot Cooperative Navigation Planner}}},
+  isbn = {978-1-4503-4885-0},
+  booktitle = {{{Companion}} of the {{Int. Conf.}} on {{Human}}-{{Robot Interaction}}},
+  author = {Khambhaita, Harmish and Alami, Rachid},
+  year = {2017},
+  pages = {161--162}
+}
+
+
+@inproceedings{kruse_arso_2012,
+  title = {Legible {{Robot Navigation}} in the {{Proximity}} of {{Moving Humans}}},
+  booktitle = {{{Ws.}} on {{Advanced Robotics}} and Its {{Social Impacts}}},
+  author = {Kruse, Thibault and Basili, Patrizia and Glasauer, Stefan and Kirsch, Alexandra},
+  year = {2012},
+  pages = {83--88}
+}
+
+@inproceedings{ferrer2015multi,
+  title={Multi-objective cost-to-go functions on robot navigation in dynamic environments},
+  author={Ferrer, Gonzalo and Sanfeliu, Alberto},
+  booktitle={IEEE/RSJ IROS},
+  pages={},
+  year={2015},
+  organization={}
+}
+
+@article{kruse_ras_2013,
+  title = {Human-Aware Robot Navigation: {{A}} Survey},
+  volume = {61},
+  issn = {0921-8890},
+  number = {12},
+  journal = {Robotics and Autonomous Systems},
+  author = {Kruse, Thibault and Pandey, Amit Kumar and Alami, Rachid and Kirsch, Alexandra},
+  year = {2013},
+  pages = {1726--1743}
+}
+
+@inproceedings{nagariya_cdc_2015,
+  title = {Mobile Robot Navigation amidst Humans with Intents and Uncertainties: {{A}} Time Scaled Collision Cone Approach},
+  booktitle = {{{Conf.}} on {{Decision}} and {{Control}}},
+  author = {Nagariya, Akhil and Gopalakrishnan, Bharath and Singh, Arun Kumar and Gupta, Krishna and Krishna, K. Madhava},
+  year = {2015},
+  pages = {2773--2779}
+}
+
+@inproceedings{lu_iros_2014,
+  title = {Layered {{Costmaps}} for {{Context}}-{{Sensitive Navigation}}},
+  booktitle = {{{Int. Conf.}} on {{Intelligent Robots}} and {{Systems}}},
+  author = {Lu, David V. and Hershberger, Dave and Smart, William D.},
+  year = {2014},
+  pages = {709--715}
+}
+
+@book{hall_book_1966,
+  title = {The Hidden Dimension: {{Man}}'s Use of Space in Public and Private},
+  author = {Hall, E. T.},
+  year = {1966}
+}
+
+@article{brown2001edward,
+  title={Edward T. Hall: Proxemic Theory, 1966},
+  author={Brown, Nina},
+  journal={Center for Spatially Integrated Social Science. University of California, Santa Barbara. http://www. csiss. org/classics/content/13 Read},
+  volume={18},
+  pages={2007},
+  year={1966}
+}
+
+@inproceedings{waldhart_iros_2015,
+  title = {Planning Handovers Involving Humans and Robots in Constrained Environment},
+  booktitle = {{{Int. Conf.}} on {{Intelligent Robots}} and {{Systems}}},
+  author = {Waldhart, Jules and Gharbi, Mamoun and Alami, Rachid},
+  year = {2015}
+}
+
+@inproceedings{alami_isrr_2011,
+  title = {When the Robot Considers the Human ...},
+  booktitle = {15th {{Int. Symposium}} on {{Robotics Research}}},
+  author = {Alami, Rachid and Warnier, Mathieu and Guitton, Julien and Lemaignan, Severin and Sisbot, Emrah Akin},
+  year = {2011}
+}
+
+@article{tomasello_bbs_2005,
+  title = {Understanding and Sharing Intentions: {{The}} Origins of Cultural Cognition},
+  volume = {28},
+  language = {eng},
+  journal = {Behavoral and Brain Sciences},
+  author = {Tomasello, Michael and Carpenter, Malinda and Call, Josep and Behne, Tanya and Moll, Henrike},
+  year = {2005}
+}
+
+@inproceedings{khambhaita_hfr_2016,
+  title = {Head-{{Body Motion Coordination}} for {{Human Aware Robot Navigation}}},
+  booktitle = {{{Int.}} Ws. on {{Human}}-{{Friendlly Robotics}}},
+  author = {Khambhaita, Harmish and Rios-Martinez, Jorge and Alami, Rachid},
+  year = {2016}
+}
+
+@inproceedings{khatib_icra_1997,
+  title = {Dynamic Path Modification for Car-like Nonholonomic Mobile Robots},
+  booktitle = {{{Int. Conf.}} on {{Robotics}} and {{Automation}}},
+  author = {Khatib, Maher and Jaouni, H. and Chatila, Raja and Laumond, Jean-Paul},
+  year = {1997},
+  pages = {2920--2925}
+}
+
+@inproceedings{ferrer_iros_2014,
+  title = {Proactive {{Kinodynamic Planning}} Using the {{Extended Social Force Model}} and {{Human Motion Prediction}} in {{Urban Environments}}},
+  booktitle = {{{Int. Conf.}} on {{Intelligent Robots}} and {{Systems}}},
+  author = {Ferrer, Gonzalo and Sanfeliu, Alberto},
+  year = {2014},
+  pages = {1730--1735}
+}
+
+@article{sisbot_tr_2007,
+  title = {A {{Human Aware Mobile Robot Motion Planner}}},
+  volume = {23},
+  issn = {1552-3098},
+  number = {5},
+  journal = {Transactions on Robotics},
+  author = {Sisbot, Emrah Akin and Marin-Urias, Luis F. and Alami, Rachid and Sim{\'e}on, Thierry},
+  year = {2007},
+  pages = {874--883}
+}
+
+@inproceedings{kuderer_rss_2012,
+  title = {Feature-{{Based Prediction}} of {{Trajectories}} for {{Socially Compliant Navigation}}},
+  booktitle = {{{Robotics}}: {{Science}} and {{Systems}}},
+  author = {Kuderer, Markus and Kretzschmar, Henrik and Sprunk, Christoph and Burgard, Wolfram},
+  year = {2012}
+}
+
+@inproceedings{bordallo_iros_2015,
+  title = {Counterfactual Reasoning about Intent for Interactive Navigation in Dynamic Environments},
+  booktitle = {{{Int. Conf.}} on {{Intelligent Robots}} and {{Systems}}},
+  author = {Bordallo, Alejandro and Previtali, Fabio and Nardelli, Nantas and Ramamoorthy, Subramanian},
+  year = {2015},
+  pages = {2943--2950}
+}
+
+@inproceedings{kummerle_icra_2011,
+  title = {G2o: {{A General Framework}} for {{Graph Optimization}}},
+  booktitle = {{{Int. Conf.}} on {{Robotics}} and {{Automation}}},
+  author = {K{\"u}mmerle, Rainer and Grisetti, Giorgio and Strasdat, Hauke and Konolige, Kurt and Burgard, Wolfram},
+  year = {2011},
+  pages = {3607--3613}
+}
+
+@article{karamouzas_prl_2014,
+  title = {Universal {{Power Law Governing Pedestrian Interactions}}},
+  volume = {113},
+  number = {23},
+  journal = {Physical Review Letters},
+  author = {Karamouzas, Ioannis and Skinner, Brian and Guy, Stephen J.},
+  year = {2014},
+  pages = {238701}
+}
+
+@article{ferrer_prl_2014,
+  title = {Bayesian {{Human Motion Intentionality Prediction}} in Urban Environments},
+  volume = {44},
+  issn = {0167-8655},
+  journal = {Pattern Recognition and Crowd Analysis},
+  author = {Ferrer, Gonzalo and Sanfeliu, Alberto},
+  year = {2014},
+  pages = {134--140}
+}
+
+@article{bohannon_aa_1997,
+  title = {Comfortable and Maximum Walking Speed of Adults Aged 20\textemdash{}79 Years: Reference Values and Determinants},
+  volume = {26},
+  issn = {0002-0729},
+  number = {1},
+  journal = {Age and Ageing},
+  author = {Bohannon, Richard W.},
+  year = {1997},
+  pages = {15--19}
+}
+
+@inproceedings{watanabe_iros_2015,
+  title = {Communicating {{Robotic Navigational Intentions}}},
+  booktitle = {{{Int. Conf.}} on {{Intelligent Robots}} and {{Systems}}},
+  author = {Watanabe, Atsushi and Ikeda, Tetsushi and Morales, Yoichi and Shinozawa, Kazuhiko and Miyashita, Takahiro and Hagita, Norihiro},
+  year = {2015},
+  pages={5763-5769}
+}
+
+@inproceedings{shah_hri_2011,
+  title = {Improved {{Human}}-{{Robot Team Performance Using Chaski}}, {{A Human}}-{{Inspired Plan Execution System}}},
+  booktitle = {{{Int. Conf.}} on {{Human}}-{{Robot Interaction}}},
+  author = {Shah, Julie and Wiken, James and Williams, Brian C. and Breazeal, Cynthia},
+  year = {2011},
+  pages = {29--36}
+}
+
+@book{davis_book_2006,
+  title = {Direct {{Methods}} for {{Sparse Linear Systems}}},
+  author = {Davis, Timothy},
+  year = {2006}
+}
+
+@incollection{clodic_faia_2014,
+  title = {Key {{Elements}} for {{Human}}-{{Robot Joint Action}}},
+  volume = {273},
+  booktitle = {Sociable {{Robots}} and the {{Future}} of {{Social Relations}}},
+  author = {Clodic, Aur{\'e}lie and Alami, Rachid and Chatila, Raja},
+  year = {2014},
+  pages = {23--33}
+}
+
+@article{lemaignan_ai_2017,
+  title = {Artificial Cognition for Social Human\textendash{}robot Interaction: {{An}} Implementation},
+  volume = {247},
+  issn = {0004-3702},
+  journal = {Artificial Intelligence},
+  author = {Lemaignan, S{\'e}verin and Warnier, Mathieu and Sisbot, E. Akin and Clodic, Aur{\'e}lie and Alami, Rachid},
+  year = {2017}
+}
+
+@article{bratman_ethics_1993,
+  title = {Shared {{Intention}}},
+  volume = {104},
+  issn = {00141704, 1539297X},
+  number = {1},
+  journal = {Ethics},
+  author = {Bratman, Michael E.},
+  year = {1993},
+  pages = {97--113}
+}
+
+@article{clark_jvlvb_1983,
+  title = {Common Ground at the Understanding of Demonstrative Reference},
+  volume = {22},
+  issn = {0022-5371},
+  journal = {J. of Verbal Learning and Verbal Behavior},
+  author = {Clark, Herbert H. and Schreuder, Robert and Buttrick, Samuel},
+  year = {1983},
+  pages = {245--258}
+}
+
+@article{sebanz_tcs_2006,
+  title = {Joint Action: Bodies and Minds Moving Together},
+  volume = {10},
+  issn = {1364-6613},
+  number = {2},
+  journal = {Trends in Cognitive Sciences},
+  author = {Sebanz, Natalie and Bekkering, Harold and Knoblich, G{\"u}nther},
+  year = {2006},
+  pages = {70--76}
+}
+
+@incollection{pacherie_jand_2012,
+  title = {The {{Phenomenology}} of {{Joint Action}}: {{Self}}-{{Agency Vs}}. {{Joint}}-{{Agency}}},
+  booktitle = {Joint {{Attention}}: {{New Developments}}},
+  author = {Pacherie, Elisabeth},
+  editor = {Axel, Seemann},
+  year = {2012}
+}
+
+@article{knoblich_plm_2011,
+  title = {Psychological {{Research}} on {{Joint Action}}},
+  volume = {54},
+  issn = {0079-7421},
+  journal = {Psychology of Learning and Motivation},
+  author = {Knoblich, G{\"u}nther and Butterfill, Stephen and Sebanz, Natalie},
+  year = {2011},
+  pages = {59--101}
+}
+
+@incollection{grosz_ic_1990,
+  title = {Plans for {{Discourse}}},
+  booktitle = {Intentions in {{Communication}}},
+  author = {Grosz, Barbara J. and Sidner, C.},
+  editor = {Cohen, Philip R. and Morgan, Jerry and Pollack, Martha E.},
+  year = {1990},
+  pages = {417--444}
+}
+
+@article{lallement_corr_2014,
+  title = {{{HATP}}: {{An HTN Planner}} for {{Robotics}}},
+  volume = {abs/1405.5345},
+  journal = {CoRR},
+  author = {Lallement, Rapha{\"e}l and de Silva, Lavindra and Alami, Rachid},
+  year = {2014}
+}
+
+@inproceedings{mainprice_ro-man_2012,
+  title = {Sharing Effort in Planning Human-Robot Handover Tasks},
+  booktitle = {{{Int. Symposium}} on {{Robot}} and {{Human Interactive Communication}}},
+  author = {Mainprice, Jim and Gharbi, Mamoun and Sim{\'e}on, Thierry and Alami, Rachid},
+  year = {2012},
+  pages = {764--770}
+}
+
+@incollection{alili_dars_2009,
+  title = {A {{Task Planner}} for an {{Autonomous Social Robot}}},
+  isbn = {978-3-642-00644-9},
+  booktitle = {Distributed {{Autonomous Robotic Systems}} 8},
+  author = {Alili, Samir and Alami, Rachid and Montreuil, Vincent},
+  editor = {Asama, Hajime and Kurokawa, Haruhisa and Ota, Jun and Sekiyama, Kosuke},
+  year = {2009},
+  pages = {335--344}
+}
+
+@inproceedings{alili_icaps_2009,
+  title = {Planning and Plan-Execution for Human-Robot Cooperative Task Achievement},
+  booktitle = {19th {{Int. Conf.}} on {{Automated Planning}} and {{Scheduling}} ({{ICAPS}})},
+  author = {Alili, Samir and Warnier, Matthieu and Ali, Muhammad and Alami, Rachid},
+  year = {2009},
+  pages = {19--23}
+}
+
+@article{lasota_ftr_2017,
+  title = {A {{Survey}} of {{Methods}} for {{Safe Human}}-{{Robot Interaction}}},
+  volume = {5},
+  number = {4},
+  journal = {Foundations and Trends in Robotics},
+  author = {Lasota, Przemyslaw A. and Fong, Terrence and Shah, Julie A.},
+  year = {2017},
+  pages = {261--349}
+}
+
+@inproceedings{khambhaita_ro-man_2017,
+  title = {Assessing the {{Social Criteria}} for {{Human}}-{{Robot Collaborative Navigation}}: {{A Comparison}} of {{Human}}-{{Aware Navigation Planners}}},
+  booktitle = {{{Int. Symposium}} on {{Robot}} and {{Human Interactive Communication}}},
+  author = {Khambhaita, Harmish and Alami, Rachid},
+  year = {2017}
+}
+@InProceedings{10.1007/978-3-319-47437-3_74,
+author="Foster, Mary Ellen
+and Alami, Rachid
+and Gestranius, Olli
+and Lemon, Oliver
+and Niemel{\"a}, Marketta
+and Odobez, Jean-Marc
+and Pandey, Amit Kumar",
+title="The {MuMMER} Project: Engaging Human-Robot Interaction in Real-World Public Spaces",
+booktitle="Social Robotics",
+year="2016",
+publisher="Springer International Publishing",
+address="Cham",
+pages="753--763",
+}
+
+
+@inproceedings{mehta2016autonomous,
+  title={Autonomous navigation in dynamic social environments using multi-policy decision making},
+  author={Mehta, Dhanvin and Ferrer, Gonzalo and Olson, Edwin},
+  booktitle={2016 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+  pages={1190--1197},
+  year={2016},
+  organization={IEEE}
+}
+
+@article{fisac2018probabilistically,
+  title={Probabilistically safe robot planning with confidence-based human predictions},
+  author={Fisac, Jaime F and Bajcsy, Andrea and Herbert, Sylvia L and Fridovich-Keil, David and Wang, Steven and Tomlin, Claire J and Dragan, Anca D},
+  journal={arXiv preprint arXiv:1806.00109},
+  year={2018}
+}
+
+@article{ferrer2014bayesian,
+  title={Bayesian human motion intentionality prediction in urban environments},
+  author={Ferrer, Gonzalo and Sanfeliu, Alberto},
+  journal={Pattern Recognition Letters},
+  volume={44},
+  pages={134--140},
+  year={2014},
+  publisher={Elsevier}
+}
+@inproceedings{echeverria2011modular,
+  title={Modular open robots simulation engine: Morse},
+  author={Echeverria, Gilberto and Lassabe, Nicolas and Degroote, Arnaud and Lemaignan, S{\'e}verin},
+  booktitle={2011 IEEE International Conference on Robotics and Automation},
+  pages={46--51},
+  year={2011},
+  organization={IEEE}
+}
+
+@inproceedings{singamaneni2020hateb,
+  title={HATEB-2: Reactive Planning and Decision making in Human-Robot Co-navigation},
+  author={Singamaneni, Phani-Teja and Alami, Rachid},
+  booktitle={International Conference on Robot \& Human Interactive Communication},
+  year={2020}
+}
+
+@inproceedings{perez-higueras_learning_2016,
+	address = {Cham},
+	series = {Lecture {Notes} in {Computer} {Science}},
+	title = {Learning {Robot} {Navigation} {Behaviors} by {Demonstration} {Using} a {RRT}\$\${\textasciicircum}\{*\}\$\$∗{Planner}},
+	isbn = {978-3-319-47437-3},
+	doi = {10.1007/978-3-319-47437-3_1},
+	abstract = {This paper presents an approach for learning robot navigation behaviors from demonstration using Optimal Rapidly-exploring Random Trees (RRT∗∗{\textasciicircum}\{*\}) as main planner. A new learning algorithm combining both Inverse Reinforcement Learning (IRL) and RRT∗∗{\textasciicircum}\{*\} is developed in order to learn the RRT∗∗{\textasciicircum}\{*\}’s cost function from demonstrations. This cost function can be used later in a regular RRT∗∗{\textasciicircum}\{*\} for robot planning including the learned behaviors in different scenarios. Simulations show how the method is able to recover the behavior from the demonstrations.},
+	language = {en},
+	booktitle = {Social {Robotics}},
+	publisher = {Springer International Publishing},
+	author = {Pérez-Higueras, Noé and Caballero, Fernando and Merino, Luis},
+	editor = {Agah, Arvin and Cabibihan, John-John and Howard, Ayanna M. and Salichs, Miguel A. and He, Hongsheng},
+	year = {2016},
+	keywords = {Cost Function, Feature Count, Inverse Reinforcement Learn, Robot Position, Telepresence Robot},
+	pages = {1--10},
+	file = {Springer Full Text PDF:/home/phani/Zotero/storage/JTET8IDN/Pérez-Higueras et al. - 2016 - Learning Robot Navigation Behaviors by Demonstrati.pdf:application/pdf}
+}
+
+@inproceedings{ramon-vigo_transferring_2014,
+	address = {Edinburgh, UK},
+	title = {Transferring human navigation behaviors into a robot local planner},
+	isbn = {978-1-4799-6765-0 978-1-4799-6763-6},
+	url = {http://ieeexplore.ieee.org/document/6926347/},
+	doi = {10.1109/ROMAN.2014.6926347},
+	abstract = {Robot navigation in human environments is an active research area that poses serious challenges. Among them, social navigation and human-awareness has gain lot of attention in the last years due to its important role in human safety and robot acceptance. Learning has been proposed as a more principled way of estimating the insights of human social interactions. In this paper, inverse reinforcement learning is analyzed as a tool to transfer the typical human navigation behavior to the robot local navigation planner. Observations of real human motion interactions found in one publicly available datasets are employed to learn a cost function, which is then used to determine a navigation controller. The paper presents an analysis of the performance of the controller behavior in two different scenarios interacting with persons, and a comparison of this approach with a Proxemics-based method.},
+	language = {en},
+	urldate = {2019-11-04},
+	booktitle = {The 23rd {IEEE} {International} {Symposium} on {Robot} and {Human} {Interactive} {Communication}},
+	publisher = {IEEE},
+	author = {Ramon-Vigo, Rafael and Perez-Higueras, Noe and Caballero, Fernando and Merino, Luis},
+	month = aug,
+	year = {2014},
+	pages = {774--779},
+	file = {Ramon-Vigo et al. - 2014 - Transferring human navigation behaviors into a rob.pdf:/home/phani/Zotero/storage/MSP8VNIN/Ramon-Vigo et al. - 2014 - Transferring human navigation behaviors into a rob.pdf:application/pdf}
+}
+
+@inproceedings{perez-higueras_robot_2014,
+	title = {Robot local navigation with learned social cost functions},
+	volume = {},
+	doi = {10.5220/0005120806180625},
+	abstract = {Robot navigation in human environments is an active research area that poses serious challenges. Among them, human-awareness has gain lot of attention in the last years due to its important role in human safety and robot acceptance. The proposed robot navigation system extends state of the navigation schemes with some social skills in order to naturally integrate the robot motion in crowded areas. Learning has been proposed as a more principled way of estimating the insights of human social interactions. To do this, inverse reinforcement learning is used to derive social cost functions by observing persons walking through the streets. Our objective is to incorporate such costs into the robot navigation stack in order to “emulate” these human interactions. In order to alleviate the complexity, the system is focused on learning an adequate cost function to be applied at the local navigation level, thus providing direct low-level controls to the robot. The paper presents an analysis of the results in a robot navigating in challenging real scenarios, analyzing and comparing this approach with other algorithms.},
+	booktitle = {11th {International} {Conference} on {Informatics} in {Control}, {Automation} and {Robotics}},
+	author = {Pérez-Higueras, Noé and Ramón-Vigo, Rafael and others},
+	month = {},
+	year = {2014},
+	keywords = {Trajectory, Navigation, Cost function, Planning, Robot sensing systems, Inverse Reinforcement Learning, Lasers, Learning from Demonstrations, Robot Navigation, Social Robots},
+	pages = {},
+	file = {}
+}
+
+@incollection{desai_human_2013,
+	address = {Heidelberg},
+	title = {Human {Aware} {Navigation} for {Assistive} {Robotics}},
+	volume = {88},
+	isbn = {978-3-319-00064-0 978-3-319-00065-7},
+	url = {http://link.springer.com/10.1007/978-3-319-00065-7_31},
+	abstract = {Ensuring proper living conditions for an ever growing number of elderly people is a signiﬁcative challenge for many countries. The diﬃculty and cost of hiring and training specialized personnel has fostered research in assistive robotics as a viable alternative. In this context, an ideally suited and very relevant application is to transport people with reduced mobility. This may involve either autonomous or semiautonomous transportation devices such as cars and wheelchairs.},
+	language = {en},
+	urldate = {2019-11-04},
+	booktitle = {Experimental {Robotics}},
+	publisher = {Springer International Publishing},
+	author = {Vasquez, Dizan and Stein, Procópio and Rios-Martinez, Jorge and Escobedo, Arturo and Spalanzani, Anne and Laugier, Christian},
+	editor = {Desai, Jaydev P. and Dudek, Gregory and Khatib, Oussama and Kumar, Vijay},
+	year = {2013},
+	doi = {10.1007/978-3-319-00065-7_31},
+	pages = {449--462},
+	file = {Vasquez et al. - 2013 - Human Aware Navigation for Assistive Robotics.pdf:/home/phani/Zotero/storage/WDN5HPJS/Vasquez et al. - 2013 - Human Aware Navigation for Assistive Robotics.pdf:application/pdf}
+}
+
+@article{chen_crowd-robot_2019,
+	title = {Crowd-{Robot} {Interaction}: {Crowd}-aware {Robot} {Navigation} with {Attention}-based {Deep} {Reinforcement} {Learning}},
+	shorttitle = {Crowd-{Robot} {Interaction}},
+	url = {http://arxiv.org/abs/1809.08835},
+	abstract = {Mobility in an effective and socially-compliant manner is an essential yet challenging task for robots operating in crowded spaces. Recent works have shown the power of deep reinforcement learning techniques to learn socially cooperative policies. However, their cooperation ability deteriorates as the crowd grows since they typically relax the problem as a one-way Human-Robot interaction problem. In this work, we want to go beyond first-order Human-Robot interaction and more explicitly model Crowd-Robot Interaction (CRI). We propose to (i) rethink pairwise interactions with a self-attention mechanism, and (ii) jointly model Human-Robot as well as Human-Human interactions in the deep reinforcement learning framework. Our model captures the Human-Human interactions occurring in dense crowds that indirectly affects the robot's anticipation capability. Our proposed attentive pooling mechanism learns the collective importance of neighboring humans with respect to their future states. Various experiments demonstrate that our model can anticipate human dynamics and navigate in crowds with time efficiency, outperforming state-of-the-art methods.},
+	urldate = {2019-11-04},
+	journal = {arXiv:1809.08835 [cs]},
+	author = {Chen, Changan and Liu, Yuejiang and Kreiss, Sven and Alahi, Alexandre},
+	month = feb,
+	year = {2019},
+	note = {arXiv: 1809.08835},
+	keywords = {Computer Science - Machine Learning, Computer Science - Robotics},
+	file = {arXiv Fulltext PDF:/home/phani/Zotero/storage/JLVXYHYN/Chen et al. - 2019 - Crowd-Robot Interaction Crowd-aware Robot Navigat.pdf:application/pdf;arXiv.org Snapshot:/home/phani/Zotero/storage/6ZJZFS3X/1809.html:text/html}
+}
+
+@incollection{fuentetaja_pizan_planning_2019,
+	address = {Cham},
+	title = {Planning {Human}-{Robot} {Interaction} for {Social} {Navigation} in {Crowded} {Environments}},
+	volume = {855},
+	isbn = {978-3-319-99884-8 978-3-319-99885-5},
+	url = {http://link.springer.com/10.1007/978-3-319-99885-5_14},
+	abstract = {Navigation is one of the crucial skills autonomous robots need to perform daily tasks, and many of the rest depend on it. In this paper, we argue that this dependence goes both ways in advanced social
+   robots. Manipulation, perception, and most importantly human-robot interaction are some of the skills in which navigation might rely on. This paper is focused on the dependence on human-robot interaction and uses two particular scenarios of growing complexity as an example: asking for collaboration to enter a room and asking for permission to navigate between two people which are talking. In the ﬁrst scenario, the person physically blocks the path to the adjacent room, so it would be impossible for the robot to navigate to such room. Even though in the second scenario the people talking do not block the path to the other room, from a social point of view, interrupting an ongoing conversation without noticing is undesirable. In this paper we propose a navigation planning domain and a set of software agents which allow the robot to navigate in crowded environments in a socially acceptable way, asking for cooperation or permission when necessary. The paper provides quantitative experimental results including social navigation metrics and the results of a Likert-scale satisfaction questionnaire.},
+	language = {en},
+	urldate = {2019-11-04},
+	booktitle = {Advances in {Physical} {Agents}},
+	publisher = {Springer International Publishing},
+	author = {Vega, Araceli and Manso, Luis J. and Cintas, Ramón and Núñez, Pedro},
+	editor = {Fuentetaja Pizán, Raquel and García Olaya, Ángel and Sesmero Lorente, Maria Paz and Iglesias Martínez, Jose Antonio and Ledezma Espino, Agapito},
+	year = {2019},
+	doi = {10.1007/978-3-319-99885-5_14},
+	pages = {195--208},
+	file = {Vega et al. - 2019 - Planning Human-Robot Interaction for Social Naviga.pdf:/home/phani/Zotero/storage/K9ZSGH3L/Vega et al. - 2019 - Planning Human-Robot Interaction for Social Naviga.pdf:application/pdf}
+}
+
+@article{kim_social_2018,
+	title = {Social {Navigation} {Planning} {Based} on {People}'s {Awareness} of {Robots}},
+	url = {http://arxiv.org/abs/1809.08780},
+	abstract = {When mobile robots maneuver near people, they run the risk of rudely blocking their paths; but not all people behave the same around robots. People that have not noticed the robot are the most difficult to predict. This paper investigates how mobile robots can generate acceptable paths in dynamic environments by predicting human behavior. Here, human behavior may include both physical and mental behavior, we focus on the latter. We introduce a simple safe interaction model: when a human seems unaware of the robot, it should avoid going too close. In this study, people around robots are detected and tracked using sensor fusion and filtering techniques. To handle uncertainties in the dynamic environment, a Partially-Observable Markov Decision Process Model (POMDP) is used to formulate a navigation planning problem in the shared environment. People's awareness of robots is inferred and included as a state and reward model in the POMDP. The proposed planner enables a robot to change its navigation plan based on its perception of each person's robot-awareness. As far as we can tell, this is a new capability. We conduct simulation and experiments using the Toyota Human Support Robot (HSR) to validate our approach. We demonstrate that the proposed framework is capable of running in real-time.},
+	urldate = {2019-11-04},
+	journal = {arXiv:1809.08780 [cs]},
+	author = {Kim, Minkyu and Lee, Jaemin and Jorgensen, Steven Jens and Sentis, Luis},
+	month = sep,
+	year = {2018},
+	note = {arXiv: 1809.08780},
+	keywords = {Computer Science - Robotics},
+	file = {arXiv.org Snapshot:/home/phani/Zotero/storage/DBT5HZ7R/1809.html:text/html;arXiv Fulltext PDF:/home/phani/Zotero/storage/7LT35NUK/Kim et al. - 2018 - Social Navigation Planning Based on People's Aware.pdf:application/pdf}
+}
+
+@inproceedings{carmona2019making,
+  title={Making the case for human-aware navigation in warehouses},
+  author={Carmona, Manuel Fernandez and Parekh, Tejas and others},
+  booktitle={Annual Conference Towards Autonomous Robotic Systems},
+  pages={},
+  year={2019},
+  organization={Springer}
+}
+
+
+@inproceedings{xuan_tung_socially_2018,
+	title = {Socially {Aware} {Robot} {Navigation} {Using} {Deep} {Reinforcement} {Learning}},
+	doi = {10.1109/CCECE.2018.8447854},
+	abstract = {In this study, we propose a socially aware navigation framework for mobile service robots in dynamic human environments using a deep reinforcement learning algorithm. The primary idea of the proposed algorithm is to incorporate obstacles information (position and motion), human states (human position, human motion), social interactions (human group, human-object interaction), and social rules, e.g, minimum distances from the robot to regular obstacles, individuals, and human groups into the deep reinforcement learning model of a mobile robot. We then distribute the mobile robot into a dynamic social environment and let the mobile robot automatically learn to adapt to an embedded environment by its experiences gained through trial-and-error social interactions with the surrounding humans and objects. When the learning phase is completed, the mobile robot is able to navigate autonomously in the social environment while guaranteeing human safety and comfort with its socially acceptable behaviours.},
+	booktitle = {2018 {IEEE} {Canadian} {Conference} on {Electrical} {Computer} {Engineering} ({CCECE})},
+	author = {Xuan Tung, Truong and Dung Ngo, Trung},
+	month = may,
+	year = {2018},
+	note = {ISSN: 2576-7046},
+	keywords = {learning (artificial intelligence), collision avoidance, mobile robots, Navigation, Learning (artificial intelligence), Mobile robots, human-robot interaction, service robots, mobile robot, Heuristic algorithms, dynamic human environments, human safety, human states, mobile service robots, Service robots, social robots, aware robot navigation, deep reinforcement learning algorithm, deep reinforcement learning model, deep reinforcement learning. Socially aware robot navigation, deep reinforcement learning.S, dynamic social environment, human group, human motion, human position, learning phase, Machine learning, social rules, socially acceptable behaviours, socially aware navigation framework, Socially aware robot navigation, trial-and-error social interactions},
+	pages = {1--5},
+	file = {Xuan Tung and Dung Ngo - 2018 - Socially Aware Robot Navigation Using Deep Reinfor.pdf:/home/phani/Zotero/storage/A98AIK64/Xuan Tung and Dung Ngo - 2018 - Socially Aware Robot Navigation Using Deep Reinfor.pdf:application/pdf;IEEE Xplore Abstract Record:/home/phani/Zotero/storage/QW57HX9H/8447854.html:text/html}
+}
+
+@article{truong_toward_2017,
+	title = {Toward {Socially} {Aware} {Robot} {Navigation} in {Dynamic} and {Crowded} {Environments}: {A} {Proactive} {Social} {Motion} {Model}},
+	volume = {},
+	issn = {1545-5955, 1558-3783},
+	shorttitle = {Toward {Socially} {Aware} {Robot} {Navigation} in {Dynamic} and {Crowded} {Environments}},
+	doi = {10.1109/TASE.2017.2731371},
+	abstract = {Safe and social navigation is the key to deploying a mobile service robot in a human-centered environment. Widespread acceptability of mobile service robots in daily life is hindered by robot's inability to navigate in crowded and dynamic human environments in a socially acceptable way that would guarantee human safety and comfort. In this paper, we propose an effective proactive social motion model (PSMM) that enables a mobile service robot to navigate safely and socially in crowded and dynamic environments. The proposed method considers not only human states (position, orientation, motion, field of view, and hand poses) relative to the robot but also social interactive information about human-object and human group interactions. This allows development of the PSMM that consists of elements of an extended social force model and a hybrid reciprocal velocity obstacle technique. The PSMM is then combined with a path planning technique to generate a motion planning system that drives a mobile robot in a socially acceptable manner and produces respectful and polite behaviors akin to human movements. Note to Practitioners-In this paper, we validated the effectiveness and feasibility of the proposed proactive social motion model (PSMM) through both simulation and real-world experiments under the newly proposed human comfortable safety indices. To do that, we first implemented the entire navigation system using the open-source robot operating system. We then installed it in a simulated robot model and conducted experiments in a simulated shopping mall-like environment to verify its effectiveness. We also installed the proposed algorithm on our mobile robot platform and conducted experiments in our office-like laboratory environment. Our results show that the developed socially aware navigation framework allows a mobile robot to navigate safely, socially, and proactively while guaranteeing human safety and comfort in crowded and dynamic environments. In this paper, we examined the proposed PSMM with a set of predefined parameters selected based on our empirical experiences about the robot mechanism and selected social environment. However, in fact a mobile robot might need to adapt to various contextual and cultural situations in different social environments. Thus, it should be equipped with an online adaptive interactive learning mechanism allowing the robot to learn to auto-adjust their parameters according to such embedded environments. Using machine learning techniques, e.g., inverse reinforcement learning [1] to optimize the parameter set for the PSMM could be a promising research direction to improve adaptability of mobile service robots in different social environments. In the future, we will evaluate the proposed framework based on a wider variety of scenarios, particularly those with different social interaction situations and dynamic environments. Furthermore, various kinds of social cues and signals introduced in [2] and [3] will be applied to extend the proposed framework in more complicated social situations and contexts. Last but not least, we will investigate different machine learning techniques and incorporate them in the PSMM in order to allow the robot to automatically adapt to diverse social environments.},
+	number = {},
+	journal = {IEEE Transactions on Automation Science and Engineering},
+	author = {Truong, Xuan-Tung and Ngo, Trung Dung},
+	month = {},
+	year = {2017},
+	keywords = {learning (artificial intelligence), collision avoidance, Collision avoidance, mobile robots, Navigation, learning systems, Mobile robots, human-robot interaction, service robots, navigation, crowded environments, adaptive control, complicated social situations, developed socially aware navigation framework, diverse social environments, dynamic environments, dynamic human environments, extended social force model, Human comfortable safety, human comfortable safety indices, human group interactions, human movements, human safety, human states, human-centered environment, human-object interaction, inverse reinforcement learning, machine learning techniques, Mobile communication, mobile robot platform, mobile service robot, mobile service robots, motion planning system, navigation system, office-like laboratory environment, online adaptive interactive learning mechanism, open-source robot operating system, optimisation, parameter autoadjustment, parameter optimization, path planning technique, proactive social motion model, proactive social motion model (PSMM), PSMM, robot mechanism, Safety, self-adjusting systems, Service robots, simulated robot model, simulated shopping mall-like environment, social cues, social environment, social environments, social interaction, social interactive information, social navigation, social robots, socially acceptable manner, socially aware robot navigation},
+	pages = {},
+	file = {}
+}
+
+@inproceedings{vega-magro_socially_2017,
+	address = {Lisbon},
+	title = {Socially acceptable robot navigation over groups of people},
+	isbn = {978-1-5386-3518-6},
+	url = {http://ieeexplore.ieee.org/document/8172454/},
+	doi = {10.1109/ROMAN.2017.8172454},
+	abstract = {Considering the widespread use of mobile robots in different parts of society, it is important to provide them with the capability to behave in a socially acceptable manner. Therefore, a research topic of great importance recently has been the study of Human-Robot Interaction. Autonomous navigation is a fundamental task in Robotics, and several different strategies that produce paths that are either length or time optimized can be found in the literature. However, considering the recent use of mobile robots in a more social context, the use of such classical techniques is restricted. Therefore, in this article we present a social navigation approach considering environments with groups of people. The proposal uses a density function to efﬁciently represent groups of people, and modify the navigation architecture in order to include the social behaviour of the robot during its motion. This architecture is based on the combined use of the Probabilistic Road Mapping (PRM) and the Rapidlyexploring Random Tree (RRT) path planners and an adaptation of the elastic band algorithm. Experimental evaluation was carried out in different simulated environments, providing insight on the performance of the proposed technique, which surpasses classical techniques with no proxemics awareness in terms of social impact.},
+	language = {en},
+	urldate = {2019-11-04},
+	booktitle = {2017 26th {IEEE} {International} {Symposium} on {Robot} and {Human} {Interactive} {Communication} ({RO}-{MAN})},
+	publisher = {IEEE},
+	author = {Vega-Magro, Araceli and Manso, Luis and Bustos, Pablo and Nunez, Pedro and Macharet, Douglas G.},
+	month = aug,
+	year = {2017},
+	pages = {1182--1187},
+	file = {Vega-Magro et al. - 2017 - Socially acceptable robot navigation over groups o.pdf:/home/phani/Zotero/storage/B6IWFFML/Vega-Magro et al. - 2017 - Socially acceptable robot navigation over groups o.pdf:application/pdf}
+}
+
+
+@inproceedings{kostavelis_robots_2017,
+	address = {Cham},
+	series = {Lecture {Notes} in {Computer} {Science}},
+	title = {Robot’s {Workspace} {Enhancement} with {Dynamic} {Human} {Presence} for {Socially}-{Aware} {Navigation}},
+	isbn = {978-3-319-68345-4},
+	doi = {10.1007/978-3-319-68345-4_25},
+	abstract = {The incorporation of service robots in human populated environments gives rise to the adaptation of cruise strategies that allow robots to move in a natural, secure and ordinary manner among their cohabitants. Therefore, robots should firstly apprehend their space similarly with the people and, secondly, should adopt human motion anticipation strategies in their planning mechanism. The paper at hand introduces a closed-loop human oriented robot navigation strategy, where on-board a moving robot, multimodal human detection and tracking methods are deployed to predict human motion intention in the shared workspace. The human occupied space is probabilistically constrained following the proxemics theory. The impact of human presence in the commonly shared space is imprinted to the robot’s navigation behaviour after undergoing a social filtering step based on the inferred walking pattern. The proposed method has been integrated with a robotic platform and extensively evaluated in terms of socially acceptable behaviour in real-life experiments exhibiting increased navigation capacity in human populated environments.},
+	language = {en},
+	booktitle = {Computer {Vision} {Systems}},
+	publisher = {Springer International Publishing},
+	author = {Kostavelis, Ioannis and Kargakos, Andreas and Giakoumis, Dimitrios and Tzovaras, Dimitrios},
+	editor = {Liu, Ming and Chen, Haoyao and Vincze, Markus},
+	year = {2017},
+	keywords = {Human motion intension prediction, Leg and human skeleton tracker, Robot navigation, Robot path planning, Social costmap},
+	pages = {279--288},
+	file = {Springer Full Text PDF:/home/phani/Zotero/storage/RHADVWIQ/Kostavelis et al. - 2017 - Robot’s Workspace Enhancement with Dynamic Human P.pdf:application/pdf}
+}
+
+@inproceedings{banisetty_socially-aware_2016,
+	title = {Socially-{Aware} {Navigation}: {Action} {Discrimination} to {Select} {Appropriate} {Behavior}},
+	copyright = {Authors who publish a paper in an  AAAI Technical Report  agree to the following terms:     Author(s) agree to grant to AAAI (1) the perpetual, nonexclusive world rights to use the submitted paper as part of an AAAI publication, in all languages and for all editions. (2) The right to use the paper, together with the author's name and pertinent biographical data, in advertising and promotion of it and the AAAI publication. (3) The right to publish or cause to be published the paper in connection with any republication of the AAAI publication in any medium including electronic. (4) The right to, and authorize others to, publish or cause to be published the paper in whole or in part, individually or in conjunction with other works, in any medium including electronic.   The author(s) warrants that they are the sole author and owner of the copyright in the above article/paper, except for those portions shown to be in quotations; that the article/paper is original throughout; and that the undersigned right to make the grants set forth above is complete and unencumbered.   The author(s) agree that if anyone brings any claim or action alleging facts that, if true, constitute a breach of any of the foregoing warranties, the author(s) will hold harmless and indemnify AAAI, their grantees, their licensees, and their distributors against any liability, whether under judgment, decree, or compromise, and any legal fees and expenses arising out of that claim or actions, and the undersigned will cooperate fully in any defense AAAI may make to such claim or action. Moreover, the undersigned agrees to cooperate in any claim or other action seeking to protect or enforce any right the undersigned has granted to AAAI in the article/paper. If any such claim or action fails because of facts that constitute a breach of any of the foregoing warranties, the undersigned agrees to reimburse whomever brings such claim or action for expenses and attorneys’ fees incurred therein.   Author(s) retain all proprietary rights (such as patent rights).   In the event the above article/paper is not accepted and published by AAAI, or is withdrawn by the author(s) before acceptance by AAAI, this agreement becomes null and void.},
+	shorttitle = {Socially-{Aware} {Navigation}},
+	url = {https://www.aaai.org/ocs/index.php/FSS/FSS16/paper/view/14132},
+	abstract = {In this paper, we study if modeling can help discriminate actions which in turn can be used to select an appropriate behavior for a mobile robot. For human-human interaction, significant social and communicative information can be derived from interpersonal distance between two or more people. If Human-Robot Interaction reflects this human-human interaction property, then interpersonal distance between a human and a robot may contain similar social and communicative information. An effective robot's actions, including actions associated with interpersonal distance, must be suitable for a given social circumstance. Studying interpersonal distance between a robot and a human is very important for assistive robots. We use autonomously detected features to develop such an interpersonal model using Gaussian Mixture Model (GMM) and demonstrate that such a learned model can discriminate different human actions. The proposed approach can be used in a socially-aware planner to weight trajectories and select actions that are socially appropriate for a given social situation.},
+	language = {en},
+	urldate = {2019-11-04},
+	booktitle = {2016 {AAAI} {Fall} {Symposium} {Series}},
+	author = {Banisetty, Santosh Balajee and Sebastian, Meera and Feil-Seifer, David},
+	month = sep,
+	year = {2016},
+	file = {Full Text PDF:/home/phani/Zotero/storage/VWH38T6J/Banisetty et al. - 2016 - Socially-Aware Navigation Action Discrimination t.pdf:application/pdf;Snapshot:/home/phani/Zotero/storage/2PSRLM9A/14132.html:text/html}
+}
+
+@article{araujo_architecture_2015,
+	title = {An {Architecture} for {Navigation} of {Service} {Robots} in {Human}-{Populated} {Office}-like {Environments}**{This} work was supported by {Fundação} de {Amparo} à {Pesquisa} do {Estado} de {Minas} {Gerais} ({FAPEMIG}). {Arthur} {Araujo} and {Guilherme} {Pereira} are supported by {Conselho} {Nacional} de {Desenvolvimento} {Científico} e {Tecnologico} ({CNPq}), {Brazil}.},
+	volume = {48},
+	issn = {24058963},
+	url = {https://linkinghub.elsevier.com/retrieve/pii/S2405896315026567},
+	doi = {10.1016/j.ifacol.2015.12.032},
+	language = {en},
+	number = {19},
+	urldate = {2019-11-04},
+	journal = {IFAC-PapersOnLine},
+	author = {Araujo, Arthur R. and Caminhas, Daniel D. and Pereira, Guilherme A.S.},
+	year = {2015},
+	keywords = {Robot Navigation, Autonomous Mobile Robots, Human-Aware Navigation, Service Robotics},
+	pages = {189--194},
+	file = {Araujo et al. - 2015 - An Architecture for Navigation of Service Robots i.pdf:/home/phani/Zotero/storage/8BAEPHRT/Araujo et al. - 2015 - An Architecture for Navigation of Service Robots i.pdf:application/pdf;ScienceDirect Snapshot:/home/phani/Zotero/storage/FW55Q2TR/S2405896315026567.html:text/html}
+}
+
+@article{trautman_robot_2015,
+	title = {Robot navigation in dense human crowds: {Statistical} models and experimental studies of human–robot cooperation},
+	volume = {34},
+	issn = {0278-3649, 1741-3176},
+	shorttitle = {Robot navigation in dense human crowds},
+	url = {http://journals.sagepub.com/doi/10.1177/0278364914557874},
+	doi = {10.1177/0278364914557874},
+	abstract = {We consider the problem of navigating a mobile robot through dense human crowds. We begin by exploring a fundamental impediment to classical motion planning algorithms called the ‘‘freezing robot problem’’: once the environment surpasses a certain level of dynamic complexity, the planner decides that all forward paths are unsafe, and the robot freezes in place (or performs unnecessary maneuvers) to avoid collisions. We argue that this problem can be avoided if the robot anticipates human cooperation, and accordingly we develop interacting Gaussian processes, a prediction density that captures cooperative collision avoidance, and a ‘‘multiple goal’’ extension that models the goal-driven nature of human decision making. We validate this model with an empirical study of robot navigation in dense human crowds (488 runs), specifically testing how cooperation models effect navigation performance. The multiple goal interacting Gaussian processes algorithm performs comparably with human teleoperators in crowd densities nearing 0.8 humans/m2, while a state-of-theart non-cooperative planner exhibits unsafe behavior more than three times as often as the multiple goal extension, and twice as often as the basic interacting Gaussian process approach. Furthermore, a reactive planner based on the widely used dynamic window approach proves insufficient for crowd densities above 0.55 people/m2. We also show that our noncooperative planner or our reactive planner capture the salient characteristics of nearly any dynamic navigation algorithm. Based on these experimental results and theoretical observations, we conclude that a cooperation model is critical for safe and efficient robot navigation in dense human crowds.},
+	language = {en},
+	number = {3},
+	urldate = {2019-11-04},
+	journal = {The International Journal of Robotics Research},
+	author = {Trautman, Pete and Ma, Jeremy and Murray, Richard M. and Krause, Andreas},
+	month = mar,
+	year = {2015},
+	pages = {335--356},
+	file = {Trautman et al. - 2015 - Robot navigation in dense human crowds Statistica.pdf:/home/phani/Zotero/storage/7QNBBP6J/Trautman et al. - 2015 - Robot navigation in dense human crowds Statistica.pdf:application/pdf}
+}
+
+@article{foster2019mummer,
+  title={Mummer: Socially intelligent human-robot interaction in public spaces},
+  author={Foster, Mary Ellen and Craenen, Bart and others},
+  journal={arXiv preprint arXiv:1909.06749},
+  year={2019}
+}
+
+@article{shi2018robot,
+  title={A robot that distributes flyers to pedestrians in a shopping mall},
+  author={Shi, Chao and Satake, Satoru and Kanda, Takayuki and Ishiguro, Hiroshi},
+  journal={International Journal of Social Robotics},
+  volume={10},
+  number={4},
+  pages={421--437},
+  year={2018},
+  publisher={Springer}
+}
+@inproceedings{kanda2009affective,
+  title={An affective guide robot in a shopping mall},
+  author={Kanda, Takayuki and Shiomi, Masahiro and others},
+  booktitle={Proceedings of the 4th ACM/IEEE international conference on Human robot interaction},
+  pages={},
+  year={2009}
+}
+@misc{bergman2019robot,
+  title={Robot vacuum cleaner},
+  author={Bergman, Joel and Lind, Johan},
+  year={2019}
+}
+@article{pandey2014technological,
+  title={A Technological Survey on Autonomous Home Cleaning Robots},
+  author={Pandey, Abhishek and Kaushik, Anirudh and Jha, Amit Kumar and Kapse, Girish},
+  journal={International Journal of Scientific and Research Publications},
+  volume={4},
+  number={4},
+  pages={1--7},
+  year={2014},
+  publisher={Citeseer}
+}
+
+@article{charalampous2017recent,
+  title={Recent trends in social aware robot navigation: A survey},
+  author={Charalampous, Konstantinos and Kostavelis, Ioannis and Gasteratos, Antonios},
+  journal={Robotics and Autonomous Systems},
+  volume={93},
+  pages={85--104},
+  year={2017},
+  publisher={Elsevier}
+}
+
+@article{truong2017toward,
+  title={Toward socially aware robot navigation in dynamic and crowded environments: A proactive social motion model},
+  author={Truong, Xuan-Tung and Ngo, Trung Dung},
+  journal={IEEE Transactions on Automation Science and Engineering},
+  volume={},
+  number={4},
+  pages={},
+  year={2017},
+  publisher={IEEE}
+}
+@inproceedings{park2016hi,
+  title={HI Robot: Human intention-aware robot planning for safe and efficient navigation in crowds},
+  author={Park, Chonhyon and Ond{\v{r}}ej, Jan and Gilbert, Max and Freeman, Kyle and O'Sullivan, Carol},
+  booktitle={2016 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+  pages={3320--3326},
+  year={2016},
+  organization={IEEE}
+}
+
+@article{banisetty2019socially,
+  title={Socially-aware navigation: A non-linear multi-objective optimization approach},
+  author={Banisetty, Santosh Balajee and Forer, Scott and others},
+  journal={arXiv preprint arXiv:1911.04037},
+  year={2019}
+}
+
+@inproceedings{okal2016learning,
+  title={Learning socially normative robot navigation behaviors with bayesian inverse reinforcement learning},
+  author={Okal, Billy and Arras, Kai O},
+  booktitle={IEEE ICRA},
+  pages={},
+  year={2016},
+  organization={}
+}
+
+@article{perez2018teaching,
+  title={Teaching robot navigation behaviors to optimal RRT planners},
+  author={P{\'e}rez-Higueras, No{\'e} and Caballero, Fernando and others},
+  journal={International Journal of Social Robotics},
+  volume={},
+  number={},
+  pages={},
+  year={2018},
+  publisher={Springer}
+}
+
+
+
+@ARTICLE{Marvel-2013,
+  author={Marvel, Jeremy A.},
+  journal={IEEE Transactions on Automation Science and Engineering},
+  title={Performance Metrics of Speed and Separation Monitoring in Shared Workspaces},
+  year={2013},
+  volume={10},
+  number={2},
+  pages={405-414},
+  doi={10.1109/TASE.2013.2237904}}
+
+
+@ARTICLE{Chung-2009,
+  author={Chung, Woojin and Kim, Seokgyu and Choi, Minki and Choi, Jaesik and Kim, Hoyeon and Moon, Chang-bae and Song, Jae-Bok},
+  journal={IEEE Transactions on Industrial Electronics},
+  title={Safe Navigation of a Mobile Robot Considering Visibility of Environment},
+  year={2009},
+  volume={56},
+  number={10},
+  pages={3941-3950},
+  doi={10.1109/TIE.2009.2025293}}
+
+@INPROCEEDINGS{Bouraine-2012,
+  author={Bouraine, Sara and Fraichard, Thierry and Salhi, Hassen},
+  booktitle={2012 IEEE International Conference on Robotics and Automation},
+  title={Provably safe navigation for mobile robots with limited field-of-views in unknown dynamic environments},
+  year={2012},
+  volume={},
+  number={},
+  pages={174-179},
+  doi={10.1109/ICRA.2012.6224932}}
+
+  @article{madhavakrishna-ra-2006,
+  TITLE = {{Safe proactive plans and their execution}},
+  AUTHOR = {Madhava Krishna, K. and Alami, Rachid and Simeon, Thierry},
+  URL = {https://hal.laas.fr/hal-01976206},
+  JOURNAL = {{Robotics and Autonomous Systems}},
+  PUBLISHER = {{Elsevier}},
+  VOLUME = {54},
+  NUMBER = {3},
+  PAGES = {244-255},
+  YEAR = {2006},
+  MONTH = Mar,
+  PDF = {https://hal.laas.fr/hal-01976206/file/2006-ras-krishna.pdf},
+}
+
+@incollection{alami-springer-2007,
+  TITLE = {{Provably Safe Motions Strategies for Mobile Robots in Dynamic Domains}},
+  AUTHOR = {Alami, Rachid and Krishna, K. Madhava and Simeon, Thierry},
+  URL = {https://hal.laas.fr/hal-01976209},
+  BOOKTITLE = {{Autonomous Navigation in Dynamic Environments}},
+  HAL_LOCAL_REFERENCE = {Rapport LAAS n{\textdegree}07422},
+  PUBLISHER = {{Springer Berlin Heidelberg}},
+  SERIES = {Springer Tracts in Advanced Robotics},
+  VOLUME = {35},
+  PAGES = {85-106},
+  YEAR = {2007},
+  PDF = {https://hal.laas.fr/hal-01976209/file/2007-springer-alami.pdf},
+}
+
+@inproceedings{madhavakrishna-iros-2003,
+  TITLE = {{Moving Safely but not Slowly - reactively Adapting Paths for Better Trajectory Times}},
+  AUTHOR = {Madhava Krishna, K. and Alami, Rachid and Simeon, Thierry},
+  URL = {https://hal.laas.fr/hal-01976192},
+  BOOKTITLE = {{1th International Conference on Advanced Robotics}},
+  ADDRESS = {Coimbra, Portugal},
+  YEAR = {2003},
+  MONTH = Jun,
+  PDF = {https://hal.laas.fr/hal-01976192/file/2003-icar-krishna.pdf},
+}
+@article{chung2009safe,
+  title={Safe navigation of a mobile robot considering visibility of environment},
+  author={Chung, Woojin and Kim, Seokgyu and Choi, Minki and Choi, Jaesik and Kim, Hoyeon and Moon, Chang-bae and Song, Jae-Bok},
+  journal={IEEE Transactions on Industrial Electronics},
+  volume={56},
+  number={10},
+  pages={3941--3950},
+  year={2009},
+  publisher={IEEE}
+}
+
+@article{miura2006adaptive,
+  title={Adaptive robot speed control by considering map and motion uncertainty},
+  author={Miura, Jun and Negishi, Yoshiro and Shirai, Yoshiaki},
+  journal={Robotics and Autonomous Systems},
+  volume={54},
+  number={2},
+  pages={110--117},
+  year={2006},
+  publisher={Elsevier}
+}
+
+@inproceedings{lambert2008collision,
+  title={Collision probability assessment for speed control},
+  author={Lambert, Alain and Gruyer, Dominique and Saint Pierre, Guillaume and Ndjeng, Alexandre Ndjeng},
+  booktitle={2008 11th International IEEE Conference on Intelligent Transportation Systems},
+  pages={1043--1048},
+  year={2008},
+  organization={IEEE}
+}
+
+@inproceedings{singamaneni2021human,
+  title={Human-Aware Navigation Planner for Diverse Human-Robot Interaction Contexts},
+  author={Singamaneni, Phani Teja and Favier, Anthony and Alami, Rachid},
+  booktitle={2021 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+  pages={5817--5824},
+  year = {2021},
+  organization={IEEE}
+}
+
+
+@article{moller2021survey,
+  title={A survey on human-aware robot navigation},
+  author={M{\"o}ller, Ronja and Furnari, Antonino and Battiato, Sebastiano and H{\"a}rm{\"a}, Aki and Farinella, Giovanni Maria},
+  journal={Robotics and Autonomous Systems},
+  volume={145},
+  pages={103837},
+  year={2021},
+  publisher={Elsevier}
+}
+
+@article{helbing2000simulating,
+  title={Simulating dynamical features of escape panic},
+  author={Helbing, Dirk and Farkas, Ill{\'e}s and Vicsek, Tamas},
+  journal={Nature},
+  volume={407},
+  number={6803},
+  pages={487--490},
+  year={2000},
+  publisher={Nature Publishing Group}
+}
+@article{lakoba2005modifications,
+  title={Modifications of the Helbing-Molnar-Farkas-Vicsek social force model for pedestrian evolution},
+  author={Lakoba, Taras I and Kaup, David J and Finkelstein, Neal M},
+  journal={Simulation},
+  volume={81},
+  number={5},
+  pages={339--352},
+  year={2005},
+  publisher={Sage Publications Sage CA: Thousand Oaks, CA}
+}
+@phdthesis{phdthesis,
+author = {Teknomo, Kardi},
+year = {2002},
+month = {03},
+pages = {},
+title = {Microscopic Pedestrian Flow Characteristics: Development of an Image Processing Data Collection and Simulation Model}
+}
+
+
+@article{favier2021intelligent,
+  title={An Intelligent Human Simulation (InHuS) for developing and experimenting human-aware and interactive robot abilities},
+  author={Favier, Anthony and Singamaneni, Phani and Alami, Rachid},
+  year={2021}
+}
+
+@inproceedings{phillips2011sipp,
+  title={Sipp: Safe interval path planning for dynamic environments},
+  author={Phillips, Mike and Likhachev, Maxim},
+  booktitle={2011 IEEE International Conference on Robotics and Automation},
+  pages={5628--5635},
+  year={2011},
+  organization={IEEE}
+}
+
+@inproceedings{schoels2020nmpc,
+  title={An NMPC approach using convex inner approximations for online motion planning with guaranteed collision avoidance},
+  author={Schoels, Tobias and Palmieri, Luigi and Arras, Kai O and Diehl, Moritz},
+  booktitle={2020 IEEE International Conference on Robotics and Automation (ICRA)},
+  pages={3574--3580},
+  year={2020},
+  organization={IEEE}
+}
+
+@inproceedings{favier2022_hri,
+author = {Favier, Anthony and Singamaneni, Phani Teja and Alami, Rachid},
+title = {An Intelligent Human Avatar to Debug and Challenge Human-Aware Robot Navigation Systems},
+year = {2022},
+publisher = {IEEE Press},
+booktitle = {Proceedings of the 2022 ACM/IEEE International Conference on Human-Robot Interaction}
+}
+
+@incollection{stentz1997optimal,
+  title={Optimal and efficient path planning for partially known environments},
+  author={Stentz, Anthony},
+  booktitle={Intelligent unmanned ground vehicles},
+  pages={203--220},
+  year={1997},
+  publisher={Springer}
+}
+
+@article{hart1968formal,
+  title={A formal basis for the heuristic determination of minimum cost paths},
+  author={Hart, Peter E and Nilsson, Nils J and Raphael, Bertram},
+  journal={IEEE transactions on Systems Science and Cybernetics},
+  volume={4},
+  number={2},
+  pages={100--107},
+  year={1968},
+  publisher={IEEE}
+}
+
+
+@article{lavalle1998rapidly,
+  title={Rapidly-exploring random trees: A new tool for path planning},
+  author={LaValle, Steven M and others},
+  year={1998},
+  publisher={Ames, IA, USA}
+}
+
+@inproceedings{vadakkepat2000evolutionary,
+  title={Evolutionary artificial potential fields and their application in real time robot path planning},
+  author={Vadakkepat, Prahlad and Tan, Kay Chen and Ming-Liang, Wang},
+  booktitle={Proceedings of the 2000 congress on evolutionary computation. CEC00 (Cat. No. 00TH8512)},
+  volume={1},
+  pages={256--263},
+  year={2000},
+  organization={IEEE}
+}
+
+@inproceedings{garrido2006path,
+  title={Path planning for mobile robot navigation using voronoi diagram and fast marching},
+  author={Garrido, Santiago and Moreno, Luis and Abderrahim, Mohamed and Martin, Fernando},
+  booktitle={2006 IEEE/RSJ International Conference on Intelligent Robots and Systems},
+  pages={2376--2381},
+  year={2006},
+  organization={IEEE}
+}
+
+@article{cai2020mobile,
+  title={Mobile robot path planning in dynamic environments: A survey},
+  author={Cai, Kuanqi and Wang, Chaoqun and Cheng, Jiyu and De Silva, Clarence W and Meng, Max Q-H},
+  journal={arXiv preprint arXiv:2006.14195},
+  year={2020}
+}
+
+@incollection{thrun2007simultaneous,
+  title={Simultaneous localization and mapping},
+  author={Thrun, Sebastian},
+  booktitle={Robotics and cognitive approaches to spatial mapping},
+  pages={13--41},
+  year={2007},
+  publisher={Springer}
+}
+
+@article{thrun2006probalistic,
+  title={Probalistic robotics},
+  author={Thrun, Sebastian and Burgard, Wolfram and Fox, Dieter},
+  journal={Kybernetes},
+  year={2006},
+  publisher={Emerald Group Publishing Limited}
+}
+
+@article{fox2003adapting,
+  title={Adapting the sample size in particle filters through KLD-sampling},
+  author={Fox, Dieter},
+  journal={The international Journal of robotics research},
+  volume={22},
+  number={12},
+  pages={985--1003},
+  year={2003},
+  publisher={SAGE Publications}
+}
+
+@article{adorni2001vision,
+  title={Vision-based localization for mobile robots},
+  author={Adorni, Giovanni and Cagnoni, Stefano and Enderle, Stefan and Kraetzschmar, Gerhard K and Mordonini, Monica and Plagge, Michael and Ritter, Marcus and Sablatn{\"o}g, Stefan and Zell, Andreas},
+  journal={Robotics and Autonomous Systems},
+  volume={36},
+  number={2-3},
+  pages={103--119},
+  year={2001},
+  publisher={Elsevier}
+}
+
+@incollection{fox2001particle,
+  title={Particle filters for mobile robot localization},
+  author={Fox, Dieter and Thrun, Sebastian and Burgard, Wolfram and Dellaert, Frank},
+  booktitle={Sequential Monte Carlo methods in practice},
+  pages={401--428},
+  year={2001},
+  publisher={Springer}
+}
+
+@inproceedings{hennes2012multi,
+  title={Multi-robot collision avoidance with localization uncertainty.},
+  author={Hennes, Daniel and Claes, Daniel and Meeussen, Wim and Tuyls, Karl},
+  booktitle={AAMAS},
+  pages={147--154},
+  year={2012}
+}
+
+@inproceedings{chen2017decentralized,
+  title={Decentralized non-communicating multiagent collision avoidance with deep reinforcement learning},
+  author={Chen, Yu Fan and Liu, Miao and Everett, Michael and How, Jonathan P},
+  booktitle={2017 IEEE international conference on robotics and automation (ICRA)},
+  pages={285--292},
+  year={2017},
+  organization={IEEE}
+}
+@inproceedings{ciou2018composite,
+  title={Composite reinforcement learning for social robot navigation},
+  author={Ciou, Pei-Huai and Hsiao, Yu-Ting and Wu, Zong-Ze and Tseng, Shih-Huan and Fu, Li-Chen},
+  booktitle={2018 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+  pages={2553--2558},
+  year={2018},
+  organization={IEEE}
+}
+
+@article{snape2011hybrid,
+  title={The hybrid reciprocal velocity obstacle},
+  author={Snape, Jamie and Van Den Berg, Jur and Guy, Stephen J and Manocha, Dinesh},
+  journal={IEEE Transactions on Robotics},
+  volume={27},
+  number={4},
+  pages={696--706},
+  year={2011},
+  publisher={IEEE}
+}
+@inproceedings{minguez2000nearness,
+  title={Nearness diagram navigation (nd): A new real time collision avoidance approach},
+  author={Minguez, Javier and Montano, Luis},
+  booktitle={Proceedings. 2000 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS 2000)(Cat. No. 00CH37113)},
+  volume={3},
+  pages={2094--2100},
+  year={2000},
+  organization={IEEE}
+}
+
+%%%%%%%%%%%%%%Early Works%%%%%%%%%%%%
+@article{kaiser1997transfer,
+  title={Transfer of elementary skills via human-robot interaction},
+  author={Kaiser, Michael},
+  journal={Adaptive Behavior},
+  volume={5},
+  number={3-4},
+  pages={249--280},
+  year={1997},
+  publisher={Sage Publications Sage CA: Thousand Oaks, CA}
+}
+
+@inproceedings{van2008reciprocal,
+  title={Reciprocal velocity obstacles for real-time multi-agent navigation},
+  author={Van den Berg, Jur and Lin, Ming and Manocha, Dinesh},
+  booktitle={2008 IEEE international conference on robotics and automation},
+  pages={1928--1935},
+  year={2008},
+  organization={Ieee}
+}
+
+%%%%%%%%%%%%%%%%%% before 2000%%%%%%%%%%%%%%%%%%
+
+@inproceedings{tadokoro1995motion,
+  title={On motion planning of mobile robots which coexist and cooperate with human},
+  author={Tadokoro, Satoshi and Hayashi, Masaki and Manabe, Yasuhiro and Nakami, Yoshihiro and Takamori, Toshi},
+  booktitle={Proceedings 1995 IEEE/RSJ International Conference on Intelligent Robots and Systems. Human Robot Interaction and Cooperative Robots},
+  volume={2},
+  pages={518--523},
+  year={1995},
+  organization={IEEE}
+}
+
+@article{wilkes1998toward,
+  title={Toward socially intelligent service robots},
+  author={Wilkes, D Mitchell and Alford, A and Pack, Robert T and Rogers, T and Peters, RA and Kawamura, Kazuhiko},
+  journal={Applied Artificial Intelligence},
+  volume={12},
+  number={7-8},
+  pages={729--766},
+  year={1998},
+  publisher={Taylor \& Francis}
+}
+
+@article{kawamura1996design,
+  title={Design philosophy for service robots},
+  author={Kawamura, Kazuhiko and Pack, Robert T and Bishay, Magued and Iskarous, Moenes},
+  journal={Robotics and Autonomous Systems},
+  volume={18},
+  number={1-2},
+  pages={109--116},
+  year={1996},
+  publisher={Elsevier}
+}
+
+@article{burgard1999experiences,
+  title={Experiences with an interactive museum tour-guide robot},
+  author={Burgard, Wolfram and Cremers, Armin B and Fox, Dieter and H{\"a}hnel, Dirk and Lakemeyer, Gerhard and Schulz, Dirk and Steiner, Walter and Thrun, Sebastian},
+  journal={Artificial intelligence},
+  volume={114},
+  number={1-2},
+  pages={3--55},
+  year={1999},
+  publisher={Elsevier}
+}
+
+@article{thrun2000probabilistic,
+  title={Probabilistic algorithms and the interactive museum tour-guide robot minerva},
+  author={Thrun, Sebastian and Beetz, Michael and Bennewitz, Maren and Burgard, Wolfram and Cremers, Armin B and Dellaert, Frank and Fox, Dieter and Haehnel, Dirk and Rosenberg, Chuck and Roy, Nicholas and others},
+  journal={The International Journal of Robotics Research},
+  volume={19},
+  number={11},
+  pages={972--999},
+  year={2000},
+  publisher={SAGE Publications}
+}
+
+@inproceedings{thrun1999minerva,
+  title={MINERVA: A second-generation museum tour-guide robot},
+  author={Thrun, Sebastian and Bennewitz, Maren and Burgard, Wolfram and Cremers, Armin B and Dellaert, Frank and Fox, Dieter and Hahnel, Dirk and Rosenberg, Charles and Roy, Nicholas and Schulte, Jamieson and others},
+  booktitle={Proceedings 1999 IEEE International Conference on Robotics and Automation (Cat. No. 99CH36288C)},
+  volume={3},
+  year={1999},
+  organization={IEEE}
+}
+
+@incollection{burgard1999museum,
+  title={The museum tour-guide robot RHINO},
+  author={Burgard, Wolfram and Cremers, Armin B and Fox, Dieter and H{\"a}hnel, Dirk and Lakemeyer, Gerhard and Schulz, Dirk and Steiner, Walter and Thrun, Sebastian},
+  booktitle={Autonome Mobile Systeme 1998},
+  pages={245--254},
+  year={1999},
+  publisher={Springer}
+}
+
+@inproceedings{schulte1999spontaneous,
+  title={Spontaneous, short-term interaction with mobile robots},
+  author={Schulte, Jamieson and Rosenberg, Charles and Thrun, Sebastian},
+  booktitle={Proceedings 1999 IEEE International Conference on Robotics and Automation (Cat. No. 99CH36288C)},
+  volume={1},
+  pages={658--663},
+  year={1999},
+  organization={IEEE}
+}
+
+@inproceedings{yanco1998integrating,
+  title={Integrating robotic research: A survey of robotic wheelchair development},
+  author={Yanco, Holly A},
+  booktitle={AAAI Spring Symposium on Integrating Robotic Research},
+  pages={136--141},
+  year={1998},
+  organization={Citeseer}
+}
+
+@article{yanco1998wheelesley,
+  title={Wheelesley: A robotic wheelchair system: Indoor navigation and user interface},
+  author={Yanco, Holly A},
+  journal={Assistive technology and artificial intelligence},
+  pages={256--268},
+  year={1998},
+  publisher={Springer}
+}
+
+@article{prassler1999navigating,
+  title={Navigating a robotic wheelchair in a railway station during rush hour},
+  author={Prassler, Erwin and Scholz, Jens and Fiorini, Paolo},
+  journal={The international journal of robotics research},
+  volume={18},
+  number={7},
+  pages={711--727},
+  year={1999},
+  publisher={SAGE Publications}
+}
+
+@inproceedings{prassler1998maid,
+  title={Maid: Mobility assistance for elderly and disabled people},
+  author={Prassler, Erwin and Scholz, Jens and Strobel, Matthias},
+  booktitle={IECON'98. Proceedings of the 24th Annual Conference of the IEEE Industrial Electronics Society (Cat. No. 98CH36200)},
+  volume={4},
+  pages={2493--2498},
+  year={1998},
+  organization={IEEE}
+}
+
+@inproceedings{imai1999agent,
+  title={Agent migration: communications between a human and robot},
+  author={Imai, Michita and Ono, Tetsuo and Etani, Tameyuki},
+  booktitle={IEEE SMC'99 Conference Proceedings. 1999 IEEE International Conference on Systems, Man, and Cybernetics (Cat. No. 99CH37028)},
+  volume={4},
+  pages={1044--1048},
+  year={1999},
+  organization={IEEE}
+}
+
+
+%%%%%%%%%%%%%%%%%%% early 2000 %%%%%%%%%%%%%
+@inproceedings{boy2002collaborative,
+  title={Collaborative wheelchair assistant},
+  author={Boy, Eng Seng and Teo, Chee Leong and Burdet, Etienne},
+  booktitle={IEEE/RSJ International Conference on Intelligent Robots and Systems},
+  volume={2},
+  pages={1511--1516},
+  year={2002},
+  organization={IEEE}
+}
+
+@inproceedings{zeng2006design,
+  title={Design of a collaborative wheelchair with path guidance assistance},
+  author={Zeng, Qiang and Teo, Chee Leong and Rebsamen, Brice and Burdet, Etienne},
+  booktitle={Proceedings 2006 IEEE International Conference on Robotics and Automation, 2006. ICRA 2006.},
+  pages={877--882},
+  year={2006},
+  organization={IEEE}
+}
+
+@inproceedings{gonzalez2006description,
+  title={A description of the SENA robotic wheelchair},
+  author={Gonzalez, J and Muaeoz, AJ and Galindo, C and Fernandez-Madrigal, JA and Blanco, JL},
+  booktitle={MELECON 2006-2006 IEEE Mediterranean Electrotechnical Conference},
+  pages={437--440},
+  year={2006},
+  organization={IEEE}
+}
+
+@article{gonzalez2006sena,
+  title={The SENA robotic wheelchair project},
+  author={Gonzalez, Javier and Galindo, Cipriano and Blanco, Jose-Luis and Mu{\~n}oz, AJ and Arevalo, Vicente and Fernandez-Madrigal, Juan-Antonio},
+  journal={DAAAM International Scientific Book},
+  pages={235--251},
+  year={2006},
+  publisher={DAAAM International Vienna}
+}
+
+@inproceedings{rao2002human,
+  title={Human robot interaction: application to smart wheelchairs},
+  author={Rao, RS and Conn, K and Jung, Sang-Hack and Katupitiya, Jayantha and Kientz, Terry and Kumar, Vijay and Ostrowski, J and Patel, Sarangi and Taylor, Camillo J},
+  booktitle={Proceedings 2002 IEEE international conference on robotics and automation (Cat. No. 02CH37292)},
+  volume={4},
+  pages={3583--3588},
+  year={2002},
+  organization={IEEE}
+}
+
+@inproceedings{parikh2003human,
+  title={Human robot interaction and usability studies for a smart wheelchair},
+  author={Parikh, Sarangi P and Rao, Rahul and Jung, Sang-Hack and Kumar, Vijay and Ostrowski, James P and Taylor, Camillo J},
+  booktitle={Proceedings 2003 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS 2003)(Cat. No. 03CH37453)},
+  volume={4},
+  pages={3206--3211},
+  year={2003},
+  organization={IEEE}
+}
+
+@inproceedings{morris2003robotic,
+  title={A robotic walker that provides guidance},
+  author={Morris, Aaron and Donamukkala, Raghavendra and Kapuria, Anuj and Steinfeld, Aaron and Matthews, Judith T and Dunbar-Jacob, Jacqueline and Thrun, Sebastian},
+  booktitle={2003 IEEE International Conference on Robotics and Automation (Cat. No. 03CH37422)},
+  volume={1},
+  pages={25--30},
+  year={2003},
+  organization={IEEE}
+}
+
+@article{prassler2002key,
+  title={Key technologies in robot assistants: Motion coordination between a human and a mobile robot},
+  author={Prassler, Erwin and Bank, Dirk and Kluge, Boris},
+  journal={Transactions on Control, Automation and Systems Engineering},
+  volume={4},
+  number={1},
+  pages={56--61},
+  year={2002},
+  publisher={Institute of Control, Robotics and Systems}
+}
+
+
+@incollection{arras2003robox,
+  title={Robox, a remarkable mobile robot for the real world},
+  author={Arras, Kai O and Tomatis, Nicola and Siegwart, Roland},
+  booktitle={Experimental robotics VIII},
+  pages={178--187},
+  year={2003},
+  publisher={Springer}
+}
+
+@article{jensen2005robots,
+  title={Robots meet humans-interaction in public spaces},
+  author={Jensen, Bj{\"o}rn and Tomatis, Nicola and Mayor, Laetitia and Drygajlo, Andrzej and Siegwart, Roland},
+  journal={IEEE Transactions on Industrial Electronics},
+  volume={52},
+  number={6},
+  pages={1530--1546},
+  year={2005},
+  publisher={IEEE}
+}
+
+@inproceedings{siegwart2003design,
+  title={Design, implementation and exploitation of a new fully autonomous tour guide robot},
+  author={Siegwart, Roland and Arras, KO and Jensen, Bj{\"o}rn and Philippsen, Roland and Tomatis, Nicola},
+  booktitle={Proceedings. ASER'03, 1st International Workshop on Advances in Service Robotics: March 13-15, 2003-Bardolino, Italy},
+  pages={146--151},
+  year={2003},
+  organization={Fraunhofer IRB-Verl.}
+}
+
+@inproceedings{philippsen2003smooth,
+  title={Smooth and efficient obstacle avoidance for a tour guide robot},
+  author={Philippsen, Roland and Siegwart, Roland},
+  booktitle={Proceedings. 2003 IEEE International Conference on Robotics and Automation, September 14-19, 2003, The Grand Hotel, Taipei, Taiwan},
+  volume={1},
+  pages={446--451},
+  year={2003},
+  organization={IEEE Operations Center}
+}
+
+@inproceedings{martinez2005crowding,
+  title={Crowding and guiding groups of humans by teams of mobile robots},
+  author={Martinez-Garcia, Edgar A and Akihisa, Ohya and others},
+  booktitle={IEEE Workshop on Advanced Robotics and its Social Impacts, 2005.},
+  pages={91--96},
+  year={2005},
+  organization={IEEE}
+}
+
+@phdthesis{bennewitz2004mobile,
+  title={Mobile robot navigation in dynamic environments},
+  author={Bennewitz, Maren},
+  year={2004},
+  school={Freiburg (Breisgau), Univ., Diss., 2004}
+}
+
+@article{bennewitz2005learning,
+  title={Learning motion patterns of people for compliant robot motion},
+  author={Bennewitz, Maren and Burgard, Wolfram and Cielniak, Grzegorz and Thrun, Sebastian},
+  journal={The International Journal of Robotics Research},
+  volume={24},
+  number={1},
+  pages={31--48},
+  year={2005},
+  publisher={SAGE Publications}
+}
+
+@inproceedings{althaus2004navigation,
+  title={Navigation for human-robot interaction tasks},
+  author={Althaus, Philipp and Ishiguro, Hiroshi and Kanda, Takayuki and Miyashita, Takahiro and Christensen, Henrik I},
+  booktitle={IEEE International Conference on Robotics and Automation, 2004. Proceedings. ICRA'04. 2004},
+  volume={2},
+  pages={1894--1900},
+  year={2004},
+  organization={IEEE}
+}
+
+@inproceedings{kluge2004reflective,
+  title={Reflective navigation: Individual behaviors and group behaviors},
+  author={Kluge, Boris and Prassler, Erwin},
+  booktitle={IEEE International Conference on Robotics and Automation, 2004. Proceedings. ICRA'04. 2004},
+  volume={4},
+  pages={4172--4177},
+  year={2004},
+  organization={IEEE}
+}
+
+@article{butler2001psychological,
+  title={Psychological effects of behavior patterns of a mobile personal robot},
+  author={Butler, John Travis and Agah, Arvin},
+  journal={Autonomous Robots},
+  volume={10},
+  number={2},
+  pages={185--202},
+  year={2001},
+  publisher={Springer}
+}
+
+@inproceedings{kanda2001psychological,
+  title={Psychological analysis on human-robot interaction},
+  author={Kanda, Takayuki and Ishiguro, Hiroshi and Ishida, Toru},
+  booktitle={Proceedings 2001 ICRA. IEEE International Conference on Robotics and Automation (Cat. No. 01CH37164)},
+  volume={4},
+  pages={4166--4173},
+  year={2001},
+  organization={IEEE}
+}
+
+@inproceedings{pacchierotti2005human,
+  title={Human-robot embodied interaction in hallway settings: a pilot user study},
+  author={Pacchierotti, Elena and Christensen, Henrik I and Jensfelt, Patric},
+  booktitle={ROMAN 2005. IEEE International Workshop on Robot and Human Interactive Communication, 2005.},
+  pages={164--171},
+  year={2005},
+  organization={IEEE}
+}
+
+@inproceedings{pacchierotti2006evaluation,
+  title={Evaluation of passing distance for social robots},
+  author={Pacchierotti, Elena and Christensen, Henrik I and Jensfelt, Patric},
+  booktitle={Roman 2006-the 15th ieee international symposium on robot and human interactive communication},
+  pages={315--320},
+  year={2006},
+  organization={IEEE}
+}
+
+@article{galindo2006control,
+  title={Control architecture for human--robot integration: application to a robotic wheelchair},
+  author={Galindo, Cipriano and Gonzalez, Javier and Fernandez-Madrigal, J-A},
+  journal={IEEE Transactions on Systems, Man, and Cybernetics, Part B (Cybernetics)},
+  volume={36},
+  number={5},
+  pages={1053--1067},
+  year={2006},
+  publisher={IEEE}
+}
+
+@inproceedings{macaluso2005experiences,
+  title={Experiences with CiceRobot, a museum guide cognitive robot},
+  author={Macaluso, Irene and Ardizzone, Edoardo and Chella, Antonio and Cossentino, Massimo and Gentile, Antonio and Gradino, R and Infantino, Ignazio and Liotta, Marilia and Rizzo, Riccardo and Scardino, Giuseppe},
+  booktitle={Congress of the Italian Association for Artificial Intelligence},
+  pages={474--482},
+  year={2005},
+  organization={Springer}
+}
+
+
+%%%%%%%%%%%%%%% Late 2000%%%%%%%%%%%%
+@inproceedings{gockley2007natural,
+  title={Natural person-following behavior for social robots},
+  author={Gockley, Rachel and Forlizzi, Jodi and Simmons, Reid},
+  booktitle={Proceedings of the ACM/IEEE international conference on Human-robot interaction},
+  pages={17--24},
+  year={2007}
+}
+
+@inproceedings{hoeller2007accompanying,
+  title={Accompanying persons with a mobile robot using motion prediction and probabilistic roadmaps},
+  author={Hoeller, Frank and Schulz, Dirk and Moors, Mark and Schneider, Frank E},
+  booktitle={2007 IEEE/RSJ International Conference on Intelligent Robots and Systems},
+  pages={1260--1265},
+  year={2007},
+  organization={IEEE}
+}
+
+@inproceedings{zender2007human,
+  title={Human-and situation-aware people following},
+  author={Zender, Hendrik and Jensfelt, Patric and Kruijff, Geert-Jan M},
+  booktitle={RO-MAN 2007-The 16th IEEE International Symposium on Robot and Human Interactive Communication},
+  pages={1131--1136},
+  year={2007},
+  organization={IEEE}
+}
+
+@inproceedings{granata2012framework,
+  title={A framework for the design of person following behaviors for social mobile robots},
+  author={Granata, Consuelo and Bidaud, Philippe},
+  booktitle={2012 IEEE/RSJ International Conference on Intelligent Robots and Systems},
+  pages={4652--4659},
+  year={2012},
+  organization={IEEE}
+}
+
+@inproceedings{feil2011people,
+  title={People-aware navigation for goal-oriented behavior involving a human partner},
+  author={Feil-Seifer, David and Matari{\'c}, Maja},
+  booktitle={2011 IEEE International Conference on Development and Learning (ICDL)},
+  volume={2},
+  pages={1--6},
+  year={2011},
+  organization={IEEE}
+}
+
+@inproceedings{kessler2011approaching,
+  title={Approaching a person in a socially acceptable manner using a fast marching planner},
+  author={Kessler, Jens and Schroeter, Christof and Gross, Horst-Michael},
+  booktitle={International Conference on Intelligent Robotics and Applications},
+  pages={368--377},
+  year={2011},
+  organization={Springer}
+}
+
+@inproceedings{satake2009approach,
+  title={How to approach humans? Strategies for social robots to initiate interaction},
+  author={Satake, Satoru and Kanda, Takayuki and Glas, Dylan F and Imai, Michita and Ishiguro, Hiroshi and Hagita, Norihiro},
+  booktitle={Proceedings of the 4th ACM/IEEE international conference on Human robot interaction},
+  pages={109--116},
+  year={2009}
+}
+
+@inproceedings{shi2008human,
+  title={Human-aware robot motion planning with velocity constraints},
+  author={Shi, Dongqing and Collins Jr, Emmanuel G and Goldiez, Brian and Donate, Arturo and Liu, Xiuwen and Dunlap, Damion},
+  booktitle={2008 International Symposium on Collaborative Technologies and Systems},
+  pages={490--497},
+  year={2008},
+  organization={IEEE}
+}
+
+@inproceedings{takayama2009influences,
+  title={Influences on proxemic behaviors in human-robot interaction},
+  author={Takayama, Leila and Pantofaru, Caroline},
+  booktitle={2009 IEEE/RSJ International Conference on Intelligent Robots and Systems},
+  pages={5495--5502},
+  year={2009},
+  organization={IEEE}
+}
+
+
+
+
+@inproceedings{muller2008socially,
+  title={Socially inspired motion planning for mobile robots in populated environments},
+  author={M{\"u}ller, J{\"o}rg and Stachniss, Cyrill and Arras, Kai O and Burgard, Wolfram},
+  booktitle={Proc. of International Conference on Cognitive Systems},
+  year={2008}
+}
+
+@inproceedings{gross2009toomas,
+  title={TOOMAS: interactive shopping guide robots in everyday use-final implementation and experiences from long-term field trials},
+  author={Gross, H-M and Boehme, H and Schroeter, Ch and M{\"u}ller, Steffen and K{\"o}nig, Alexander and Einhorn, Erik and Martin, Ch and Merten, Matthias and Bley, Andreas},
+  booktitle={2009 IEEE/RSJ International Conference on Intelligent Robots and Systems},
+  pages={2005--2012},
+  year={2009},
+  organization={IEEE}
+}
+
+@book{rodriguez2008urbano,
+  title={Urbano, an interactive mobile tour-guide robot},
+  author={Rodriguez-Losada, Diego and Matia, Fernando and Lucas, Juan Manuel and Montero, Juan Manuel and Hernando, Miguel and Galan, Ramon},
+  year={2008},
+  publisher={INTECH Open Access Publisher London, UK.}
+}
+
+@inproceedings{han2010museum,
+  title={Museum tour guide robot with augmented reality},
+  author={Han, Byung-Ok and Kim, Young-Ho and Cho, Kyusung and Yang, Hyun S},
+  booktitle={2010 16th International Conference on Virtual Systems and Multimedia},
+  pages={223--229},
+  year={2010},
+  organization={IEEE}
+}
+
+@inproceedings{hayashi2012friendly,
+  title={Friendly patrolling: A model of natural encounters},
+  author={Hayashi, Kotaro and Shiomi, Masahiro and Kanda, Takayuki and Hagita, Norihiro and Robotics, AI},
+  booktitle={Proc. RSS},
+  pages={121},
+  year={2012}
+}
+
+@inproceedings{henry2010learning,
+  title={Learning to navigate through crowded environments},
+  author={Henry, Peter and Vollmer, Christian and Ferris, Brian and Fox, Dieter},
+  booktitle={2010 IEEE international conference on robotics and automation},
+  pages={981--986},
+  year={2010},
+  organization={IEEE}
+}
+
+@inproceedings{svenstrup2010trajectory,
+  title={Trajectory planning for robots in dynamic human environments},
+  author={Svenstrup, Mikael and Bak, Thomas and Andersen, Hans J{\o}rgen},
+  booktitle={2010 IEEE/RSJ International Conference on Intelligent Robots and Systems},
+  pages={4293--4298},
+  year={2010},
+  organization={IEEE}
+}
+
+
+@inproceedings{kirby2009companion,
+  title={Companion: A constraint-optimizing method for person-acceptable navigation},
+  author={Kirby, Rachel and Simmons, Reid and Forlizzi, Jodi},
+  booktitle={RO-MAN 2009-The 18th IEEE International Symposium on Robot and Human Interactive Communication},
+  pages={607--612},
+  year={2009},
+  organization={IEEE}
+}
+
+@inproceedings{chung2010mobile,
+  title={A mobile robot that understands pedestrian spatial behaviors},
+  author={Chung, Shu-Yun and Huang, Han-Pang},
+  booktitle={2010 IEEE/RSJ International Conference on Intelligent Robots and Systems},
+  pages={5861--5866},
+  year={2010},
+  organization={IEEE}
+}
+
+@inproceedings{thompson2009probabilistic,
+  title={A probabilistic model of human motion and navigation intent for mobile robot path planning},
+  author={Thompson, Simon and Horiuchi, Takehiro and Kagami, Satoshi},
+  booktitle={2009 4th International Conference on Autonomous Robots and Agents},
+  pages={663--668},
+  year={2009},
+  organization={IEEE}
+}
+
+@inproceedings{huang2010human,
+  title={Human-oriented navigation for service providing in home environment},
+  author={Huang, Kuo-Chen and Li, Jiun-Yi and Fu, Li-Chen},
+  booktitle={Proceedings of SICE Annual Conference 2010},
+  pages={1892--1897},
+  year={2010},
+  organization={IEEE}
+}
+
+@article{lam2010human,
+  title={Human-centered robot navigation—towards a harmoniously human--robot coexisting environment},
+  author={Lam, Chi-Pang and Chou, Chen-Tun and Chiang, Kuo-Hung and Fu, Li-Chen},
+  journal={IEEE Transactions on Robotics},
+  volume={27},
+  number={1},
+  pages={99--112},
+  year={2010},
+  publisher={IEEE}
+}
+
+@inproceedings{lichtenthaler2012influence,
+  title={Influence of legibility on perceived safety in a virtual human-robot path crossing task},
+  author={Lichtenth{\"a}ler, Christina and Lorenzy, Tamara and Kirsch, Alexandra},
+  booktitle={2012 IEEE RO-MAN: The 21st IEEE International Symposium on Robot and Human Interactive Communication},
+  pages={676--681},
+  year={2012},
+  organization={IEEE}
+}
+
+@inproceedings{kruse2012legible,
+  title={Legible robot navigation in the proximity of moving humans},
+  author={Kruse, Thibault and Basili, Patrizia and Glasauer, Stefan and Kirsch, Alexandra},
+  booktitle={2012 IEEE workshop on advanced robotics and its social impacts (ARSO)},
+  pages={83--88},
+  year={2012},
+  organization={IEEE}
+}
+
+@inproceedings{garrell2010local,
+  title={Local optimization of cooperative robot movements for guiding and regrouping people in a guiding mission},
+  author={Garrell, Ana{\'\i}s and Sanfeliu, Alberto},
+  booktitle={2010 IEEE/RSJ International Conference on Intelligent Robots and Systems},
+  pages={3294--3299},
+  year={2010},
+  organization={IEEE}
+}
+
+
+%%%%
+
+@article{demeester2008user,
+  title={User-adapted plan recognition and user-adapted shared control: A Bayesian approach to semi-autonomous wheelchair driving},
+  author={Demeester, Eric and H{\"u}ntemann, Alexander and Vanhooydonck, Dirk and Vanacker, Gerolf and Van Brussel, Hendrik and Nuttin, Marnix},
+  journal={Autonomous Robots},
+  volume={24},
+  number={2},
+  pages={193--211},
+  year={2008},
+  publisher={Springer}
+}
+
+@article{vanhooydonck2010adaptable,
+  title={Adaptable navigational assistance for intelligent wheelchairs by means of an implicit personalized user model},
+  author={Vanhooydonck, Dirk and Demeester, Eric and H{\"u}ntemann, Alexander and Philips, Johan and Vanacker, Gerolf and Van Brussel, Hendrik and Nuttin, Marnix},
+  journal={Robotics and Autonomous Systems},
+  volume={58},
+  number={8},
+  pages={963--977},
+  year={2010},
+  publisher={Elsevier}
+}
+
+@article{taha2008intention,
+  title={Intention driven assistive wheelchair navigation},
+  author={Taha, Tarek and Valls Miro, J and Dissanayake, Gamini},
+  journal={ACM/IEEE Human Robot Interaction},
+  year={2008},
+  publisher={Technical Report 470, University of Hertfordshire}
+}
+
+@inproceedings{tomari2012empirical,
+  title={Empirical framework for autonomous wheelchair systems in human-shared environments},
+  author={Tomari, Razali and Kobayashi, Yoshinori and Kuno, Yoshinori},
+  booktitle={2012 IEEE International Conference on Mechatronics and Automation},
+  pages={493--498},
+  year={2012},
+  organization={IEEE}
+}
+
+
+@inproceedings{rios2012navigating,
+  title={Navigating between people: A stochastic optimization approach},
+  author={Rios-Martinez, Jorge and Renzaglia, Alessandro and Spalanzani, Anne and Martinelli, Agostino and Laugier, Christian},
+  booktitle={2012 IEEE International Conference on Robotics and Automation},
+  pages={2880--2885},
+  year={2012},
+  organization={IEEE}
+}
+
+@article{escobedo2012context,
+  title={Context-based face control of a robotic wheelchair},
+  author={Escobedo, Arturo and Rios-Martinez, Jorge and Spalanzani, Anne and Laugier, Christian},
+  year={2012}
+}
+
+
+%%%%%%%%%%%%%%% LAAS Part %%%%%%%%%%%%%%%%
+
+@inproceedings{khambhaita_assessing_2017,
+	address = {Lisbon},
+	title = {Assessing the social criteria for human-robot collaborative navigation: {A} comparison of human-aware navigation planners},
+	isbn = {978-1-5386-3518-6},
+	shorttitle = {Assessing the social criteria for human-robot collaborative navigation},
+	url = {http://ieeexplore.ieee.org/document/8172447/},
+	doi = {10.1109/ROMAN.2017.8172447},
+	language = {en},
+	urldate = {2022-09-07},
+	booktitle = {2017 26th {IEEE} {International} {Symposium} on {Robot} and {Human} {Interactive} {Communication} ({RO}-{MAN})},
+	publisher = {IEEE},
+	author = {Khambhaita, Harmish and Alami, Rachid},
+	month = aug,
+	year = {2017},
+	pages = {1140--1145},
+	file = {Khambhaita and Alami - 2017 - Assessing the social criteria for human-robot coll.pdf:/home/phani/Zotero/storage/Q3BM3RIY/Khambhaita and Alami - 2017 - Assessing the social criteria for human-robot coll.pdf:application/pdf},
+}
+
+@inproceedings{khambhaita_human-robot_2017,
+	address = {Vienna Austria},
+	title = {A {Human}-{Robot} {Cooperative} {Navigation} {Planner}},
+	isbn = {978-1-4503-4885-0},
+	url = {https://dl.acm.org/doi/10.1145/3029798.3038374},
+	doi = {10.1145/3029798.3038374},
+	language = {en},
+	urldate = {2022-09-07},
+	booktitle = {Proceedings of the {Companion} of the 2017 {ACM}/{IEEE} {International} {Conference} on {Human}-{Robot} {Interaction}},
+	publisher = {ACM},
+	author = {Khambhaita, Harmish and Alami, Rachid},
+	month = mar,
+	year = {2017},
+	pages = {161--162},
+	file = {Khambhaita and Alami - 2017 - A Human-Robot Cooperative Navigation Planner.pdf:/home/phani/Zotero/storage/5RHLTWWT/Khambhaita and Alami - 2017 - A Human-Robot Cooperative Navigation Planner.pdf:application/pdf},
+}
+
+@incollection{amato_viewing_2020,
+	address = {Cham},
+	title = {Viewing {Robot} {Navigation} in {Human} {Environment} as a {Cooperative} {Activity}},
+	volume = {10},
+	isbn = {978-3-030-28618-7 978-3-030-28619-4},
+	url = {http://link.springer.com/10.1007/978-3-030-28619-4_25},
+	language = {en},
+	urldate = {2022-09-07},
+	booktitle = {Robotics {Research}},
+	publisher = {Springer International Publishing},
+	author = {Khambhaita, Harmish and Alami, Rachid},
+	editor = {Amato, Nancy M. and Hager, Greg and Thomas, Shawna and Torres-Torriti, Miguel},
+	year = {2020},
+	doi = {10.1007/978-3-030-28619-4_25},
+	note = {Series Title: Springer Proceedings in Advanced Robotics},
+	pages = {285--300},
+	file = {Khambhaita and Alami - 2020 - Viewing Robot Navigation in Human Environment as a.pdf:/home/phani/Zotero/storage/ERNV435N/Khambhaita and Alami - 2020 - Viewing Robot Navigation in Human Environment as a.pdf:application/pdf},
+}
+
+@inproceedings{ramirez2016robots,
+  title={Robots learning how and where to approach people},
+  author={Ram{\'\i}rez, Omar A Islas and Khambhaita, Harmish and Chatila, Raja and Chetouani, Mohamed and Alami, Rachid},
+  booktitle={2016 25th IEEE international symposium on robot and human interactive communication (RO-MAN)},
+  pages={347--353},
+  year={2016},
+  organization={IEEE}
+}
+
+@inproceedings{khambhaita2016head,
+  title={Head-body motion coordination for human aware robot navigation},
+  author={Khambhaita, Harmish and Rios-Martinez, Jorge and Alami, Rachid},
+  booktitle={9th International workshop on Human-Friendlly Robotics (HFR 2016)},
+  pages={8p},
+  year={2016}
+}
+@inproceedings{waldhart_planning_2015,
+	address = {Hamburg, Germany},
+	title = {Planning handovers involving humans and robots in constrained environment},
+	isbn = {978-1-4799-9994-1},
+	url = {http://ieeexplore.ieee.org/document/7354302/},
+	doi = {10.1109/IROS.2015.7354302},
+	language = {en},
+	urldate = {2022-09-07},
+	booktitle = {2015 {IEEE}/{RSJ} {International} {Conference} on {Intelligent} {Robots} and {Systems} ({IROS})},
+	publisher = {IEEE},
+	author = {Waldhart, Jules and Gharbi, Mamoun and Alami, Rachid},
+	month = sep,
+	year = {2015},
+	pages = {6473--6478},
+	file = {Waldhart et al. - 2015 - Planning handovers involving humans and robots in .pdf:/home/phani/Zotero/storage/3MUECRWB/Waldhart et al. - 2015 - Planning handovers involving humans and robots in .pdf:application/pdf},
+}
+
+@inproceedings{gharbi_toward_2015,
+	address = {Kobe, Japan},
+	title = {Toward a better understanding of the communication cues involved in a human-robot object transfer},
+	isbn = {978-1-4673-6704-2},
+	url = {http://ieeexplore.ieee.org/document/7333626/},
+	doi = {10.1109/ROMAN.2015.7333626},
+	language = {en},
+	urldate = {2022-09-07},
+	booktitle = {2015 24th {IEEE} {International} {Symposium} on {Robot} and {Human} {Interactive} {Communication} ({RO}-{MAN})},
+	publisher = {IEEE},
+	author = {Gharbi, Mamoun and Paubel, Pierre-Vincent and Clodic, Aurelie and Carreras, Ophelie and Alami, Rachid and Cellier, Jean-Marie},
+	month = aug,
+	year = {2015},
+	pages = {319--324},
+	file = {Gharbi et al. - 2015 - Toward a better understanding of the communication.pdf:/home/phani/Zotero/storage/UBRSFVYY/Gharbi et al. - 2015 - Toward a better understanding of the communication.pdf:application/pdf},
+}
+
+@inproceedings{kruse_evaluating_2014,
+	address = {Bielefeld Germany},
+	title = {Evaluating directional cost models in navigation},
+	isbn = {978-1-4503-2658-2},
+	url = {https://dl.acm.org/doi/10.1145/2559636.2559662},
+	doi = {10.1145/2559636.2559662},
+	language = {en},
+	urldate = {2022-09-07},
+	booktitle = {Proceedings of the 2014 {ACM}/{IEEE} international conference on {Human}-robot interaction},
+	publisher = {ACM},
+	author = {Kruse, Thibault and Kirsch, Alexandra and Khambhaita, Harmish and Alami, Rachid},
+	month = mar,
+	year = {2014},
+	pages = {350--357},
+	file = {Kruse et al. - 2014 - Evaluating directional cost models in navigation.pdf:/home/phani/Zotero/storage/XL274VZB/Kruse et al. - 2014 - Evaluating directional cost models in navigation.pdf:application/pdf},
+}
+
+@inproceedings{gharbi_natural_2013,
+	address = {Tokyo, Japan},
+	title = {Natural interaction for object hand-over},
+	isbn = {978-1-4673-3101-2 978-1-4673-3099-2 978-1-4673-3100-5},
+	url = {http://ieeexplore.ieee.org/document/6483617/},
+	doi = {10.1109/HRI.2013.6483617},
+	language = {en},
+	urldate = {2022-09-07},
+	booktitle = {2013 8th {ACM}/{IEEE} {International} {Conference} on {Human}-{Robot} {Interaction} ({HRI})},
+	publisher = {IEEE},
+	author = {Gharbi, Mamoun and Lemaignan, Severin and Mainprice, Jim and Alami, Rachid},
+	month = mar,
+	year = {2013},
+	pages = {401--401},
+	file = {Gharbi et al. - 2013 - Natural interaction for object hand-over.pdf:/home/phani/Zotero/storage/D7VWMVMW/Gharbi et al. - 2013 - Natural interaction for object hand-over.pdf:application/pdf},
+}
+
+@inproceedings{mainprice_sharing_2012,
+	address = {Paris, France},
+	title = {Sharing effort in planning human-robot handover tasks},
+	isbn = {978-1-4673-4606-1 978-1-4673-4604-7 978-1-4673-4605-4},
+	url = {http://ieeexplore.ieee.org/document/6343844/},
+	doi = {10.1109/ROMAN.2012.6343844},
+	language = {en},
+	urldate = {2022-09-07},
+	booktitle = {2012 {IEEE} {RO}-{MAN}: {The} 21st {IEEE} {International} {Symposium} on {Robot} and {Human} {Interactive} {Communication}},
+	publisher = {IEEE},
+	author = {Mainprice, Jim and Gharbi, Mamoun and Simeon, Thierry and Alami, Rachid},
+	month = sep,
+	year = {2012},
+	pages = {764--770},
+	file = {Mainprice et al. - 2012 - Sharing effort in planning human-robot handover ta.pdf:/home/phani/Zotero/storage/QTZMREYN/Mainprice et al. - 2012 - Sharing effort in planning human-robot handover ta.pdf:application/pdf},
+}
+
+@article{dehais_physiological_2011,
+	title = {Physiological and subjective evaluation of a human–robot object hand-over task},
+	volume = {42},
+	issn = {00036870},
+	url = {https://linkinghub.elsevier.com/retrieve/pii/S0003687011000044},
+	doi = {10.1016/j.apergo.2010.12.005},
+	language = {en},
+	number = {6},
+	urldate = {2022-09-07},
+	journal = {Applied Ergonomics},
+	author = {Dehais, Frédéric and Sisbot, Emrah Akin and Alami, Rachid and Causse, Mickaël},
+	month = nov,
+	year = {2011},
+	pages = {785--791},
+	file = {Dehais et al. - 2011 - Physiological and subjective evaluation of a human.pdf:/home/phani/Zotero/storage/RCIH4GDP/Dehais et al. - 2011 - Physiological and subjective evaluation of a human.pdf:application/pdf},
+}
+
+@article{sisbot_synthesizing_2010,
+	title = {Synthesizing {Robot} {Motions} {Adapted} to {Human} {Presence}: {A} {Planning} and {Control} {Framework} for {Safe} and {Socially} {Acceptable} {Robot} {Motions}},
+	volume = {2},
+	issn = {1875-4791, 1875-4805},
+	shorttitle = {Synthesizing {Robot} {Motions} {Adapted} to {Human} {Presence}},
+	url = {http://link.springer.com/10.1007/s12369-010-0059-6},
+	doi = {10.1007/s12369-010-0059-6},
+	language = {en},
+	number = {3},
+	urldate = {2022-09-07},
+	journal = {Int J of Soc Robotics},
+	author = {Sisbot, Emrah Akin and Marin-Urias, Luis F. and Broquère, Xavier and Sidobre, Daniel and Alami, Rachid},
+	month = sep,
+	year = {2010},
+	pages = {329--343},
+	file = {Sisbot et al. - 2010 - Synthesizing Robot Motions Adapted to Human Presen.pdf:/home/phani/Zotero/storage/Z976B3D5/Sisbot et al. - 2010 - Synthesizing Robot Motions Adapted to Human Presen.pdf:application/pdf},
+}
+
+@inproceedings{mainprice2010planning,
+  title={Planning safe and legible hand-over motions for human-robot interaction},
+  author={Mainprice, Jim and Sisbot, Emrah Akin and Sim{\'e}on, Thierry and Alami, Rachid},
+  booktitle={IARP/IEEE-RAS/EURON workshop on technical challenges for dependable robots in human environments},
+  year={2010}
+}
+
+@inproceedings{pandey_framework_2010,
+	address = {Taipei},
+	title = {A framework towards a socially aware {Mobile} {Robot} motion in {Human}-{Centered} dynamic environment},
+	isbn = {978-1-4244-6674-0},
+	url = {http://ieeexplore.ieee.org/document/5649688/},
+	doi = {10.1109/IROS.2010.5649688},
+	language = {en},
+	urldate = {2022-09-07},
+	booktitle = {2010 {IEEE}/{RSJ} {International} {Conference} on {Intelligent} {Robots} and {Systems}},
+	publisher = {IEEE},
+	author = {Pandey, A K and Alami, R},
+	month = oct,
+	year = {2010},
+	pages = {5855--5860},
+	file = {Pandey and Alami - 2010 - A framework towards a socially aware Mobile Robot .pdf:/home/phani/Zotero/storage/ULV7MEU9/Pandey and Alami - 2010 - A framework towards a socially aware Mobile Robot .pdf:application/pdf},
+}
+
+@inproceedings{kruse2010exploiting,
+  title={Exploiting human cooperation in human-centered robot navigation},
+  author={Kruse, Thibault and Kirsch, Alexandra and Sisbot, E Akin and Alami, Rachid},
+  booktitle={19th International Symposium in Robot and Human Interactive Communication},
+  pages={192--197},
+  year={2010},
+  organization={IEEE}
+}
+
+@inproceedings{kruse2010dynamic,
+  title={Dynamic generation and execution of human aware navigation plans},
+  author={Kruse, Thibault and Kirsch, Alexandra and Sisbot, Emrah Akin and Alami, Rachid},
+  booktitle={The 9th International Conference on Autonomous Agents and Multiagent Systems (AAMAS)},
+  year={2010}
+}
+
+@inproceedings{pandey2009step,
+  title={A step towards a sociable robot guide which monitors and adapts to the person's activities},
+  author={Pandey, Amit Kumar and Alami, Rachid},
+  booktitle={2009 International Conference on Advanced Robotics},
+  pages={1--8},
+  year={2009},
+  organization={IEEE}
+}
+
+@inproceedings{pandey2009framework,
+  title={A framework for adapting social conventions in a mobile robot motion in human-centered environment},
+  author={Pandey, Amit Kumar and Alami, Rachid},
+  booktitle={2009 International Conference on Advanced Robotics},
+  pages={1--8},
+  year={2009},
+  organization={IEEE}
+}
+
+@inproceedings{koay2007exploratory,
+  title={Exploratory study of a robot approaching a person in the context of handing over an object.},
+  author={Koay, Kheng Lee and Sisbot, Emrah Akin and Syrdal, Dag Sverre and Walters, Mick L and Dautenhahn, Kerstin and Alami, Rachid},
+  booktitle={AAAI spring symposium: multidisciplinary collaboration for socially assistive robotics},
+  pages={18--24},
+  year={2007},
+  organization={Stanford, CA}
+}
+
+@inproceedings{sisbot_spatial_2007,
+	address = {San Diego, CA, USA},
+	title = {Spatial reasoning for human robot interaction},
+	isbn = {978-1-4244-0911-2 978-1-4244-0912-9},
+	url = {http://ieeexplore.ieee.org/document/4399486/},
+	doi = {10.1109/IROS.2007.4399486},
+	language = {en},
+	urldate = {2022-09-07},
+	booktitle = {2007 {IEEE}/{RSJ} {International} {Conference} on {Intelligent} {Robots} and {Systems}},
+	publisher = {IEEE},
+	author = {Sisbot, Emrah Akin and Marin, Luis F. and Alami, Rachid},
+	month = oct,
+	year = {2007},
+	pages = {2281--2287},
+	file = {Sisbot et al. - 2007 - Spatial reasoning for human robot interaction.pdf:/home/phani/Zotero/storage/2M5435Q8/Sisbot et al. - 2007 - Spatial reasoning for human robot interaction.pdf:application/pdf},
+}
+
+@article{sisbot_human_2007,
+	title = {A {Human} {Aware} {Mobile} {Robot} {Motion} {Planner}},
+	volume = {23},
+	issn = {1552-3098},
+	url = {http://ieeexplore.ieee.org/document/4339546/},
+	doi = {10.1109/TRO.2007.904911},
+	language = {en},
+	number = {5},
+	urldate = {2022-09-07},
+	journal = {IEEE Trans. Robot.},
+	author = {Sisbot, E.A. and Marin-Urias, L.F. and Alami, R. and Simeon, T.},
+	month = oct,
+	year = {2007},
+	pages = {874--883},
+	file = {Sisbot et al. - 2007 - A Human Aware Mobile Robot Motion Planner.pdf:/home/phani/Zotero/storage/YBFWKIYP/Sisbot et al. - 2007 - A Human Aware Mobile Robot Motion Planner.pdf:application/pdf},
+}
+
+@inproceedings{clodic_rackham_2006,
+	address = {Univ. of Hertfordshire, Hatfield, UK},
+	title = {Rackham: {An} {Interactive} {Robot}-{Guide}},
+	isbn = {978-1-4244-0564-0 978-1-4244-0565-7},
+	shorttitle = {Rackham},
+	url = {http://ieeexplore.ieee.org/document/4107857/},
+	doi = {10.1109/ROMAN.2006.314378},
+	language = {en},
+	urldate = {2022-09-07},
+	booktitle = {{ROMAN} 2006 - {The} 15th {IEEE} {International} {Symposium} on {Robot} and {Human} {Interactive} {Communication}},
+	publisher = {IEEE},
+	author = {Clodic, Aurelie and Fleury, Sara and Alami, Rachid and Chatila, Raja and Bailly, Gerard and Brethes, Ludovic and Cottret, Maxime and Danes, Patrick and Dollat, Xavier and Elisei, Frederic and Ferrane, Isabelle and Herrb, Matthieu and Infantes, Guillaume and Lemaire, Christian and Lerasle, Frederic and Manhes, Jerome and Marcoul, Patrick and Menezes, Paulo and Montreuil, Vincent},
+	month = sep,
+	year = {2006},
+	pages = {502--509},
+	file = {Clodic et al. - 2006 - Rackham An Interactive Robot-Guide.pdf:/home/phani/Zotero/storage/ZX588WWR/Clodic et al. - 2006 - Rackham An Interactive Robot-Guide.pdf:application/pdf},
+}
+
+@inproceedings{sisbot_mobile_2006,
+	address = {Beijing, China},
+	title = {A mobile robot that performs human acceptable motions},
+	isbn = {978-1-4244-0258-8 978-1-4244-0259-5},
+	url = {http://ieeexplore.ieee.org/document/4058640/},
+	doi = {10.1109/IROS.2006.282223},
+	language = {en},
+	urldate = {2022-09-07},
+	booktitle = {2006 {IEEE}/{RSJ} {International} {Conference} on {Intelligent} {Robots} and {Systems}},
+	publisher = {IEEE},
+	author = {Sisbot, Emrah and Marin, Luis and Alami, Rachid and Simeon, Thierry},
+	month = oct,
+	year = {2006},
+	pages = {1811--1816},
+	file = {Sisbot et al. - 2006 - A mobile robot that performs human acceptable moti.pdf:/home/phani/Zotero/storage/AF6BAWCV/Sisbot et al. - 2006 - A mobile robot that performs human acceptable moti.pdf:application/pdf},
+}
+
+@inproceedings{dautenhahn_how_2006,
+	address = {Salt Lake City, Utah, USA},
+	title = {How may {I} serve you?: a robot companion approaching a seated person in a helping context},
+	isbn = {978-1-59593-294-5},
+	shorttitle = {How may {I} serve you?},
+	url = {http://portal.acm.org/citation.cfm?doid=1121241.1121272},
+	doi = {10.1145/1121241.1121272},
+	language = {en},
+	urldate = {2022-09-07},
+	booktitle = {Proceeding of the 1st {ACM} {SIGCHI}/{SIGART} conference on {Human}-robot interaction  - {HRI} '06},
+	publisher = {ACM Press},
+	author = {Dautenhahn, K. and Walters, M. and Woods, S. and Koay, K. L. and Nehaniv, C. L. and Sisbot, A. and Alami, R. and Siméon, T.},
+	year = {2006},
+	pages = {172},
+	file = {Dautenhahn et al. - 2006 - How may I serve you a robot companion approachin.pdf:/home/phani/Zotero/storage/P3UBXUPF/Dautenhahn et al. - 2006 - How may I serve you a robot companion approachin.pdf:application/pdf},
+}
+
+@inproceedings{sisbot_navigation_2005,
+	address = {San Diego, Cali, USA},
+	title = {Navigation in the presence of humans},
+	isbn = {978-0-7803-9320-2},
+	url = {http://ieeexplore.ieee.org/document/1573565/},
+	doi = {10.1109/ICHR.2005.1573565},
+	language = {en},
+	urldate = {2022-09-07},
+	booktitle = {5th {IEEE}-{RAS} {International} {Conference} on {Humanoid} {Robots}, 2005.},
+	publisher = {IEEE},
+	author = {Sisbot, E.A. and Alami, R. and Simeon, T. and Dautenhahn, K. and Walters, M. and Woods, S.},
+	year = {2005},
+	pages = {181--188},
+	file = {Sisbot et al. - 2005 - Navigation in the presence of humans.pdf:/home/phani/Zotero/storage/F28HEEYY/Sisbot et al. - 2005 - Navigation in the presence of humans.pdf:application/pdf},
+}
+
+@inproceedings{alami_diligent_2000,
+	address = {Takamatsu, Japan},
+	title = {Diligent: towards a human-friendly navigation system},
+	volume = {1},
+	isbn = {978-0-7803-6348-9},
+	shorttitle = {Diligent},
+	url = {http://ieeexplore.ieee.org/document/894576/},
+	doi = {10.1109/IROS.2000.894576},
+	urldate = {2022-09-07},
+	booktitle = {Proceedings. 2000 {IEEE}/{RSJ} {International} {Conference} on {Intelligent} {Robots} and {Systems} ({IROS} 2000) ({Cat}. {No}.{00CH37113})},
+	publisher = {IEEE},
+	author = {Alami, R. and Belousov, I. and Fleury, S. and Herrb, M. and Ingrand, F. and Minguez, J. and Morisset, B.},
+	year = {2000},
+	pages = {21--26},
+	file = {Alami et al. - 2000 - Diligent towards a human-friendly navigation syst.pdf:/home/phani/Zotero/storage/2VJPLD7I/Alami et al. - 2000 - Diligent towards a human-friendly navigation syst.pdf:application/pdf},
+}
+
+@inproceedings{truc2022khaos,
+  title={KHAOS: a Kinematic Human Aware Optimization-based System for Reactive Planning of Flying-Coworker},
+  author={Truc, J{\'e}r{\^o}me and Singamaneni, Phani-Teja and Sidobre, Daniel and Ivaldi, Serena and Alami, Rachid},
+  booktitle={ICRA 2022},
+  year={2022}
+}
+
+%%%%%%%%%%%%Recent Works%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%Crowd%%%%%%%%%%%%%%%%%
+@inproceedings{narayanan2018transient,
+  title={A transient-goal driven communication-aware navigation strategy for large human-populated environments},
+  author={Narayanan, Vishnu K and Miyashita, Takahiro and Horikawa, Yukiko and Hagita, Norihiro},
+  booktitle={2018 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+  pages={1--9},
+  year={2018},
+  organization={IEEE}
+}
+
+@inproceedings{narayanan2018formalizing,
+  title={Formalizing a transient-goal driven approach for pedestrian-aware robot navigation},
+  author={Narayanan, Vishnu K and Miyashita, Takahiro and Hagita, Norihiro},
+  booktitle={2018 27th IEEE International Symposium on Robot and Human Interactive Communication (RO-MAN)},
+  pages={862--867},
+  year={2018},
+  organization={IEEE}
+}
+
+@inproceedings{chen2019crowd,
+  title={Crowd-robot interaction: Crowd-aware robot navigation with attention-based deep reinforcement learning},
+  author={Chen, Changan and Liu, Yuejiang and Kreiss, Sven and Alahi, Alexandre},
+  booktitle={2019 International Conference on Robotics and Automation (ICRA)},
+  pages={6015--6022},
+  year={2019},
+  organization={IEEE}
+}
+
+@inproceedings{tsoi2020sean,
+  title={Sean: Social environment for autonomous navigation},
+  author={Tsoi, Nathan and Hussein, Mohamed and Espinoza, Jeacy and Ruiz, Xavier and V{\'a}zquez, Marynel},
+  booktitle={Proceedings of the 8th International Conference on Human-Agent Interaction},
+  pages={281--283},
+  year={2020}
+}
+
+@article{tsoi2022sean,
+  title={Sean 2.0: Formalizing and generating social situations for robot navigation},
+  author={Tsoi, Nathan and Xiang, Alec and Yu, Peter and Sohn, Samuel S and Schwartz, Greg and Ramesh, Subashri and Hussein, Mohamed and Gupta, Anjali W and Kapadia, Mubbasir and V{\'a}zquez, Marynel},
+  journal={IEEE Robotics and Automation Letters},
+  year={2022},
+  publisher={IEEE}
+}
+
+@inproceedings{mavrogiannis2019effects,
+  title={Effects of distinct robot navigation strategies on human behavior in a crowded environment},
+  author={Mavrogiannis, Christoforos and Hutchinson, Alena M and Macdonald, John and Alves-Oliveira, Patr{\'\i}cia and Knepper, Ross A},
+  booktitle={2019 14th ACM/IEEE International Conference on Human-Robot Interaction (HRI)},
+  pages={421--430},
+  year={2019},
+  organization={IEEE}
+}
+
+@article{sathyamoorthy2020frozone,
+  title={Frozone: Freezing-free, pedestrian-friendly navigation in human crowds},
+  author={Sathyamoorthy, Adarsh Jagan and Patel, Utsav and Guan, Tianrui and Manocha, Dinesh},
+  journal={IEEE Robotics and Automation Letters},
+  volume={5},
+  number={3},
+  pages={4352--4359},
+  year={2020},
+  publisher={IEEE}
+}
+
+@inproceedings{dugas2020ian,
+  title={Ian: Multi-behavior navigation planning for robots in real, crowded environments},
+  author={Dugas, Daniel and Nieto, Juan and Siegwart, Roland and Chung, Jen Jen},
+  booktitle={2020 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+  pages={11368--11375},
+  year={2020},
+  organization={IEEE}
+}
+
+@inproceedings{vasquez2014inverse,
+  title={Inverse reinforcement learning algorithms and features for robot navigation in crowds: an experimental comparison},
+  author={Vasquez, Dizan and Okal, Billy and Arras, Kai O},
+  booktitle={2014 IEEE/RSJ International Conference on Intelligent Robots and Systems},
+  pages={1341--1346},
+  year={2014},
+  organization={IEEE}
+}
+
+@inproceedings{nishimura2020l2b,
+  title={L2B: Learning to balance the safety-efficiency trade-off in interactive crowd-aware robot navigation},
+  author={Nishimura, Mai and Yonetani, Ryo},
+  booktitle={2020 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+  pages={11004--11010},
+  year={2020},
+  organization={IEEE}
+}
+
+@inproceedings{patompak2016mobile,
+  title={Mobile robot navigation for human-robot social interaction},
+  author={Patompak, Pakpoom and Jeong, Sungmoon and Chong, Nak Young and Nilkhamhang, Itthisek},
+  booktitle={2016 16th International Conference on Control, Automation and Systems (ICCAS)},
+  pages={1298--1303},
+  year={2016},
+  organization={IEEE}
+}
+
+@inproceedings{chen2020relational,
+  title={Relational graph learning for crowd navigation},
+  author={Chen, Changan and Hu, Sha and Nikdel, Payam and Mori, Greg and Savva, Manolis},
+  booktitle={2020 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+  pages={10007--10013},
+  year={2020},
+  organization={IEEE}
+}
+
+@inproceedings{ferrer2013robot,
+  title={Robot companion: A social-force based approach with human awareness-navigation in crowded environments},
+  author={Ferrer, Gonzalo and Garrell, Anais and Sanfeliu, Alberto},
+  booktitle={2013 IEEE/RSJ International Conference on Intelligent Robots and Systems},
+  pages={1688--1694},
+  year={2013},
+  organization={IEEE}
+}
+
+@inproceedings{liu2020robot,
+  title={Robot navigation in crowded environments using deep reinforcement learning},
+  author={Liu, Lucia and Dugas, Daniel and Cesari, Gianluca and Siegwart, Roland and Dub{\'e}, Renaud},
+  booktitle={2020 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+  pages={5671--5677},
+  year={2020},
+  organization={IEEE}
+}
+
+@article{trautman2015robot,
+  title={Robot navigation in dense human crowds: Statistical models and experimental studies of human--robot cooperation},
+  author={Trautman, Pete and Ma, Jeremy and Murray, Richard M and Krause, Andreas},
+  journal={The International Journal of Robotics Research},
+  volume={34},
+  number={3},
+  pages={335--356},
+  year={2015},
+  publisher={SAGE Publications Sage UK: London, England}
+}
+
+@inproceedings{chen2017socially,
+  title={Socially aware motion planning with deep reinforcement learning},
+  author={Chen, Yu Fan and Everett, Michael and Liu, Miao and How, Jonathan P},
+  booktitle={2017 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+  pages={1343--1350},
+  year={2017},
+  organization={IEEE}
+}
+
+@inproceedings{luber2012socially,
+  title={Socially-aware robot navigation: A learning approach},
+  author={Luber, Matthias and Spinello, Luciano and Silva, Jens and Arras, Kai O},
+  booktitle={2012 IEEE/RSJ International Conference on Intelligent Robots and Systems},
+  pages={902--907},
+  year={2012},
+  organization={IEEE}
+}
+
+@inproceedings{triebel2016spencer,
+  title={Spencer: A socially aware service robot for passenger guidance and help in busy airports},
+  author={Triebel, Rudolph and Arras, Kai and Alami, Rachid and Beyer, Lucas and Breuers, Stefan and Chatila, Raja and Chetouani, Mohamed and Cremers, Daniel and Evers, Vanessa and Fiore, Michelangelo and others},
+  booktitle={Field and service robotics},
+  pages={607--622},
+  year={2016},
+  organization={Springer}
+}
+
+@inproceedings{xie2021towards,
+  title={Towards Safe Navigation Through Crowded Dynamic Environments},
+  author={Xie, Zhanteng and Xin, Pujie and Dames, Philip},
+  booktitle={2021 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+  pages={4934--4940},
+  year={2021},
+  organization={IEEE}
+}
+
+@article{karnan2022socially,
+  title={Socially Compliant Navigation Dataset (SCAND): A Large-Scale Dataset of Demonstrations for Social Navigation},
+  author={Karnan, Haresh and Nair, Anirudh and Xiao, Xuesu and Warnell, Garrett and Pirk, S{\"o}ren and Toshev, Alexander and Hart, Justin and Biswas, Joydeep and Stone, Peter},
+  journal={arXiv preprint arXiv:2203.15041},
+  year={2022}
+}
+
+@phdthesis{de2021deepsocnav,
+  title={DeepSocNav: Social navigation by imitating human behaviors},
+  author={de Vicente, Juan Pablo},
+  year={2021},
+  school={Pontificia Universidad Catolica de Chile (Chile)}
+}
+
+@article{salvini2022safety,
+  title={Safety Concerns Emerging from Robots Navigating in Crowded Pedestrian Areas},
+  author={Salvini, Pericle and Paez-Granados, Diego and Billard, Aude},
+  journal={International Journal of Social Robotics},
+  volume={14},
+  number={2},
+  pages={441--462},
+  year={2022},
+  publisher={Springer}
+}
+
+️@inproceedings{perez2014robot,
+  title={Robot local navigation with learned social cost functions},
+  author={P{\'e}rez-Higueras, No{\'e} and Ram{\'o}n-Vigo, Rafael and Caballero, Fernando and Merino, Luis},
+  booktitle={2014 11th International Conference on Informatics in Control, Automation and Robotics (ICINCO)},
+  volume={2},
+  pages={618--625},
+  year={2014},
+  organization={IEEE}
+}
+
+️@article{idmfrog,
+  title={FROG-Fun Robotic Outdoor Guide},
+  author={IDM, IDMIND-ENGENHARIA DE SISTEMAS LDA},
+  year={2011}
+  
+}
+
+️@inproceedings{long2018towards,
+  title={Towards optimally decentralized multi-robot collision avoidance via deep reinforcement learning},
+  author={Long, Pinxin and Fan, Tingxiang and Liao, Xinyi and Liu, Wenxi and Zhang, Hao and Pan, Jia},
+  booktitle={2018 IEEE International Conference on Robotics and Automation (ICRA)},
+  pages={6252--6259},
+  year={2018},
+  organization={IEEE}
+}
+
+@article{leibo2017multi,
+  title={Multi-agent reinforcement learning in sequential social dilemmas},
+  author={Leibo, Joel Z and Zambaldi, Vinicius and Lanctot, Marc and Marecki, Janusz and Graepel, Thore},
+  journal={arXiv preprint arXiv:1702.03037},
+  year={2017}
+}
+
+@article{ferrer2017robot,
+  title={Robot social-aware navigation framework to accompany people walking side-by-side},
+  author={Ferrer, Gonzalo and Zulueta, Ana{\'\i}s Garrell and Cotarelo, Fernando Herrero and Sanfeliu, Alberto},
+  journal={Autonomous robots},
+  volume={41},
+  number={4},
+  pages={775--793},
+  year={2017},
+  publisher={Springer}
+}
+%%%%%%%%%%Service robots%%%%%%%%%%%%% %%%%%%%%%%%%%% Indoor %%%%%%%%%%%%%
+
+@inproceedings{skrzypczyk2021game,
+  title={Game Against Nature Based Control of an Intelligent Wheelchair with Adaptation to Pedestrians' Behaviour},
+  author={Skrzypczyk, Krzysztof},
+  booktitle={2021 25th International Conference on Methods and Models in Automation and Robotics (MMAR)},
+  pages={285--290},
+  year={2021},
+  organization={IEEE}
+}
+
+@inproceedings{vasquez2013human,
+  title={Human aware navigation for assistive robotics},
+  author={Vasquez, Dizan and Stein, Proc{\'o}pio and Rios-Martinez, Jorge and Escobedo, Arturo and Spalanzani, Anne and Laugier, Christian},
+  booktitle={experimental robotics},
+  pages={449--462},
+  year={2013},
+  organization={Springer}
+}
+
+@article{morales2017social,
+  title={Social robotic wheelchair centered on passenger and pedestrian comfort},
+  author={Morales, Yoichi and Miyashita, Takahiro and Hagita, Norihiro},
+  journal={Robotics and Autonomous Systems},
+  volume={87},
+  pages={355--362},
+  year={2017},
+  publisher={Elsevier}
+}
+
+@article{paez2022unfreezing,
+  title={Unfreezing Social Navigation: Dynamical Systems based Compliance for Contact Control in Robot Navigation},
+  author={Paez-Granados, Diego and Gupta, Vaibhav and Billard, Aude},
+  journal={arXiv preprint arXiv:2203.01053},
+  year={2022}
+}
+
+@article{pasteau2016visual,
+  title={A visual servoing approach for autonomous corridor following and doorway passing in a wheelchair},
+  author={Pasteau, Fran{\c{c}}ois and Narayanan, Vishnu K and Babel, Marie and Chaumette, Fran{\c{c}}ois},
+  journal={Robotics and Autonomous Systems},
+  volume={75},
+  pages={28--40},
+  year={2016},
+  publisher={Elsevier}
+}
+
+@inproceedings{narayanan2016semi,
+  title={A semi-autonomous framework for human-aware and user intention driven wheelchair mobility assistance},
+  author={Narayanan, Vishnu K and Spalanzani, Anne and Babel, Marie},
+  booktitle={2016 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+  pages={4700--4707},
+  year={2016},
+  organization={IEEE}
+}
+
+@inproceedings{pasteau2013corridor,
+  title={Corridor following wheelchair by visual servoing},
+  author={Pasteau, Fran{\c{c}}ois and Babel, Marie and Sekkal, Rafiq},
+  booktitle={2013 IEEE/RSJ International Conference on Intelligent Robots and Systems},
+  pages={590--595},
+  year={2013},
+  organization={IEEE}
+}
+
+@inproceedings{pasteau2014vision,
+  title={Vision-based assistance for wheelchair navigation along corridors},
+  author={Pasteau, Fran{\c{c}}ois and Krupa, Alexandre and Babel, Marie},
+  booktitle={2014 IEEE International Conference on Robotics and Automation (ICRA)},
+  pages={4430--4435},
+  year={2014},
+  organization={IEEE}
+}
+
+
+@inproceedings{rios2012intention,
+  title={Intention driven human aware navigation for assisted mobility},
+  author={Rios-Martinez, Jorge and Escobedo, Arturo and Spalanzani, Anne and Laugier, Christian},
+  booktitle={Workshop on Assistance and Service robotics in a human environment at IROS},
+  year={2012}
+}
+
+%%%% just indoor now%%%%%%
+
+@article{truong2017approach,
+  title={“To approach humans?”: A unified framework for approaching pose prediction and socially aware robot navigation},
+  author={Truong, Xuan-Tung and Ngo, Trung-Dung},
+  journal={IEEE Transactions on Cognitive and Developmental Systems},
+  volume={10},
+  number={3},
+  pages={557--572},
+  year={2017},
+  publisher={IEEE}
+}
+
+@inproceedings{vega2018flexible,
+  title={A flexible and adaptive spatial density model for context-aware social mapping: towards a more realistic social navigation},
+  author={Vega-Magro, Araceli and Manso, Luis J and Bustos, Pablo and N{\'u}nez, Pedro},
+  booktitle={2018 15th International Conference on Control, Automation, Robotics and Vision (ICARCV)},
+  pages={1727--1732},
+  year={2018},
+  organization={IEEE}
+}
+
+@inproceedings{vega2017new,
+  title={A new strategy based on an adaptive spatial density function for social robot navigation in human-populated environments},
+  author={Vega, Araceli and Manso, LJ and Macharet, Douglas G and Bustos, Pablo and N{\'u}nez, Pedro},
+  booktitle={Proceedings of REACTS workshop at the International Conference on Computer Analysis and Patterns},
+  year={2017}
+}
+
+@article{araujo2015architecture,
+  title={An architecture for navigation of service robots in human-populated office-like environments},
+  author={Araujo, Arthur R and Caminhas, Daniel D and Pereira, Guilherme AS},
+  journal={IFAC-PapersOnLine},
+  volume={48},
+  number={19},
+  pages={189--194},
+  year={2015},
+  publisher={Elsevier}
+}
+
+@inproceedings{mizuchi2017cloud,
+  title={Cloud-based multimodal human-robot interaction simulator utilizing ros and unity frameworks},
+  author={Mizuchi, Yoshiaki and Inamura, Tetsunari},
+  booktitle={2017 IEEE/SICE International Symposium on System Integration (SII)},
+  pages={948--955},
+  year={2017},
+  organization={IEEE}
+}
+
+
+@inproceedings{yeh2017exploring,
+  title={Exploring proxemics for human-drone interaction},
+  author={Yeh, Alexander and Ratsamee, Photchara and Kiyokawa, Kiyoshi and Uranishi, Yuki and Mashita, Tomohiro and Takemura, Haruo and Fjeld, Morten and Obaid, Mohammad},
+  booktitle={Proceedings of the 5th international conference on human agent interaction},
+  pages={81--88},
+  year={2017}
+}
+
+@inproceedings{manso2020graph,
+  title={Graph neural networks for human-aware social navigation},
+  author={Manso, Luis J and Jorvekar, Ronit R and Faria, Diego R and Bustos, Pablo and Bachiller, Pilar},
+  booktitle={Workshop of Physical Agents},
+  pages={167--179},
+  year={2020},
+  organization={Springer}
+}
+
+@article{becerra2020human,
+  title={Human perception-optimized planning for comfortable vr-based telepresence},
+  author={Becerra, Israel and Suomalainen, Markku and Lozano, Eliezer and Mimnaugh, Katherine J and Murrieta-Cid, Rafael and LaValle, Steven M},
+  journal={IEEE Robotics and Automation Letters},
+  volume={5},
+  number={4},
+  pages={6489--6496},
+  year={2020},
+  publisher={IEEE}
+}
+
+@inproceedings{bruckschen2020human,
+  title={Human-aware robot navigation by long-term movement prediction},
+  author={Bruckschen, Lilli and Bungert, Kira and Dengler, Nils and Bennewitz, Maren},
+  booktitle={2020 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+  pages={11032--11037},
+  year={2020},
+  organization={IEEE}
+}
+
+@inproceedings{kenk2019human,
+  title={Human-aware Robot Navigation in Logistics Warehouses.},
+  author={Kenk, Mourad A and Hassaballah, M and Breth{\'e}, Jean-Fran{\c{c}}ois},
+  booktitle={ICINCO (2)},
+  pages={371--378},
+  year={2019}
+}
+
+@inproceedings{fahad2020learning,
+  title={Learning Human Navigation Behavior Using Measured Human Trajectories in Crowded Spaces},
+  author={Fahad, Muhammad and Yang, Guang and Guo, Yi},
+  booktitle={2020 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+  pages={11154--11160},
+  year={2020},
+  organization={IEEE}
+}
+
+@inproceedings{perez2018learning,
+  title={Learning human-aware path planning with fully convolutional networks},
+  author={P{\'e}rez-Higueras, No{\'e} and Caballero, Fernando and Merino, Luis},
+  booktitle={2018 IEEE international conference on robotics and automation (ICRA)},
+  pages={5897--5902},
+  year={2018},
+  organization={IEEE}
+}
+
+@inproceedings{kollmitz2020learning,
+  title={Learning human-aware robot navigation from physical interaction via inverse reinforcement learning},
+  author={Kollmitz, Marina and Koller, Torsten and Boedecker, Joschka and Burgard, Wolfram},
+  booktitle={2020 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+  pages={11025--11031},
+  year={2020},
+  organization={IEEE}
+}
+
+@article{qiu2022learning,
+  title={Learning to Socially Navigate in Pedestrian-rich Environments with Interaction Capacity},
+  author={Qiu, Quecheng and Yao, Shunyi and Wang, Jing and Ma, Jun and Chen, Guangda and Ji, Jianmin},
+  journal={arXiv preprint arXiv:2203.16154},
+  year={2022}
+}
+
+@inproceedings{fernandez2019making,
+  title={Making the case for human-aware navigation in warehouses},
+  author={Fernandez Carmona, Manuel and Parekh, Tejas and Hanheide, Marc},
+  booktitle={Annual Conference Towards Autonomous Robotic Systems},
+  pages={449--453},
+  year={2019},
+  organization={Springer}
+}
+
+@inproceedings{vasconcelos2015socially,
+  title={Socially acceptable robot navigation in the presence of humans},
+  author={Vasconcelos, Phelipe AA and Pereira, Henrique NS and Macharet, Douglas G and Nascimento, Erickson R},
+  booktitle={2015 12th Latin American Robotics Symposium and 2015 3rd Brazilian Symposium on Robotics (LARS-SBR)},
+  pages={222--227},
+  year={2015},
+  organization={IEEE}
+}
+
+@inproceedings{truong2016towards,
+  title={Towards culturally aware robot navigation},
+  author={Truong, Xuan Tung and Ou, Yong Sheng and Ngo, Trung-Dung},
+  booktitle={2016 IEEE International Conference on Real-time Computing and Robotics (RCAR)},
+  pages={63--69},
+  year={2016},
+  organization={IEEE}
+}
+
+@inproceedings{dondrup2016qualitative,
+  title={Qualitative constraints for human-aware robot navigation using velocity costmaps},
+  author={Dondrup, Christian and Hanheide, Marc},
+  booktitle={2016 25th IEEE International Symposium on Robot and Human Interactive Communication (RO-MAN)},
+  pages={586--592},
+  year={2016},
+  organization={IEEE}
+}
+@article{truong2017socially,
+  title={Socially aware robot navigation system in human interactive environments},
+  author={Truong, Xuan-Tung and Yoong, Voo Nyuk and Ngo, Trung-Dung},
+  journal={Intelligent Service Robotics},
+  volume={10},
+  number={4},
+  pages={287--295},
+  year={2017},
+  publisher={Springer}
+}
+
+@inproceedings{mavrogiannis2018social,
+  title={Social momentum: A framework for legible navigation in dynamic multi-agent environments},
+  author={Mavrogiannis, Christoforos I and Thomason, Wil B and Knepper, Ross A},
+  booktitle={Proceedings of the 2018 ACM/IEEE International Conference on Human-Robot Interaction},
+  pages={361--369},
+  year={2018}
+}
+
+@article{banisetty2018towards,
+  title={Towards a unified planner for socially-aware navigation},
+  author={Banisetty, Santosh Balajee and Feil-Seifer, David},
+  journal={arXiv preprint arXiv:1810.00966},
+  year={2018}
+}
+
+@inproceedings{majd2021safe,
+  title={Safe navigation in human occupied environments using sampling and control barrier functions},
+  author={Majd, Keyvan and Yaghoubi, Shakiba and Yamaguchi, Tomoya and Hoxha, Bardh and Prokhorov, Danil and Fainekos, Georgios},
+  booktitle={2021 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+  pages={5794--5800},
+  year={2021},
+  organization={IEEE}
+}
+
+@inproceedings{sorrentino2021modeling,
+  title={Modeling human-like robot personalities as a key to foster socially aware navigation},
+  author={Sorrentino, Alessandra and Khalid, O and Coviello, Luigi and Cavallo, Filippo and Fiorini, Laura},
+  booktitle={2021 30th IEEE International Conference on Robot \& Human Interactive Communication (RO-MAN)},
+  pages={95--101},
+  year={2021},
+  organization={IEEE}
+}
+
+@inproceedings{cunningham2015mpdm,
+  title={MPDM: Multipolicy decision-making in dynamic, uncertain environments for autonomous driving},
+  author={Cunningham, Alexander G and Galceran, Enric and Eustice, Ryan M and Olson, Edwin},
+  booktitle={2015 IEEE International Conference on Robotics and Automation (ICRA)},
+  pages={1670--1677},
+  year={2015},
+  organization={IEEE}
+}
+
+@article{boldrer2022multi,
+  title={Multi-agent navigation in human-shared environments: A safe and socially-aware approach},
+  author={Boldrer, Manuel and Antonucci, Alessandro and Bevilacqua, Paolo and Palopoli, Luigi and Fontanelli, Daniele},
+  journal={Robotics and Autonomous Systems},
+  volume={149},
+  pages={103979},
+  year={2022},
+  publisher={Elsevier}
+}
+
+@inproceedings{shin2020optimization,
+  title={Optimization-based path planning for person following using following field},
+  author={Shin, Heechan and Yoon, Sung-Eui},
+  booktitle={2020 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+  pages={11352--11359},
+  year={2020},
+  organization={IEEE}
+}
+
+%%%%%%%%%%%%%%Similar to ours %%%%%%%%%%%%%
+%% Indoor
+@inproceedings{buchegger2018safe,
+  title={Safe and Efficient Autonomous Navigation in the Presence of Humans at Control Level},
+  author={Buchegger, Klaus and Todoran, George and Bader, Markus},
+  booktitle={International Conference on Robotics in Alpe-Adria Danube Region},
+  pages={504--511},
+  year={2018},
+  organization={Springer}
+}
+
+
+%%AV
+@inproceedings{predhumeau2021agent,
+  title={An agent-based model to predict pedestrians trajectories with an autonomous vehicle in shared spaces},
+  author={Pr{\'e}dhumeau, Manon and Mancheva, Lyuba and Dugdale, Julie and Spalanzani, Anne},
+  booktitle={AAMAS 2021-20th International Conference on Autonomous Agents and Multiagent Systems},
+  pages={1--9},
+  year={2021}
+}
+%%%%%%%%%%%%%%Similar to ours %%%%%%%%%%%%%
+
+%%%%%%%%%%%% AVs%%%%%%%%%%%
+@inproceedings{hsu2020pomdp,
+  title={A POMDP Treatment of Vehicle-Pedestrian Interaction: Implicit Coordination via Uncertainty-Aware Planning},
+  author={Hsu, Ya-Chuan and Gopalswamy, Swaminathan and Saripalli, Srikanth and Shell, Dylan A},
+  booktitle={2020 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+  pages={1984--1991},
+  year={2020},
+  organization={IEEE}
+}
+
+@inproceedings{evens2022learning,
+  title={Learning MPC for Interaction-Aware Autonomous Driving: A Game-Theoretic Approach},
+  author={Evens, Brecht and Schuurmans, Mathijs and Patrinos, Panagiotis},
+  booktitle={2022 European Control Conference (ECC)},
+  pages={34--39},
+  year={2022},
+  organization={IEEE}
+}
+
+@inproceedings{johnson2018socially,
+  title={Socially-aware navigation using topological maps and social norm learning},
+  author={Johnson, Collin and Kuipers, Benjamin},
+  booktitle={Proceedings of the 2018 AAAI/ACM Conference on AI, Ethics, and Society},
+  pages={151--157},
+  year={2018}
+}
+
+@article{valiente2022robustness,
+  title={Robustness and Adaptability of Reinforcement Learning-Based Cooperative Autonomous Driving in Mixed-Autonomy Traffic},
+  author={Valiente, Rodolfo and Toghi, Behrad and Pedarsani, Ramtin and Fallah, Yaser P},
+  journal={IEEE Open Journal of Intelligent Transportation Systems},
+  volume={3},
+  pages={397--410},
+  year={2022},
+  publisher={IEEE}
+}
+
+@article{toghi2021social,
+  title={Social coordination and altruism in autonomous driving},
+  author={Toghi, Behrad and Valiente, Rodolfo and Sadigh, Dorsa and Pedarsani, Ramtin and Fallah, Yaser P},
+  journal={arXiv preprint arXiv:2107.00200},
+  year={2021}
+}
+
+@inproceedings{kabtoul2020proactive,
+  title={Proactive longitudinal velocity control in pedestrians-vehicle interaction scenarios},
+  author={Kabtoul, Maria and Martinet, Philippe and Spalanzani, Anne},
+  booktitle={2020 IEEE 23rd International Conference on Intelligent Transportation Systems (ITSC)},
+  pages={1--6},
+  year={2020},
+  organization={IEEE}
+}
+
+@inproceedings{kabtoul2020towards,
+  title={Towards proactive navigation: A pedestrian-vehicle cooperation based behavioral model},
+  author={Kabtoul, Maria and Spalanzani, Anne and Martinet, Philippe},
+  booktitle={2020 IEEE International Conference on Robotics and Automation (ICRA)},
+  pages={6958--6964},
+  year={2020},
+  organization={IEEE}
+}
+
+@article{luo2018porca,
+  title={Porca: Modeling and planning for autonomous driving among many pedestrians},
+  author={Luo, Yuanfu and Cai, Panpan and Bera, Aniket and Hsu, David and Lee, Wee Sun and Manocha, Dinesh},
+  journal={IEEE Robotics and Automation Letters},
+  volume={3},
+  number={4},
+  pages={3418--3425},
+  year={2018},
+  publisher={IEEE}
+}
+
+%%%%%%%%%%% Drones %%%%%%%%%
+@inproceedings{garrell2017aerial,
+  title={Aerial social force model: A new framework to accompany people using autonomous flying robots},
+  author={Garrell, Anais and Garza-Elizondo, Luis and Villamizar, Michael and Herrero, Fernando and Sanfeliu, Alberto},
+  booktitle={2017 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+  pages={7011--7017},
+  year={2017},
+  organization={IEEE}
+}
+
+@mastersthesis{garza2016social,
+  title={Social-aware drone navigation using social force model},
+  author={Garza Elizondo, Luis Alberto},
+  year={2016},
+  school={Universitat Polit{\`e}cnica de Catalunya}
+}
+
+@article{yoon2019socially,
+  title={Socially aware path planning for a flying robot in close proximity of humans},
+  author={Yoon, Hyung-Jin and Widdowson, Christopher and Marinho, Thiago and Wang, Ranxiao Frances and Hovakimyan, Naira},
+  journal={ACM Transactions on Cyber-Physical Systems},
+  volume={3},
+  number={4},
+  pages={1--24},
+  year={2019},
+  publisher={ACM New York, NY, USA}
+}
+
+@inproceedings{garrell2019teaching,
+  title={Teaching a drone to accompany a person from demonstrations using non-linear asfm},
+  author={Garrell, Ana{\'\i}s and Coll, Carles and Alqu{\'e}zar, Ren{\'e} and Sanfeliu, Alberto},
+  booktitle={2019 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+  pages={1985--1991},
+  year={2019},
+  organization={IEEE}
+}
+
+%%%%%%%%%%%%%% Studies %%%%%%%%%%%%%%%
+
+
+@inproceedings{bevins2021aerial,
+  title={Aerial flight paths for communication: How participants perceive and intend to respond to drone movements},
+  author={Bevins, Alisha and Duncan, Brittany A},
+  booktitle={Proceedings of the 2021 ACM/IEEE International Conference on Human-Robot Interaction},
+  pages={16--23},
+  year={2021}
+}
+
+@article{mead2017autonomous,
+  title={Autonomous human--robot proxemics: socially aware navigation based on interaction potential},
+  author={Mead, Ross and Matari{\'c}, Maja J},
+  journal={Autonomous Robots},
+  volume={41},
+  number={5},
+  pages={1189--1201},
+  year={2017},
+  publisher={Springer}
+}
+
+@inproceedings{lichtenthaler2012increasing,
+  title={Increasing perceived value between human and robots—measuring legibility in human aware navigation},
+  author={Lichtenth{\"a}ler, Christina and Lorenz, Tamara and Karg, Michael and Kirsch, Alexandra},
+  booktitle={2012 IEEE workshop on advanced robotics and its social impacts (ARSO)},
+  pages={89--94},
+  year={2012},
+  organization={IEEE}
+}
+
+@inproceedings{palinko2020intention,
+  title={Intention Indication for Human Aware Robot Navigation.},
+  author={Palinko, Oskar and Ram{\'\i}rez, Eduardo Ruiz and Juel, William Kristian and Kr{\"u}ger, Norbert and Bodenhagen, Leon},
+  booktitle={VISIGRAPP (2: HUCAPP)},
+  pages={64--74},
+  year={2020}
+}
+
+@inproceedings{jensen2018knowing,
+  title={Knowing you, seeing me: Investigating user preferences in drone-human acknowledgement},
+  author={Jensen, Walther and Hansen, Simon and Knoche, Hendrik},
+  booktitle={Proceedings of the 2018 CHI Conference on Human Factors in Computing Systems},
+  pages={1--12},
+  year={2018}
+}
+
+@inproceedings{hetherington2021mobile,
+  title={Mobile Robot Yielding Cues for Human-Robot Spatial Interaction},
+  author={Hetherington, Nicholas J and Lee, Ryan and Haase, Marlene and Croft, Elizabeth A and Van der Loos, HF Machiel},
+  booktitle={2021 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+  pages={3028--3033},
+  year={2021},
+  organization={IEEE}
+}
+
+
+@inproceedings{bevins2021aerial,
+  title={Aerial flight paths for communication: How participants perceive and intend to respond to drone movements},
+  author={Bevins, Alisha and Duncan, Brittany A},
+  booktitle={Proceedings of the 2021 ACM/IEEE International Conference on Human-Robot Interaction},
+  pages={16--23},
+  year={2021}
+}
+
+@inproceedings{senft2020would,
+  title={Would You Mind Me if I Pass by You?: Socially-Appropriate Behaviour for an Omni-based Social Robot in Narrow Environment},
+  author={Senft, Emmanuel and Satake, Satoru and Kanda, Takayuki},
+  booktitle={2020 15th ACM/IEEE International Conference on Human-Robot Interaction (HRI)},
+  pages={539--547},
+  year={2020},
+  organization={IEEE}
+}
+
+@inproceedings{hart2020using,
+  title={Using human-inspired signals to disambiguate navigational intentions},
+  author={Hart, Justin and Mirsky, Reuth and Xiao, Xuesu and Tejeda, Stone and Mahajan, Bonny and Goo, Jamin and Baldauf, Kathryn and Owen, Sydney and Stone, Peter},
+  booktitle={International Conference on Social Robotics},
+  pages={320--331},
+  year={2020},
+  organization={Springer}
+}
+
+@inproceedings{dey2017pedestrian,
+  title={Pedestrian interaction with vehicles: roles of explicit and implicit communication},
+  author={Dey, Debargha and Terken, Jacques},
+  booktitle={Proceedings of the 9th international conference on automotive user interfaces and interactive vehicular applications},
+  pages={109--113},
+  year={2017}
+}
+
+@inproceedings{lichtenthaler2013social,
+  title={Social navigation-identifying robot navigation patterns in a path crossing scenario},
+  author={Lichtenth{\"a}ler, Christina and Peters, Annika and Griffiths, Sascha and Kirsch, Alexandra},
+  booktitle={International Conference on Social Robotics},
+  pages={84--93},
+  year={2013},
+  organization={Springer}
+}
+@inproceedings{duncan2013comfortable,
+  title={Comfortable approach distance with small unmanned aerial vehicles},
+  author={Duncan, Brittany A and Murphy, Robin R},
+  booktitle={2013 IEEE RO-MAN},
+  pages={786--792},
+  year={2013},
+  organization={IEEE}
+}
+
+@inproceedings{cauchard2015drone,
+  title={Drone \& me: an exploration into natural human-drone interaction},
+  author={Cauchard, Jessica R and E, Jane L and Zhai, Kevin Y and Landay, James A},
+  booktitle={Proceedings of the 2015 ACM international joint conference on pervasive and ubiquitous computing},
+  pages={361--365},
+  year={2015}
+}
+
+%%%%%%%%%%% Simulators and Data%%%%%%%%%%
+@article{rudenko2020thor,
+  title={Th{\"o}r: Human-robot navigation data collection and accurate motion trajectories dataset},
+  author={Rudenko, Andrey and Kucner, Tomasz P and Swaminathan, Chittaranjan S and Chadalavada, Ravi T and Arras, Kai O and Lilienthal, Achim J},
+  journal={IEEE Robotics and Automation Letters},
+  volume={5},
+  number={2},
+  pages={676--682},
+  year={2020},
+  publisher={IEEE}
+}
+
+
+@phdthesis{de2021deepsocnav,
+  title={DeepSocNav: Social navigation by imitating human behaviors},
+  author={de Vicente, Juan Pablo},
+  year={2021},
+  school={Pontificia Universidad Catolica de Chile (Chile)}
+}
+
+
+@incollection{govea2010growing,
+  title={Growing hidden markov models},
+  author={Govea, Alejandro Dizan Vasquez},
+  booktitle={Incremental Learning for Motion Prediction of Pedestrians and Vehicles},
+  pages={71--82},
+  year={2010},
+  publisher={Springer}
+}
+
+@article{othman2020srin,
+  title={SRIN: A New Dataset for Social Robot Indoor Navigation},
+  author={Othman, KM and Rad, AB},
+  journal={Glob. J. Eng. Sci},
+  volume={4},
+  year={2020}
+}
+
+@article{holtz2021socialgym,
+  title={SOCIALGYM: A Framework for Benchmarking Social Robot Navigation},
+  author={Holtz, Jarrett and Biswas, Joydeep},
+  journal={arXiv preprint arXiv:2109.11011},
+  year={2021}
+}
+
+@article{manso2020socnav1,
+  title={Socnav1: A dataset to benchmark and learn social navigation conventions},
+  author={Manso, Luis J and Nu{\~n}ez, Pedro and Calderita, Luis V and Faria, Diego R and Bachiller, Pilar},
+  journal={Data},
+  volume={5},
+  number={1},
+  pages={7},
+  year={2020},
+  publisher={MDPI}
+}
+
+@article{biswas2022socnavbench,
+  title={Socnavbench: A grounded simulation testing framework for evaluating social navigation},
+  author={Biswas, Abhijat and Wang, Allan and Silvera, Gustavo and Steinfeld, Aaron and Admoni, Henny},
+  journal={ACM Transactions on Human-Robot Interaction (THRI)},
+  volume={11},
+  number={3},
+  pages={1--24},
+  year={2022},
+  publisher={ACM New York, NY}
+}
+
+%%%%%%%%%%%%%%%HAN as HRI%%%%%%%%%%
+@inproceedings{foster2016mummer,
+  title={The MuMMER project: Engaging human-robot interaction in real-world public spaces},
+  author={Foster, Mary Ellen and Alami, Rachid and Gestranius, Olli and Lemon, Oliver and Niemel{\"a}, Marketta and Odobez, Jean-Marc and Pandey, Amit Kumar},
+  booktitle={International Conference on Social Robotics},
+  pages={753--763},
+  year={2016},
+  organization={Springer}
+}
+
+@inproceedings{vega2018planning,
+  title={Planning human-robot interaction for social navigation in crowded environments},
+  author={Vega, Araceli and Manso, Luis J and Cintas, Ram{\'o}n and N{\'u}{\~n}ez, Pedro},
+  booktitle={Workshop of Physical Agents},
+  pages={195--208},
+  year={2018},
+  organization={Springer}
+}
+
+@article{favier2021simulating,
+  title={Simulating Intelligent Human Agents for Intricate Social Robot Navigation},
+  author={Favier, Anthony and Singamaneni, Phani-Teja and Alami, Rachid},
+  booktitle = {RSS Workshop on Social Robot Navigation},
+  year={2021}
+}
+
+
+%%%%%%%%%%%% Metrics %%%%%%%%%%%%%%
+@incollection{kendon2010spacing,
+  title={Spacing and orientation in co-present interaction},
+  author={Kendon, Adam},
+  booktitle={Development of multimodal interfaces: Active listening and synchrony},
+  pages={1--15},
+  year={2010},
+  publisher={Springer}
+}
+
+@inproceedings{kostavelis2017robot,
+  title={Robot’s workspace enhancement with dynamic human presence for socially-aware navigation},
+  author={Kostavelis, Ioannis and Kargakos, Andreas and Giakoumis, Dimitrios and Tzovaras, Dimitrios},
+  booktitle={international conference on computer vision systems},
+  pages={279--288},
+  year={2017},
+  organization={Springer}
+}
+
+@article{bartneck2008measuring,
+  title={Measuring the anthropomorphism, animacy, likeability, perceived intelligence and perceived safety of robots},
+  author={Bartneck, Christoph and Croft, Elizabeth and Kulic, Dana},
+  year={2008},
+  publisher={University of Hertfordshire}
+}
+
+@inproceedings{banisetty2021implicit,
+  title={Implicit communication through social distancing: Can social navigation communicate social norms?},
+  author={Banisetty, Santosh Balajee and Williams, Tom},
+  booktitle={Companion of the 2021 ACM/IEEE International Conference on Human-Robot Interaction},
+  pages={499--504},
+  year={2021}
+}
+
+@article{barchardperceived,
+  title={Perceived Social Intelligence (PSI) Scales Test Manual (August, 2018)},
+  author={Barchard, Kimberly A and Lapping-Carr, Leiszle and Westfall, R Shane and Banisetty, Santosh Balajee and Feil-Seifer, David},
+  year={2018}
+}
+
+@article{barchard2020measuring,
+  title={Measuring the perceived social intelligence of robots},
+  author={Barchard, Kimberly A and Lapping-Carr, Leiszle and Westfall, R Shane and Fink-Armold, Andrea and Banisetty, Santosh Balajee and Feil-Seifer, David},
+  journal={ACM Transactions on Human-Robot Interaction (THRI)},
+  volume={9},
+  number={4},
+  pages={1--29},
+  year={2020},
+  publisher={ACM New York, NY, USA}
+}
+@article{joosse2021making,
+  title={Making Appearances: How Robots Should Approach People},
+  author={Joosse, Michiel and Lohse, Manja and Berkel, Niels Van and Sardar, Aziez and Evers, Vanessa},
+  journal={ACM Transactions on Human-Robot Interaction (THRI)},
+  volume={10},
+  number={1},
+  pages={1--24},
+  year={2021},
+  publisher={ACM New York, NY, USA}
+}
+
+@article{gao2021evaluation,
+  title={Evaluation of socially-aware robot navigation},
+  author={Gao, Yuxiang and Huang, Chien-Ming},
+  journal={Frontiers in Robotics and AI},
+  pages={420},
+  year={2021},
+  publisher={Frontiers}
+}
+
+@inproceedings{lisotto2019social,
+  title={Social and scene-aware trajectory prediction in crowded spaces},
+  author={Lisotto, Matteo and Coscia, Pasquale and Ballan, Lamberto},
+  booktitle={Proceedings of the IEEE/CVF International Conference on Computer Vision Workshops},
+  pages={0--0},
+  year={2019}
+}
+
+@inproceedings{pellegrini2009you,
+  title={You'll never walk alone: Modeling social behavior for multi-target tracking},
+  author={Pellegrini, Stefano and Ess, Andreas and Schindler, Konrad and Van Gool, Luc},
+  booktitle={2009 IEEE 12th international conference on computer vision},
+  pages={261--268},
+  year={2009},
+  organization={IEEE}
+}
+@article{dynnikov2007complexity,
+  title={On the complexity of braids},
+  author={Dynnikov, Ivan and Wiest, Bert},
+  journal={Journal of the European Mathematical Society},
+  volume={9},
+  number={4},
+  pages={801--840},
+  year={2007}
+}
+
+@article{wolfe2020rapid,
+  title={Rapid holistic perception and evasion of road hazards.},
+  author={Wolfe, Benjamin and Seppelt, Bobbie and Mehler, Bruce and Reimer, Bryan and Rosenholtz, Ruth},
+  journal={Journal of experimental psychology: general},
+  volume={149},
+  number={3},
+  pages={490},
+  year={2020},
+  publisher={American Psychological Association}
+}
+
+@article{eckner2012novel,
+  title={A novel clinical test of recognition reaction time in healthy adults.},
+  author={Eckner, James T and Richardson, James K and Kim, Hogene and Lipps, David B and Ashton-Miller, James A},
+  journal={Psychological assessment},
+  volume={24},
+  number={1},
+  pages={249},
+  year={2012},
+  publisher={American Psychological Association}
+}
+
+@article{thorpe1996speed,
+  title={Speed of processing in the human visual system},
+  author={Thorpe, Simon and Fize, Denis and Marlot, Catherine},
+  journal={nature},
+  volume={381},
+  number={6582},
+  pages={520--522},
+  year={1996},
+  publisher={Nature Publishing Group}
+}
+
+@article{rayner2009eye,
+  title={Eye movements and visual encoding during scene perception},
+  author={Rayner, Keith and Smith, Tim J and Malcolm, George L and Henderson, John M},
+  journal={Psychological science},
+  volume={20},
+  number={1},
+  pages={6--10},
+  year={2009},
+  publisher={Sage Publications Sage CA: Los Angeles, CA}
+}
+
+@inproceedings{aroor2017mengeros,
+  title={Mengeros: A crowd simulation tool for autonomous robot navigation},
+  author={Aroor, Anoop and Esptein, Susan L and Korpan, Raj},
+  booktitle={2017 AAAI Fall Symposium Series},
+  year={2017}
+}
+
+
+%%%%%%%%%%%New refs%%%%%%%%%%%%%%
+@inproceedings{avrunin2014socially,
+  title={Socially-appropriate approach paths using human data},
+  author={Avrunin, Eleanor and Simmons, Reid},
+  booktitle={The 23rd IEEE International Symposium on Robot and Human Interactive Communication},
+  pages={1037--1042},
+  year={2014},
+  organization={IEEE}
+}
+
+@article{wang2020group,
+  title={Group split and merge prediction with 3D convolutional networks},
+  author={Wang, Allan and Steinfeld, Aaron},
+  journal={IEEE Robotics and Automation Letters},
+  volume={5},
+  number={2},
+  pages={1923--1930},
+  year={2020},
+  publisher={IEEE}
+}
+
+@inproceedings{wang2022group,
+  title={Group-based motion prediction for navigation in crowded environments},
+  author={Wang, Allan and Mavrogiannis, Christoforos and Steinfeld, Aaron},
+  booktitle={Conference on Robot Learning},
+  pages={871--882},
+  year={2022},
+  organization={PMLR}
+}

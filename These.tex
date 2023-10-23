@@ -1,0 +1,127 @@
+% Choose the language of your thesis passing 'french' or 'english' as
+% \documentclass option.
+% Note1: The 'page de garde' will always be written in French.
+% Note2: You will have an error if you change the language of the document and
+%        compile it without cleaning the auxiliary files. Compiling it again
+%        should solve the problem.
+\documentclass[english,a4paper,11pt,twoside]{StyleThese}
+\newcommand{\included}{}
+\usepackage{pdfpages}
+
+\include{formatAndDefs}
+\include{Symbols}
+\include{glossary}
+\setlength{\belowcaptionskip}{-6pt}
+
+%%%%%%%%%%%%%%% Uncomment this to generate new Cover page%%%%%%%%%
+\usepackage[ED=MITT-InfoTel, Ets=INP]{tlsflyleaf}
+\include{page_de_garde}
+%%%%%%%%%%%%%%% Uncomment this to generate new Cover page%%%%%%%%%
+
+\sloppy
+\begin{document}
+
+%%%%%%%%%%%%%%% Uncomment this to generate new Cover page%%%%%%%%%
+\makeflyleaf
+%%%%%%%%%%%%%%% Uncomment this to generate new Cover page%%%%%%%%%
+
+\includepdf[pages=-]{custom_cover_new.pdf}
+
+\cleardoublepage
+
+\dominitoc
+
+\pagenumbering{roman}
+
+\cleardoublepage
+
+%%%%% Write it at the end %%%%%%%%
+\section*{Acknowledgments}
+%%% Needs an update before and after the defence
+I still remember the first time I landed in Toulouse, unprepared for the winter and arriving at LAAS the next day without knowing even a bit of French. From that day to now, it has been an incredible and challenging journey of over three years. It would not have been possible to be here without the support and help of my friends, family and colleagues. 
+
+I am very grateful to my family, especially my mother and sister, for believing and supporting me in all possible ways, even when times were hard. I would also like to thank my father and uncle, as I would not have been here without them. I know that you encouraged me to keep moving forward even when it was difficult for you to understand what I was doing, and you will continue to do so in any circumstances. 
+
+The most important part of preparing a PhD thesis is an advisor who believes in you and gives you an opportunity to explore the field of your interest. I am very thankful to my thesis director Rachid Alami for all the ideas, discussions and guidance that led me towards a fruitful thesis. Thanks for answering all my last-minute emails, giving some very useful feedback on my work and providing me with more opportunities to excel further in the field.
+
+Thanks to Anthony Favier for assisting me in the development of this thesis by providing tools and feedback to improve my framework. Thank you for all the help while writing the papers, taking up my last-minute calls and demands, and the constructive criticism of my results to make them better. 
+
+I like to thank Marie Babel and Luis Merino for accepting to be reporters for my thesis. Thank you for taking the time out for providing me with your valuable feedback. I thank Simon, the president of the Jury, and the members of the Jury, Anne Spalanzani, Aaron Steinfeld and Thierry Sim\'eon, for taking their time out to be a part of my PhD defence.
+
+Although there were tough times, the journey has been a fun ride, thanks to all my teammates at LAAS. Thank you, Amandine, for helping me out in settling when I first moved here and bearing with all my queries over the course of time. Without Guilhem, I would have lost in the beginning stages of my PhD. Thanks for helping me to set up things and for answering all the questions that followed. I am thankful to Guillaume and Yoan for all the ideas and discussions that helped me progress. I will remember all those after-lunch games and interesting coffee break discussions with my colleagues Yannick, Kathleen, Rafael, Ameli, Phillip, Shashank, Antoine, Jeremy, Jerome and Simon.
+
+I would like to thank Aurelie and Mattieu for all their help with the robots and for setting up things to work properly on the project. Thanks to all the administration of LAAS that helped me with the documents and missions from time to time. 
+
+I am glad that I have met some interesting people at LAAS to discuss amazing things over coffee and beer. Thanks to Rohan, Melya, Sai, Abhishek, Aarushee, Suresh and Amit for all that. Thank you, Suresh and Kalyani, for supporting me all through this journey and being there like a family when I needed something. I know that I could always crash at your place for some amazing parties and conversations over beer.  
+
+Not long after starting my PhD, Covid-19 hit the world, and we were all locked up in our homes for months. Staying alone for such long times in a small room is not an easy task, and thanks to all my friends who made it possible to get through the pandemic. Thanks to Yami for all those long conversations and supermarket visits which made the lockdown look very easy to handle. Online gaming was one more thing that helped me during the pandemic. Playing with friends is always fun, and thanks to Saif, Rachana, Samyutka, Ravi, Sandily, Puneeth and Poorna for all games of `Codename' and `AmongUs'. Suresh Santhanam, Bharat Kota and Srikar Allu, thanks for all those `Catan' games which were more of long conversations with little gaming.
+
+Some friends are there for life, and I am very grateful to have such childhood friends. SaiKiran Samudrala, Chanakya and Varun, we have all grown together, supporting each other continuously and acknowledging each other's flaws. All during the pandemic and after, you have been my support system with whom I can discuss anything without being judged. Thanks to all of you, I survived the lows of this journey without panicking.  
+
+Finally, I cannot forget the bizarre talks and some very helpful suggestions from Yashwanth. You had been patient with all my stupid talks and helped me make somewhat better decisions. Thanks for walking randomly into my hostel room and deciding to be a helpful friend. Thanks to Mahtab and Jerin for all that psychoanalysis, motivational talks about the gym and career advice. They definitely helped me understand things better and make the right decisions throughout this journey.
+
+My old friends from RRC, Sri Harsha and Vignesh, are all on the same career paths and thank you for sharing your experiences and all the ideation sessions. I know this is just the beginning, and we will have more talks and collaborations in the future.
+
+%%%% Abstract %%%%%
+\include{Abstract/English}
+\include{Abstract/French}
+
+\tableofcontents
+
+%\printnomenclature
+\printnoidxglossary[type=\acronymtype]
+% \listoffigures
+% \listoftables
+% Use \mtcfixnomenclature below if you have a glossary (added with
+% \printnomenclature above) and you're see a shift in the mini-table of
+% contents at the begining of each chapter (example: no mini-toc in chapter 1;
+% mini-toc of chapter 1 appearing in chapter 2; and so on).
+%
+% You should not use \mtcfixnomenclature if you have no glossary (that means,
+% if you don't use \printnomenclature or if your glossary is empty).
+%\mtcfixnomenclature
+
+\mainmatter
+\include{Chapters/Ch0_Introduction}
+\include{Chapters/Chapter1_1}
+% \include{Chapters/Chapter2}
+% \include{Chapters/Chapter3}
+% \include{Chapters/Chapter4}
+% \include{Chapters/Chapter5}
+% \include{Chapters/Chapter6}
+\include{Chapters/Conclusion}
+
+\appendix
+\include{Appendix/Human_Sim}
+\include{Appendix/social_constraints}
+
+%%%%%%%%%%%Need to update this%%%%%%%
+% \include{Annexe_fr_long}
+
+\bibliographystyle{StyleThese}
+% \bibliographystyle{plain}
+% \bibliographystyle{unsrt}
+%%%%%%%%%%%%Need to update this%%%%%%%%%%%%
+\bibliography{These-refs}
+
+% \cleardoublepage
+% \begin{vcenterpage}
+% \noindent\rule[2pt]{\textwidth}{0.5pt}
+
+% % 1700 à 4000 caractères
+
+% \textbf{Abstract:}
+% %%%%%%%%%%%%%%%%%%%%%% ATTENTION ! SI MODIFICATION => MODIF SUR ADUM AUSSI !!!
+
+% %%%%%%%%%%%%%Need to update this%%%%%%%%%%%%%%%%%%5
+% \textcolor{red}{As robots begin to enter our daily lives, we need advanced knowledge representations and associated reasoning capabilities to enable them to understand and model their environments. Considering the presence of humans in such environments, and therefore the need to interact with them, this need comes with additional requirements. Indeed, knowledge is no longer used by the robot for the sole purpose of being able to act physically on the environment but also to communicate and share information with humans. Therefore knowledge should no longer be understandable only by the robot itself, but should also be able to be narrative-enabled. 
+% In the first part of this thesis, we present our first contribution with Ontologenius. This software allows to maintain knowledge bases in the form of ontology, to reason on them and to manage them dynamically. We start by explaining how this software is suitable for \acrfull{hri} applications. To that end, for example to implement theory of mind abilities, it is possible to represent the robot’s knowledge base as well as an estimate of the knowledge bases of human partners. We continue with a presentation of its interfaces. This part ends with a performance analysis, demonstrating its online usability. 
+% In a second part, we present our contribution to two knowledge exploration problems around the general topic of spatial referring and the use of semantic knowledge. We start with the route description task which aims to propose a set of possible routes leading to a target destination, in the framework of a guiding task. To achieve this task, we propose an ontology allowing us to describe the topology of indoor environments and two algorithms to search for routes. The second knowledge exploration problem we tackle is the \acrfull{reg} problem. It aims at selecting the optimal set of piece of information to communicate in order to allow a hearer to identify the referred entity in a given context. This contribution is then refined to use past activities coming from joint action between a robot and a human, in order to generate new kinds of Referring Expressions. It is also linked with a symbolic task planner to estimate the feasibility and cost of future communications. 
+% We conclude this thesis by the presentation of two cognitive architectures. The first one uses the route description contribution and the second one takes advantage of our Referring Expression Generation contribution. Both of them use Ontologenius to manage the semantic Knowledge Base. Through these two architectures, we present how our contributions enable Knowledge Base to gradually take a central role, providing knowledge to all the components of the architectures.}
+
+% \textbf{Keywords:} human-robot interaction, Human-Aware Navigation, Social Navigation
+% \\
+% \noindent\rule[2pt]{\textwidth}{0.5pt}
+% \end{vcenterpage}
+
+\end{document}

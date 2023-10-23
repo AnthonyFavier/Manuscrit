@@ -1,0 +1,75 @@
+\chapter*{Introduction}
+\addstarredchapter{Introduction}
+\markboth{Introduction}{Introduction}
+Several methodologies were proposed by roboticists for mobile robot navigation, and they are promising as long as humans are not considered. Treating humans as dynamic obstacles can solve the robot navigation problem but does not offer an acceptable and comfortable solution to the humans co-existing in the environment. As humans are social beings and have certain notions and expectations about the environment around them, they expect the robot to respect their personal space and preferences while navigating. Consequently, a new field of navigation called `\textit{Human-Aware (Robot) Navigation}' (or \textit{Social Robot Navigation}) has emerged, combining studies on humans and robot navigation. 
+
+Human-aware navigation originated in the field of \acrfull{hri} rather than robot navigation, and hence it shares some properties with HRI. It was not an independent field of research until recent years and used to be a part of the overall task that the robot needs to do in order to assist or coordinate with a human or group of humans. As time progressed, robots have become cheaper and are now being used in many indoor \cite{guldenring2020learning}, as well as outdoor \cite{ferrer2013social} settings, solely to move from one place to another to deliver things \cite{bogue2016growth} or to accompany a person \cite{repiso2017line}. The advent of autonomous vehicles \cite{rasouli2019autonomous} further soared the interest in this field. This thesis explores human-aware navigation and presents a cooperative framework for robot navigation that is built on the joint-action principles of HRI~\cite{curioni2019joint}. We also present some new ideas to improve robot navigation and propose some new metrics for evaluation.     
+
+\section*{Human-Aware Robot Navigation}
+\acrfull{han} is a special case of robot navigation where path planning or trajectory planning or both integrate humans into planning to generate paths and/or trajectories for the robot such that it reduces the discomfort to the humans while navigating. This could mean that the navigation motion executed by the robot should be legible and acceptable to the humans sharing the environment with the robot. The term discomfort could be ambiguous and could refer to different things in different settings. 
+\subsection*{Situation assessment and proactive planning}
+When a robot navigates around humans, it is important for a HAN planning system to analyse the situation and take proper action that mitigates any deadlocks or the `freezing robot problems'~\cite{trautman2010unfreezing}. This requires the HAN system to have decision-making capabilities on top of legible motion generation. Once a situation is identified, it may be possible that the current version (or parameters) of the navigation planning system cannot avoid the occurrence of a conflict. Therefore, it is required for a HAN to have different modalities and switch between them depending on the context.
+
+Proactive planning could mean controlling and mitigating a situation at hand instead of responding to it when it happens. This allows the robot to respond quickly and minimizes the occurrence of the robot freezing problem. Moreover, this kind of planning complements situation analysis and lessens the burden on the decision-making system. Therefore, proactive planning offers a better framework to address HAN compared to reactive planning schemes like Social Force \cite{ferrer2013social}. This thesis explores how proactive planning combined with situation analysis can benefit HAN planning and then develop a HAN system capable of handling multiple human-robot navigation contexts.
+
+\section*{Thesis Contributions}
+This thesis has four main contributions, which are briefly explained below. The first three contributions can be seen as three different versions of a HAN planning system in chronological order, and the new version inherits almost all the properties of the previous version with some exceptions. All the versions of the proposed system treat HAN as a cooperative activity that obey the following four principles of joint-action in \acrshort{hri}: `\textbf{sharing a common perspective}', `\textbf{coordinating}', `\textbf{predicting others' contributions}' and `\textbf{communicating}'. The core idea of all these contributions is to offer a better solution to HAN planning, respecting the above principles and assuming humans as partners in navigation who can cooperate. The final contribution is a set of new metrics for HAN that may be more relevant to multiple human-robot navigation contexts than the ones based on proxemics. 
+
+\subsection*{Combining situation assessment with proactive planning in HAN}
+This is the first major contribution of this thesis that combines situation assessment with proactive planning. The idea of proactive planning in our HAN system is to actively plan for the robot and the other agents involved in the navigation, assuming a possible goal for each agent while controlling only the robot. The advantage of this kind of planning is that the planning system considers both the robot and the humans while planning for the robot, which makes the robot act proactively in many situations and avoid conflicts. In deadlock scenarios, this system elicits plans for all the agents, which, if followed, will resolve the deadlock. However, some of the deadlocks cannot be solved by this kind of proactive planning. So, we introduce a simple situation assessment to detect such deadlocks and switch the planning modality with a different set of parameters to resolve the deadlock.  
+
+\subsection*{A HAN system to address multi-context navigation}
+After introducing the situation assessment and modality shifting into HAN, the system has been extended to take care of the different types of visible humans in the environment. Numerous changes were made to make the system scalable and more pertinent to real-world applications. The most interesting thing about the proposed system is that the parameters of the system are highly tunable. Depending on the type of goal prediction (for humans) selected and the allowed thresholds of various human-aware constraints, the robot's behaviour could be adjusted to handle different human-robot navigation contexts. 
+
+\subsection*{Proactively addressing unseen humans in HAN}
+The final version of the proposed system introduces a concept called `invisible humans' to improve the human-awareness of the robot. The intention behind this work is to address the possible future appearances of humans from the occluded or hidden regions of the environment in the navigation scene. Firstly, an algorithm to detect the locations of `invisible humans' in a 2D map is proposed. Then a new human-aware constraint and a new mode of planning for such unseen humans are proposed and added to our HAN system that makes the robot cautiously mitigate such locations and avoid collisions proactively.
+
+\subsection*{New metrics for HAN}
+The last contribution of this thesis is a set of metrics that can be applied to several human-robot navigation contexts. Unlike the proxemics-based metrics, we believe that the proposed metrics are better suited for understanding and evaluating HAN systems in intricate scenarios. We present the mathematical formulation of these metrics and show how they can be used to evaluate and differentiate HAN planners from standard navigation planners.
+
+\section*{Thesis Organisation}
+A major part of this thesis is based on the published work (core publications). The chapters based on the published work are elaborated compared to papers, including more details and discussions. The supportive publications include the work that is complementary during the development of this thesis, and these are detailed in the Appendix part.
+
+This thesis has five chapters which can be grouped into three different parts. The first group consists of Chapter 1, which presents different aspects of robot navigation and the evolution of human-aware navigation. It also talks about the challenges in HAN and how they are addressed in the literature before presenting the mathematical background necessary to understand this thesis. The following chapters are based on the core publications and form the second group. These chapters are presented in chronological order of the development of the proposed HAN system. Hence, Chapter 2 talks about combining situation assessment in HAN, followed by Chapter 3, in which a complete HAN system that can address multiple human-robot navigation contexts is presented. Next, Chapter 4 introduces the concept of `invisible humans' to HAN and talks about proactive avoidance of potential future collisions. Throughout these three chapters, the advantages of proactive planning in combination with situation assessment are discussed in different settings. The last group has only one chapter, Chapter 5, that proposes and evaluates some new metrics for HAN.
+
+The final remarks, lessons learnt, and future perspectives are discussed in the Conclusions chapter.  The supportive work presented in Appendix A shows how an intelligent human agent is developed for the case of HAN. Further, different methodologies employed to simulate human agents for testing our HAN system are also presented. Throughout this thesis, whenever we refer to robot navigation, it is always a mobile robot with either differential or omnidirectional drive navigating on a 2D plane.
+
+\subsection*{List of Publications}
+\markright{List of Publications}
+\subsubsection*{Published : Core Publications}
+\begin{itemize}
+    \item Singamaneni, Phani-Teja, and Alami Rachid. ``\textbf{HATEB-2: Reactive Planning and Decision making in Human-Robot Co-navigation}.'' 2020 29th IEEE International Conference on Robot and Human Interactive Communication (RO-MAN). IEEE, 2020.* \let\thefootnote\relax\footnotetext{*Nominated for Best Paper award}
+    
+    \item Singamaneni, Phani-Teja, Anthony Favier, and Rachid Alami. ``\textbf{Human-Aware Navigation Planner for Diverse Human-Robot Interaction Contexts}.'' 2021 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS). IEEE, 2021.
+    
+    \item Singamaneni, Phani-Teja, Anthony Favier, and Rachid Alami. ``\textbf{Invisible Humans in Human-aware Robot Navigation}.'' Workshop on Social Robot Navigation: Advances and Evaluation in 2022 IEEE International Conference on Robotics and Automation (ICRA). IEEE, 2022.
+
+    \item Singamaneni, Phani-Teja, Anthony Favier, and Rachid Alami. ``\textbf{Watch out! There may be a Human Addressing Invisible Humans in Social Navigation}.'' 2022 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS). IEEE, 2022.
+
+\end{itemize}
+\subsubsection*{Published : Supportive Publications}
+\begin{itemize}
+
+\item Favier, Anthony, Phani-Teja Singamaneni, and Rachid Alami. ``\textbf{Simulating Intelligent Human Agents for Intricate Social Robot Navigation}.'' 2021 Workshop on Social Robot Navigation in Robotics: Science and Systems (RSS). 2021.
+
+\item Favier, Anthony, Phani-Teja Singamaneni, and Rachid Alami. ``\textbf{An Intelligent Human Avatar to Debug and Challenge Human-aware Robot Navigation Systems}.'' 2022 17th ACM/IEEE International Conference on Human-Robot Interaction (HRI). IEEE, 2022.
+
+\item Hauterville, Olivier, Camino Fernández, Phani-Teja Singamaneni, Anthony Favier, Vicente Matellán, and Rachid Alami. ``\textbf{IMHuS: Intelligent Multi-Human Simulator}.'' 2022 Workshop on Artificial Intelligence for Social Robots Interacting with Humans in the Real World in IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS). IEEE, 2022.
+
+\item Hauterville, Olivier, Camino Fernández, Phani Teja Singamaneni, Anthony Favier, Vicente Matellán, and Rachid Alami. ``\textbf{Interactive Social Agents Simulation Tool for Designing Choreographies for Human-Robot-Interaction Research}.'' 2022 Iberian Robotics conference, pp. 514-527. Springer, Cham, 2023.
+
+\end{itemize}
+
+\subsubsection*{Published : Other Publications}
+\begin{itemize}
+
+\item Singamaneni, Phani-Teja, Amandine Mayima, Guillaume Sarthou, Yoan Sallami, Guilhem Buisan, Kathleen Belhassein, Jules Waldhart, and Aurélie Clodic. ``\textbf{Guiding Task through Route Description in the MuMMER Project}.'' Companion of the 2020 ACM/IEEE International Conference on Human-Robot Interaction, pp. 643-643. IEEE, 2020.
+
+\item Truc, Jérôme, Phani-Teja Singamaneni, Daniel Sidobre, Serena Ivaldi, and Rachid Alami. ``\textbf{KHAOS: a Kinematic Human Aware Optimization-based System for Reactive Planning of Flying-Coworker}.'' 2022 IEEE International Conference on Robotics and Automation (ICRA). IEEE, 2022.
+\end{itemize}
+
+\subsubsection*{Submitted}
+
+\begin{itemize}
+\item Mayima, Amandine, Guillaume Sarthou, Guilhem Buisan, Phani-Teja Singamaneni, Yoan Sallami, Kathleen Belhassein, Jules Waldhart, Aurélie Clodic, and Rachid Alami ``\textbf{Direction-giving considered as a Human-Robot Joint Action}.'' Submitted to \textit{User Modeling and User-Adapted Interaction (UMUAI) Journal}.
+\end{itemize}
