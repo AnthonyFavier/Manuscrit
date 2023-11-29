@@ -10,16 +10,27 @@
 \label{chap:2}
 \minitoc
 
+\section{Introduction}
+
+This PhD explored different aspects of human-aware task planning which have been implemented as extension to prior work from Buisan et al. called HATP/EHDA.
+We believe that this previous work was a good basis. Its problem model and planning process fit well in the context. In its current state it already offers interesting possibilities and can help solve challenging joint action problems. 
+It is important to understand well this work, both its motivation and methods, before digging into the contribution. Hence, this chapter introduces, motivate and explain the HATP/EHDA approach has a background chapter to the other main contribution (which are again HATP/EHDA extensions).
+
 \section{Related work}
+
 \subsection{HATP}
+This planner is inspired by the hierarchical human aware task planner HATP (citation) but with a fundamental difference. In addition to ``standard'' task planning metrics like plan length, HATP takes into account social rules and costs to produce the robot plan. This way, it aims to produce a plan which will be acceptable and appreciated without having to negotiate with the human. However, although the plan aims to be socially acceptable, the human must follow the plan produce and has no choice to make. 
+In some scenario this can be frustrating, and it also doesn't account for contingencies in terms of human action. If the human diverge from the plan the execution must be stopped and the plan either repaired or even replan. In opposition, HATP/EHDA generates robot policies instead of plans. In a turn taking manner where the human usually starts, the generated policy indicates the best robot action to perform according the previously performed human action. Thus, the human is free to choose online the action they want to perform, and the robot will account for this decision. This process neither requires prior negotiation with the human.  
+
 \subsection{Other human-aware task planner}
 
 \section{A human aware task planner}
-\subsection{distinct model of agents}
-agent models(beliefs, HTN, agenda, triggers)
+\subsection{Rationale}
+\subsection{Distinct model of agents}
+Agent models(beliefs, HTN, agenda, triggers)
 \subsection{solution format}
-\subsection{planning process}
-planning process using HTNS action models
+\subsection{Planning process}
+Planning process using HTNS action models
 
 \section{Examples}
 
