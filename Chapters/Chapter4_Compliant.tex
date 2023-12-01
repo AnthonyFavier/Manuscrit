@@ -20,7 +20,7 @@ paper Sonia UHTP
 
 \section{Model of Execution}
 
-\subsection{Based on joint action litterature}
+\subsection{Based on joint action literature}
 
 \subsection{Model description}
 
@@ -75,11 +75,38 @@ Then, another subroutine assesses the new world state ($s_{i+1}$), which is the 
 
 Note that if both agents are passive (the human decides to be passive when the robot cannot act) then the step is repeated. 
 
+\section{Problem specification + solution}
+
+\subsection{Problem}
+
+Belief divergences are out of the scope of this particular work. Hence, for simplicity reasons, we consider the two beliefs (robot and estimated human ones) as always aligned, and they are represented as a unique world state. However, we are convinced that this work could be adapted easily to consider the two distinct beliefs.
+
+The problem is specified as follows. One initial world state, described using state variables. Distinct human and robot action models described with HTNs. Distinct human and robot initial agendas. 
+
+\subsection{Solution}
+
+A Planning state, referred as p-state, corresponds to a state in which the planning problem is while progressing toward a solution. A p-state contains the current world state (aligned beliefs of the agents) and the human and robot agendas. Thus, keep in mind that p-states are very different from world states.
+The initial p-state is formed using the initial human-robot agendas and the initial world state given in the problem specification. P-states are connected with each other through concurrent pairs of human-robot actions. A goal p-state as the characterized by a world state satisfying given goal conditions and by empty agendas.
+The exploration produces a directed graph from the initial p-state to several goal p-states through sequences of concurrent action pairs. Thus, any path from the root to a leaf is a possible plan. Once the exploration done, directed solution graph computed, another process extract the optimal robot policy from the graph. 
+
+It's design choice to do consider explicit action costs and perform an exhaustive offline search to produce this solution graph to solve a problem. Since the policy generation is very quick it allows generating and update the robot policy online according to human feedbacks. 
+
+We keep track of the p-state to explore, this set being initialized with the initial p-state. Then, until the set is empty we select one and explore it.
+First, from this selected p-state, every possible concurrent human-robot action pairs are computed considering both agendas, the world state and reasoning on the compability of the actions in terms of preconditions and effects. This process requires several sub-steps and is detailed later. Thus, we obtain several action pairs leading to the same amount of new p-states (with updated world state and agendas).
+Second, we check if any of the newly created p-state are similar to any existing p-state. If so, we can "merge" them to avoid redundant computations. To do so, we basically keep track of the unique p-state already checked and for each new p-state we check if it is similar to one of the already checked one. 
+If not, the new p-state is added to the set of already checked p-states. 
+If a similar one is found, the new p-state is deleted and the action pair leading to it is connected to the existing p-state instead.
+Eventually, the remaining new p-states are added to the set of p-states to explore. 
+When the set of p-states to explore is empty then the exploration is over and the graph obtained corresponds to the "solution graph" where any path from the initial p-state to a leaf corresponds to a possible execution trace / plan.
+
+Now, the robot's policy must be determined. We want to preserve the latitude of choice the human have at execution. Hence, the policy must indicate in every p-state which action the robot should concurrently perform according to each action the human is likely to perform. These best concurrent robot actions are determined by aiming to optimally satisfy an estimation of the human preferences regarding the task. Eventually, at execution, the human is free to perform any of the explored action and the robot will accordingly perform an optimal concurrent action to both solve the task and satisfy their estimated preferences.  
+
 \section{Exploration}
 
-heavy, Offline
+\subsection{Compute next agent actions}
 
 \subsection{compliant pairs}
+
 \subsection{graph, merge state planning state}
 
 
