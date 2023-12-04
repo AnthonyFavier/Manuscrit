@@ -20,13 +20,13 @@ paper Sonia UHTP
 
 \section{Model of Execution}
 
-\subsection{Based on joint action literature}
+    \subsection{Based on joint action literature}
 
-\subsection{Model description}
+    \subsection{Model description}
 
-\subsection{Model utility}
+    \subsection{Model utility}
 
-\subsection{From Article}
+    \subsection{From Article}
 
 \begin{figure}
     \centering
@@ -77,54 +77,119 @@ Note that if both agents are passive (the human decides to be passive when the r
 
 \section{Problem specification + solution}
 
-\subsection{Problem}
+    \subsection{Problem}
 
 Belief divergences are out of the scope of this particular work. Hence, for simplicity reasons, we consider the two beliefs (robot and estimated human ones) as always aligned, and they are represented as a unique world state. However, we are convinced that this work could be adapted easily to consider the two distinct beliefs.
 
 The problem is specified as follows. One initial world state, described using state variables. Distinct human and robot action models described with HTNs. Distinct human and robot initial agendas. 
 
-\subsection{Solution}
+[More details about each]
 
-A Planning state, referred as p-state, corresponds to a state in which the planning problem is while progressing toward a solution. A p-state contains the current world state (aligned beliefs of the agents) and the human and robot agendas. Thus, keep in mind that p-states are very different from world states.
-The initial p-state is formed using the initial human-robot agendas and the initial world state given in the problem specification. P-states are connected with each other through concurrent pairs of human-robot actions. A goal p-state as the characterized by a world state satisfying given goal conditions and by empty agendas.
-The exploration produces a directed graph from the initial p-state to several goal p-states through sequences of concurrent action pairs. Thus, any path from the root to a leaf is a possible plan. Once the exploration done, directed solution graph computed, another process extract the optimal robot policy from the graph. 
+    \subsection{Solution}
 
-It's design choice to do consider explicit action costs and perform an exhaustive offline search to produce this solution graph to solve a problem. Since the policy generation is very quick it allows generating and update the robot policy online according to human feedbacks. 
+A Planning state, referred as p-state, corresponds to a state in which the planning problem is while progressing toward a solution. A p-state contains the current world state (aligned beliefs of the agents) and the respective agenda of the human and the robot. Thus, keep in mind that p-states are very different from world states.
+The initial p-state is formed using the initial human-robot agendas and the initial world state given in the problem specification. P-states are connected with each other through concurrent pairs of human-robot actions. Note that we consider passive actions, hence, there may be only one active agent in a pair if concurrent human-robot actions. A goal p-state is characterized by a world state satisfying given goal conditions and by empty agendas.
+The exploration produces a directed graph from the initial p-state to several goal p-states through sequences of concurrent action pairs. Thus, any path from the root to a leaf is a possible plan. Once the exploration done, directed search graph computed, another process extract the optimal robot policy from the graph. In the manner of an AND-OR tree, this policy indicates for all p-states the best concurrent robot action (OR node) to execute to be compliant with any possible human action (AND node).
+
+It is one of our design choice to do not consider explicit action costs and perform an exhaustive offline search to produce this search graph in order to solve a problem. Since the policy generation is very quick it allows generating and updating the robot policy online according to human feedbacks. 
+
+
+
+
+\section{Exploration}
+
+This section details how the exploration happens, and thus, how the directed search graph is generated. This requires several sub-process which are each detailed here. First, the overall exploration process is presented, and next subsections provide details on the sub-processes mentioned in the overall process.
+
+    \subsection{Overall process}
 
 We keep track of the p-state to explore, this set being initialized with the initial p-state. Then, until the set is empty we select one and explore it.
-First, from this selected p-state, every possible concurrent human-robot action pairs are computed considering both agendas, the world state and reasoning on the compability of the actions in terms of preconditions and effects. This process requires several sub-steps and is detailed later. Thus, we obtain several action pairs leading to the same amount of new p-states (with updated world state and agendas).
+First, from this selected p-state, every possible concurrent human-robot action pairs are computed considering both agendas, the world state and reasoning on the compatibility of the actions in terms of preconditions and effects. This process requires several sub-steps and is detailed later. Thus, we obtain several action pairs leading to the same amount of new p-states (with updated world state and agendas).
 Second, we check if any of the newly created p-state are similar to any existing p-state. If so, we can "merge" them to avoid redundant computations. To do so, we basically keep track of the unique p-state already checked and for each new p-state we check if it is similar to one of the already checked one. 
 If not, the new p-state is added to the set of already checked p-states. 
 If a similar one is found, the new p-state is deleted and the action pair leading to it is connected to the existing p-state instead.
 Eventually, the remaining new p-states are added to the set of p-states to explore. 
-When the set of p-states to explore is empty then the exploration is over and the graph obtained corresponds to the "solution graph" where any path from the initial p-state to a leaf corresponds to a possible execution trace / plan.
+When the set of p-states to explore is empty then the exploration is over and the graph obtained corresponds to the "search graph" where any path from the initial p-state to a leaf corresponds to a possible execution trace / plan.
 
-Now, the robot's policy must be determined. We want to preserve the latitude of choice the human have at execution. Hence, the policy must indicate in every p-state which action the robot should concurrently perform according to each action the human is likely to perform. These best concurrent robot actions are determined by aiming to optimally satisfy an estimation of the human preferences regarding the task. Eventually, at execution, the human is free to perform any of the explored action and the robot will accordingly perform an optimal concurrent action to both solve the task and satisfy their estimated preferences.  
+    \subsection{Compute next agent actions}
 
-\section{Exploration}
+From a p-state, more precisely from a world state and an agenda, we can estimate what are the next action an agent is likely to perform. Doing so is referred as the refinement process. To do so we use the corresponding action model in the form of an HTN. Here the agendas are considered as list of abstract or primitive task, where primitive task can be executed (actions), and abstract ones can be decomposed into several others subtasks. 
+The refinement process consists in applying applicable methods of the first task of the agenda until it is primitive. When several methods are applicable they are all applied in a distinct refinement trace.
+Eventually, for each different sequence of applied method we obtain a new agenda starting with a primitive task. For each such primitive task we create a copy of the world state contained in the given p-state, and we applied the correspond action, updating the world state. 
+Hence, for each possible action a new p-state is created with the refined agent agenda, the unchanged other's agenda and the updated world state. 
+Note that this process can "generate" default passive actions in several cases. First, when an agent's agenda is empty an \textit{IDLE} passive action is inserted as the first primitive task in the agenda. This means that the agent has nothing to do and thus is likely to remain passive. Either when there are no applicable methods or when the primitive task is not applicable then a \textit{WAIT} passive action is inserted. This means that the agent has still something to do but cannot do it currently. Note that when computing the concurrent pairs of action we also add the \textit{PASS} action which corresponds to the agent being voluntary passive, despite having something to do. Note also that these different passive action types just help to better understand the generated plans, but they are treated equally / similarly in the planning process.
 
-\subsection{Compute next agent actions}
+    \subsection{Concurrent action pairs computation}
 
-\subsection{compliant pairs}
+This sub-process is computes from a given p-state all possible concurrent action pairs that may be executed. It is based on the previously described refinement process. This main objective of this sub-process is to identify the next actions the agents are likely to perform to reach the goal and identify which of them can be executed in parallel. The classical way to do such reasoning is by analyzing the preconditions and effects of the two actions and determine if there are conflicts between them, e.g., the effects of the first action makes the preconditions of the other false.
+However, our current python implementation of the planner is convenient but has no "explicit" preconditions and effects. Everything is defined through python function. The effects of an action are a function with a world state as input and returns the updated world state. Action preconditions are functions with a world state as input and return a boolean. And methods (of an associated abstract task) are functions with world state as input and return a list of tasks to update the agenda with. Methods also have preconditions working similarly then action preconditions. 
+Hence, it's challenging to extract the explicit effects and preconditions of an action. That is why we decided to rely on an assumption to check the compatibility of concurrent actions. 
+We consider the following in a given state. 
+If action 1 and action 2 can be sequentially performed in both orders (1->2 and 2->1). Then we can assume that there are no causal links between the two actions and that they can be performed concurrently. The only care to take are shared resources such as a tool that would only be used during the action, making it available before and after but not during the action. To tackle this issue, shared resources are explicitly declared in the world state and in the action models. Two actions requiring a same shared resource cannot be parallelized.
+One benefit the way we check if two actions are mutually exclusive is making the actions estimations a black box. Indeed, we can easily replace the way we estimate the next actions each agent is likely to perform. Especially for the human, we could use a pretrained human activity estimator neural network, or more classical planner like PDDL. 
 
-\subsection{graph, merge state planning state}
+With the causal principle above in mind, we proceed as follows to compute the possible concurrent action pairs from a given p-state. We start by estimating all possible human actions by refining the human agenda, generating a new p-state for each possible action. For each such p-state we first create an action pair where the robot is passive by inserting a \textit{PASS} robot action. This \textit{PASS} pair is stored among all other "human pass pairs". Second, we refine the robot agenda to obtain all feasible sequences of human then robot actions and their associated p-states. We refer to them as the sequential human starting pairs. In a symmetrical way we compute the sequential robot starting pairs and "robot pass pairs" by starting with the robot then refining the human agenda.
+
+Eventually, every action pair which is present in both the human and robot starting pairs are extracted and added to a set of concurrent action pairs. 
+Additionally, here passive action are always parallelizable. Indeed, the only case where this couldn't be the case is when considering "joint actions" requiring the two agents such as lifting a table/object together. For now, such actions are not considered. Thus, the two sets of \textit{PASS} pairs are directly added to the set of concurrent action pairs. 
+Lastly, a double passive pair with two PASS is generated and added to the concurrent set. This pair is special since it doesn't update the world nor the agendas, hence, it leads back to the previous p-state without progressing toward the goal. These pairs not need to be explored and help it different ways. First, it helps the execution for instance when only the human can act but decides anyway to pass voluntary. Then the policy will natively stay in the same p-state. Second, it is easy to detect dead-ends which correspond double \textit{WAIT} pairs. In such case, both agent cannot act, due to the lack preconditions for action or decomposing an abstract task, and they remain stuck without solving the task.  
+Last, double \textit{IDLE} pairs indicates that both agendas are empty and thus that the task should have been solved. 
+
+The obtained set of concurrent action pairs corresponds to all possible concurrent action that the human and the robot can execute in parallel in the initially given p-state. Each possible pair leads to a new p-state with updated agendas and world state, creating a tree structure. 
+
+    \subsection{Merging p-states}
+
+Although the tree structure produced by the process described above is complete and sound, it is inefficient and scales badly. Indeed, during the exploration we are likely to encounter several times similar p-states. For instance, consider an action pair where both the human and robot are active leading to a new p-state, one branch. Now, consider a first action pair where only the human is active, and a second where only the robot is active. Performing those two last pairs in both orders creates two other branches. However, even though the trace is different, the three p-states are identical (same world state and agendas) and it's highly redundant to explore independently each of them. That is why after each computation of the concurrent action pairs we check if any of the newly generated p-state is similar to an existing one, and if so, we connect the corresponding pair to the existing p-state to avoid redundant explorations. Doing so we transform the tree into a directed graph where a "leaf" can be reached with several paths. 
+When looking for similar existing p-state, we assume that p-states which are parent with the new p-state, directly of not, will necessarily be different, and thus they are excluded. This speeds up the comparison process. 
+
 
 
 \section{Policy generation}
-Light, 
 
-\subsection{Human preferences}
-estimations, format, Discussion(often inaccurate, hence our Approach)
+Now, the robot's policy must be determined. We want to preserve the latitude of choice the human have at execution. Hence, the policy must indicate in every p-state which action the robot should concurrently perform according to each action the human is likely to perform. These best concurrent robot actions are determined by aiming to optimally satisfy an estimation of the human preferences regarding the task. Eventually, at execution, the human is free to perform any of the explored action and the robot will accordingly perform an optimal concurrent action to both solve the task and satisfy their estimated preferences.  
 
-\subsection{process}
+We first describe our format of human preferences and how we could estimate them, and what it allows for us. Then, we describe the actual process to generate the robot policy from the search graph.
+
+    \subsection{Estimated Human preferences}
+estimations, format, Discussion(often inaccurate, hence our Approach), consider metrics, is a prioritized sequence of metrics to max or min, allow comparison of metrics
+
+In this approach, instead of trying to minimize action and social costs, which are challenging to estimate accurately and quantitatively, we decided to aim at satisfying an estimation of the human preferences. In a way, the costs are included / covered / reflected in the human preferences. Our approach is to characterize each possible trace with a set of various metrics such as follows:
+
+\begin{itemize}
+    \item \textbf{Time of Task Completion}: Time step at which the task if achieved.
+    \item \textbf{Time of End of Human Duty}: Time step after which the human can remain passive.
+    \item \textbf{Human Effort}: Number of non-passive human action.
+    \item \textbf{Global Effort}: Number of non-passive human and robot action.
+    \item \textbf{*Passive While Holding}: Number of steps where an agent is passive while holding a cube.
+    \item \textbf{*Number of Drop}: Number of times an agent drops cube (place back a cube on the table, not in the stack).
+\end{itemize}
+
+Note that general metrics are complemented with additional domain specific metrics (marked with a star *), given in the problem specification. The set of metrics helps to characterize and evaluate each possible plan / trace. However, even if the possible plans are characterized we so far have no way to compare them and find the best one. Doing so requires additional criteria indicating how to prioritize and compare the different metrics.
+
+That's where we consider an estimation of the human preferences to allow us to the plans and which are given by any mean external to our system. The preferences can be estimated or also given, verbally or not. Here, we consider the human preferences in the following form. These preferences are an ordered list of the metrics characterizing the traces. Note that it's not necessary for all metrics in the list above to be present, but only them can appear in the preferences. This ordered list indicates if each metric should be maximized or minimized, and in which order / with which priority. For instance, assuming the preferences aim to minimize all metrics, the best of two given plans is the one with the lowest first metric of the list. If the two plans have equal first metric then we use the second metric, and so on. Here are two arbitrary examples of human preferences trying respectively to finish the task as fast as possible and to minimize the human effort (all metrics are minimized):
+
+TTC - GE - HE - TEH - PWH - ND 
+
+HE - TEH - TTC - GE - PWH - ND 
+
+Note that estimating either human preferences or explicit action and social costs is challenging and is hardly accurate, those are very context dependent and can even vary over time.
+Being aware of this, we use the estimated human preferences as a guide for the robot behavior, but we also make sure to be compliant to the human activity to lessen in impact of a wrong estimation. 
+
+    \subsection{process}
 propagation + merge + policy format 
+
+\begin{figure}
+    \includegraphics[width=\linewidth]{images/Chapter4/policy_generation.png}
+    \caption{Policy generation process illustration on an arbitrary search graph. Propagation and Merge processes repeat until all nodes are marked as propagated.}
+    \label{fig:policy_generation}
+\end{figure}
+
 
 \section{Results}
 simulation of execution, without durative action
 
-\subsection{concept of aligned-adversarial pairs of prefs/estimations}
+    \subsection{concept of aligned-adversarial pairs of prefs/estimations}
 
-\subsection{results}
+    \subsection{results}
 
 \section{Discussion and Limitations}
 \section{Conclusion}

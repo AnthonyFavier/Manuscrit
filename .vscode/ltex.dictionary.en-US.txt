@@ -3,3 +3,4 @@ HATP
 HATP
 EHDA
 HTN
+parallelizable

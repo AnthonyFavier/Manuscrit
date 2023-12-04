@@ -1,0 +1,1 @@
+{"rule":"DT_JJ_NO_NOUN","sentence":"^\\QAction preconditions are functions with a world state as input and return a boolean.\\E$"}
