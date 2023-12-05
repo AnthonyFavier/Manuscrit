@@ -89,7 +89,7 @@ The problem is specified as follows. One initial world state, described using st
 
 A Planning state, referred as p-state, corresponds to a state in which the planning problem is while progressing toward a solution. A p-state contains the current world state (aligned beliefs of the agents) and the respective agenda of the human and the robot. Thus, keep in mind that p-states are very different from world states.
 The initial p-state is formed using the initial human-robot agendas and the initial world state given in the problem specification. P-states are connected with each other through concurrent pairs of human-robot actions. Note that we consider passive actions, hence, there may be only one active agent in a pair if concurrent human-robot actions. A goal p-state is characterized by a world state satisfying given goal conditions and by empty agendas.
-The exploration produces a directed graph from the initial p-state to several goal p-states through sequences of concurrent action pairs. Thus, any path from the root to a leaf is a possible plan. Once the exploration done, directed search graph computed, another process extract the optimal robot policy from the graph. In the manner of an AND-OR tree, this policy indicates for all p-states the best concurrent robot action (OR node) to execute to be compliant with any possible human action (AND node).
+The exploration produces a directed acyclic graph, referred as the search graph, from the initial p-state to several goal p-states through sequences of concurrent action pairs. Thus, any path from the root to a leaf is a possible plan. Once the exploration done, search graph computed, another process extract the optimal robot policy from the graph. In the manner of an AND-OR tree, this policy indicates for all p-states the best concurrent robot action (OR node) to execute to be compliant with any possible human action (AND node).
 
 It is one of our design choice to do not consider explicit action costs and perform an exhaustive offline search to produce this search graph in order to solve a problem. Since the policy generation is very quick it allows generating and updating the robot policy online according to human feedbacks. 
 
@@ -98,7 +98,7 @@ It is one of our design choice to do not consider explicit action costs and perf
 
 \section{Exploration}
 
-This section details how the exploration happens, and thus, how the directed search graph is generated. This requires several sub-process which are each detailed here. First, the overall exploration process is presented, and next subsections provide details on the sub-processes mentioned in the overall process.
+This section details how the exploration happens, and thus, how the search graph is generated. This requires several sub-process which are each detailed here. First, the overall exploration process is presented, and next subsections provide details on the sub-processes mentioned in the overall process.
 
     \subsection{Overall process}
 
@@ -138,7 +138,7 @@ The obtained set of concurrent action pairs corresponds to all possible concurre
 
     \subsection{Merging p-states}
 
-Although the tree structure produced by the process described above is complete and sound, it is inefficient and scales badly. Indeed, during the exploration we are likely to encounter several times similar p-states. For instance, consider an action pair where both the human and robot are active leading to a new p-state, one branch. Now, consider a first action pair where only the human is active, and a second where only the robot is active. Performing those two last pairs in both orders creates two other branches. However, even though the trace is different, the three p-states are identical (same world state and agendas) and it's highly redundant to explore independently each of them. That is why after each computation of the concurrent action pairs we check if any of the newly generated p-state is similar to an existing one, and if so, we connect the corresponding pair to the existing p-state to avoid redundant explorations. Doing so we transform the tree into a directed graph where a "leaf" can be reached with several paths. 
+Although the tree structure produced by the process described above is complete and sound, it is inefficient and scales badly. Indeed, during the exploration we are likely to encounter several times similar p-states. For instance, consider an action pair where both the human and robot are active leading to a new p-state, one branch. Now, consider a first action pair where only the human is active, and a second where only the robot is active. Performing those two last pairs in both orders creates two other branches. However, even though the trace is different, the three p-states are identical (same world state and agendas) and it's highly redundant to explore independently each of them. That is why after each computation of the concurrent action pairs we check if any of the newly generated p-state is similar to an existing one, and if so, we connect the corresponding pair to the existing p-state to avoid redundant explorations. Doing so we transform the tree structure into a directed acyclic graph (on the condition that we don't consider double \textit{PASS} cycles). In the manner of a tree, we will refer to nodes without child as leaves nodes, which are goal p-states. Hence, now, each leaf can be reached with several paths. 
 When looking for similar existing p-state, we assume that p-states which are parent with the new p-state, directly of not, will necessarily be different, and thus they are excluded. This speeds up the comparison process. 
 
 
@@ -174,7 +174,7 @@ HE - TEH - TTC - GE - PWH - ND
 Note that estimating either human preferences or explicit action and social costs is challenging and is hardly accurate, those are very context dependent and can even vary over time.
 Being aware of this, we use the estimated human preferences as a guide for the robot behavior, but we also make sure to be compliant to the human activity to lessen in impact of a wrong estimation. 
 
-    \subsection{process}
+    \subsection{Process}
 propagation + merge + policy format 
 
 \begin{figure}
@@ -182,6 +182,15 @@ propagation + merge + policy format
     \caption{Policy generation process illustration on an arbitrary search graph. Propagation and Merge processes repeat until all nodes are marked as propagated.}
     \label{fig:policy_generation}
 \end{figure}
+
+To generate the robot policy from the search graph we proceed from the leaves to the root. We compute the set of metrics for each possible trace, and when reaching nodes with several children we compare the metrics of the different traces, identify the best ones to update the robot policy with, and then we continue by propagating only the best set of metrics.
+This process is achieved by repeating two sub-routines detailed just below, namely: Propagation and Selection. 
+
+    \subsubsection{Propagation}
+
+For 
+
+    \subsubsection{Selection}
 
 
 \section{Results}
