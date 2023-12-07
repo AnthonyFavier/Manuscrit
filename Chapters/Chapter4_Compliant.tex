@@ -91,6 +91,8 @@ A Planning state, referred as p-state, corresponds to a state in which the plann
 The initial p-state is formed using the initial human-robot agendas and the initial world state given in the problem specification. P-states are connected with each other through concurrent pairs of human-robot actions. Note that we consider passive actions, hence, there may be only one active agent in a pair if concurrent human-robot actions. A goal p-state is characterized by a world state satisfying given goal conditions and by empty agendas.
 The exploration produces a directed acyclic graph, referred as the search graph, from the initial p-state to several goal p-states through sequences of concurrent action pairs. Thus, any path from the root to a leaf is a possible plan. Once the exploration done, search graph computed, another process extract the optimal robot policy from the graph. In the manner of an AND-OR tree, this policy indicates for all p-states the best concurrent robot action (OR node) to execute to be compliant with any possible human action (AND node).
 
+Clarification of the directed acyclic graph. Nodes represent p-states and are connected with each other through directed edges representing human-robot concurrent action pairs. However, for practical reasons action pairs are considered as nodes of the graph having only one parent p-state node and one child p-state node. Consider that each directed edge between two p-state have one unique intermediate action pair node. The graph has one root node (no parent) which is the initial p-state. All leaf nodes (no children) represent a goal p-state. 
+
 It is one of our design choice to do not consider explicit action costs and perform an exhaustive offline search to produce this search graph in order to solve a problem. Since the policy generation is very quick it allows generating and updating the robot policy online according to human feedbacks. 
 
 
@@ -124,7 +126,7 @@ This sub-process is computes from a given p-state all possible concurrent action
 However, our current python implementation of the planner is convenient but has no "explicit" preconditions and effects. Everything is defined through python function. The effects of an action are a function with a world state as input and returns the updated world state. Action preconditions are functions with a world state as input and return a boolean. And methods (of an associated abstract task) are functions with world state as input and return a list of tasks to update the agenda with. Methods also have preconditions working similarly then action preconditions. 
 Hence, it's challenging to extract the explicit effects and preconditions of an action. That is why we decided to rely on an assumption to check the compatibility of concurrent actions. 
 We consider the following in a given state. 
-If action 1 and action 2 can be sequentially performed in both orders (1->2 and 2->1). Then we can assume that there are no causal links between the two actions and that they can be performed concurrently. The only care to take are shared resources such as a tool that would only be used during the action, making it available before and after but not during the action. To tackle this issue, shared resources are explicitly declared in the world state and in the action models. Two actions requiring a same shared resource cannot be parallelized.
+If action 1 and action 2 can be sequentially performed in both orders (1$\rightarrow$2 and 2$\rightarrow$1). Then we can assume that there are no causal links between the two actions and that they can be performed concurrently. The only care to take are shared resources such as a tool that would only be used during the action, making it available before and after but not during the action. To tackle this issue, shared resources are explicitly declared in the world state and in the action models. Two actions requiring a same shared resource cannot be parallelized.
 One benefit the way we check if two actions are mutually exclusive is making the actions estimations a black box. Indeed, we can easily replace the way we estimate the next actions each agent is likely to perform. Especially for the human, we could use a pretrained human activity estimator neural network, or more classical planner like PDDL. 
 
 With the causal principle above in mind, we proceed as follows to compute the possible concurrent action pairs from a given p-state. We start by estimating all possible human actions by refining the human agenda, generating a new p-state for each possible action. For each such p-state we first create an action pair where the robot is passive by inserting a \textit{PASS} robot action. This \textit{PASS} pair is stored among all other "human pass pairs". Second, we refine the robot agenda to obtain all feasible sequences of human then robot actions and their associated p-states. We refer to them as the sequential human starting pairs. In a symmetrical way we compute the sequential robot starting pairs and "robot pass pairs" by starting with the robot then refining the human agenda.
@@ -145,9 +147,26 @@ When looking for similar existing p-state, we assume that p-states which are par
 
 \section{Policy generation}
 
-Now, the robot's policy must be determined. We want to preserve the latitude of choice the human have at execution. Hence, the policy must indicate in every p-state which action the robot should concurrently perform according to each action the human is likely to perform. These best concurrent robot actions are determined by aiming to optimally satisfy an estimation of the human preferences regarding the task. Eventually, at execution, the human is free to perform any of the explored action and the robot will accordingly perform an optimal concurrent action to both solve the task and satisfy their estimated preferences.  
+First of all, as depicted in figure~\ref{fig:and_or}, all children concurrent action pairs of a p-state can actually be seen as an AND-OR graph. Since we want to preserve the latitude of choice the human have at execution, each possible human choice of action is considered as an AND edge and leads to a partial p-state. And from a partial p-state, each compliant concurrent robot action is considered as an OR edge and leads to another p-state.
 
-We first describe our format of human preferences and how we could estimate them, and what it allows for us. Then, we describe the actual process to generate the robot policy from the search graph.
+Thus, generating the robot policy $\Pi$ consists in identifying the best concurrent compliant robot action $RA^*$ for each possible human action, or partial p-state $ps_i^j$.
+
+These best concurrent robot actions are determined by aiming to optimally satisfy an estimation of the human preferences regarding the task. Eventually, at execution, the human is free to perform any of the explored action and the robot will accordingly perform an optimal concurrent action to both solve the task and satisfy their estimated preferences.
+
+Hence, before giving more details about the policy itself, we first describe the format of human preferences, how we could estimate them, and what it allows us to do. After, we describe the actual process to generate the robot policy from the search graph using the estimated human preferences
+
+
+**The robot policy consist in performing the best robot action according to the node and the human action, i.e., robot action stored in the "best compliant" pair corresponding to the human action.
+If all "best compliant" pair have the same robot action, the robot can perform as soon as the step stars, otherwise the human action must be identified.**
+
+\begin{figure}
+    \includegraphics[width=\linewidth]{Chapter4/and_or_tree.png}
+    \caption{AND-OR graph representation of the action pairs. 
+    The robot policy must be compliant to any decision of the human. Hence, the problem can be seen as an AND-OR graph where for each possible human choice of action (AND node), we must determine the best concurrent robot action among the possible robot actions (OR node).
+    }
+    \label{fig:and_or}
+\end{figure}
+
 
     \subsection{Estimated Human preferences}
 estimations, format, Discussion(often inaccurate, hence our Approach), consider metrics, is a prioritized sequence of metrics to max or min, allow comparison of metrics
@@ -175,7 +194,6 @@ Note that estimating either human preferences or explicit action and social cost
 Being aware of this, we use the estimated human preferences as a guide for the robot behavior, but we also make sure to be compliant to the human activity to lessen in impact of a wrong estimation. 
 
     \subsection{Process}
-propagation + merge + policy format 
 
 \begin{figure}
     \includegraphics[width=\linewidth]{images/Chapter4/policy_generation.png}
@@ -186,12 +204,116 @@ propagation + merge + policy format
 To generate the robot policy from the search graph we proceed from the leaves to the root. We compute the set of metrics for each possible trace, and when reaching nodes with several children we compare the metrics of the different traces, identify the best ones to update the robot policy with, and then we continue by propagating only the best set of metrics.
 This process is achieved by repeating two sub-routines detailed just below, namely: Propagation and Selection. 
 
+\begin{algorithm}
+\caption{Policy Generation}\label{alg:policy_generation}
+\begin{algorithmic}[1]
+
+\State \textbf{input}: $leafNodes$ \Comment{Set of all leaf nodes from the search graph}
+\State $nodesToPropagate \gets \emptyset$
+\State $nodesForSelection \gets \emptyset$
+
+\State $Initialization(nodesToPropagate, leafNodes)$
+
+\While{ $nodesToPropagate \neq \emptyset$ and $nodesForSelection \neq \emptyset$ }
+    \State $Propagation(nodesToPropagate, nodesForSelection)$
+    \State $Selection(nodesToPropagate, nodesForSelection)$
+\EndWhile
+
+\end{algorithmic}
+\end{algorithm}
+
+    \subsubsection{Format and Initialization}
+
+During this process we compute and store the best reachable set of metrics alternatively in the p-states and in the action pairs. Initially, we store default/null metrics in every leaf p-state. Then we keep track of two types of nodes. First, keep track of the nodes which metrics should be propagated in the next step, those are stored in the set $\{nodesToPropagate\}$ which is initialized with all leaf nodes. This set is populated by the Selection sub-routine. Secondly, we keep track of the nodes to that should select among several the best set of metrics, and thus, the best actions to perform, this set is $\{nodesForSelection\}$. This set is populated by the propagation sub-routine and is being emptied by the selection sub-routine. The process is over when the two sets are empty, thus, when they are no more nodes either to propagate nor for selection.
+
     \subsubsection{Propagation}
 
-For 
+This sub-routine consists in picking a node to propagate from the set $\{nodesToPropagate\}$. For each parent action pair of that node we create a copy of the set of metrics of the propagated node and update them according the parent action pair and propagated node. 
+The metrics must be cumulative. 
+
+Examples for rules to update the metrics are the following. If the human action of the pair is not passive then the \textit{Global Effort} and \textit{Human Effort} metrics are both incremented by 1. If the pair isn't a passive \textit{IDLE}-\textit{IDLE} then \textit{Time of Task Completion} is incremented by 1. If the robot action is passive in the pair and if in the child p-state the robot is holding a cube then \textit{Passive While Holding} is incremented by 1. 
+
+Rules to update the standard metrics are the following \textbf{TO UPDATE, THERE IS AN OFFSET OF 1 FOR TIME STEP METRICS}:
+\vspace{-\topsep}
+\begin{itemize}
+    \setlength\itemsep{-0.3em}
+    \item Always increment (by 1) \textit{Time of Task Completion}%
+    \item If the human action is passive and the current \textit{Human Effort} is zero, then the temporary metric \textit{Number Last Passive Human Action} is incremented.
+    \item \textit{Time of End of Human Duty} = \textit{Time of Task Completion} - \textit{Number Last Passive Human Action}.
+    \item If human action is not passive, then \textit{Human Effort} and \textit{Global Effort} are incremented.
+    \item If robot is not passive, then \textit{Global Effort} is incremented.
+\end{itemize}
+Rules to updates domain specific metrics, must be provided:
+\vspace{-\topsep}
+\begin{itemize}
+    \setlength\itemsep{-0.3em}
+    \item If human action is passive and in child p-state the human is holding a cube, then \textit{Passive While Holding} is incremented.
+    \item \textit{(Similarly with the robot)}
+    \item If the human action is to drop a cube back on the table, then \textit{Number of Drop} is incremented.
+    \item \textit{(Similarly with the robot)}
+\end{itemize}
+
+The updated metrics are stored in their corresponding action pair. Then, two cases can occur for each parent action pair with stored metrics, referred as propagated pairs. First, if the parent node of the propagated pair has more than one child then we add this parent node to the set $\{nodesForSelection\}$. Otherwise, the metrics of the action pair are stored in the parent node which is also added in the set $\{nodesToPropagate\}$. 
+% In both cases, the former propagated node is marked as ``propagated'' (not needed actually).
+The sub-routine repeats until the set $\{nodesToPropagate\}$ is empty.
+
+\begin{algorithm}
+\caption{Propagation}\label{alg:propagation}
+\begin{algorithmic}[1]
+
+\While{ $nodesToPropagate \neq \emptyset$ }
+    \State $N \in nodesToPropagate$
+    \State $nodesToPropagate \gets nodesToPropagate \setminus \{N\}$
+    \For{ each $P$ in $N.parents$ }
+        \State $P.metrics \gets CopyAndUpdateMetrics(N.metrics, N, P)$
+        \If{ $HasOneChild(P.parent)$ }
+            \State $P.parent.metrics \gets P.metrics$
+            \State $nodesToPropagate \gets nodesToPropagate \cup \{P.parent\}$
+        \Else
+            \State $nodesForSelection \gets nodesForSelection \cup \{P.parent\}$
+        \EndIf
+    \EndFor
+\EndWhile
+
+\end{algorithmic}
+\end{algorithm}
+
+
 
     \subsubsection{Selection}
 
+Introduce policy notation, p-state and partial p-state (AND-OR tree)
+
+When a node has several children, possible action pairs, then we must evaluate and compare them in order to make the best robot choices and update the policy with them. The evaluation is part is done by the propagation sub-routine. The Selection one checks when robot choices are ready to be made, update the robot policy and prepare the next propagation phase. 
+
+More precisely, this sub-routine checks every node in the $\{nodesForSelection\}$ set to know if we are ready to make a choice, i.e., if every child pair of that node has metrics stored in it, has been propagated. 
+If not, nothing happens and the node remains in the set.
+If so, we are ready to compare the pairs and update the policy. Since we want the human to be free to perform any action, even suboptimal, we must find the best concurrent robot action for each possible human action. The first step is to group/sort/organize the children pairs by similar human action. Then, for each group of pairs, we compare their metrics using the estimated human preferences and identify the best pair of the group, which is marked a ``best compliant pair''. After, all marked pairs are compared the overall best pair is identified and marked as ``best pair''. Eventually, the metrics of the ``best pair'' are stored in the node from $\{nodesForSelection\}$, the node is removed from the set and added to the other set $\{nodesToPropagate\}$.
+
+\begin{algorithm}
+\caption{Selection \textbf{To update with policy notations}}\label{alg:selection}
+\begin{algorithmic}[1]
+
+\For{ each $N$ in $nodesForSelection$ }
+    \If{ $ReadyForSelection(N)$ }
+        \State $groups \gets GroupPairsByHumanAction(N.children)$
+        \For{ each $group$ in $groups$ }
+            \State $P = IdentifyBestPair(group)$
+            \State $MarkAsBestCompliant(P)$
+        \EndFor
+        \State 
+        \State $bestCompliantPairs \gets RetrieveMarkedBestCompliant(N)$
+        \State $bestPair \gets IdentifyBestPair(bestCompliantPairs)$
+        \State $MarkAsBest(bestPair)$
+        \State 
+        \State $N.metrics \gets bestPair.metrics$
+        \State $nodesForSelection \gets nodesForSelection \setminus \{N\}$
+        \State $nodesToPropagate \gets nodesToPropagate \cup \{N\}$
+    \EndIf
+\EndFor
+
+\end{algorithmic}
+\end{algorithm}
 
 \section{Results}
 simulation of execution, without durative action
