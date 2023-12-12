@@ -4,3 +4,4 @@ HATP
 EHDA
 HTN
 parallelizable
+durative
