@@ -12,3 +12,5 @@
 *.toc
 *.fdb_latexmk
 These.pdf
+*.lof
+*.lot
