@@ -34,7 +34,13 @@ Synchronization, internal communication through simulated visual signal, explici
 
 ***********
 
-In this section we provide a few functional and technical details about the developed interactive simulator used for the User Study.
+In this section we provide a few functional and technical details about the developed interactive simulator used for the User Study, its overall structure is shown on fig~\ref{fig:iteractive_simulator}.
+
+\begin{figure}
+    \includegraphics[width=\textwidth]{images/Chapter5/simulator.png}
+    \caption{Interactive Simulator Overview}
+    \label{fig:iteractive_simulator}
+\end{figure}
 
 First, it is using Gazebo to simulate the scene (table, cubes, agents). 
 The robot is a Tiago robot from PAL Robotics. We used a MoveIt controller to plan and execute arm motions. We used a publicly available component to control the gaze of the robot. The head behavior is ad hoc and designed by us.
@@ -50,17 +56,13 @@ For this to be possible we did the following. First, another gazebo plugin has b
 Then, at every step, the robot component sends to the component receiving the coordinates of the click the currently valid human actions that the participant can perform. Thus, the participant cannot try to place a cube without holding it. Eventually, each human action is mapped to a clickable zone on the gazebo window. Hence, when the click coordinates are received, we check if it is inside one of the designed zone and is the action associated to the zone is currently valid. If so, then the action decision is sent to the simulator controller to be executed. 
 For clarification purpose, when clicking on a cube the robot doesn't immediately know that the human is picking a cube. First, it will know that the human started to act only after receiving the visual signal (after the defined reaction time). And the robot must perform an additional perception phase (ID Process) to identify which action the human performed. 
 
-Additionally, a small prompt overlay is present to simulate a potential screen with which the robot can communicate its intention to the human during the collaboration.  
+Additionally, the stacking goal pattern is shown inside the simulator and a small prompt overlay is present to simulate a potential screen with which the robot can communicate its intention to the human during the collaboration. 
 
 Thanks to all these processes, the participant is able to intuitively perform actions using mouse control and can collaborate with the robot to solve the task.
 
 An integrated tutorial has been made to familiarize the participant with the mouse control and the relevant concepts used in the collaboration (notion of step, able to be passive). 
 
-\begin{figure}
-    \includegraphics[width=\textwidth]{images/Chapter5/simulator.png}
-    \caption{Interactive Simulator Overview}
-    \label{fig:iteractive_simulator}
-\end{figure}
+
 
 \section{Study protocol}
 
@@ -69,7 +71,8 @@ objective, participants, material, experiment design, procedure, measures
 This section describes the objectives and protocol of this study.  
 
 \begin{figure}
-    \includegraphics[width=\textwidth]{images/Chapter5/UserStudyProcedure.png}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/Chapter5/UserStudyProcedure.png}
     \caption{User Study Protocol. Each participant goes through 6 scenarios and answer 6 questionnaires to evaluate each different robot behavior}
     \label{fig:user_study_protocol}
 \end{figure}
@@ -84,7 +87,8 @@ In this study, each participant is made to collaborate six times with a simulate
 Beforehand, every participant answers a few general/demographic questions and is familiarized with the simulator functionalities through an integrated tutorial. Only then they start the six consecutive collaborative scenarios, answering every time a questionnaire to describe the interaction. Eventually, every participant is asked to share their general feelings and impressions about the overall interaction with the simulated robot, and they are asked to tell which scenario they preferred the most and the least.
 
 \begin{figure}
-    \includegraphics[width=\linewidth]{images/Chapter5/task_description_study.png}
+    \centering
+    \includegraphics[width=0.8\linewidth]{images/Chapter5/task_description_study.png}
     \caption{Description of the shared task to achieve in the study.}
     \label{fig:task_description_study}
 \end{figure}
