@@ -35,9 +35,32 @@ Explaining false belief task (Sally and Anne)
 
     %%% SUB-SECTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \subsection{Epistemic planning}
+    Epistemic planning plays a crucial role in human-robot collaboration. It allows robots to reason about their own knowledge and beliefs, as well as the knowledge and beliefs of other agents \cite{bramblett_epistemic_2023}. This is important for coordination and collaboration among multiple agents, as success can only be expected if agents can reason about each other's knowledge, uncertainty, and capabilities \cite{bramblett_epistemic_prediction_2023}. Epistemic planning is used in various application areas, including mobile service robots, explaining planning, game playing, human-robot interaction, and social robotics \cite{hu_planning_2023}. It enables robots to make plans to achieve the required knowledge and to reason about the knowledge and capabilities of other agents, ensuring effective collaboration and coordination in human-robot interactions \cite{belle_epistemic_2023}.
 
-    %%% SUB-SECTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\   subsection{DEL}
+
+    Def. Thomas Bolander is one of the main contributor to this field. Proposed the DEL approach. \cite{bolander_gentle_2017} and extended it.
+
+    ``Automated planning is a branch of artificial intelligence concerned with computing plans (sequences of actions) leading to some desired goal. A human or robot could e.g. have the goal of picking up a parcel at the post office, and then the problem becomes to find a successful sequence of actions achieving this. Epistemic planning is the enrichment of planning with epistemic notions, that is, knowledge and beliefs. The human or robot might have to reason about epistemic aspects such as: Do I know at which post office the parcel is? If not, who would be relevant to ask? Maybe the parcel is a birthday present for my daughter, and I want to ensure that she doesn't get to know, and have to plan my actions accordingly (make sure she doesn't see me with the parcel). The epistemic notions are usually formalized using an epistemic logic. Epistemic planning can naturally be seen as the combination of automated planning with epistemic logic, relying on ideas, concepts and solutions from both areas.''
+
+    Muise et al. worked on multi-agent epistemic planning using a classical planning approach. Since involving nested beliefs is computationally demanding, their work proposes to convert and encode such problems into classical planning problems. Hence, state-of-the-art classical planning technics can be used to tackle nested beliefs of multiple agents problems. 
+
+    \subsection{Theory of Mind in HRC}
+    Epistemic planning helps to plan the correct sequence of actions to perform to reach a desired knowledge, including a desired world state. However, estimating the current knowledge and beliefs of the different agents is challenging. To do so, we have to consider Theory of Mind concepts, especially perspective shift and the notion of co-presence. Some epistemic planning works already integrate of ToM notions, but the subject is worth being discussed a bit more in details. Indeed, in the HRI field, ToM is used in various domains like navigation, dialogue and like here in task planning. 
+
+    Theory of mind (ToM) plays a crucial role in task planning for human-robot collaboration. 
+    ToM refers to the ability to attribute mental states to oneself and others, such as beliefs, desires, and intentions. 
+    
+    (v1) Robots endowed with ToM abilities can anticipate and understand the mental states of their human partners, allowing for more effective interaction and decision-making. By inferring their partner's trust and strategy, robots can adjust their own decision models and policies to optimize team performance [1]. Mimicking ToM in robots influences human decision-making behavior and trust, making it more appropriate and conducive to collaboration [2]. Robots implementing ToM are perceived as more socially intelligent and helpful, enhancing the quality of human-robot interactions [3]. Computational theory of mind, based on abstractions of beliefs into higher-level concepts, enables agents to reason and collaborate with humans efficiently, improving decision-making outcomes [4]. However, the field lacks a unified construct and consistent benchmarking, hindering progress in endowing robots with ToM capabilities [5].
+
+    (v2) Robots endowed with ToM abilities are more effective in proactive robotic assistance and are perceived as more socially intelligent by humans \cite{shvo_proactive_2022}. ToM enables robots to infer human desires, beliefs, and intentions, allowing for natural interaction between robots and humans \cite{yu_robot_2023}. Robots with ToM can anticipate human strategies and incorporate them into their decision models, leading to better team performance \cite{romeo_exploring_2022}. The presence of ToM in robots influences human decision-making behavior and trust, making it more appropriate for human-robot collaboration \cite{schlobach_abstracting_2022}. Computational theory of mind, based on abstractions of beliefs into higher-level concepts, facilitates collaboration on decisions and improves the quality of human decisions \cite{gurney_robots_2022}. However, the lack of a unified construct and consistent benchmarking hinders progress in endowing robots with ToM capabilities.
+
+    \textbf{TODO: Merge two versions, but references of v1 are not accessible anymore...}
+
+    
+    \subsection{Communication in HRC}
+
+    Communication plays a crucial role in human-robot collaboration. It enables effective interaction between humans and robots, promoting inclusivity and reducing obstacles in human-robot interaction. Communication allows robots to share information about their actions and intentions, enhancing transparency and explainability \cite{mcmillan_human-robot_2023}. It helps in establishing trust and understanding between humans and robots, leading to improved teamwork and performance \cite{verhagen_influence_2022}. Non-verbal gestures and behavior of robots during collaboration can impact the perception of the robot and influence the willingness of humans to cooperate \cite{arntz_collaborating_2022}. Communication also allows robots to assess their own skills and limitations, propose alternatives, and adapt the execution of tasks to the capabilities of the collaborators \cite{ferrari_bidirectional_2022}. Overall, effective communication facilitates mutual knowledge, enables the exchange of information, and allows humans and robots to work together efficiently and successfully.
+
 
 %%% SECTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Maintaining the human beliefs}

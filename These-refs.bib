@@ -880,3 +880,262 @@ journal = {Proceedings of the Royal Society B: Biological Sciences}
 	pages = {144--151},
 	file = {Devin et al. - 2018 - Evaluating the Pertinence of Robot Decisions in a .pdf:/home/afavier/Zotero/storage/IVJTQ5S5/Devin et al. - 2018 - Evaluating the Pertinence of Robot Decisions in a .pdf:application/pdf},
 }
+
+
+@article{bolander_gentle_2017,
+	title = {A {Gentle} {Introduction} to {Epistemic} {Planning}: {The} {DEL} {Approach}},
+	volume = {243},
+	issn = {2075-2180},
+	shorttitle = {A {Gentle} {Introduction} to {Epistemic} {Planning}},
+	url = {http://arxiv.org/abs/1703.02192},
+	doi = {10.4204/EPTCS.243.1},
+	language = {en},
+	urldate = {2024-01-05},
+	journal = {Electronic Proceedings in Theoretical Computer Science},
+	author = {Bolander, Thomas},
+	month = mar,
+	year = {2017},
+	pages = {1--22},
+	file = {Bolander - 2017 - A Gentle Introduction to Epistemic Planning The D.pdf:/home/afavier/Zotero/storage/JMPWZHUC/Bolander - 2017 - A Gentle Introduction to Epistemic Planning The D.pdf:application/pdf},
+}
+
+
+
+@article{bramblett_epistemic_2023,
+	title = {Epistemic planning for multi-robot systems in communication-restricted environments},
+	volume = {10},
+	issn = {2296-9144},
+	url = {https://www.frontiersin.org/articles/10.3389/frobt.2023.1149439/full},
+	doi = {10.3389/frobt.2023.1149439},
+	abstract = {Many real-world robotic applications such as search and rescue, disaster relief, and inspection operations are often set in unstructured environments with a restricted or unreliable communication infrastructure. In such environments, a multi-robot system must either be deployed to i) remain constantly connected, hence sacrificing operational efficiency or ii) allow disconnections considering when and how to regroup. In communication-restricted environments, we insist that the latter approach is desired to achieve a robust and predictable method for cooperative planning. One of the main challenges in achieving this goal is that optimal planning in partially unknown environments without communication requires an intractable sequence of possibilities. To solve this problem, we propose a novel epistemic planning approach for propagating beliefs about the system’s states during communication loss to ensure cooperative operations. Typically used for discrete multi-player games or natural language processing, epistemic planning is a powerful representation of reasoning through events, actions, and belief revisions, given new information. Most robot applications use traditional planning to interact with their immediate environment and only consider knowledge of their own state. By including an epistemic notion in planning, a robot may enact depth-of-reasoning about the system’s state, analyzing its beliefs about each robot in the system. In this method, a set of possible beliefs about other robots in the system are propagated using a Frontier-based planner to accomplish the coverage objective. As disconnections occur, each robot tracks beliefs about the system state and reasons about multiple objectives: i) coverage of the environment, ii) dissemination of new observations, and iii) possible information sharing from other robots. A task allocation optimization algorithm with gossip protocol is used in conjunction with the epistemic planning mechanism to locally optimize all three objectives, considering that in a partially unknown environment, the belief propagation may not be safe or possible to follow and that another robot may be attempting an information relay using the belief state. Results indicate that our framework performs better than the standard solution for communication restrictions and even shows similar performance to simulations with no communication limitations. Extensive experiments provide evidence of the framework’s performance in real-world scenarios.},
+	language = {en},
+	urldate = {2024-01-05},
+	journal = {Frontiers in Robotics and AI},
+	author = {Bramblett, Lauren and Bezzo, Nicola},
+	month = may,
+	year = {2023},
+	pages = {1149439},
+	file = {Bramblett and Bezzo - 2023 - Epistemic planning for multi-robot systems in comm.pdf:/home/afavier/Zotero/storage/P4V7M6RR/Bramblett and Bezzo - 2023 - Epistemic planning for multi-robot systems in comm.pdf:application/pdf},
+}
+
+
+@inproceedings{bramblett_epistemic_prediction_2023,
+	title = {Epistemic {Prediction} and {Planning} with {Implicit} {Coordination} for {Multi}-{Robot} {Teams} in {Communication} {Restricted} {Environments}},
+	url = {http://arxiv.org/abs/2302.10393},
+	doi = {10.1109/ICRA48891.2023.10161553},
+	abstract = {In communication restricted environments, a multi-robot system can be deployed to either: i) maintain constant communication but potentially sacriﬁce operational eﬃciency due to proximity constraints or ii) allow disconnections to increase environmental coverage eﬃciency, challenges on how, when, and where to reconnect (rendezvous problem). In this work we tackle the latter problem and notice that most stateof-the-art methods assume that robots will be able to execute a predetermined plan; however system failures and changes in environmental conditions can cause the robots to deviate from the plan with cascading eﬀects across the multi-robot system. This paper proposes a coordinated epistemic prediction and planning framework to achieve consensus without communicating for exploration and coverage, task discovery and completion, and rendezvous applications. Dynamic epistemic logic is the principal component implemented to allow robots to propagate belief states and empathize with other agents. Propagation of belief states and subsequent coverage of the environment is achieved via a frontier-based method within an artiﬁcial physics-based framework. The proposed framework is validated with both simulations and experiments with unmanned ground vehicles in various cluttered environments.},
+	language = {en},
+	urldate = {2024-01-05},
+	booktitle = {2023 {IEEE} {International} {Conference} on {Robotics} and {Automation} ({ICRA})},
+	author = {Bramblett, Lauren and Gao, Shijie and Bezzo, Nicola},
+	month = may,
+	year = {2023},
+	note = {arXiv:2302.10393 [cs]},
+	keywords = {Computer Science - Artificial Intelligence, Computer Science - Robotics},
+	pages = {5744--5750},
+	file = {Bramblett et al. - 2023 - Epistemic Prediction and Planning with Implicit Co.pdf:/home/afavier/Zotero/storage/SCCNNRPD/Bramblett et al. - 2023 - Epistemic Prediction and Planning with Implicit Co.pdf:application/pdf},
+}
+
+
+
+@article{hu_planning_2023,
+	title = {Planning with {Multi}-{Agent} {Belief} {Using} {Justified} {Perspectives}},
+	volume = {33},
+	issn = {2334-0843, 2334-0835},
+	url = {https://ojs.aaai.org/index.php/ICAPS/article/view/27193},
+	doi = {10.1609/icaps.v33i1.27193},
+	abstract = {Epistemic planning plays an important role in multi-agent and human-agent interaction domains. Most existing works solve multi-agent epistemic planning problems by either precompiling them into classical planning problems; or, using explicit actions and their effects to encode Kripke-based semantics. A recent approach called Planning with Perspectives (PWP) delegates epistemic reasoning in planning to external functions using F-STRIPS, keeping the search within the planning algorithm and lazily evaluating epistemic formulae. Although PWP is expressive and efﬁcient, it models S5 epistemic logic and does not support belief, including false belief. In this paper, we extend the PWP model to handle multi-agent belief by following the intuition that agents believe something they have seen until they see otherwise. We call this justiﬁed perspectives. We formalise this notion of multi-agent belief based on the deﬁnition of knowledge in PWP. Using experiments on existing epistemic and doxastic planning benchmarks, we show that our belief planner can solve benchmarks more efﬁciently than the state-of-theart baseline, and can model some problems that are infeasible to model using propositional-based approaches.},
+	language = {en},
+	number = {1},
+	urldate = {2024-01-05},
+	journal = {Proceedings of the International Conference on Automated Planning and Scheduling},
+	author = {Hu, Guang and Miller, Tim and Lipovetzky, Nir},
+	month = jul,
+	year = {2023},
+	pages = {180--188},
+	file = {Hu et al. - 2023 - Planning with Multi-Agent Belief Using Justified P.pdf:/home/afavier/Zotero/storage/9YN3ZR77/Hu et al. - 2023 - Planning with Multi-Agent Belief Using Justified P.pdf:application/pdf},
+}
+
+
+@article{belle_epistemic_2023,
+	title = {Epistemic planning: {Perspectives} on the special issue},
+	volume = {316},
+	issn = {00043702},
+	shorttitle = {Epistemic planning},
+	url = {https://linkinghub.elsevier.com/retrieve/pii/S0004370222001825},
+	doi = {10.1016/j.artint.2022.103842},
+	language = {en},
+	urldate = {2024-01-05},
+	journal = {Artificial Intelligence},
+	author = {Belle, Vaishak and Bolander, Thomas and Herzig, Andreas and Nebel, Bernhard},
+	month = mar,
+	year = {2023},
+	pages = {103842},
+	file = {Belle et al. - 2023 - Epistemic planning Perspectives on the special is.pdf:/home/afavier/Zotero/storage/VTACMXI9/Belle et al. - 2023 - Epistemic planning Perspectives on the special is.pdf:application/pdf},
+}
+
+
+
+@inproceedings{shvo_proactive_2022,
+	title = {Proactive {Robotic} {Assistance} via {Theory} of {Mind}},
+	url = {https://ieeexplore.ieee.org/document/9981627},
+	doi = {10.1109/IROS47612.2022.9981627},
+	abstract = {Advanced social cognitive skills enhance the effectiveness of human-robot interactions. Research shows that an important precursor to the development of these abilities in humans is Theory of Mind (ToM) - the ability to attribute mental states to oneself and to others. In this work, we endow robots with ToM abilities and propose a ToM-based approach to proactive robotic assistance by appealing to epistemic planning techniques. Our evaluation shows that robots implementing our approach and demonstrating ToM are measurably more helpful and perceived by humans as more socially intelligent compared to robots with a deficit in ToM.},
+	urldate = {2024-01-05},
+	booktitle = {2022 {IEEE}/{RSJ} {International} {Conference} on {Intelligent} {Robots} and {Systems} ({IROS})},
+	author = {Shvo, Maayan and Hari, Ruthrash and O'Reilly, Ziggy and Abolore, Sophia and Wang, Sze-Yuh Nina and McIlraith, Sheila A.},
+	month = oct,
+	year = {2022},
+	note = {ISSN: 2153-0866},
+	pages = {9148--9155},
+}
+
+
+@inproceedings{yu_robot_2023,
+	address = {Stockholm Sweden},
+	title = {Robot {Theory} of {Mind} with {Reverse} {Psychology}},
+	isbn = {978-1-4503-9970-8},
+	url = {https://dl.acm.org/doi/10.1145/3568294.3580144},
+	doi = {10.1145/3568294.3580144},
+	language = {en},
+	urldate = {2024-01-05},
+	booktitle = {Companion of the 2023 {ACM}/{IEEE} {International} {Conference} on {Human}-{Robot} {Interaction}},
+	publisher = {ACM},
+	author = {Yu, Chuang and Serhan, Baris and Romeo, Marta and Cangelosi, Angelo},
+	month = mar,
+	year = {2023},
+	pages = {545--547},
+	file = {Yu et al. - 2023 - Robot Theory of Mind with Reverse Psychology.pdf:/home/afavier/Zotero/storage/IGGX8U2J/Yu et al. - 2023 - Robot Theory of Mind with Reverse Psychology.pdf:application/pdf},
+}
+
+
+
+@inproceedings{romeo_exploring_2022,
+	title = {Exploring {Theory} of {Mind} for {Human}-{Robot} {Collaboration}},
+	url = {https://ieeexplore.ieee.org/document/9900550},
+	doi = {10.1109/RO-MAN53752.2022.9900550},
+	abstract = {The ability to impute mental states to oneself or others, or Theory of Mind (ToM), has been intrinsically linked to trust between humans. However, less is known about how a robot mimicking ToM affects users’ trust and behaviour. We explore this through an online study, where we compare three robot personas in a cooperative maze navigation task: one neutral, one that explains its reasoning in technical terms, and one that mimics ToM. We show that ToM influences human decision-making behaviour and trust in a way that makes it more appropriate with respect to the competencies of the robot. This is key for human-robot collaboration and adoption of robotics moving forward.},
+	urldate = {2024-01-05},
+	booktitle = {2022 31st {IEEE} {International} {Conference} on {Robot} and {Human} {Interactive} {Communication} ({RO}-{MAN})},
+	author = {Romeo, Marta and McKenna, Peter E. and Robb, David A. and Rajendran, Gnanathusharan and Nesset, Birthe and Cangelosi, Angelo and Hastie, Helen},
+	month = aug,
+	year = {2022},
+	note = {ISSN: 1944-9437},
+	pages = {461--468},
+	file = {Submitted Version:/home/afavier/Zotero/storage/ASNN6933/Romeo et al. - 2022 - Exploring Theory of Mind for Human-Robot Collabora.pdf:application/pdf},
+}
+
+
+@incollection{schlobach_abstracting_2022,
+	title = {Abstracting {Minds}: {Computational} {Theory} of {Mind} for {Human}-{Agent} {Collaboration}},
+	isbn = {978-1-64368-308-9 978-1-64368-309-6},
+	shorttitle = {Abstracting {Minds}},
+	url = {https://ebooks.iospress.nl/doi/10.3233/FAIA220199},
+	abstract = {Theory of mind refers to the human ability to reason about mental content of other people such as beliefs, desires, and goals. In everyday life, people rely on their theory of mind to understand, explain, and predict the behaviour of others. Having a theory of mind is especially useful when people collaborate, since individuals can then reason on what the other individual knows as well as what reasoning they might do. Realization of hybrid intelligence, where an agent collaborates with a human, will require the agent to be able to do similar reasoning through computational theory of mind. Accordingly, this paper provides a mechanism for computational theory of mind based on abstractions of single beliefs into higher-level concepts. These concepts can correspond to social norms, roles, as well as values. Their use in decision making serves as a heuristic to choose among interactions, thus facilitating collaboration on decisions. Using examples from the medical domain, we demonstrate how having such a theory of mind enables an agent to interact with humans efficiently and can increase the quality of the decisions humans make.},
+	language = {en},
+	urldate = {2024-01-05},
+	booktitle = {Frontiers in {Artificial} {Intelligence} and {Applications}},
+	publisher = {IOS Press},
+	author = {Erdogan, Emre and Dignum, Frank and Verbrugge, Rineke and Yolum, Pınar},
+	editor = {Schlobach, Stefan and Pérez-Ortiz, María and Tielman, Myrthe},
+	month = sep,
+	year = {2022},
+	doi = {10.3233/FAIA220199},
+	file = {Erdogan et al. - 2022 - Abstracting Minds Computational Theory of Mind fo.pdf:/home/afavier/Zotero/storage/NAJ4HBRP/Erdogan et al. - 2022 - Abstracting Minds Computational Theory of Mind fo.pdf:application/pdf},
+}
+
+
+
+@inproceedings{gurney_robots_2022,
+	title = {Robots with {Theory} of {Mind} for {Humans}: {A} {Survey}},
+	shorttitle = {Robots with {Theory} of {Mind} for {Humans}},
+	url = {https://ieeexplore.ieee.org/document/9900662},
+	doi = {10.1109/RO-MAN53752.2022.9900662},
+	abstract = {Theory of Mind (ToM) is a psychological construct that captures the ability to ascribe mental states to others and then use those representations for explaining and predicting behavior. We review recent progress in endowing artificially intelligent robots with ToM. A broad array of modeling, experimental, and benchmarking approaches and methods are present in the extant literature. Unlike other domains of human cognition for which research has achieved super-human capabilities, ToM for robots lacks a unified construct and is not consistently benchmarked or validated—realities which possibly hinder progress in this domain. We argue that this is, at least in part, due to inconsistent defining of ToM, no presence of a unifying modeling construct, and the absence of a shared data resource. We believe these would improve the ability of the research community to compare the ToM abilities of different systems. We suggest that establishing a shared definition of ToM, creating a shared data resource that supports consistent benchmarking \& validation, and developing a generalized modeling tool are critical steps towards giving robots ToM capabilities that lay observers will recognize as such.},
+	urldate = {2024-01-05},
+	booktitle = {2022 31st {IEEE} {International} {Conference} on {Robot} and {Human} {Interactive} {Communication} ({RO}-{MAN})},
+	author = {Gurney, Nikolos and Pynadath, David V.},
+	month = aug,
+	year = {2022},
+	note = {ISSN: 1944-9437},
+	pages = {993--1000},
+	file = {IEEE Xplore Abstract Record:/home/afavier/Zotero/storage/IG8MA2LB/9900662.html:text/html},
+}
+
+
+# Communication
+
+@inproceedings{mcmillan_human-robot_2023,
+	address = {New York, NY, USA},
+	series = {{HRI} '23},
+	title = {Human-{Robot} {Conversational} {Interaction} ({HRCI})},
+	isbn = {978-1-4503-9970-8},
+	url = {https://doi.org/10.1145/3568294.3579954},
+	doi = {10.1145/3568294.3579954},
+	abstract = {Conversation is one of the primary methods of interaction between humans and robots. It provides a natural way of communication with the robot, thereby reducing the obstacles that can be faced through other interfaces (e.g., text or touch) that may cause difficulties to certain populations, such as the elderly or those with disabilities, promoting inclusivity in Human-Robot Interaction (HRI). Work in HRI has contributed significantly to the design, understanding and evaluation of human-robot conversational interactions. Concurrently, the Conversational User Interfaces (CUI) community has developed with similar aims, though with a wider focus on conversational interactions across a range of devices and platforms. This workshop aims to bring together the CUI and HRI communities through a one-day workshop to outline key shared opportunities and challenges in developing conversational interactions with robots, resulting in collaborative publications targeted at the CUI 2023 provocations track.},
+	urldate = {2024-01-05},
+	booktitle = {Companion of the 2023 {ACM}/{IEEE} {International} {Conference} on {Human}-{Robot} {Interaction}},
+	publisher = {Association for Computing Machinery},
+	author = {McMillan, Donald and Jaber, Razan and Cowan, Benjamin R. and Fischer, Joel E. and Irfan, Bahar and Cumbal, Ronald and Zargham, Nima and Lee, Minha},
+	month = mar,
+	year = {2023},
+	keywords = {conversational user interaction, embodied interaction, hri},
+	pages = {923--925},
+	file = {Accepted Version:/home/afavier/Zotero/storage/LTCZ657W/McMillan et al. - 2023 - Human-Robot Conversational Interaction (HRCI).pdf:application/pdf},
+}
+
+
+
+@article{verhagen_influence_2022,
+	title = {The influence of interdependence and a transparent or explainable communication style on human-robot teamwork},
+	volume = {9},
+	issn = {2296-9144},
+	url = {https://www.frontiersin.org/articles/10.3389/frobt.2022.993997/full},
+	doi = {10.3389/frobt.2022.993997},
+	abstract = {Humans and robots are increasingly working together in human-robot teams. Teamwork requires communication, especially when interdependence between team members is high. In previous work, we identified a conceptual difference between sharing what you are doing (i.e., being transparent) and why you are doing it (i.e., being explainable). Although the second might sound better, it is important to avoid information overload. Therefore, an online experiment (n = 72) was conducted to study the effect of communication style of a robot (silent, transparent, explainable, or adaptive based on time pressure and relevancy) on human-robot teamwork. We examined the effects of these communication styles on trust in the robot, workload during the task, situation awareness, reliance on the robot, human contribution during the task, human communication frequency, and team performance. Moreover, we included two levels of interdependence between human and robot (high vs. low), since mutual dependency might influence which communication style is best. Participants collaborated with a virtual robot during two simulated search and rescue tasks varying in their level of interdependence. Results confirm that in general robot communication results in more trust in and understanding of the robot, while showing no evidence of a higher workload when the robot communicates or adds explanations to being transparent. Providing explanations, however, did result in more reliance on RescueBot. Furthermore, compared to being silent, only being explainable results a higher situation awareness when interdependence is high. Results further show that being highly interdependent decreases trust, reliance, and team performance while increasing workload and situation awareness. High interdependence also increases human communication if the robot is not silent, human rescue contribution if the robot does not provide explanations, and the strength of the positive association between situation awareness and team performance. From these results, we can conclude that robot communication is crucial for human-robot teamwork, and that important differences exist between being transparent, explainable, or adaptive. Our findings also highlight the fundamental importance of interdependence in studies on explainability in robots.},
+	language = {en},
+	urldate = {2024-01-05},
+	journal = {Frontiers in Robotics and AI},
+	author = {Verhagen, Ruben S. and Neerincx, Mark A. and Tielman, Myrthe L.},
+	month = sep,
+	year = {2022},
+	pages = {993997},
+	file = {Verhagen et al. - 2022 - The influence of interdependence and a transparent.pdf:/home/afavier/Zotero/storage/S5FU62A3/Verhagen et al. - 2022 - The influence of interdependence and a transparent.pdf:application/pdf},
+}
+
+
+@article{arntz_collaborating_2022,
+	title = {Collaborating eye to eye: {Effects} of workplace design on the perception of dominance of collaboration robots},
+	volume = {9},
+	issn = {2296-9144},
+	shorttitle = {Collaborating eye to eye},
+	url = {https://www.frontiersin.org/articles/10.3389/frobt.2022.999308/full},
+	doi = {10.3389/frobt.2022.999308},
+	abstract = {The concept of Human-Robot Collaboration (HRC) describes innovative industrial work procedures, in which human staff works in close vicinity with robots on a shared task. Current HRC scenarios often deploy hand-guided robots or remote controls operated by the human collaboration partner. As HRC envisions active collaboration between both parties, ongoing research efforts aim to enhance the capabilities of industrial robots not only in the technical dimension but also in the robot’s socio-interactive features. Apart from enabling the robot to autonomously complete the respective shared task in conjunction with a human partner, one essential aspect lifted from the group collaboration among humans is the communication between both entities. State-of-the-art research has identified communication as a significant contributor to successful collaboration between humans and industrial robots. Non-verbal gestures have been shown to be contributing aspect in conveying the respective state of the robot during the collaboration procedure. Research indicates that, depending on the viewing perspective, the usage of non-verbal gestures in humans can impact the interpersonal attribution of certain characteristics. Applied to collaborative robots such as the Yumi IRB 14000, which is equipped with two arms, specifically to mimic human actions, the perception of the robots’ non-verbal behavior can affect the collaboration. Most important in this context are dominance emitting gestures by the robot that can reinforce negative attitudes towards robots, thus hampering the users’ willingness and effectiveness to collaborate with the robot. By using a 3 × 3 within-subjects design online study, we investigated the effect of dominance gestures (Akimbo, crossing arms, and large arm spread) working in a standing position with an average male height, working in a standing position with an average female height, and working in a seated position on the perception of dominance of the robot. Overall 115 participants (58 female and 57 male) with an average age of 23 years evaluated nine videos of the robot. Results indicated that all presented gestures affect a person’s perception of the robot in regards to its perceived characteristics and willingness to cooperate with the robot. The data also showed participants’ increased attribution of dominance based on the presented viewing perspective.},
+	language = {en},
+	urldate = {2024-01-05},
+	journal = {Frontiers in Robotics and AI},
+	author = {Arntz, Alexander and Straßmann, Carolin and Völker, Stefanie and Eimler, Sabrina C.},
+	month = sep,
+	year = {2022},
+	pages = {999308},
+	file = {Arntz et al. - 2022 - Collaborating eye to eye Effects of workplace des.pdf:/home/afavier/Zotero/storage/HCD4ELZI/Arntz et al. - 2022 - Collaborating eye to eye Effects of workplace des.pdf:application/pdf},
+}
+
+
+@misc{ferrari_bidirectional_2022,
+	title = {Bidirectional {Communication} {Control} for {Human}-{Robot} {Collaboration}},
+	url = {http://arxiv.org/abs/2206.05202},
+	abstract = {A fruitful collaboration is based on the mutual knowledge of each other skills and on the possibility of communicating their own limits and proposing alternatives to adapt the execution of a task to the capabilities of the collaborators. This paper aims at reproducing such a scenario in a humanrobot collaboration setting by proposing a novel communication control architecture. Exploiting control barrier functions, the robot is made aware of its (dynamic) skills and limits and, thanks to a local predictor, it is able to assess if it is possible to execute a requested task and, if not, to propose alternative by relaxing some constraints. The controller is interfaced with a communication infrastructure that enables human and robot to set up a bidirectional communication about the task to execute and the human to take an informed decision on the behavior of the robot. A comparative experimental validation is proposed.},
+	language = {en},
+	urldate = {2024-01-05},
+	publisher = {arXiv},
+	author = {Ferrari, Davide and Benzi, Federico and Secchi, Cristian},
+	month = jun,
+	year = {2022},
+	note = {arXiv:2206.05202 [cs]},
+	keywords = {Computer Science - Robotics},
+	annote = {Comment: 7 pages, 4 figures, 1 table},
+	file = {Ferrari et al. - 2022 - Bidirectional Communication Control for Human-Robo.pdf:/home/afavier/Zotero/storage/YHIVWX4I/Ferrari et al. - 2022 - Bidirectional Communication Control for Human-Robo.pdf:application/pdf},
+}
+
