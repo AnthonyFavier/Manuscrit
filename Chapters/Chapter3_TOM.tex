@@ -14,24 +14,22 @@
 %%% SECTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
 
-We would want the robot to be able to reason and maintain correctly the distinct human beliefs. Despite modeling distinct beliefs, HATP/EHDA doesn't maintain in a principled way, only in a scripted way (domain specific). Here we propose some models and algorithms to integrated some concept of Theory of Mind in the planning process of HATP/EHDA. 
+We would want the robot to be able to reason and maintain correctly the distinct human beliefs. Despite modeling distinct beliefs, HATP/EHDA doesn't maintain in a principled way, only in a scripted way (domain specific). Here we propose some models and algorithms to integrate some concept of Theory of Mind in the planning process of HATP/EHDA. This way, the robot can estimate more accurately the human's belief to predict their behavior. Moreover, we propose solutions for the robot when to tackle estimated false human beliefs that may impact the task resolution.
 
 Explaining false belief task (Sally and Anne)
-
-\begin{figure}[t!]
+\begin{figure}
     \centering
-    \includegraphics[width=0.70\linewidth]{images/Chapter3/cooking_task_draw.png}
-    \caption{
-    Let us consider cooking pasta as a human-robot shared task. 
-    The robot has to turn on the stove (\textit{stoveOn}) and clean the counter (\textit{counterClean}), but the latter is not a part of the shared task. The human takes care of fetching the pasta while both agents can add salt into the water (\textit{saltIn}). Before pouring the pasta into the pot the human must know the facts, \textit{stoveOn} and \textit{saltIn}. 
-    Unlike \textit{stoveOn}, the facts \textit{saltIn} and \textit{counterClean} are not directly observable. 
-    Hence, by acting while the human is away to fetch the pasta, the robot may induce false beliefs which may be detrimental to the shared task (e.g., human adding salt again).
-    }
-    \label{fig:new_scene}
+    \includegraphics[width=0.5\linewidth]{images/Chapter3/The-Sally-Anne-Task.jpeg}
+    \caption{Sally and Anne Task}
+    \label{fig:sally_and_anne_ask}
 \end{figure}
+
+
 
 %%% SECTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Related works}
+
+    This chapter's contribution is related to several topics not mentioned yet. Hence, to better capture the contribution, this section introduces the new topics and relevant related works.  
 
     %%% SUB-SECTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \subsection{Epistemic planning}
@@ -67,6 +65,20 @@ Explaining false belief task (Sally and Anne)
 
     %%% SUB-SECTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \subsection{Enhanced problem specification}
+
+\textbf{TODO: switch from 'we' to 'I'?}
+
+\begin{figure}[t!]
+    \centering
+    \includegraphics[width=0.70\linewidth]{images/Chapter3/cooking_task_draw.png}
+    \caption{
+    Let us consider cooking pasta as a human-robot shared task. 
+    The robot has to turn on the stove (\textit{stoveOn}) and clean the counter (\textit{counterClean}), but the latter is not a part of the shared task. The human takes care of fetching the pasta while both agents can add salt into the water (\textit{saltIn}). Before pouring the pasta into the pot the human must know the facts, \textit{stoveOn} and \textit{saltIn}. 
+    Unlike \textit{stoveOn}, the facts \textit{saltIn} and \textit{counterClean} are not directly observable. 
+    Hence, by acting while the human is away to fetch the pasta, the robot may induce false beliefs which may be detrimental to the shared task (e.g., human adding salt again).
+    }
+    \label{fig:new_scene}
+\end{figure}
 
 We start from the HATP/EHDA probleme specification which is the following.
 
