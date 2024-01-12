@@ -14,15 +14,21 @@
 %%% SECTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
 
-We would want the robot to be able to reason and maintain correctly the distinct human beliefs. Despite modeling distinct beliefs, HATP/EHDA doesn't maintain in a principled way, only in a scripted way (domain specific). Here we propose some models and algorithms to integrate some concept of Theory of Mind in the planning process of HATP/EHDA. This way, the robot can estimate more accurately the human's belief to predict their behavior. Moreover, we propose solutions for the robot when to tackle estimated false human beliefs that may impact the task resolution.
 
-Explaining false belief task (Sally and Anne)
+
 \begin{figure}
     \centering
     \includegraphics[width=0.5\linewidth]{images/Chapter3/The-Sally-Anne-Task.jpeg}
     \caption{Sally and Anne Task}
-    \label{fig:sally_and_anne_ask}
+    \label{fig:sally_and_anne_task}
 \end{figure}
+
+False beliefs tasks are commonly used tests to acknowledge the presence of Theory of Mind reasoning. The most common test is the \textit{Sally and Anne} one, depicted in fig~\ref{fig:sally_and_anne_task}, and is used in developmental psychology to examine children's "theory of mind" understanding, which refers to their ability to understand how other people think, feel and behave. The test consist in describing the execution of a simple task involving non-observable objects and co-presence, then children are questioned about the belief of one of the character. The task consist in the following. Sally and Anne are two co-present characters near a basket and a box. Sally puts her ball in the basket before going away. Then, Anne moves the ball from the basket to the box, in hindsight of Sally. Eventually, the question is where will Sally look for the ball she left? As an observer of this scene, using Theory of Mind, we can naturally say that Sally will look for her ball in basket because she isn't aware that Anne moved the ball in the box. Very young children are not able to understand that Sally isn't aware of Anne's action and thus, they are likely to answer that Sally will look in the box. 
+
+Theory of Mind reasoning is a very important skill for \textit{good} interaction and collaboration between agents. Thus, it is reasonable and desirable to aim at endowing robots with such skill to enhance their interactions with humans. This is the motivation of the contribution presented in this chapter. Here, we propose an extension of HATP/EHDA to be able to maintain in a principled way the human beliefs during the planning process, and to tackle estimated false human beliefs that may be detrimental to the task resolution.
+
+We would want the robot to be able to reason and maintain correctly the distinct human beliefs. Despite modeling distinct beliefs, HATP/EHDA doesn't maintain in a principled way, only in a scripted way (domain specific). Here we propose some models and algorithms to integrate some concept of Theory of Mind in the planning process of HATP/EHDA. This way, the robot can estimate more accurately the human's belief to predict their behavior. Moreover, we propose solutions for the robot when to tackle estimated false human beliefs that may impact the task resolution.
+
 
 
 
@@ -123,9 +129,6 @@ Similarly, $val^H_i$ represents the estimation of $val_i$ in the perspective of 
 Hence, $\forall s_i \in S$, each $x_j \in X$ is  mapped to two \textit{values} (robot perspective and estimation of human's beliefs), an \textit{observability type}, and a \textit{place}. We say that a state $s_i \in S$ contains \textit{false beliefs}, or \textit{belief divergences}, if $\exists x_j \in X, val^H_i(x_j) \neq val^R_i(x_j)$. 
 
 For our example, the initial state $s_0$ would be as follow: 
-
-\newcommand{\smallvspace}{\vspace{-0.8cm}}
-\newcommand{\bigvspace}{\vspace{-1.3cm}}
 
 {\small
 \noindent
@@ -438,6 +441,22 @@ We discussed earlier that DEL knowledge representation is more expressive and fl
 Think of a specification for \textit{``move''} action manually listing all the environmental facts to be observed by an agent for managing their beliefs. In our case, it is implicitly maintained within a state.
 
 We can consider running a set of rules (e.g., \textit{graph-based ontology}) to bring new interesting facts in the state based on a set of known facts. We believe that this aspect opens up new possibilities in the future to integrate human-aware collaborative planning and ontology.
+
+%%% SECTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Epistemic Extension}
+
+The planning process proposed in this contribution is part of the epistemic planning field. However, the uncertainties are limited and focused on the human decisions, in a simplistic manner compared to ``classical'' epistemic planner. Indeed, state-of-the-art epistemic planners consider epistemic states rather than ``simple'' beliefs and thus are able to keep track of several possible worlds. More precisely, [cite bolander] this work using the DEL approach are able to keep track and reason on several possible worlds for each agent, and can even manage distinguishable worlds from others. Hence, the planner is able to anticipate that an agent can believe in three different possible worlds and tell that at execution time the agent will be able to distinguish if they are in world 1 or not, but they will not be able to tell distinguish between world 2 and 3 (based on observable facts).
+Such approaches currently heavily rely on conditional action effects and scripting. That is, when an agent enters a room with an action \textit{move}, the \textit{move} conditional effects will update accordingly the agent's possible worlds (the agent sees a box, notice that someone isn't in the room anymore, and so on...). These situation assessment rules must be encoded into the action model used, and more precisely, in the action's effect which isn't convenient and is domain specific.
+Our contribution proposes generalized situation assessment rules to maintain the beliefs but at the price to have simplified epistemic states.
+
+In some preliminary work we explored an extension of our approach to handle such classical epistemic representation. 
+
+* Describe first findings and models * 
+
+* Some results ? *
+
+* Discuss limitations: the current design is computationally very expensive and doesn't scale. Work on this aspect are needed and in progress to continue investigating this extension * 
+
 
 %%% SECTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusion}
