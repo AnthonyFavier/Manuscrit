@@ -5,32 +5,169 @@
 \faketableofcontents
 \fi
 
-\chapter{Main inspiration HATP/EHDA}
-\chaptermark{Main inspiration HATP/EHDA}
+\chapter{A Human Aware Task Planner Emulating Human Decisions and Actions (HATP/EHDA)}
+\chaptermark{HATP/EHDA}
 \label{chap:2}
 \minitoc
 
 \section{Introduction}
 
-This PhD explored different aspects of human-aware task planning which have been implemented as extension to prior work from Buisan et al. called HATP/EHDA.
-We believe that this previous work was a good basis. Its problem model and planning process fit well in the context. In its current state it already offers interesting possibilities and can help solve challenging joint action problems. 
-It is important to understand well this work, both its motivation and methods, before digging into the contribution. Hence, this chapter introduces, motivate and explain the HATP/EHDA approach has a background chapter to the other main contribution (which are again HATP/EHDA extensions).
+The decision-making challenges of HRC are majorly addressed in the field of task planning. I was introduced to these challenges by helping and continuing the work of a PhD student from my lab, Ghilhem Buisan. He mainly designed and implemented a novel human-aware task planning approach dedicated to HRI which plans the robot actions while estimating and emulating the human decisions and actions, namely HATP/EHDA. 
+
+We believe this planning approach suits well the needs of HRI scenarios, and thus, it became a laboratory to address relevant challenges of decision-making for HRC. Most of my PhD work consists of exploring different challenges of task-planning for HCR and in designing solutions which I implemented as extensions of HATP/EHDA. As a consequence, it is important to understand this work well, both its motivation and methods, before introducing my proper contributions. This section introduces, motivates and explains the HATP/EHDA approach as a background to the other chapters. 
+Naturally, a detailed description of this prototypical planner is already given in Buisan's thesis~\cite{thesisBuisan21}. Despite my limited contributions to the original version of the planner and large parts of this section are directly retrieved from there. Yet, I believe it is important to have those details in this document to understand more easily my contributions.  
 
 \section{Related work}
 
 \subsection{HATP}
-This planner is inspired by the hierarchical human aware task planner HATP (citation) but with a fundamental difference. In addition to ``standard'' task planning metrics like plan length, HATP takes into account social rules and costs to produce the robot plan. This way, it aims to produce a plan which will be acceptable and appreciated without having to negotiate with the human. However, although the plan aims to be socially acceptable, the human must follow the plan produce and has no choice to make. 
-In some scenario this can be frustrating, and it also doesn't account for contingencies in terms of human action. If the human diverge from the plan the execution must be stopped and the plan either repaired or even replan. In opposition, HATP/EHDA generates robot policies instead of plans. In a turn taking manner where the human usually starts, the generated policy indicates the best robot action to perform according the previously performed human action. Thus, the human is free to choose online the action they want to perform, and the robot will account for this decision. This process neither requires prior negotiation with the human.  
+HATP/EHDA is inspired by the hierarchical human aware task planner HATP (citation). In addition to ``standard'' task planning metrics like plan length, HATP takes into account social rules and costs to produce the robot plan. This way, it aims to produce a plan which will be acceptable and appreciated without having to negotiate with the human. However, although the plan aims to be socially acceptable, the human must follow the plan produce and has no choice to make. 
+In some scenario this can be frustrating, and it also doesn't account for contingencies in terms of human action. If the human diverge from the plan the execution must be stopped and the plan either repaired or even replan. 
+In opposition, HATP/EHDA generates robot policies instead of plans. In a turn taking manner where the human usually starts, the generated policy indicates the best robot action to perform according the previously performed human action. Thus, the human is free to choose online the action they want to perform, and the robot will account for this decision. This process neither requires prior negotiation with the human nor an established shared goal.  
 
 \subsection{Other human-aware task planner}
 
 \section{A human aware task planner}
 \subsection{Rationale}
-\subsection{Distinct model of agents}
-Agent models(beliefs, HTN, agenda, triggers)
+
+HATP/EHDA has been developed to try to satisfy several objectives: \textbf{TODO: add Ghilhem text?}
+
+\begin{enumerate}
+    \item \textbf{Plan without assuming a prior shared goal.} In HRI scenarios, the robot and the human are not always sharing a goal. The robot can for example plan to perform a task around humans that are not involved at first, or it may be requested by a human to do a task without wanting to take a part in it. HATP/EHDA can balance between integrating the sharing of a goal with a human (assumed to be collaborative) in the plan and making the robot do the task alone, or integrate the eventuality to ask for punctual human help. 
+
+    \item \textbf{Model the human decision processes.} When taking part in a task, a human (assumed wiling to collaborate with the robot) will also plan to reach their (potentially shared) goal. HATP/EHDA must be able to account for this to provide plans that are expected and explainable by the human partner.
+
+    \item \textbf{Help the human decisions, but not compel them.} Unlike HATP, HATP/EHDA should account for the human flexibility in their decision. While by modeling the human decision processes it is possible to narrow down the possible human actions, the generated plans must be able to help the supervision (execution of the plan) to avoid replanning or repairing during the execution by considering several human actions.
+
+    \item \textbf{Model the potential human reactions.} It is possible to predict that the human may react to some situations, interrupting or helping their current task. Two causes have been identified for these reactions. First, they can ensue from some specific world states, that have been perceived and interpreted by the human. Then, they can also originate from explicit communications issued by the robot. These communications can either be a belief alignment, updating the human knowledge and impacting their decisions; a request to perform a specific action or a request to help the robot along with a shared goal, needing the human to plan for it.
+
+    \item \textbf{Act and decide on the different agents' beliefs.} It is important to be able to represent actions as having different effects on the beliefs of the robot or the human. Indeed, some robot actions are partially or not observable by the human, when performing them, the human has no way of knowing the complete new world state. Besides, these effects and their observability often depend on the current world state, which representation must be supported in the planner. Then, decisions made while planning may require to reason on both the robot and the human beliefs. This is especially the case with communication actions aiming at aligning knowledge or ask questions for example. Finally, some actions of pure decision have no direct effect on the world, but only on the internal beliefs of the agents. For example, observation actions will only update the beliefs of the agent doing it.
+
+    \item \textbf{Decide not only on the world state but also on the decision processes of the agents.} Some decisions made during the planning process require access not only to the beliefs of the agents representing the world state, but also to the estimation of their planning processes. For example, the decomposition of a task by the robot may be impossible if some other task is already performed in its partial plan. Other decisions may also need the estimation of the human current planning process. For example, if it has been estimated earlier in the plan that the human will perform a certain decomposition of a task, the planner would assign a complementary task to the robot.
+
+    \item \textbf{Adapt to the human experience, trust and preferences.} We also want the planning process to be adjusted depending on the actual human it is planning with. It must perform its plan search differently whether the human has the habit to perform this particular task with the robot or not. Moreover, the human model can be adjusted to the trust the human has in the robot and to their preferences.
+
+\end{enumerate}
+
+\subsection{Problem Specification}
+
+\textbf{TODO: Give one general and overall problem specification notation. For instance, $P = \{ \mathcal{M}_H, \mathcal{M}_R \}$}
+
+Use Distinct Agent models(beliefs, HTN, agenda, triggers)
+
+\textbf{TODO: Specify notations for agent model. For instance, $M_\varphi = \{ val_{\varphi}, tn_{\varphi}, \Lambda_{\varphi}, T_{\varphi} \}$}
+
+One of the strength of HATP/EHDA is that it utilizes two distinct agent models. Each model comprises the following:
+\begin{itemize}
+    \item \textbf{Beliefs}: estimation of the world state from the agent's perspective.
+    
+    \item \textbf{Agenda}: capturing the personal and/or shared goals of the agent, currently implemented as a task list/sequence but could be generalized to partially ordered task networks.
+    
+    \item \textbf{Action Model}: encoding the capabilities of the agent and used to estimate the next actions of the agent given a goal and a world state. Here described by a hierarchical task network (HTN)
+    
+    \item \textbf{Triggers}: describes the reactions the agent may have which might update their agenda. That is, the agent may react to a specific world state, event sequence, or an explicit communication. For instance,  consider a scenario where suddenly another agent is handing over an object to the agent. This event has nothing to do with the agent's goal, and thus, the next agent action extracted from the Action Model might not consider the other agent. However, a natural reaction to this situation is to grab the handed object. Thanks to the Triggers mechanic, we can in an automated way estimate that whatever the agent was doing, when being handed an object the agent will grab it.  
+
+\end{itemize}
+
+The planner uses two agent models, one for the human and one for the robot. Despite there same structure there is a fundamental difference between the two models: one is a controllable agent and not the other. Indeed, the human model is only used to speculate the human decision and actions in given situations. 
+Then, the robot model is used to plan the robot action according to the estimated human actions.
+Note that the human decisions can still be influenced by the robot actions, but they cannot be compelled.
+It's also important to note that the two agents are not equivalent, the robot agent role is to help, assist and facilitate human, and thus, to synthesize pertinent, legible and acceptable behavior.
+
+
+\textbf{TODO: Add HTN information, HTN can be undecidable? (strictly more expressive than STRIPS)}
+
+To give more details, this is what HATP/EHDA formalization can look like.
+
+We consider a \textit{classical planning domain} (\textit{state-transition system}) $\Sigma = (S,A,\gamma)$, s.t., $S$ is a finite set of states in which the system may be, $A$ is a finite set of actions that the actors may perform, $\gamma : S \times A \rightarrow S$ is a state-transition function. Each state $s \in S$ is a description of the properties of various objects in the planner's environment~\cite{naubooks0014222}. 
+
+To represent the objects and their properties, we will use two sets $B$ and $X$: $B$ is a set of names for all the objects, plus any mathematical constants representing properties of those objects. $X$ is a set of syntactic terms called state variables, s.t. the value of each $x \in X$ depends solely on the state $s$.
+
+A \textit{state-variable} over $B$ is a syntactic term $x = sv(b_1, ..., b_k)$, where $sv$ is a symbol called the state variable's name, and each $b_i$ is a member of $B$ and a parameter of $x$. Each state variable $x$ has a range, $\textit{Range}(x) \subseteq B$, which is the set of all possible values for $x$.
+
+
+
+Here is the description of the sets $B$ and $X$ for the collaborative cooking example:
+\textbf{TODO: Use other example, ICRA cube stacking?}
+{\small
+\begin{align*}
+&B           = Entities \cup Places \cup Booleans \cup \{\textsf{nil}\} \\
+&\quad Entities    = Agents \cup Objects\\
+&\quad Agents      = \{ \textsf{R}, \textsf{H} \} ~~ \backslash\backslash~\textsf{R}:robot,~\textsf{H}:human\\
+&\quad Objects     = \{ \textsf{salt}, \textsf{pasta}, \textsf{counter} \}\\
+&\quad Places      = \{ \textsf{kitchen}, \textsf{room} \}\\
+&\quad Booleans    = \{ \textsf{true},\textsf{false} \}\\
+&\\
+&X = \{ at(e), saltIn, stoveOn, counterClean ~ | ~ e \in Entities \}\\
+&\quad \textit{Range}(saltIn ~|~ stoveOn ~|~ counterClean)=Booleans\\
+&\quad \textit{Range}(at(\textsf{R} ~|~ \textsf{H} ~|~ \textsf{pasta})) = Places\\
+&\quad \textit{Range}(at(\textsf{salt} ~|~ \textsf{counter})) = \{ \textsf{kitchen} \}
+\end{align*}
+}
+
+A \textit{variable value assignment} function over $X$ is a function $val$ that maps each $x_i \in X$ into a value $z_i \in$ $\textit{Range}(x_i)$. With $X = \{ x_1, ..., x_n \}$, we will often write this function as a set of assertions: $val = \{ x_1=z_1, \ldots, x_n=z_n \}$. 
+
+
+A \textit{state}, or \textit{planning state}, $s_i \in S$ is a 4-tuple composed of 2 functions over $X$ (agents beliefs) and 2 task networks (agents agenda)  s.t. $s_i = (val^R_i, val^H_i, tn^R_i, tn^H_i)$. 
+The state of the world from the perspective of the robot is captured by the variable value assignment function $val^R_i$. Since the planner is assumed to be part of the robot, the beliefs of the robot are assumed to be the ground truth, and thus, are sometimes noted as $val_i$. 
+Similarly, $val^H_i$ represents the estimation of $val_i$ in the perspective of the human, also referred to as the estimated human beliefs. 
+We say that a state $s_i \in S$ contains \textit{false beliefs}, or \textit{belief divergences}, if $\exists x_j \in X, val^H_i(x_j) \neq val^R_i(x_j)$. 
+Be careful not to get confused, a \textit{state} is a state in which the planning problem is while being solved, and each \textit{state} is connected to other states through agent actions. Where the \textit{beliefs} are the state of the world in the perspective of an agent, which is part of the \textit{planning state}.
+
+For our example, the initial state $s_0$ would be as follow: 
+
+{\small
+\noindent
+\begin{multline*}
+s_0 = \{val^R_0, ~val^H_0, ~tn^R_0, ~tn^H_0\} \\ \quad
+\end{multline*}
+\bigvspace
+\begin{multline*}
+\quad val^R_0 = val^H_0 = \{at(\textsf{R}) = \textsf{kitchen}, at(\textsf{H}) = \textsf{kitchen},\\ 
+at(\textsf{pasta}) = \textsf{room}, saltIn = \textsf{false}, stoveOn=\textsf{false} \}
+\end{multline*}
+\smallvspace
+\begin{multline*}
+\quad tn^R_0 = \{ CookPasta, CleanCounter \} \\ \quad
+\end{multline*}
+\bigvspace
+\begin{multline*}
+\quad tn^H_0 = \{ CookPasta \} \\ \quad
+\end{multline*}
+\smallvspace
+}
+
+An action is a tuple $\alpha = (\textit{head}(\alpha), \textit{pre}(\alpha), \textit{eff}(\alpha))$ where $\textit{head}(\alpha)$ is a syntactic expression of the form $\textit{act}(z_1, ..., z_k)$ where $act$ is a symbol called the \textit{action name} and $z_1,...,z_k$ are variables called parameters. $\textit{pre}(\alpha) = \{ p_1, ..., p_m \}$ is a set of preconditions, each of which is a literal. And $\textit{eff}(\alpha) = \{ e_1, ..., e_n \}$ is a set of effects, each of which is an expression of the form: $sv(t_1, ..., t_j) \leftarrow t_0$ with $t_0$ being either the value to assign to the state variable $sv(t_1, ..., t_j)$ or a new location/place for the state variable. We note $\textit{agt}(\alpha)$ the agent performing the action $\alpha$.
+
+To estimate the next possible actions that an agent $\varphi \in Agents$ is likely to perform in a state $s_i \in S$, we proceed in the same way as in~\cite{buisan:hal-03684211}. We refine the agent's agenda $tn_{\varphi}$ based on its belief $val^\varphi_i$ and obtain a \textit{refinement} as follows $\textit{ref}(tn^\varphi_i, val^\varphi_i)= \{ (a_1,tn_1),...,(a_j,tn_j) \}$. 
+A \textit{refinement} contains a tuple for each estimated possible action $a_j$ and the associated new agenda $tn_j$ after being refined. 
+
+In our cooking example, we obtain the following refinement if the starting agent is the human:\\
+{\small
+$\textit{ref}(tn^H_0, val^H_0) = \{ (add\_salt(),tn_1), (move\_to(\textsf{kitchen}),tn_2) \}$
+}
+
+State transition function:
+
+Thus, $\forall x \in X$, we always have,
+
+\begin{equation}
+    val_{i+1}(x) = \left\{ 
+    \begin{array}{ll}
+        w, & \mbox{if} ~ x \leftarrow w \in \textit{eff}(a)   \\ 
+        val_i(x), & \mbox{otherwise}
+    \end{array}\right.
+\end{equation}
+
+\textbf{TODO: Add trigger? Might be better to explain them in planning process}
+
+
 \subsection{solution format}
+AND/OR Tree resulting in a robot policy. Add figure of AND/OR Tree, we plan in a turn taking fashion where each human action is an AND edge and each robot action is a OR edge, and nodes planning states (beliefs + agendas).
+
 \subsection{Planning process}
 Planning process using HTNS action models
+
+Especially the refinement process algorithm. Probably only description.
 
 \section{Examples}
 
@@ -38,3 +175,6 @@ ICRA paper ?
 
 \subsection{Problem description}
 \subsection{How it is solved}
+
+
+\section{title}
