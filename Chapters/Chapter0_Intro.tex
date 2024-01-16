@@ -11,21 +11,26 @@
 
 General Context \acrfull{hri}
 
-blabl 
+Human-robot collaboration is a growing field in robotics and AI research that aims to enable safe and effective teamwork between humans and robots. The goal is to eliminate separating devices and have humans and robots work together in a common process.
 
 \acrshort{hri}
 
 
 \mysection{Human-Robot Collaboration Challenges}
 
-Human-Robot collaboration challenges
+Human-robot collaboration opens several challenges to address, each corresponding to a different aspect or functionality that the robot should be endowed with to achieve good collaboration. Hence, the ideal collaborative robot should be the aggregation, a system regrouping all the notions/aspect presented below: 
 
 \begin{itemize}
-    \item navigation (plan+execution) to move in the environment
-    \item manipulation (arm motion) to interact with the environment
-    \item decision-making (task planning, supervision/execution?)
-    \item communication (verbal or not, speech generation, screen, signaling, head mvts)
-    \item perception (sensors, situation assessment, reasoning, estimation of human mental state and capabilities)
+    \item \textbf{Navigation}: The robot should be able to move in a human-populated environment acceptably and efficiently. (Mechanically designed for it, plan correct trajectory and able to follow + adapt them in real-time)
+
+    \item \textbf{Manipulation}: The robot should be able to manipulate objects to interact with its environment. Hence, the robot should have an actuator like an arm and a gripper and should be able to exhibit motions that are efficient and safe. The robot should move threateningly and should account for the human.
+
+    \item \textbf{Decision-making}: The robot should be able to make relevant decisions to be collaborative. This implies being able to plan its actions in order to solve a collaborative task. It also implies being able to supervise the task execution and make online decisions to adapt to uncertainties in real-time (including human actions, and commands). 
+
+    \item \textbf{Communication}: To achieve congruent interaction and collaboration, the collaborative agents must communicate. This implies that the robot should be able to communicate information to the human and understand the one received from the latter. These communications can be of various types, e.g., verbal, using natural language or not, prompting text on a screen, and signaling through robot movements (arms, head, mobile base). More innovative techniques can also be mentioned such as projecting arrows or desired paths on the ground, and using Augmented Reality to show internal information on the robot (decision, next action, etc...).
+
+    \item \textbf{Perception}: Eventually, the robot must be able to perceive its environment. This is mandatory for the robot to have a reliable perception scheme to know the position of near objects, of obstacles, and of humans. First, relevant sensors must be used and placed on the robot or in the environment itself. After, from the sensory data, some analysis and reasoning processes must extract relevant facts about the robot's environment such as objects' positions, spatial relations, reachable objects, human knowledge and intentions, the state of the current goal, and more. This constitutes the knowledge of the robot which may include an estimation of the near human knowledge. Perception is critical because most of the other challenges rely on the robot's knowledge.
+
 \end{itemize}
     
 
@@ -35,12 +40,18 @@ The main challenge of HRC/HRI addressed in my PhD is the decision-making one.
 
 Overall my PhD has led to three distinguishable main contributions that structure my manuscript. 
 First, I addressed the decision-making challenge in task-planning to decide and plan the robot's actions. 
+
 The first Chapter gives some details and related work about the HRC context and motivates my PhD work.
+
 Chapter 2 familiarizes the reader with the HATP/EHDA task planner. I participated a bit in its development, and it has been the keystone of two of my main contributions.
+
 Chapter 3 introduces my first main contribution to Epistemic Planning. This contribution is focused on trying to better estimate human knowledge. Also, when estimated necessary, the planner makes the robot proactive by using verbal communication or purposely delaying actions to inform the human about a relevant fact they are not aware of. Some models and algorithms are proposed and evaluated to integrate Theory of Mind concepts in the planning process of HATP/EHDA.
+
 As my second main contribution, Chapter 4 addresses the concurrent execution limitation of HATP/EHDA to improve fluency in collaboration. Inspired by the Joint Action literature, we designed a model of concurrent and compliant execution for HRC in the form of an automaton. A new approach taking into account the mentioned execution model is proposed and allows the generation of concurrent and compliant robot policies. 
-In addition, Chapter 5 presents a user study validating the proposed planning approach and the use of the proposed model of execution. For this purpose, I developed an interactive simulator with which participants can perform a collaborative task with a robot running the generated policies. We considered a baseline consisting of a robot following a much-simplified version of the model of execution.
-Eventually, Chapter 6 describes my third contribution in which I address the decision-making challenge in navigation to allow the robot to move in a human-populated environment acceptably and efficiently. I developed a system producing an ``intelligent'' human avatar that on top of being reactive can make rational decisions about navigation tasks. This system serves as a benchmarking and testing tool for robot navigation systems to be challenged. This way, these navigation systems can be evaluated, tuned and stress tested in simulation allowing them to run mature real-life experiments faster.  
+
+In addition, Chapter 5 presents an effective implementation of the proposed model of execution. For this purpose, I also developed an interactive simulator with which one can perform a collaborative task with a robot running the generated policies. To validate our approach and the use of our model of execution we conducted a user study using the interactive simulator. We considered a baseline consisting of a robot following a much-simplified version of the model of execution.
+
+Eventually, Chapter 6 describes my third contribution in which I address the decision-making challenge in navigation to allow the robot to move in a human-populated environment acceptably and efficiently. I developed a system producing an ``intelligent'' human avatar that on top of being reactive can make rational decisions about navigation tasks. This system serves as a benchmarking and testing tool for robot navigation systems to be challenged. This way, these navigation systems can be evaluated, tuned and stress tested in simulation allowing to run mature real-life experiments faster.  
 
 
 
