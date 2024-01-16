@@ -6,7 +6,7 @@
 \fi
 
 \chapter{User Study to evaluate an integrated plan and execution scheme in simulation}
-\chaptermark{User Study to evaluate an integrated plan and execution scheme in simulation}
+\chaptermark{Integration and Evaluation of a collaborative scheme}
 \label{chap:5}
 \minitoc
 
@@ -66,7 +66,14 @@ Thanks to all these processes, the participant is able to intuitively perform ac
 
 An integrated tutorial has been made to familiarize the participant with the mouse control and the relevant concepts used in the collaboration (notion of step, able to be passive). 
 
+\section{Detailed Model of Execution}
 
+Explicit the model of execution and the signals exchanged.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{images/Chapter5/detailed_automaton.png}
+\end{figure}
 
 \section{Study protocol}
 
@@ -77,7 +84,7 @@ This section describes the objectives and protocol of this study.
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{images/Chapter5/UserStudyProcedure.png}
-    \caption{User Study Protocol. Each participant goes through 6 scenarios and answer 6 questionnaires to evaluate each different robot behavior}
+    \caption{A scenario of the User Study Protocol. Each participant goes through 6 scenarios and answer 6 questionnaires to evaluate each different robot behavior}
     \label{fig:user_study_protocol}
 \end{figure}
 
@@ -149,6 +156,11 @@ On top of the answered questionnaires, for each scenario, the interactive simula
 
 \section{Study results}
 
+% ns  P > 0.05
+% *   P ≤ 0.05
+% **  P ≤ 0.01
+% *** P ≤ 0.001
+
 In this section, we share the main results obtained through the answered questionnaires and the metrics extracted from the logs.
 
 \subsection{Assumptions}
@@ -213,9 +225,24 @@ Participants reaction time fluctuates a lot. Especially with HF. Indeed, at ever
 
 By the way, this timeout was initially set to 3$s$ with the hypothesis that it should be quite small to allow fluent interaction. With a precise action in mind, the human is able to act first, otherwise, the robot fluently takes the lead and acts first. However, during the preliminary tests, the participants felt in a rush and oppressed by this relatively low timeout. Indeed, when they didn't have a precise action to perform when the step started, they didn't have the time to think properly and tend to be rushed by the timer progressing towards the timeout. Hence, we decided to increase the timeout from 3$s$ to 4$s$ which was felt way more comfortable. 
 
-An interesting comment is that the participants tend to react in two different ways regarding the timeout. Either the participants were acting quite fast or sometimes they were taking as much time as the timeout was allowing them. That is, seeing that they had time to think about their action the participants tend to take that time systematically instead of acting fast. 
+An interesting comment is that the participants tend to react in two different ways regarding the timeout. Either the participants were acting quite fast or sometimes they were taking as much time as the timeout was allowing them. That is, seeing that they had time to think about their action the participants tend to take that time systematically instead of acting fast. \textbf{Not sure to be able to prove it, not even that systematic so maybe just remove the comment}
 
-\textbf{TODO: Add some numbers ...}
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{images/Chapter5/av_reaction_times.png}
+    \caption{Average reaction times. For all 6 scenarios. HF has odd numbers, and RF has even numbers. The horizontal dotted line represents the mean value and the dotted triangles the standard deviation around the average.}
+    \label{fig:h_reaction_time}
+\end{figure}
+
+The average reaction times are measured as follows. After one participant finished one scenario, we measured their reaction time on each step. To do so, we first consider for each step the time when the step begins, which is signaled with text, a gaze and a sound from the robot. Then we consider the time when the human sends a signal by either starting an action or by waving their hand. The duration between these two times is considered as the reaction time of the human. Note that if the human remains passive (no signal) for a step, no reaction time is computed for this specific step. Then, we extract the average reaction time of the participant on the scenario from all the computed ones, compute the standard deviation \textit{and get the maximum and minimum values.}
+
+Average reaction over all scenarios is about $0.76s$. Max values : ?
+
+The ANOVA indicates that the only significant differences are between S2-S5 and S5-S6. 
+Indeed, S2 is the RF robot with a correct estimation of human preferences. Since the robot takes the lead people tend to follow the robot and pay attention to what it is doing, not only to the scene. Hence, it is longer to process both the scene and the robot action/intentions and the reaction time tend 
+
+\textbf{TODO: extract max and min reaction/decision time?}
+
 
 \subsection*{H waiting for the robot (passive, tps mort)}
 
@@ -248,8 +275,76 @@ We notice very few significant differences on HF only.
 \end{figure}
 
 
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{images/Chapter5/positive_scale.png}
+    \caption{Positive Interaction Scale with ANOVA + Post-hoc-Tests}
+    \label{fig:positive_scale_anova}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{images/Chapter5/adaptivity_scale.png}
+    \caption{Adaptivity Scale with ANOVA + Post-hoc-Tests}
+    \label{fig:adaptivity_scale_anova}
+\end{figure}
+
+
+% ns  P > 0.05
+% *   P ≤ 0.05
+% **  P ≤ 0.01
+% *** P ≤ 0.001
+
+\begin{table}[]
+    \footnotesize
+    \begin{tabular}{c|c|c|c|c|c|c|c|c|c|c|c}
+    \cline{2-11}
+                                                 & \begin{tabular}[c]{@{}c@{}}p\\ value\end{tabular} & \begin{tabular}[c]{@{}c@{}}Effect\\ size\end{tabular} & 4-1          & 4-2          & 4-3          & 4-5          & 6-1          & 6-2          & 6-3          & 6-5          &           \\ \cline{1-11}
+    \multicolumn{1}{|c|}{Responsive}             & \textit{ns}                                       & \textit{0.14}                                         & \textit{ns}  & \textit{ns}  & \textit{ns}  & \textit{ns}  & \textit{ns}  & \textit{ns}  & \textit{ns}  & \textit{ns}  & \textit{} \\ \cline{1-11}
+    \multicolumn{1}{|c|}{Competent}              & \textit{***}                                      & \textit{0.05}                                         & \textit{*}   & \textit{**}  & \textit{**}  & \textit{**}  & \textit{**}  & \textit{***} & \textit{***} & \textit{**}  & \textit{} \\ \cline{1-11}
+    \multicolumn{1}{|c|}{Intelligent}            & \textit{***}                                      & \textit{0.25}                                         & \textit{ns}  & \textit{ns}  & \textit{ns}  & \textit{ns}  & \textit{ns}  & \textit{ns}  & \textit{**}  & \textit{ns}  & \textit{} \\ \cline{1-11}
+    \multicolumn{1}{|c|}{\textbf{Positive}}      & \textit{***}                                      & \textit{\textbf{0.65}}                                & \textit{***} & \textit{***} & \textit{***} & \textit{**}  & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{} \\ \cline{1-11}
+    \multicolumn{1}{|c|}{Simple}                 & \textit{**}                                       & \textit{0.22}                                         & \textit{ns}  & \textit{ns}  & \textit{ns}  & \textit{ns}  & \textit{ns}  & \textit{ns}  & \textit{ns}  & \textit{ns}  & \textit{} \\ \cline{1-11}
+    \multicolumn{1}{|c|}{Clear}                  & \textit{***}                                      & \textit{0.36}                                         & \textit{*}   & \textit{ns}  & \textit{ns}  & \textit{ns}  & \textit{**}  & \textit{ns}  & \textit{*}   & \textit{*}   & \textit{} \\ \cline{1-11}
+    \multicolumn{1}{|c|}{\textbf{Adaptive}}      & \textit{***}                                      & \textit{\textbf{0.67}}                                & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{} \\ \cline{1-11}
+    \multicolumn{1}{|c|}{Useful}                 & \textit{***}                                      & \textit{0.42}                                         & \textit{ns}  & \textit{**}  & \textit{ns}  & \textit{*}   & \textit{*}   & \textit{***} & \textit{ns}  & \textit{***} & \textit{} \\ \cline{1-11}
+    \multicolumn{1}{|c|}{\textbf{Efficient}}     & \textit{***}                                      & \textit{\textbf{0.69}}                                & \textit{***} & \textit{***} & \textit{***} & \textit{**}  & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{} \\ \cline{1-11}
+    \multicolumn{1}{|c|}{\textbf{Appropriate}}   & \textit{***}                                      & \textit{\textbf{0.65}}                                & \textit{***} & \textit{**}  & \textit{**}  & \textit{ns}  & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{} \\ \cline{1-11}
+    \multicolumn{1}{|c|}{\textbf{Accommodating}} & \textit{***}                                      & \textit{\textbf{0.67}}                                & \textit{***} & \textit{*}   & \textit{**}  & \textit{**}  & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{} \\ \cline{1-11}
+    \multicolumn{1}{|c|}{Predictable}            & \textit{***}                                      & \textit{0.41}                                         & \textit{*}   & \textit{ns}  & \textit{ns}  & \textit{ns}  & \textit{***} & \textit{ns}  & \textit{***} & \textit{**}  & \textit{} \\ \cline{1-11}
+    \end{tabular}
+    \caption{Significant differences in the questionnaire answers between the different scenarios. For each item of the questionnaire, }
+    \label{tab:questionnaire_answers}
+\end{table}
+
+
+\begin{table}[]
+    \footnotesize
+    \begin{tabular}{ccc}
+    \hline
+    \textbf{Dimension}                         & \textbf{Question}                                                                                                                     & \textbf{Item}             \\ \hline
+    \multirow{3}{*}{\textbf{Robot perception}} & \multirow{3}{*}{\begin{tabular}[c]{@{}c@{}}In your opinion,\\ the robot is rather:\end{tabular}}                                      & Apathetic/Responsive      \\
+                                               &                                                                                                                                       & Incompetent/Competent     \\
+                                               &                                                                                                                                       & Unintelligent/Intelligent \\ \hline
+    \multirow{3}{*}{\textbf{Interaction}}      & \multirow{3}{*}{\begin{tabular}[c]{@{}c@{}}In your opinion, the interaction\\ with the robot was:\end{tabular}}                       & Negative/Positive         \\
+                                               &                                                                                                                                       & Complicated/Simple        \\
+                                               &                                                                                                                                       & Ambiguous/Clear           \\ \hline
+    \multirow{3}{*}{\textbf{Collaboration}}    & \multirow{3}{*}{\begin{tabular}[c]{@{}c@{}}In your opinion, the collaboration\\ with the robot to perform the task was:\end{tabular}} & Restrictive/Adaptive      \\
+                                               &                                                                                                                                       & Useless/Useful            \\
+                                               &                                                                                                                                       & Inefficient/Efficient     \\ \hline
+    \multirow{3}{*}{\textbf{Acting}}           & \multirow{3}{*}{\begin{tabular}[c]{@{}c@{}}In your opinion, the robot\\ choices of action were:\end{tabular}}                         & Inappropriate/Appropriate \\
+                                               &                                                                                                                                       & Annoying/Accommodating    \\
+                                               &                                                                                                                                       & Unpredictable/Predictable \\ \hline
+    \end{tabular}
+    \caption{PeRDITA Questionnaire: Participants have to place themselves between the two antonym items in a scale of 7.}
+    \label{tab:perdita_questionnaire}
+\end{table}
+
 \section{Discussion}
+
+fazfa
 
 
 \section{Conclusion}
 
+fazfafza
