@@ -12,21 +12,37 @@
 
 \section{Introduction}
 
-The decision-making challenges of HRC are majorly addressed in the field of task planning. I was introduced to these challenges by helping and continuing the work of a PhD student from my lab, Ghilhem Buisan. He mainly designed and implemented a novel human-aware task planning approach dedicated to HRI which plans the robot actions while estimating and emulating the human decisions and actions, namely HATP/EHDA. 
+I was introduced to the field of task planning the work of a PhD student from my lab, Guilhem Buisan. I slightly contributed to the original version and then proposed two extensions of his work. Yet, Guilhem mainly designed and implemented this novel human-aware task planning approach dedicated to HRI which plans the robot actions while estimating and emulating the human decisions and actions, namely HATP/EHDA. 
 
-We believe this planning approach suits well the needs of HRI scenarios, and thus, it became a laboratory to address relevant challenges of decision-making for HRC. Most of my PhD work consists of exploring different challenges of task-planning for HCR and in designing solutions which I implemented as extensions of HATP/EHDA. As a consequence, it is important to understand this work well, both its motivation and methods, before introducing my proper contributions. This section introduces, motivates and explains the HATP/EHDA approach as a background to the other chapters. 
-Naturally, a detailed description of this prototypical planner is already given in Buisan's thesis~\cite{thesisBuisan21}. Despite my limited contributions to the original version of the planner and large parts of this section are directly retrieved from there. Yet, I believe it is important to have those details in this document to understand more easily my contributions.  
+We believe this planning approach suits well the needs of HRI scenarios, and thus, it became a laboratory to address relevant challenges of task-planning for HRC. 
+Two of my main contributions consist of addressing such challenges and then implementing the solutions as extensions of HATP/EHDA.   
+As a consequence, it is important to understand this work well, both its motivation and methods, before introducing my proper contributions. This section introduces, motivates and explains the HATP/EHDA approach as a background to the other chapters. 
+Naturally, a detailed description of this prototypical planner is already given in Buisan's thesis~\cite{thesisBuisan21}. Thus, large parts of this section are directly retrieved from Buisan's thesis, but they are important to have in mind. Some notations are adapted to match my contributions' descriptions in the next chapters. 
 
 \section{Related work}
 
 \subsection{HATP}
-HATP/EHDA is inspired by the hierarchical human aware task planner HATP (citation). In addition to ``standard'' task planning metrics like plan length, HATP takes into account social rules and costs to produce the robot plan. This way, it aims to produce a plan which will be acceptable and appreciated without having to negotiate with the human. However, although the plan aims to be socially acceptable, the human must follow the plan produce and has no choice to make. 
+\textit{HATP/EHDA is inspired by the hierarchical agent-based task planner HATP (citation). In addition to ``standard'' task planning metrics like plan length, HATP takes into account social rules and costs to produce the robot plan. This way, it aims to produce a plan which will be acceptable and appreciated without having to negotiate with the human. However, although the plan aims to be socially acceptable, the human must follow the plan produce and has no choice to make. 
 In some scenario this can be frustrating, and it also doesn't account for contingencies in terms of human action. If the human diverge from the plan the execution must be stopped and the plan either repaired or even replan. 
-In opposition, HATP/EHDA generates robot policies instead of plans. In a turn taking manner where the human usually starts, the generated policy indicates the best robot action to perform according the previously performed human action. Thus, the human is free to choose online the action they want to perform, and the robot will account for this decision. This process neither requires prior negotiation with the human nor an established shared goal.  
+In opposition, HATP/EHDA generates robot policies instead of plans. In a turn taking manner where the human usually starts, the generated policy indicates the best robot action to perform according the previously performed human action. Thus, the human is free to choose online the action they want to perform, and the robot will account for this decision. This process neither requires prior negotiation with the human nor an established shared goal.}
+
+
+The Hierarchical Agent-based Task Planner (HATP) proposes a hierarchical approach to multi agents task planning. This HTN-based planner is able to elaborate a multi-agents plan based on a single HTN tree. Moreover, it maintains one beliefs base per agent allowing to write task decomposition rules and actions preconditions and effects in any agent beliefs base. Finally, HATP also computes costs for the plans found based on action costs and predefined social rules. However, HATP assumes that a shared goal has been established between the human and the robot prior to the planning process and that the generated plan will be shared with the human before the execution. Indeed, HATP does not represent the human as an agent having a separate decision process that may lead to diverging plans without robot communication. Other approaches are explicitly considering an external human model, which can be used to predict future human actions, and plan accordingly
+
+*******
+
+HATP extends the classical Hierarchical Task Network (HTN) planning by being able to produce shared plans to reach a joint goal. A HATP planning domain describes how to decompose tasks into subtasks down to atomic symbolic actions. Both the robot and human feasible tasks and actions are described in the domain. A contextdependent cost function is associated with each action. During the task decomposition, HATP will explore several applicable sub-tasks until the global task is totally refined into feasible actions, and will return the minimal cost plan. HATP also supports social rules, allowing to balance the effort of involved agents depending on human preferences and to penalize plans presenting certain undesirable sequences of actions. We will not use these social rules in what follows, but our approach stays totally compatible with them. Moreover, during the exploration of the task tree, HATP will assign actions to available agents, robot or human (when an action can be done by both). By doing so, HATP is able to elaborate one action stream per agent, together with causality and synchronization links. Besides, HATP domain syntax supports Multiple Values State Variables (MVSV) [Guitton 2012] which is used to represent and reason about each agent mental state. The value of each variable depends on the agent it is requested for. This allows to represent action preconditions depending on the knowledge of the agent performing the action and also to represent their effect on each agent mental state which can depend on the agent perspective. Finally, the last argument which motivated our choice was the previous integration of HATP with a Geometrical Task Planning (GTP) [Gharbi 2015a]. This work aimed at refining geometric and motion planning requests during the task planning process. The geometric planner would then compute, in context, the feasibility, the cost and the side effects of the action. In a similar way, we propose here to integrate and run REG, in context, to determine communication action feasibility and pertinence with respect to other courses of actions. The HATP Data Structures As presented in [De Silva 2015], the HATP data structures are organized around the so-called HATP entities. These entities are a collection of any number of attributes being manipulated during the planning process. The type of the attributes can either be a basic type (i.e. integer, floating point number, boolean or string) or another entity type. Besides, an attribute can either be a set, holding multiple values of the specified type or an atom, being a unique element of the specified type. Finally, an attribute can either be set as static or dynamic. Static attributes cannot be modified once they have been set in the world state initialization, they will only be read during the planning process, whereas dynamic attributes can also be changed by the effects of the primitive tasks (actions). The Listing 3.1 gives an example of entity definitions in order to represent the situation in Figure 3.1. // Agent entity type i s i m p l i c i t define entityType Cube , Area ; define entityAttributes Cube{ dynamic atom Area i s I n ; dynamic atom Agent isHeldBy ; } define entityAttributes Area{ dynamic set Cube h a s I n ; } define entityAttributes Agent{ s t a t i c atom s t r i n g type ; dynamic atom Cube i s H o l d i n g ; } Listing 3.1: Example of a part of the HATP domain describing the situation of Figure 3.1.
+
+
+Although we saw that this approach needs a task planner able to maintain one set of beliefs per agent during the planning process, HATP, the planner used was only allocating tasks to the human without considering if the human was aware or not of the generated plan. HATP is provided with a human model (MrH ) in several ways. The planning domain contains the actions the humans can perform and their beliefs are updated all along the planning process. Moreover, human preferences can be set on the plan through the social cost, adding extra-cost to the plan if some criteria are met such as bad chaining of actions (e.g. the robot mopping the floor just before making a sandwich). However, HATP assumes that a shared goal has been established between the robot and the human. This shared goal is supposed to have been acquired previously in the interaction, for example via a human request. Besides, as stated before, it generates a plan which is unknown if it needs to be communicated to the human or if it can be easily guessed (i.e. which is predictable) by the human. Finally, the plan is “fixed” and does not account for whether the human chooses to perform a different path of actions or not. Any deviation of the human from their generated stream of action either needs the supervision to perform repair actions or to request for a replanning. This approach has been shown to be suitable and pertinent in some applications (e.g. when communication can easily be done at any point of the plan). 
+
 
 \subsection{Other human-aware task planner}
 
 \section{A human aware task planner}
+
+\textbf{TODO: Divide in Exploration and Selection (cost?), this would make the cost as a Section and not only a subsection (more visibility). Cost Chapter is too much I think...}
+
 \subsection{Rationale}
 
 HATP/EHDA has been developed to try to satisfy several objectives: \textbf{TODO: add Ghilhem text?}
@@ -169,12 +185,27 @@ Planning process using HTNS action models
 
 Especially the refinement process algorithm. Probably only description.
 
+\subsection{Solution selection, costs}
+
+Talk about cost in human-aware task planning. A trade-off between efficiency and social criteria. The robot should be efficient but also behave in an acceptable, legible, and accommodating manner.  
+
+
+Cost evaluation is tricky, objective metrics are easy to use for efficiency, however, social criteria are harder to compute because they are hard to generalize. These social rules can be very context dependent which make them hard to generalize and thus to take them into account in a reliable manner.
+
+Plan cost is a mix of all the following:
+
+\begin{itemize}
+    \item length of the plan (nb of action or temporal duration if available)
+    \item sum of individual action cost: the cost of each action can be estimated to translate the effort required to perform it. It can reflect several aspect and constraints such as: pure physical strength required, duration of the action, energy consumption
+    \item Undesired states: Common sense and social norms can be used to define several rules defining undesired state. This can cover various aspects such as hygiene or safety. For instance, despite being possible and maybe efficient, we wouldn't like a robot holding a dirty dripping mop in one hand and the sandwich we asked for in the other hand. Another example, we wouldn't like a robot dropping a knife just on the edge of a table or counter because it may fall and be dangerous. 
+    \item Undesired sequences of actions: For the same reasons, we can also define undesired sequences of actions. This can express preferences regarding the ordering of different subtasks, e.g., since we don't want the robot to hold our sandwich while cleaning the house, we would also not like the robot to clean first and then make a sandwich because the robot is likely to be dirty while making the sandwich.  
+\end{itemize}
+
+I implemented in HATP/EHDA a way to specify and take into account undesired state and action sequences. Detecting any of them in a possible plan would penalize the plan cost of the specified amount. Here, the undesired elements must be specified in the problem specification and are abstracted in the planner. However, as stated above, it is hard to generalize undesired states and action sequences to integrate them directly in the planner to avoid specifying them in the problem specification.   
+
 \section{Examples}
 
 ICRA paper ?
 
 \subsection{Problem description}
 \subsection{How it is solved}
-
-
-\section{title}
