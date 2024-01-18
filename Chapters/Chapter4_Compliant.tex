@@ -6,7 +6,7 @@
 \fi
 
 % \chapter{Designing a Model of Collaborative Execution and its integration in a task planner}
-\chapter{A Task Planner making a robot compliant to human online decisions and preferences}
+\chapter{A Task Planner Making a Robot Compliant to Human Online Decisions and Preferences}
 \chaptermark{Compliance to online human decisions and preferences}
 \label{chap:4}
 \minitoc
@@ -21,25 +21,9 @@ paper Sonia UHTP
 
 \section{Model of Execution}
 
-    \subsection{Based on joint action literature}
+    \subsection{Rationale}
 
-    \subsection{Model description}
 
-    \subsection{Model utility}
-
-    \subsection{From Article}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\linewidth]{images/Chapter4/Execution_Automaton.drawio.pdf}
-    \caption{
-    The Model of Execution, in the form of an automaton and here simplified, captures the latitude of uncontrollable humans in their actions and guides our task planning approach.
-    In this paradigm, the two agents can act concurrently but one is always compliant with the other's decision to act.
-    Here, the human is always free to decide whether to start acting first, or after the robot, or not to act at all.
-    To be compliant, the robot attempts to identify human decisions using perception and situation assessment as well as possible collaborative human signaling acts (e.g., gestures or speech).
-    }
-    \label{fig:model_of_execution}
-\end{figure}
 
 Our task planning approach uses a model of execution to improve the fluency and amenability of HRC. 
 This model is in the form of an execution controller as shown in Figure~\ref{fig:model_of_execution}, and is based on several key notions and mechanisms borrowed from studies on joint actions~\cite{Sebanz-2016,kourtis2014attention}, and adapted to Human-Robot Joint Action~\cite{clodic-2017,curioni-2019}.
@@ -48,9 +32,30 @@ The key idea is that co-acting agents co-represent the shared task context and i
 Our proposed execution model is implemented on a robot that co-acts with a human, integrating explicit representation and exploration of the task representations for the robot and for the human. 
 It also identifies precisely how reciprocal information flow is used in task execution (detecting and interpreting human actions, signals produced by the robot while acting, and also when the robot waits for human actions or their signals).
 
-Another essential question is the criteria for choosing the next action, or more globally, how to share the load between the two co-actors. The choice depends on the context and actors' preferences~\cite{Gombolay-2015, Strachan-2020,Curioni-2022}. 
+Another essential question is the criteria for choosing the next action, or more globally, how to share the load between the two co-actors. The choice depends on the context and actors' preferences~\cite{Gombolay-2015, Strachan-2020, Curioni-2022}. 
 Concerning the case when one actor is a robot, we think it is important to provide a standard default behavior of the robot where the robot does its best to reduce human load but still leaves full latitude to act whenever humans want. 
 Our scheme provides this ability and also allows humans to inform about their preferences at any moment.
+
+\subsection{Simplified Model of Execution - Robot Automaton}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{images/Chapter4/simplified_automaton.pdf}
+    \caption{
+    \textbf{TODO: Change "wait for step to start", actually, robot sends signal indicating that step started, now robot is waiting for a human signal (action or pass) during a defined amount of time (TO). If nothing received then human is considered as passive.}
+    Simplified Model of Execution in the form of an automaton run by the robot. It captures the latitude of uncontrollable humans in their actions and guides our task-planning approach.
+    In this paradigm, the two agents can act concurrently but one is always compliant with the other's decision to act.
+    Here, the human is always free to decide whether to start acting first, or after the robot, or not to act at all.
+    To be compliant, the robot attempts to identify human decisions using perception and situation assessment as well as possible collaborative human signaling acts (e.g., gestures or speech).
+    }
+    \label{fig:model_of_execution}
+\end{figure}
+
+% Full page figure formats w/r line of caption:
+% - 5 lines = 210x294 ratio
+% - 4 lines = 210x301 ratio
+% - 3 lines = 210x308 ratio
+
 
 Consider an example to clarify the execution automaton. 
 Assume a human and a robot have to pick up two blocks, \textit{A} and \textit{B}, that both can reach. 
@@ -67,7 +72,7 @@ This includes the robot's choice to be \textit{passive} and let the human act al
 However, if the robot is unable to identify the human action, it must remain passive in order to avoid potential conflicts (\textit{branch~2}). 
 Then, the human can either decide to be \textit{passive} or to act after the robot (\textit{right~subtree}). 
 In both cases, the human is \textit{passive} at the beginning, making the robot to start performing alone a feasible action. 
-While the robot is acting, the human is free to remain \textit{passive} until the next step (\textit{branch~5}), or to choose a congruent action to act concurrently (\textit{branch~4}). 
+While the robot is acting, the human is free to remain \textit{passive} until the next step (\textit{branch~5}) or to choose a congruent action to act concurrently (\textit{branch~4}). 
 As a result, the human can always choose to 1) act first, 2) act after the robot, or 3) not act at all. 
 The robot will always be compliant with these online human decisions.
 
@@ -75,6 +80,17 @@ When both agents finish their actions, the step is considered as \textit{``over'
 Then, another subroutine assesses the new world state ($s_{i+1}$), which is the result of the concurrent actions being executed in the state $s_i$, before repeating the whole process until the task is solved.
 
 Note that if both agents are passive (the human decides to be passive when the robot cannot act) then the step is repeated. 
+
+\subsection{Complete Model of Execution - Dual Automaton}
+
+Now that the idea behind this model of execution has been explained we can present its complete version. Our model supposes that the robot is running an automaton to synchronize with the human, follow the generated policy, and execute actions. This automaton is a bit more complex than the simplified version presented above. Additionally, our model supposes that the human is also following an automaton when collaborating with the robot. The complete model specifies the human automaton and the visual signals exchanged between the agents to synchronize themselves.
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.99\linewidth]{images/Chapter4/new_complete_automaton_rotated.pdf}
+    \caption{Complete Model of Execution - Dual Automaton. This version details the robot automaton and the assumed human automaton as well as the visual signals exchanges between the agents to synchronize themselves.}
+\end{figure}
 
 \section{Problem specification + solution}
 
