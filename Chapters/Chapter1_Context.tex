@@ -13,22 +13,86 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{HRI Interaction}
+\section{Human-Robot Interaction}
 
-\subsection{human human interaction}
-\subsection{human computer interaction}
-\subsection{human robot interaction}
+This section is focused on general interaction between humans and robots and discuss related fields.
 
-\subsection{dialogue}
+\subsection{Human-Human Interaction}
 
+Many works dealing with interacting with humans take inspiration from human-human interaction. Human-Human interaction (HHI) refers to the communication and collaboration between two or more individuals, where humans engage in various forms of social, cognitive and emotional exchanges. Such interaction can occur through verbal and non-verbal communication, such as speech, gestures, facial expressions, and body language.
+
+Hence, this field includes several studies such as communication theories, including non-verbal communication (Albert Meharbian's 7-38-55 rule, Shannon-Weaver model and Grice's maxims), social psychology (Stanley Milgram, Philip Zimbardo, and Solomon Asch), collaboration and teamwork (J.Richard Hackman, Amy C.Edmondson), conflict resolution and negotiation (Roger Fisher and William Ury), emotional intelligence (Daniel Goleman), cross-cultural communication.
+
+HHI is a field that serves as an inspiration to design robots able to interact correctly with humans. Indeed, we must first understand how humans interact with each other, what is important to do and what should be avoided. Yet, mimicking humans perfectly is a questionable approach since robots and humans are fundamentally different. Robots should help and assist humans as tools. Such the way we interact with robot should be inspired by HHI but probably not similar.
+
+
+\subsection{Human-Computer Interaction}
+
+A first step of artificial interaction and collaboration is the field of Human-Computer Interaction. Human-Computer Interaction (HCI) is the field of study that focuses on optimizing how users and computers interact by designing interactive computer interfaces that satisfy users' needs. It is a multidisciplinary subject covering computer science, behavioral sciences, cognitive science, ergonomics, psychology, and design principles.
+Today, HCI focuses on designing, implementing, and evaluating interactive interfaces that enhance user experience using computing devices. This includes user interface design, user-centered design, and user experience design. 
+
+This field is made up of four key components. 
+The User along with their needs, goals, interaction patterns, cognitive capabilities, emotions, and experiences.
+The Goal-Oriented Task which is the objective or goal the user has in mind.
+The Interface is about the overall user interaction experience through senses such as touch, click, gesture, voice, display size, colors.
+The Context must be taken into account because it influences the interaction. 
+
+To produce easy to interact with robots, the study of HCI is relevant and also serves as an inspiration to design intuitive, user-friendly interactive robots.
+
+\subsection{Human-Robot Interaction}
+
+Human-Robot Interaction (HRI) is a field of study that explores the design, development, and evaluation of robots that interact with humans in various settings. The goal of HRI is to create robots that can effectively and seamlessly collaborate with humans, whether in domestic environments, workplaces, or other contexts. It encompasses aspects of robotics, psychology, design, and engineering to understand and enhance the interactions between humans and robots.
+
+Several subfields can be identified in HRI, here are some examples:
+Social robotics focuses on social interactions with humans, and thus, explores how robots can understand and respond to human emotions, social cues, and communication styles.
+Human-Centered Robotics emphasizes the importance of considering human needs and preferences. This subfield often involves user studies to ensure and identify if and how robots are user-friendly and can seamlessly integrate into human environments.
+Robot ethics is another major subfield and is focused on considerations such as privacy, safety, responsibility/accountability and the impact of robots on society.
+Explainable AI and transparency are a growing interest in making decision-making processes more understandable to humans, and thus, help robots be legible, predictable, and acceptable.
+Collaborative robotics, or Cobots, focuses on developing robots that can work alongside humans in shared workspaces and usually as a team.
+A significant amount of work is dedicated to HRI in Healthcare to assist patients, especially the elderly, and children with conditions. Those works are also usually linked to emotion-aware robotics which is focused on trying to recognize and respond to human emotions using affective computing techniques.   
+
+As a subfield of HRI, Human-Robot Collaboration or Collaborative Robotics is still a vast subject which is worth to detail a bit more in the next section.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{HRC Collaboration}
 
-\subsection{joint action}
-\subsection{Whole architecture to work}
-\subsection{execution policy, leader follower?}
+As mentioned above, Human-Robot Collaboration (HRC) refers to the synergy and cooperation between humans and robots in shared environments to achieve common goals. In HRC, humans and robots work together, often leveraging their complementary strengths to enhance overall performance and efficiency. This collaborative approach involves close interaction, communication, and coordination between human and robotic agents.
 
+\subsection{Inspirations - Theories informing HRC}
+
+This interdisciplinary field takes inspiration from various theories and field as introduced earlier. Yet, three main inspiration can be highlighted:
+
+\subsubsection*{Belief Desire Intention Model:} The belief-desire-intention (BDI) model was originally developed by Michael Bratman [cite wikipedia]. This model is used in intelligent agents research to describe and model intelligent agents. Straightforwardly, the BDI model is characterized by the implementation of the three notions appearing in its name, i.e., an agent's beliefs (knowledge of the work in the perspective of the agent), desires (objective or goal to accomplish), and intentions (the planned course of actions to achieve the agent's desire). 
+
+\subsubsection*{Shared Cooperative Activity:} Shared cooperative Activity defines prerequisites for an activity to be considered shared and cooperative. The main ones are mutual responsiveness, commitment to the joint activity and commitment to mutual support. A good example to clarify these prerequisites is a scenario where agents are moving a table together. Mutual responsiveness ensures that the agents' movements are synchronized. The commitment to the joint activity reassures each agent that the others will not drop their side and quit the joint activity. Finally, the commitment to mutual support deals with possible breakdowns due to one agent's inability to perform part of the plan.  
+
+\subsubsection*{Joint Intention Theory:} Joint Intention Theory proposes that for joint action to emerge, team members must communicate to maintain a set of shared beliefs and to coordinate their actions towards the shared plan [cite]. In collaborative work, agents should be able to count on the commitment of other members, therefore each agent should inform the others when they conclude that a goal is achievable, impossible, or irrelevant [cite Hoffman].
+
+\subsection{Key Aspects}
+
+\textbf{Specialization of Roles:} There are several human-robot relationships including supervisor-subordinate, partner-partner, teacher-learner, and leader-follower. These roles can either be fixed and predefined, or there can be a flexible role distribution using weighting functions that allow a continuous change between the roles to adapt to every context and situation.
+
+\textbf{Establishing shared goal(s):} Through direct discussion or inference, agents must determine the shared goals they are trying to achieve. However, a shared goal isn't always necessary and can be established in the middle of a task execution either by the human or the robot.
+
+\textbf{Allocation of subtasks:} After deciding how to achieve their goals, agents must determine what actions and subtasks will be done by each agent and how to coordinate each other. This can either be done explicitly before starting the task or be reactively done on the fly.
+
+\textbf{Progression tracking:} Agents must be able to track progress toward their goals. That is, they must be able to determine what has been achieved, by whom, and what remains to be done. 
+
+\textbf{Communication:} Any collaboration requires communication, verbal or not. Most of the mentioned key aspects can or must involve communication.
+
+\textbf{Adaption and learning:} On a short-term scale the agents must be able to adapt themselves to each other and the environment. On the longer term, agents must also learn from other partners and the acquired experience.
+
+\textbf{Ergonomics:} Linked to HCI, it should be intuitive to collaborate and communicate with the robot. 
+
+\subsection{Architecture - Complete system}
+
+It is important to remember that since a collaborative robot is issued from an interdisciplinary field, the different functionalities and capabilities of the robot can usually be separated into several dedicated components. These components interact with each other in a complete architecture to exhibit the robot's behavior, from sensory perception to physical motions including reasoning processes. 
+Hence, when working on a collaborative robot, it must be thought about as a whole and each aspect cannot be studied completely indecently from all other aspects of the complete system. 
+
+Some works are dedicated to designing robotic architectures, especially cognitive architectures which are the closer/best have found to design collaboration robots. 
+
+Example of cognitive architecture
+[cite SOAR Laird et al, CORTEX Bustos et al, ORO/SHARY/SPARK.. Lemaignan, perspective-aware Lemaignan]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Navigation}
