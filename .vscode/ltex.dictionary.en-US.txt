@@ -6,3 +6,4 @@ HTN
 parallelizable
 durative
 Guilhem
+teleoperated
