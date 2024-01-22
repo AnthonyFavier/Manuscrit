@@ -7,3 +7,4 @@ parallelizable
 durative
 Guilhem
 teleoperated
+proxemics

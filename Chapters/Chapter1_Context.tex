@@ -112,29 +112,70 @@ Recent techniques also involve learning methods.
 
 However, how explained above, such approaches are not sufficient in human-populated environments. Humans must be detected and treated differently during the motion planning process. Human-aware approaches detect and track nearby humans and try to estimate their trajectory to plan the robot one accordingly. This is achieved in works like [cite CoHAN] where the human trajectory is estimated using goal recognition processes and elastic bands methods. Then, the robot's motion is planned using also elastic band methods that are tuned to take into account the robot's goal, the estimated human trajectory and other social norms.   
 
-\subsection{benchmark, pedsim, etc..}
+\subsection{Benchmarking tools and metrics}
 
-Where it is easy to benchmark robot navigation on objective metrics la the time to reach a goal, the distance traveled and the number of collisions [cite BARN Perille], it is more challenging to benchmark their human-aware properties.
-First, there is no consensus on the metrics to use to evaluate the human-aware properties of a navigation system. State-of-the-art metrics involve proxemics [cite]. Yet, other metrics can be relevant such as the deviation induce to the human motion, the feeling of threat produced.
+Where it is easy to benchmark robot navigation on objective metrics like the time to reach a goal, the distance traveled and the number of collisions [cite BARN Perille], it is more challenging to benchmark their human-aware properties.
+First, there is no consensus on the metrics to use to evaluate the human-aware properties of a navigation system. State-of-the-art metrics involve proxemics [cite]. Yet, other metrics can be relevant such as the deviation imposed to the human motion, and the feeling of threat produced.
 Also, it is challenging to find a usable system that will effectively challenge a HAN system. 
-Common approaches involve reactive-only techniques such as social force models. Such reactive models are efficient for crowd simulations but in intricate scenario involving some decision-making that can perform very poorly. Thus, there was a lack of intelligent simulated agents to challenge effectively HAN system.
-I started to work on this aspect in 2020. Now, a few recent work also propose to simulate human agent endowed with some reasoning processes but I didn't find the time to properly compare my contribution with them. Yet, I can cite a few of them. 
+Common approaches involve reactive-only techniques such as social force models. Such reactive models are easy to use and efficient for crowd simulations, but in intricate scenarios involving some decision-making they can perform very poorly. Thus, there was a lack of intelligent simulated agents to challenge effectively HAN system.
+I started to work on this aspect in 2020. Now, a few recent work also propose to simulate human agent endowed with some reasoning processes but I didn't find the time to properly compare my contribution with them. Yet, this shows that this is a subject of interest and a few a such work can be mentioned here. [cite]
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Modeling Human agent}
+\section{Models for interaction}
 
-\subsection{Task modeling / HTN}
+\textbf{For now, mostly from Buisan thesis}
+
+% In this section are introduced some notations and task modeling approaches relevant for the human-robot interaction. The purpose of this section is to clarify both the different models used, especially from which perspective, and the basics task modeling that will be used throughout all this thesis.
+
+
+It has been shown previously that a robotic agent interacting with a human needs to coordinate its actions with them [cite?]. Moreover, joint action theory exhibits that humans interacting together represent the task as a whole, and plan not only for their actions but also for the actions of other agents. Thus, we think that for a human to perform the most efficient and satisfactory joint task with a robot, this robot must explicitly model human actions and plan not only for its actions but also for the human ones. This is why we present in this section some notations to clarify the different models used in this thesis, and then we present in more details how to model tasks.
+
+\subsection{Human and Robot agents}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{images/Chapter1/chakraborti_notations.jpg}
+    \caption{Agent models from Chakraborti \textit{et al.} notations.}
+    \label{fig:chakraborti_notations}
+\end{figure}
+
+Chakraborti \textit{et al.} introduced notations to differentiate between the models used in this thesis in their work~\cite{ChakrabortiBTZS15}, also used in Buisan's thesis~\cite{thesisBuisan21}. These notations summarize and differentiate elegantly the different models manipulated in the HRI/HRC field. These notations are depicted in figure~\ref{fig:chakraborti_notations}. At the bottom are depicted the human agent (on the left) and the robot agent (on the right). When solving a task alone, the robot uses its own model referred to as $\mathcal{M}^R$ and this is considered as Classical Planning. 
+Then, $\mathcal{M}^H_r$ is an estimation by the robot of the model of the human. Finally, $\tilde{\mathcal{M}}^R_h$ is an estimation of the robot model the human has. 
+
+It is important to keep in mind that when discussing a task planner it is considered as part of the robot. Thus, $\mathcal{M}^R$ is considered as the ground truth for the robot. As a consequence, if there is a belief divergence between $\mathcal{M}^H_r$ and $\mathcal{M}^R$, we always consider that $\mathcal{M}^R$ is the truth, otherwise, it would make no sense to keep this information in $\mathcal{M}^R$ while having access to the one in $\mathcal{M}^H_r$.
+
+\subsection{Task modeling}
+
+A common way of representing human activity (MrH ) and interaction with computers at a high abstraction level is by using task models. The hierarchical structure of human activity was first exploited by Annett and Duncan [Annett 1967]. They state that tasks can be described at several levels of abstraction until a certain criterion is met. Each task can thus be refined into subtasks detailing the procedure followed by the human to achieve the higher level task. Task modeling has then evolved to introduce interaction with systems, produced and needed information, potential errors and a wide variety of operator specifying how tasks interact with each other during their execution. Task models are now commonly used in user-centered and user-interface design processes. Most advanced notations include ConcurTaskTrees [Paternò 2004] and HAMSTERS [Martinie 2019]. These models are used to design or evaluate interactive systems. They allow the designer to better understand the user task or to study the user workflow using their system. However, these models contain too little information for a system to be able to reason and make decisions on them (either in planning or acting).
+
+
+\subsection{Hierarchical models}
+
+In classical planning, each action of an agent is atomic and needs some conditions to hold in the environment to be executed, then it changes the environment when applied. The planning process has then to find the right sequence of actions, being applicable one after the other to change the environment to reach a certain goal state. 
+However, it has been shown (cite?) that humans tend to plan their actions differently. Indeed, we usually work on a more abstract level and tend to decompose tasks hierarchically into small tasks until reaching the action level. In practice, using Hierarchical Task Networks (HTNs) allow the domin designer to help the plan search by inserting expert knowledge via a hierarchy linking the actions [erol 1996]. A task network consists in tasks organized in a fully or partially ordered manner, and each task can be either abstract or primitive. Primitive tasks are elementary tasks that can be achieved by performing one associated action. On the other hand, abstract tasks are tasks that first need to be decomposed into other subtasks, ``more primitive". The goal of the planner is not to find the sequence of actions to reach a goal, but rather to select recursively for each task the right decomposition ending (if possible) with a network of actions applicable from the initial state. Such a process is named by Ghallab, Nau and Traverso as planning with refinement methods [Ghallab 2016]. This planning hierarchy not only allows the domain designer to guide the search by inserting some expertise into the model, but also to enhance explainability as the decompositions often offer a semantic to their subtasks (the why can usually be answered by going up in the hierarchy, while the how is answered by going down. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Task Planning}
 
-\subsection{Various techniques}
-\subsection{Offline}
-\subsection{Online}
-\subsection{Human-aware task planning}
-Human-Aware Task Planning for a robot refers to the process of considering the presence and behavior of humans in the planning and execution of robot tasks. It involves taking into account cues from the shared environment and the dynamics of human-robot interaction. The goal is to generate robot policies that are adaptable, robust, and efficient in crowded and dynamic environments. This field includes having an explicit shared task or common goal between the human and the robot, implying that the two agents will collaborate to reach the goal. It also includes not having an established shared goal, and thus, is closer to what I would call an interaction instead of a collaboration. Yet, both problems are interesting and must be addressed, with a unified approach or not. 
+As put by Ghallab, Nau and Traverso, “the purpose of planning is to synthesize an organized set of actions to carry out some activity” [Ghallab 2016]. 
+Classical planning is a type of planning that assume deterministic and fully observable environments. It involves representing the world as a set of states and actions, with plans derived through state space search algorithms. Actions have preconditions and effects, and planning problems entail finding a sequence of actions transforming an initial state into a goal state. Classical planning algorithms, including STRIPS, Graphplan, and Fast Downward, utilize heuristics to guide the search efficiently. While well-suited for domains with clear and deterministic dynamics, classical planning may face challenges in handling uncertainty or partial observability, leading to the development of alternative planning approaches for such scenarios.
 
-Several works have been done in human-aware task planning, using various techniques.
-\textbf{Give some general approaches considering the human in robot planning. HA task planner estimating human behavior (planning for both) details more in chapter 2}
+Classical planning has been vastly studied and can now solve efficiently various problems. Yet, the intricate nature of HRC scenarios demands sophisticated task-planning methodologies capable of adapting to dynamic environments, understanding human intent, and promoting a fluent exchange of information. Hence, several subfields of task-planning have emerged and are used in HRC. Here are a few examples:
+
+\begin{itemize}
+    \item \textbf{Hierarchical Task Planning} is a foundational technique that organizes tasks in a hierarchical structure like presented above, allowing for the representation of complex actions at various abstraction levels. This approach enhances modularity, flexibility and explainability in task planning, accommodating intricate collaborative scenarios.
+    
+    \item \textbf{Mixed-Initiative Planning} leverages the strengths of both humans and robots by allowing for a dynamic allocation of decision-making authority. This technique promotes collaborative decision-making, enabling the system to adapt to the expertise and preferences of each agent involved in the collaborative task.
+    
+    \item \textbf{Human-Centric Task Planning} focuses on incorporating human factors into the planning process. This involves understanding human capabilities, preferences, and cognitive load to optimize task plans that align with the natural workflows and expectations of human collaborators.
+    
+    \item \textbf{Learning-Based Task Planning} has emerged thanks to advancements in machine learning as a frontier in adapting to evolving environments. This technique involves training models to understand patterns in human behavior, enabling the robot to learn and adapt its task planning strategies over time. Such techniques can also be used to predict human behavior and adapt the robot's actions consequently.
+    
+    \item \textbf{Probabilistic Task Planning} integrates uncertainty into the planning process, acknowledging the inherent unpredictability of human behavior and environmental factors. By incorporating probabilistic models, this technique enhances the robustness of task plans in dynamic and uncertain collaborative settings.
+\end{itemize}
+
+Overall, \textbf{Human-Aware Task Planning} to the process of considering the presence and behavior of humans in the planning and execution of robot tasks. It involves taking into account cues from the shared environment and the dynamics of human-robot interaction. The goal is to generate robot policies that are adaptable, robust, and efficient in crowded and dynamic environments. This field includes having an explicit shared task or common goal between the human and the robot, implying that the two agents will collaborate to reach the goal. It also includes not having an established shared goal, and thus, is closer to what I would call an interaction instead of a collaboration. Yet, both problems are interesting and must be addressed, with a unified approach or not. 
+The approaches presented in this thesis are in between the three first mentioned subfields. 
+
 
