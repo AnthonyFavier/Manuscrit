@@ -32,7 +32,7 @@ Thus, we developed an interactive simulator running robot policies generated as 
 
 The purpose of this study is two-sided. First, we want to validate our overall planning approaches based on the proposed Model of Execution, and thus, show how it allows successful collaboration with a human. Secondly, we want to validate the Model of Execution itself, that is, showing how it allows the human to always be the leader and able to decide while the robot follows concurrently. Compared to a simple baseline, we also want to show how this model allows to better satisfy human preferences and thus is preferred. 
 
-This chapter is organized as follows. First, interactive simulator functionalities and operations are described. Then, the model of execution is detailed \textbf{TODO: move to Chapter 4?}. After, the study protocol is presented as well as some analysis of the participant. Eventually, the obtained results are presented and discussed.
+This chapter is organized as follows. First, interactive simulator functionalities and operations are described. After, the study protocol is presented as well as some analysis of the participants. Eventually, the obtained results are presented and discussed.
 
 % *****
 
@@ -80,12 +80,19 @@ Synchronization, internal communication through simulated visual signal, explici
 
 ***********
 
-In this section we provide a few functional and technical details about the developed interactive simulator used for the User Study, its overall structure is shown on fig~\ref{fig:iteractive_simulator}.
+In this section we provide a few functional and technical details about the developed interactive simulator used for the User Study, its overall structure is shown on fig~\ref{fig:simu_architecture}.
 
 \begin{figure}
-    \includegraphics[width=\textwidth]{images/Chapter5/simulator.png}
-    \caption{Interactive Simulator Overview}
-    \label{fig:iteractive_simulator}
+    \includegraphics[width=\textwidth]{images/Chapter5/simu_architecture.png}
+    \caption{Overview of the Interactive Simulator's Architecture}
+    \label{fig:simu_architecture}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{images/Chapter5/simu_screenshot.png}
+    \caption{Participant view of the interactive simulator. Text prompt. Goal pattern. robot. table. cubes. stacking area. human hand.}
+    \label{fig:simu_view}
 \end{figure}
 
 First, it is using Gazebo to simulate the scene (table, cubes, agents). 
@@ -190,6 +197,17 @@ Note that our goal is to evaluate and compare the different robot behaviors. How
 
 On top of the answered questionnaires, for each scenario, the interactive simulator produces logs from which we extract several metrics and an overall timeline of the execution. The timeline depicts the activities and actions of each agent along the task progression. The subjective measures done through the questionnaire are complemented with the objective metrics extracted such as the duration to complete the task, the number of human action, the total duration of human inactivity, and more. 
 
+Here is an example of a timeline and below the associated extracted metrics:
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.73\linewidth]{images/Chapter5/timeline_example.png}
+    \caption{Example of a timeline produced by the simulator after a scenario.}
+    \label{fig:timeline_example}
+\end{figure}
+
+
+
 
 
 \section{Study results}
@@ -263,7 +281,7 @@ Participants reaction time fluctuates a lot. Especially with HF. Indeed, at ever
 
 By the way, this timeout was initially set to 3$s$ with the hypothesis that it should be quite small to allow fluent interaction. With a precise action in mind, the human is able to act first, otherwise, the robot fluently takes the lead and acts first. However, during the preliminary tests, the participants felt in a rush and oppressed by this relatively low timeout. Indeed, when they didn't have a precise action to perform when the step started, they didn't have the time to think properly and tend to be rushed by the timer progressing towards the timeout. Hence, we decided to increase the timeout from 3$s$ to 4$s$ which was felt way more comfortable. 
 
-An interesting comment is that the participants tend to react in two different ways regarding the timeout. Either the participants were acting quite fast or sometimes they were taking as much time as the timeout was allowing them. That is, seeing that they had time to think about their action the participants tend to take that time systematically instead of acting fast. \textbf{Not sure to be able to prove it, not even that systematic so maybe just remove the comment}
+\textit{An interesting comment is that the participants tend to react in two different ways regarding the timeout. Either the participants were acting quite fast or sometimes they were taking as much time as the timeout was allowing them. That is, seeing that they had time to think about their action the participants tend to take that time systematically instead of acting fast.} \textbf{Not sure to be able to prove it, not even that systematic so maybe just remove the comment}
 
 \begin{figure}
     \centering
