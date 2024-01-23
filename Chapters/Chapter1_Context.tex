@@ -158,13 +158,17 @@ However, it has been shown (cite?) that humans tend to plan their actions differ
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Task Planning}
 
+\subsection{Classical Planning}
+
 As put by Ghallab, Nau and Traverso, “the purpose of planning is to synthesize an organized set of actions to carry out some activity” [Ghallab 2016]. 
 Classical planning is a type of planning that assume deterministic and fully observable environments. It involves representing the world as a set of states and actions, with plans derived through state space search algorithms. Actions have preconditions and effects, and planning problems entail finding a sequence of actions transforming an initial state into a goal state. Classical planning algorithms, including STRIPS, Graphplan, and Fast Downward, utilize heuristics to guide the search efficiently. While well-suited for domains with clear and deterministic dynamics, classical planning may face challenges in handling uncertainty or partial observability, leading to the development of alternative planning approaches for such scenarios.
+
+\subsection{Planning for HRC}
 
 Classical planning has been vastly studied and can now solve efficiently various problems. Yet, the intricate nature of HRC scenarios demands sophisticated task-planning methodologies capable of adapting to dynamic environments, understanding human intent, and promoting a fluent exchange of information. Hence, several subfields of task-planning have emerged and are used in HRC. Here are a few examples:
 
 \begin{itemize}
-    \item \textbf{Hierarchical Task Planning} is a foundational technique that organizes tasks in a hierarchical structure like presented above, allowing for the representation of complex actions at various abstraction levels. This approach enhances modularity, flexibility and explainability in task planning, accommodating intricate collaborative scenarios.
+    \item \textbf{Hierarchical Task Planning} is a technique that organizes tasks in a hierarchical structure like presented in the previous section, allowing for the representation of complex tasks at various abstraction levels. This approach enhances modularity, flexibility and explainability in task planning, accommodating intricate collaborative scenarios.
     
     \item \textbf{Mixed-Initiative Planning} leverages the strengths of both humans and robots by allowing for a dynamic allocation of decision-making authority. This technique promotes collaborative decision-making, enabling the system to adapt to the expertise and preferences of each agent involved in the collaborative task.
     
@@ -175,7 +179,7 @@ Classical planning has been vastly studied and can now solve efficiently various
     \item \textbf{Probabilistic Task Planning} integrates uncertainty into the planning process, acknowledging the inherent unpredictability of human behavior and environmental factors. By incorporating probabilistic models, this technique enhances the robustness of task plans in dynamic and uncertain collaborative settings.
 \end{itemize}
 
-Overall, \textbf{Human-Aware Task Planning} to the process of considering the presence and behavior of humans in the planning and execution of robot tasks. It involves taking into account cues from the shared environment and the dynamics of human-robot interaction. The goal is to generate robot policies that are adaptable, robust, and efficient in crowded and dynamic environments. This field includes having an explicit shared task or common goal between the human and the robot, implying that the two agents will collaborate to reach the goal. It also includes not having an established shared goal, and thus, is closer to what I would call an interaction instead of a collaboration. Yet, both problems are interesting and must be addressed, with a unified approach or not. 
-The approaches presented in this thesis are in between the three first mentioned subfields. 
+Overall, \textbf{Human-Aware Task Planning} is the process of considering the presence and behavior of humans in the planning and execution of robot tasks. It involves taking into account cues from the shared environment and the dynamics of human-robot interaction. The goal is to generate robot policies that are adaptable, robust, and efficient in crowded and dynamic environments. This field includes having an explicit shared task or common goal between the human and the robot, implying that the two agents will collaborate to reach the goal. It also includes not having an established shared goal, and thus, is closer to what I would call an interaction instead of a collaboration. Yet, both problems are interesting and must be addressed, with a unified approach or not. 
+The approaches presented in this thesis are in between the first three subfields listed above. 
 
 
