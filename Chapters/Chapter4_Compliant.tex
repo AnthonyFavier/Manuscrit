@@ -500,6 +500,8 @@ In those cases, as it is evident from our simulation results in adversarial setu
     \item Still have to synchronize with steps, currently no partial ordering. 
     \item The robot always give the initiative to the human. Should be relevant to find an in-between model of execution where the robot intelligently switch from Human-First and Robot-First, thus, sometimes taking the initiative. Either when it has no impact (robot's best action is not dependent on human choice, thus, robot could initiate the step.)
     \item Currently only symbolically simulated results, without durative actions, real humans nor real robot. Next chapter present a user study using an implemented version with durative action where a real human effectively interact with a simulated robot following the generated policy. 
+    \item Assume that actions have roughly the same durations.
+    \item Lack social cost, for now plan selection only relies on the estimated h preferences. Could be interesting to have a proper optimization scheme that evaluate more accurately the plans and help produce the robot policy with more criteria.
 \end{itemize}
 
 
