@@ -93,6 +93,8 @@ Here is the description of the sets $B$ and $X$ for the stacking example given i
 
 % \vspace{-1cm}
 
+\textbf{TODO: Make proper definitions? Here to much lost in the text... and easier in next chapter to say ``we redefine def.x''}
+
 A \textit{variable value assignment} function over $X$ is a function $val$ that maps each $x_i \in X$ into a value $z_i \in$ $\textit{Range}(x_i)$. With $X = \{ x_1, ..., x_n \}$, this function can be written as a set of assertions: $val = \{ x_1=z_1, \ldots, x_n=z_n \}$. 
 
 An \textit{action} is a tuple $\alpha = (\textit{head}(\alpha), \textit{pre}(\alpha), \textit{eff}(\alpha))$ where $\textit{head}(\alpha)$ is a syntactic expression of the form $\textit{act}(z_1, ..., z_k)$ where $act$ is a symbol called the \textit{action name} and $z_1,...,z_k$ are variables called parameters. $\textit{pre}(\alpha) = \{ p_1, ..., p_m \}$ is a set of preconditions, each of which is a literal. And $\textit{eff}(\alpha) = \{ e_1, ..., e_n \}$ is a set of effects, each of which is an expression of the form: $sv(t_1, ..., t_j) \leftarrow t_0$ with $t_0$ being the value to assign to the state variable $sv(t_1, ..., t_j)$. We note $\textit{agt}(\alpha)$ the agent performing the action $\alpha$.
@@ -168,11 +170,13 @@ The execution of an action in HATP/EHDA is known by both agents, and thus, for b
 
 
 \subsection{Solution}
+\textbf{TODO: develop and add figure}
+
 AND/OR Tree resulting in a robot policy. Add figure of AND/OR Tree, we plan in a turn taking fashion where each human action is an AND edge and each robot action is a OR edge, and nodes planning states (beliefs + agendas).
 
 
 
-\section{HTNs Exploration}
+\section{Exploration}
 
 To start planning, HATP/EHDA must be given the two action models (the robot and the human HTNs), the initial beliefs of both agents (which can differ) and the initial agenda of both agents. The initial agenda of the robot represents the task to decompose, while the agenda of the human represents any task the human is estimated to be commited to. If a shared goal has been established prior to planning between the robot and the human (\textit{e.g.} the human asking to perform a task with the robot), the agenda of both agent will be filled with the same task.
 
