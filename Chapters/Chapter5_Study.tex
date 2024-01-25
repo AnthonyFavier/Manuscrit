@@ -297,9 +297,6 @@ Average reaction over all scenarios is about $0.76s$. Max values : ?
 The ANOVA indicates that the only significant differences are between S2-S5 and S5-S6. 
 Indeed, S2 is the RF robot with a correct estimation of human preferences. Since the robot takes the lead people tend to follow the robot and pay attention to what it is doing, not only to the scene. Hence, it is longer to process both the scene and the robot action/intentions and the reaction time tend 
 
-\textbf{TODO: extract max and min reaction/decision time?}
-
-
 \subsection*{H waiting for the robot (passive, tps mort)}
 
 \subsection*{Tps execution actions}
@@ -309,6 +306,15 @@ Indeed, S2 is the RF robot with a correct estimation of human preferences. Since
 
 \subsection{From questionnaires}
 
+Statistical significance. It has been commonly assumed that a statistical test demonstrates a significant difference if a p value lower than $0.05$ is obtained. However, obtaining a value lower than $0.001$ is desired. To make the p values more legible the following standard notation has been adopted:
+
+\begin{align*}
+    p > 0.05        & \Rightarrow ns ~ (\textrm{non significant})\\
+    p \leq 0.05     & \Rightarrow * ~ (\textrm{significant})\\
+    p \leq 0.01     & \Rightarrow ** ~ (\textrm{very significant})\\
+    p \leq 0.001    & \Rightarrow *** ~ (\textrm{highly significant})\\
+\end{align*}
+
 Some questions have large standard deviations, such as about the perceived ``Intelligence'', but often only on specific scenarios.
 
 The ``Reactive'' answers are overall the same, whatever execution regime and scenario. 
@@ -316,63 +322,90 @@ Overall, based on an ANalysis Of the VAriance with repeated measures (ANOVA), al
 
 Except for the ``Reactive'' aspect, answers about RF have a larger standard deviation. Thus, participants tend to be more indecisive regarding RF than HF.
 
+About ``Reactive''. A Bonferroni Post hoc test was used to compare the groups in pairs to find out which was significantly different.
+Despite the significant difference in the ANOVA, no pairwise group comparison was significant in the Bonferroni Post hoc test; all p values were greater than 0,05. 
+
+S4 and S6 received significantly worse answers than the other scenarios. It is interesting to notice that in a pair-wise manner, all other scenarios 
+
 We notice very few significant differences on HF only.
 
 \begin{figure}
     \includegraphics[width=\linewidth]{images/Chapter5/Mean per scenario.pdf}
-    \caption{Mean answers per scenario}
+    \caption{Average value of each question w.r.t. each scenario. S4 and S6 have distinguishable lower values than the other scenarios. We can also notice that the HF scenarios and the RF scenario with correct estimation (2) have roughly the same quite positive answers.}
     \label{fig:mean_per_scenario}
 \end{figure}
 
 \begin{figure}
     \includegraphics[width=\linewidth]{images/Chapter5/SD per execution regime.pdf}
-    \caption{SD per Execution Regime}
+    \caption{Standard Deviation for each question w.r.t. to all HF scenarios and all RF scenarios. Overall, answers fluctuate more for RF scenarios than with HF.}
     \label{fig:sd_per_execution_regime}
 \end{figure}
 
-
 \begin{figure}
     \centering
-    \includegraphics[width=\linewidth]{images/Chapter5/positive_scale.png}
-    \caption{Positive Interaction Scale with ANOVA + Post-hoc-Tests}
-    \label{fig:positive_scale_anova}
+    \includegraphics[width=\linewidth]{images/Chapter5/signif_accommo.pdf}
+    \caption{Accommodating Interaction Scale with ANOVA + Post-hoc-Tests}
+    \label{fig:accommodating_scale_anova}
 \end{figure}
 
-\begin{figure}
-    \centering
-    \includegraphics[width=\linewidth]{images/Chapter5/adaptivity_scale.png}
-    \caption{Adaptivity Scale with ANOVA + Post-hoc-Tests}
-    \label{fig:adaptivity_scale_anova}
-\end{figure}
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=\linewidth]{images/Chapter5/positive_scale.png}
+%     \caption{Positive Interaction Scale with ANOVA + Post-hoc-Tests}
+%     \label{fig:positive_scale_anova}
+% \end{figure}
+
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=\linewidth]{images/Chapter5/adaptivity_scale.png}
+%     \caption{Adaptivity Scale with ANOVA + Post-hoc-Tests}
+%     \label{fig:adaptivity_scale_anova}
+% \end{figure}
 
 
-% ns  P > 0.05
-% *   P ≤ 0.05
-% **  P ≤ 0.01
-% *** P ≤ 0.001
+% \begin{table}[]
+%     \begin{tabular}{c|c|c|c|c|c|c|c|c|c|c|c}
+%     \cline{2-11}
+%                                                  & p            & $\eta^2$               & 4-1          & 4-2          & 4-3          & 4-5          & 6-1          & 6-2          & 6-3          & 6-5          &           \\ \cline{1-11}
+%     \multicolumn{1}{|c|}{Responsive}             & \textit{***} & \textit{0,16}          & \textit{ns}  & \textit{ns}  & \textit{ns}  & \textit{ns}  & \textit{ns}  & \textit{ns}  & \textit{ns}  & \textit{ns}  & \textit{} \\ \cline{1-11}
+%     \multicolumn{1}{|c|}{Competent}              & \textit{***} & \textit{0,49}          & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{**}  & \textit{*}   & \textit{} \\ \cline{1-11}
+%     \multicolumn{1}{|c|}{Intelligent}            & \textit{***} & \textit{0,33}          & \textit{**}  & \textit{**}  & \textit{**}  & \textit{*}   & \textit{*}   & \textit{*}   & \textit{***} & \textit{*}   & \textit{} \\ \cline{1-11}
+%     \multicolumn{1}{|c|}{\textbf{Positive}}      & \textit{***} & \textit{\textbf{0,64}} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{} \\ \cline{1-11}
+%     \multicolumn{1}{|c|}{Simple}                 & \textit{***} & \textit{0,33}          & \textit{**}  & \textit{*}   & \textit{*}   & \textit{**}  & \textit{*}   & \textit{ns}  & \textit{*}   & \textit{*}   & \textit{} \\ \cline{1-11}
+%     \multicolumn{1}{|c|}{Clear}                  & \textit{***} & \textit{0,41}          & \textit{***} & \textit{**}  & \textit{**}  & \textit{*}   & \textit{***} & \textit{**}  & \textit{**}  & \textit{*}   & \textit{} \\ \cline{1-11}
+%     \multicolumn{1}{|c|}{\textbf{Adaptive}}      & \textit{***} & \textit{\textbf{0,62}} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{} \\ \cline{1-11}
+%     \multicolumn{1}{|c|}{Useful}                 & \textit{***} & \textit{0,43}          & \textit{**}  & \textit{***} & \textit{***} & \textit{***} & \textit{*}   & \textit{***} & \textit{**}  & \textit{***} & \textit{} \\ \cline{1-11}
+%     \multicolumn{1}{|c|}{\textbf{Efficient}}     & \textit{***} & \textit{\textbf{0,61}} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{} \\ \cline{1-11}
+%     \multicolumn{1}{|c|}{\textbf{Appropriate}}   & \textit{***} & \textit{\textbf{0,6}}  & \textit{***} & \textit{***} & \textit{***} & \textit{**}  & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{} \\ \cline{1-11}
+%     \multicolumn{1}{|c|}{\textbf{Accommodating}} & \textit{***} & \textit{\textbf{0,67}} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{} \\ \cline{1-11}
+%     \multicolumn{1}{|c|}{Predictable}            & \textit{***} & \textit{0,44}          & \textit{***} & \textit{**}  & \textit{***} & \textit{*}   & \textit{***} & \textit{*}   & \textit{***} & \textit{**}  & \textit{} \\ \cline{1-11}
+%     \end{tabular}
+%     \caption{Significant differences in the questionnaire answers between the different scenarios. For each item of the questionnaire are shown the overall p value and $\eta^2$ (effect size) obtained after an ANOVA. Additionally, the p values obtained after conducting Bonferroni Post-hoc-Tests are shown to identify which in a pair-wise manner which scenario were significantly different from others. As depicted, the scenarios 4 and 6 are distinguishable from the others and their evaluation are significantly different on all the measured aspect (expect reactivity).}
+%     \label{tab:questionnaire_answers}
+% \end{table}
 
-\begin{table}[]
-    \footnotesize
-    \begin{tabular}{c|c|c|c|c|c|c|c|c|c|c|c}
-    \cline{2-11}
-                                                 & \begin{tabular}[c]{@{}c@{}}p\\ value\end{tabular} & \begin{tabular}[c]{@{}c@{}}Effect\\ size\end{tabular} & 4-1          & 4-2          & 4-3          & 4-5          & 6-1          & 6-2          & 6-3          & 6-5          &           \\ \cline{1-11}
-    \multicolumn{1}{|c|}{Responsive}             & \textit{ns}                                       & \textit{0.14}                                         & \textit{ns}  & \textit{ns}  & \textit{ns}  & \textit{ns}  & \textit{ns}  & \textit{ns}  & \textit{ns}  & \textit{ns}  & \textit{} \\ \cline{1-11}
-    \multicolumn{1}{|c|}{Competent}              & \textit{***}                                      & \textit{0.05}                                         & \textit{*}   & \textit{**}  & \textit{**}  & \textit{**}  & \textit{**}  & \textit{***} & \textit{***} & \textit{**}  & \textit{} \\ \cline{1-11}
-    \multicolumn{1}{|c|}{Intelligent}            & \textit{***}                                      & \textit{0.25}                                         & \textit{ns}  & \textit{ns}  & \textit{ns}  & \textit{ns}  & \textit{ns}  & \textit{ns}  & \textit{**}  & \textit{ns}  & \textit{} \\ \cline{1-11}
-    \multicolumn{1}{|c|}{\textbf{Positive}}      & \textit{***}                                      & \textit{\textbf{0.65}}                                & \textit{***} & \textit{***} & \textit{***} & \textit{**}  & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{} \\ \cline{1-11}
-    \multicolumn{1}{|c|}{Simple}                 & \textit{**}                                       & \textit{0.22}                                         & \textit{ns}  & \textit{ns}  & \textit{ns}  & \textit{ns}  & \textit{ns}  & \textit{ns}  & \textit{ns}  & \textit{ns}  & \textit{} \\ \cline{1-11}
-    \multicolumn{1}{|c|}{Clear}                  & \textit{***}                                      & \textit{0.36}                                         & \textit{*}   & \textit{ns}  & \textit{ns}  & \textit{ns}  & \textit{**}  & \textit{ns}  & \textit{*}   & \textit{*}   & \textit{} \\ \cline{1-11}
-    \multicolumn{1}{|c|}{\textbf{Adaptive}}      & \textit{***}                                      & \textit{\textbf{0.67}}                                & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{} \\ \cline{1-11}
-    \multicolumn{1}{|c|}{Useful}                 & \textit{***}                                      & \textit{0.42}                                         & \textit{ns}  & \textit{**}  & \textit{ns}  & \textit{*}   & \textit{*}   & \textit{***} & \textit{ns}  & \textit{***} & \textit{} \\ \cline{1-11}
-    \multicolumn{1}{|c|}{\textbf{Efficient}}     & \textit{***}                                      & \textit{\textbf{0.69}}                                & \textit{***} & \textit{***} & \textit{***} & \textit{**}  & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{} \\ \cline{1-11}
-    \multicolumn{1}{|c|}{\textbf{Appropriate}}   & \textit{***}                                      & \textit{\textbf{0.65}}                                & \textit{***} & \textit{**}  & \textit{**}  & \textit{ns}  & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{} \\ \cline{1-11}
-    \multicolumn{1}{|c|}{\textbf{Accommodating}} & \textit{***}                                      & \textit{\textbf{0.67}}                                & \textit{***} & \textit{*}   & \textit{**}  & \textit{**}  & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{} \\ \cline{1-11}
-    \multicolumn{1}{|c|}{Predictable}            & \textit{***}                                      & \textit{0.41}                                         & \textit{*}   & \textit{ns}  & \textit{ns}  & \textit{ns}  & \textit{***} & \textit{ns}  & \textit{***} & \textit{**}  & \textit{} \\ \cline{1-11}
-    \end{tabular}
-    \caption{Significant differences in the questionnaire answers between the different scenarios. For each item of the questionnaire, }
+
+\begin{sidewaystable}
+    \center
+        \begin{tabular}{c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+        \cline{2-18}
+        \multicolumn{1}{l|}{}                       & p   & d             & 1-2 & 1-3 & \textbf{1-4} & 1-5 & \textbf{1-6} & 2-3 & \textbf{2-4} & 2-5 & \textbf{2-6} & \textbf{3-4} & 3-5 & \textbf{3-6} & \textbf{4-5} & \textbf{4-6} & \textbf{5-6} \\ \hline
+        \multicolumn{1}{|c|}{Réactivité}            & *** & 0,16          & ns  & ns  & ns           & ns  & ns           & ns  & ns           & ns  & ns           & ns           & ns  & ns           & ns           & ns           & ns           \\ \hline
+        \multicolumn{1}{|c|}{Compétent}             & *** & 0,49          & ns  & ns  & ***          & ns  & ***          & ns  & ***          & ns  & ***          & ***          & ns  & **           & ***          & ns           & *            \\ \hline
+        \multicolumn{1}{|c|}{Intelligence}          & *** & 0,33          & ns  & ns  & **           & ns  & *            & ns  & **           & ns  & *            & **           & ns  & ***          & *            & ns           & *            \\ \hline
+        \multicolumn{1}{|c|}{\textbf{Positive}}     & *** & \textbf{0,64} & ns  & ns  & ***          & ns  & ***          & ns  & ***          & ns  & ***          & ***          & ns  & ***          & ***          & ns           & ***          \\ \hline
+        \multicolumn{1}{|c|}{Simple}                & *** & 0,33          & ns  & ns  & **           & ns  & *            & ns  & *            & ns  & ns           & *            & ns  & *            & **           & ns           & *            \\ \hline
+        \multicolumn{1}{|c|}{Clair}                 & *** & 0,41          & ns  & ns  & ***          & ns  & ***          & ns  & **           & ns  & **           & **           & ns  & **           & *            & ns           & *            \\ \hline
+        \multicolumn{1}{|c|}{\textbf{Adaptativité}} & *** & \textbf{0,62} & ns  & ns  & ***          & ns  & ***          & ns  & ***          & ns  & ***          & ***          & ns  & ***          & ***          & ns           & ***          \\ \hline
+        \multicolumn{1}{|c|}{Utile}                 & *** & 0,43          & ns  & ns  & **           & ns  & *            & ns  & ***          & ns  & ***          & ***          & ns  & **           & ***          & ns           & ***          \\ \hline
+        \multicolumn{1}{|c|}{\textbf{Efficacité}}   & *** & \textbf{0,61} & ns  & ns  & ***          & ns  & ***          & ns  & ***          & ns  & ***          & ***          & ns  & ***          & ***          & ns           & ***          \\ \hline
+        \multicolumn{1}{|c|}{\textbf{Adéquat}}      & *** & \textbf{0,6}  & ns  & ns  & ***          & **  & ***          & ns  & ***          & ns  & ***          & ***          & ns  & ***          & **           & ns           & ***          \\ \hline
+        \multicolumn{1}{|c|}{\textbf{Accommodant}}  & *** & \textbf{0,67} & ns  & ns  & ***          & ns  & ***          & ns  & ***          & ns  & ***          & ***          & ns  & ***          & ***          & ns           & ***          \\ \hline
+        \multicolumn{1}{|c|}{Prévisible}            & *** & 0,44          & ns  & ns  & ***          & **  & ***          & ns  & **           & ns  & *            & ***          & *   & ***          & *            & ns           & **           \\ \hline
+        \end{tabular}
+    \caption{Significant differences in the questionnaire answers between the different scenarios. For each item of the questionnaire are shown the overall p value and $\eta^2$ (effect size) obtained after an ANOVA. Additionally, the p values obtained after conducting Bonferroni Post-hoc-Tests are shown to identify which in a pair-wise manner which scenario were significantly different from others. As depicted, the scenarios 4 and 6 are distinguishable from the others and their evaluation are significantly different on all the measured aspect (expect reactivity).}
     \label{tab:questionnaire_answers}
-\end{table}
-
+\end{sidewaystable}
 
 \begin{table}[]
     \footnotesize
