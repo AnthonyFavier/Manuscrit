@@ -202,7 +202,7 @@ Here is an example of a timeline and below the associated extracted metrics:
 \begin{figure}
     \centering
     \includegraphics[width=0.73\linewidth]{images/Chapter5/timeline_example.png}
-    \caption{Example of a timeline produced by the simulator after a scenario.}
+    \caption{\textbf{TODO: replace with Ch4 picture} Example of a timeline produced by the simulator after a scenario.}
     \label{fig:timeline_example}
 \end{figure}
 
@@ -230,12 +230,19 @@ In the last case, Bonferroni Post-hoc-Tests are performed to identify exactly wh
 
 
 \subsection{From timeline}
-\textbf{TODO: For now with only 9 participants, it is hard to extract any relevant result from the logs. The timelines vary considerably. So far, we can say that S2 seems faster than S1. And aberrant result can be found in certain scenarios. However, we also extract the ratio of optimal human action, depicting if the participant followed optimally or not the given instructions. This metric helps to justify this aberrant results since the participant behaved significantly differently than the others.}
 
 \subsubsection*{Preferences satisfaction (task completion time + time to be freed)}
-We should be able to show that in scenario with similar execution, i.e. S1 and S2, RF allows to solve the task faster, thus, human preferences are better satisfied with RF (\textbf{Currently not significant...}).
 
-The S1 1 (S1 task time completion) group had higher values (M = 60,49, SD = 6,74) than the S2 1 (S2 task time completion) group (M = 56,04, SD = 4,42). A t-test for paired samples showed that this difference was statistically significant, t(15) = 2,32, p = ,035. (Medium effect)
+\begin{figure}
+    \center
+    \includegraphics[width=\linewidth]{Chapter5/preferences_sastisfaction.pdf}
+    \caption{Human preference satisfaction. According to scenario it corresponds either to completing the task as fast as possible (Pair A and B) or being free as soon as possible (Pair C). Using t-tests for paired samples, we can identify in pair B and C the criteria of preferences is significantly better satisfied. In pair A, the difference isn't significant but the completion time is slightly shorter when using RF.}
+    \label{fig:preferences_satisfaction}
+\end{figure}
+
+We should be able to show that in scenario with similar execution, i.e. in pair A with S1 and S2, RF allows to solve the task faster, thus, human preferences are better satisfied with RF. Indeed, the S1 M1 group had higher values (M = 59,9, SD = 5,95) than the S2 M1 group (M = 56,29, SD = 6,34). A t-test for paired samples showed that this difference was statistically significant, t(23) = 2,27, p = ,033, (Small Effect)
+In addition, since agents have to synchronize together at each step, we are able to measure the amount of time the human has to wait for the robot. This amount should be significantly lower when using RF than HF.
+The S1 M11 (Wait ns total) group had higher values (M = 2,04, SD = 0,32) than the S2 M11 group (M = 1,29, SD = 0,36). A t-test for paired samples showed that this difference was statistically significant, t(23) = 7,4, p = <.001 (Large effect)
 
 In other pairs of scenarios, the erroneous estimation leads to significant execution differences between HF and RF. Thus, when there is an erroneous estimation using the RF regime the human fails to satisfy optimally their preferences. Let's look at the other two pairs where there is an erroneous human preferences estimation. 
 
@@ -248,58 +255,71 @@ Indeed, the S5 19 group had lower values (M = 21,92, SD = 2,1) than the S6 19 gr
 \subsubsection*{Ratio human optimally}
 The participants were given objective/preferences to satisfy and that guide their behavior. However, in practice, the explicit actions to conduct were not given, and the participants were free to act as they will. Naturally, not all participants behaved in the same way. There were differences on the reaction time of each, but also in the action decisions, leading to different execution traces. Since different execution traces influence significantly influencing the metrics of the timeline, it is worth discussing how the participants behaved.
 In the same manner as for the robot, an optimal human policy is generated for each scenario (considering the actual preferences given to the participant). Hence, it is possible to check at each step if the participant performed the optimal action or not, and thus, compute an optimal ratio which is the number of optimal human action performed divided by the total number of human action performed.  
+
 Though there are no significant difference between the different scenarios, some scenarios still have lower average optimal ratio and high standard deviation, meaning that participants tend to have more various behaviors on these specific scenarios. 
 The average number of human action per scenario is about 7, from x to x. 
 
-\begin{table}
-    \caption{Optimal human action ratio per scenario}
-    % \vspace{-15pt}
-    \begin{center}
+\begin{table}[h]
+    \center
     \begin{tabular}{c|c|c|c|c|c|c|}
-        \cline{2-7}
-                                                & S1    & S2    & S3    & S4    & S5    & S6\\
-        \hline
-        \multicolumn{1}{|c|}{Mean}              & 94.14 & 97.42 & 88.52 & 98.18 & 95    & 90.09 \\
-        \hline
-        \multicolumn{1}{|c|}{Std. Deviation}    & 9.27  & 5.72  & 8.37  & 3.96  & 10.54 & 14.31 \\
-        \hline
+    \cline{2-7}
+    \textbf{}                            & S1             & S2             & S3             & S4             & S5            & S6             \\ \hline
+    \multicolumn{1}{|c|}{Mean}           & \textit{95,34} & \textit{95,91} & \textit{91,71} & \textit{97,95} & \textit{96,6} & \textit{88,11} \\ \hline
+    \multicolumn{1}{|c|}{Std. Deviation} & \textit{7,66}  & \textit{7,52}  & \textit{8,29}  & \textit{4,66}  & \textit{7,78} & \textit{12,74} \\ \hline
+    \multicolumn{1}{|c|}{Minimum}        & \textit{71,43} & \textit{71,43} & \textit{78,57} & \textit{81,25} & \textit{75}   & \textit{61,54} \\ \hline
+    \multicolumn{1}{|c|}{Maximum}        & \textit{100}   & \textit{100}   & \textit{100}   & \textit{100}   & \textit{100}  & \textit{100}   \\ \hline
     \end{tabular}
-    \end{center}
+    \caption{Optimal human action ratio per scenario}
     \label{tab:optimal_human_ratio}
-\end{table}
+    \end{table}
 
-As depicted in the table~\ref{tab:optimal_human_ratio}, S3 has the lowest optimal ratio meaning that participants tend to follow less the optimal course of action in this scenario. It is interesting to also comment on the std. Deviation of certain scenarios. S6 has the highest sd, which can be expected because the robot, by placing its pink bar even though the human holds their own, prevents the participants from being free early. This is a frustrating and confusing behavior to which participants react in various ways. The optimal policy indicates that human should drop their pink bar back on the table and help the robot stack the cubes in order to place the dropped pink bar faster. In practice, a number of participants act as such. However, a significant amount of participants get confused and are passive during several steps. Some even remain passive almost for the whole task, waiting for the robot to stack the cubes alone until the human pink bar has to be placed. This diversity in the participants' reaction is reflected in the high sd of S6.
-The low sd of S3 is also noticeable. Indeed, here the robot tends to steal the cube from the reach of the human. This behavior prevents the human from acting, and thus, from making decisions. As a result, fewer decisions are taken by the human in this scenario which results in a high average optimal ratio and a low associated std deviation. 
 
-\subsubsection*{RF execution is faster}
-Since RF doesn't wait for the human decision, and generally the robot action are slightly slower than the human one, the RF regime should result in faster execution.
-The S1 1 group had higher values (M = 60,49, SD = 6,74) than the S2 1 group (M = 56,04, SD = 4,42). A t-test for paired samples showed that this difference was statistically significant, t(15) = 2,32, p = ,035.
-In addition, since agents have to synchronize together at each step, we are able to measure the amount of time the human has to wait for the robot. This amount should be significantly lower when using RF than HF. (Wait ns?)
+
+As depicted in the table~\ref{tab:optimal_human_ratio}, 
+S6 has the lowest average optimal ratio and the highest std. deviation. In this scenario the robot places its own pink bar even though the human holds one already, preventing the human from placing it and forcing them to drop it back on the table. This surprising behavior seems to cause frustration and confusion which led to various human decisions and actions, and more likely to deviate from the optimal course of action. In practice, a significant amount of participants get confused and are passive during several steps after the frustrating robot action. Some even remain passive almost for the whole task, waiting for the robot to stack the cubes alone until the human pink bar has to be placed. This diversity in the participants' reaction is reflected in the high sd of S6.
+
+The low sd of S4 is also noticeable. Indeed, here the robot tends to steal the cube from the reach of the human. This behavior prevents the human from acting, and thus, from making decisions. As a result, fewer decisions are taken by the human in this scenario which results in less possible deviation from the optimal course of action.
 
 \subsubsection*{Reaction time}
-Participants reaction time fluctuates a lot. Especially with HF. Indeed, at every step, the HF robot waits for a defined amount of time to observe the human decision, and acts accordingly. Any human visual signal received interrupts this timer. This amount of time will be referred to as the HF Timeout because after it is reached the robot considers the human as passive.
+Participants' reaction time fluctuates a lot. Especially with HF. Indeed, at every step, the HF robot waits for a defined amount of time to observe the human decision, and acts accordingly. Any human visual signal received interrupts this timer. This amount of time will be referred to as the HF Timeout because after it is reached the robot considers the human as passive.
 
 By the way, this timeout was initially set to 3$s$ with the hypothesis that it should be quite small to allow fluent interaction. With a precise action in mind, the human is able to act first, otherwise, the robot fluently takes the lead and acts first. However, during the preliminary tests, the participants felt in a rush and oppressed by this relatively low timeout. Indeed, when they didn't have a precise action to perform when the step started, they didn't have the time to think properly and tend to be rushed by the timer progressing towards the timeout. Hence, we decided to increase the timeout from 3$s$ to 4$s$ which was felt way more comfortable. 
 
-\textit{An interesting comment is that the participants tend to react in two different ways regarding the timeout. Either the participants were acting quite fast or sometimes they were taking as much time as the timeout was allowing them. That is, seeing that they had time to think about their action the participants tend to take that time systematically instead of acting fast.} \textbf{Not sure to be able to prove it, not even that systematic so maybe just remove the comment}
 
-\begin{figure}
-    \centering
-    \includegraphics[width=\linewidth]{images/Chapter5/av_reaction_times.png}
-    \caption{Average reaction times. For all 6 scenarios. HF has odd numbers, and RF has even numbers. The horizontal dotted line represents the mean value and the dotted triangles the standard deviation around the average.}
-    \label{fig:h_reaction_time}
-\end{figure}
+% \begin{figure}[h]
+%     \centering
+%     \includegraphics[width=\linewidth]{images/Chapter5/av_reaction_times.png}
+%     \caption{Average reaction times. For all 6 scenarios. HF has odd numbers, and RF has even numbers. The horizontal dotted line represents the mean value and the dotted triangles the standard deviation around the average.}
+%     \label{fig:h_reaction_time}
+% \end{figure}
+
+One could think about comparing the total (sum, cumulative) reaction time over each scenario. However, since different h actions can lead to various number of steps, this isn't representative. (except in scenario with same execution, only use 100\% opti ratio?) Thus we use the average reaction time computed as follow. 
 
 The average reaction times are measured as follows. After one participant finished one scenario, we measured their reaction time on each step. To do so, we first consider for each step the time when the step begins, which is signaled with text, a gaze and a sound from the robot. Then we consider the time when the human sends a signal by either starting an action or by waving their hand. The duration between these two times is considered as the reaction time of the human. Note that if the human remains passive (no signal) for a step, no reaction time is computed for this specific step. Then, we extract the average reaction time of the participant on the scenario from all the computed ones, compute the standard deviation \textit{and get the maximum and minimum values.}
 
-Average reaction over all scenarios is about $0.76s$. Max values : ?
+A one-factor analysis of variance with repeated measures showed that there was a significant difference between the variables, F = 5,32, p = <.001.
+A Bonferroni Post hoc test was used to compare the groups in pairs to find out which was significantly different.
+The Bonferroni post-hoc test revealed that the pairwise group comparisons of S2-S3, S2-S5, S3-S6, and S5-S6 have a p-value less than 0,05 and thus, based on the available data, it can be assumed that these groups were each significantly different pairwise. 
 
-The ANOVA indicates that the only significant differences are between S2-S5 and S5-S6. 
-Indeed, S2 is the RF robot with a correct estimation of human preferences. Since the robot takes the lead people tend to follow the robot and pay attention to what it is doing, not only to the scene. Hence, it is longer to process both the scene and the robot action/intentions and the reaction time tend 
+Considering the defined scenario pairs, the reaction time with RF tends to be longer. However, this difference is statically significant only for pair C (S5-S6). This is expected because when the robot places the first pink bar the human gets confused and takes time to adapt to the situation. On the other hand, this is not reflected in S4 despite the similar confusing robot actions. Indeed, in S4 the robot ``steals'' cubes from the human reach which is confusing, but this prevents the human from acting and thus no reaction time can be computed.  
+
+I think the overall slower human reaction time in the RF scenarios is due to the fact that the human acts after the robot. This way, the human has to pay attention to the scene and to the robot action/intentions, which is longer than only looking at the scene like in HF scenarios.   
+
 
 \subsection*{H waiting for the robot (passive, tps mort)}
 
-\subsection*{Tps execution actions}
+\subsection*{Agent actions' duration}
+
+\begin{figure}[h]
+    \center
+    \includegraphics[width=\linewidth]{Chapter5/action_duration.pdf}
+    \caption{Average action duration of the human and robot agents over the 6 scenarios. Compared to the human action durations, the robot ones tend to be longer and have various durations.}
+    \label{fig:action_durations}
+\end{figure}
+
+As depicted in fig.~\ref{fig:action_durations}, the human actions are in average significantly faster than the robot ones. In addition, the robot action durations tend to fluctuate more than the human one. This can be explained by the difference in motion execution between the avatar and the robot. The human has a simplified motion planner that simply moves the hand at a constant speed and in straight lines to the cubes or the stack. However, the robot uses a real motion planner to move its arm which is longer than the human motions. The motion planning process doesn't always found the same solutions, nor in the same amount of time. Meaning that both the motion planning duration and the motion execution duration can fluctuate. Here only the motion execution duration is considered in this metric. Note that to avoid having too much difference between the human and robot action durations, collisions with the dynamic objects are not considered in the robot motion planner, nor the objects' orientation. Hence, the robot can pick or place cubes from any angle and pass through the other cubes. When placing a cube its orientation is corrected. Collisions with the table where kept preventing the robot from picking cubes from below.  
+
+Over all scenarios and steps, the maximum human action duration is $4.63s$ and the minimum is  $2.55s$. For the robot, the maximum action duration is $9.09$ and the minimum duration is $1.46$.
 
 \subsection*{Combien de fois dépasse TO?}
 \textbf{TODO: hard to measure actually... Would be easy to just count number to TO signals. However, with AUTO-PASS TO are triggered anyway, and which shouldn't be counted as TO.}
@@ -329,85 +349,64 @@ S4 and S6 received significantly worse answers than the other scenarios. It is i
 
 We notice very few significant differences on HF only.
 
-\begin{figure}
-    \includegraphics[width=\linewidth]{images/Chapter5/Mean per scenario.pdf}
+In table \ref{tab:questionnaire_answers} there almost only significant differences in pairs involving S4 and S6. The only few other differences are the following. 
+S1 is significantly more appropriate than S5. And S5 is significantly less predictable than S1 and S3
+
+\begin{figure}[h]
+    \includegraphics[width=\linewidth]{Chapter5/scenario_mean.pdf}
     \caption{Average value of each question w.r.t. each scenario. S4 and S6 have distinguishable lower values than the other scenarios. We can also notice that the HF scenarios and the RF scenario with correct estimation (2) have roughly the same quite positive answers.}
-    \label{fig:mean_per_scenario}
+    \label{fig:scenario_mean}
 \end{figure}
 
-\begin{figure}
-    \includegraphics[width=\linewidth]{images/Chapter5/SD per execution regime.pdf}
-    \caption{Standard Deviation for each question w.r.t. to all HF scenarios and all RF scenarios. Overall, answers fluctuate more for RF scenarios than with HF.}
-    \label{fig:sd_per_execution_regime}
+\begin{figure}[h]
+    \includegraphics[width=\linewidth]{Chapter5/scenario_std.pdf}
+    \caption{Standard deviation of each question for each scenario.}
+    \label{fig:scenario_std}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[h]
+    \includegraphics[width=\linewidth]{Chapter5/regime_mean.pdf}
+    \caption{Mean values of answers w.r.t. each execution regime}
+    \label{fig:regime_mean}
+\end{figure}
+
+\begin{figure}[h]
+    \includegraphics[width=\linewidth]{Chapter5/regime_std.pdf}
+    \caption{Std values of answers w.r.t. each execution regime}
+    \label{fig:regime_std}
+\end{figure}
+
+\begin{figure}[h]
     \centering
     \includegraphics[width=\linewidth]{images/Chapter5/signif_accommo.pdf}
     \caption{Accommodating Interaction Scale with ANOVA + Post-hoc-Tests}
     \label{fig:accommodating_scale_anova}
 \end{figure}
 
-% \begin{figure}
-%     \centering
-%     \includegraphics[width=\linewidth]{images/Chapter5/positive_scale.png}
-%     \caption{Positive Interaction Scale with ANOVA + Post-hoc-Tests}
-%     \label{fig:positive_scale_anova}
-% \end{figure}
-
-% \begin{figure}
-%     \centering
-%     \includegraphics[width=\linewidth]{images/Chapter5/adaptivity_scale.png}
-%     \caption{Adaptivity Scale with ANOVA + Post-hoc-Tests}
-%     \label{fig:adaptivity_scale_anova}
-% \end{figure}
-
-
-% \begin{table}[]
-%     \begin{tabular}{c|c|c|c|c|c|c|c|c|c|c|c}
-%     \cline{2-11}
-%                                                  & p            & $\eta^2$               & 4-1          & 4-2          & 4-3          & 4-5          & 6-1          & 6-2          & 6-3          & 6-5          &           \\ \cline{1-11}
-%     \multicolumn{1}{|c|}{Responsive}             & \textit{***} & \textit{0,16}          & \textit{ns}  & \textit{ns}  & \textit{ns}  & \textit{ns}  & \textit{ns}  & \textit{ns}  & \textit{ns}  & \textit{ns}  & \textit{} \\ \cline{1-11}
-%     \multicolumn{1}{|c|}{Competent}              & \textit{***} & \textit{0,49}          & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{**}  & \textit{*}   & \textit{} \\ \cline{1-11}
-%     \multicolumn{1}{|c|}{Intelligent}            & \textit{***} & \textit{0,33}          & \textit{**}  & \textit{**}  & \textit{**}  & \textit{*}   & \textit{*}   & \textit{*}   & \textit{***} & \textit{*}   & \textit{} \\ \cline{1-11}
-%     \multicolumn{1}{|c|}{\textbf{Positive}}      & \textit{***} & \textit{\textbf{0,64}} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{} \\ \cline{1-11}
-%     \multicolumn{1}{|c|}{Simple}                 & \textit{***} & \textit{0,33}          & \textit{**}  & \textit{*}   & \textit{*}   & \textit{**}  & \textit{*}   & \textit{ns}  & \textit{*}   & \textit{*}   & \textit{} \\ \cline{1-11}
-%     \multicolumn{1}{|c|}{Clear}                  & \textit{***} & \textit{0,41}          & \textit{***} & \textit{**}  & \textit{**}  & \textit{*}   & \textit{***} & \textit{**}  & \textit{**}  & \textit{*}   & \textit{} \\ \cline{1-11}
-%     \multicolumn{1}{|c|}{\textbf{Adaptive}}      & \textit{***} & \textit{\textbf{0,62}} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{} \\ \cline{1-11}
-%     \multicolumn{1}{|c|}{Useful}                 & \textit{***} & \textit{0,43}          & \textit{**}  & \textit{***} & \textit{***} & \textit{***} & \textit{*}   & \textit{***} & \textit{**}  & \textit{***} & \textit{} \\ \cline{1-11}
-%     \multicolumn{1}{|c|}{\textbf{Efficient}}     & \textit{***} & \textit{\textbf{0,61}} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{} \\ \cline{1-11}
-%     \multicolumn{1}{|c|}{\textbf{Appropriate}}   & \textit{***} & \textit{\textbf{0,6}}  & \textit{***} & \textit{***} & \textit{***} & \textit{**}  & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{} \\ \cline{1-11}
-%     \multicolumn{1}{|c|}{\textbf{Accommodating}} & \textit{***} & \textit{\textbf{0,67}} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{***} & \textit{} \\ \cline{1-11}
-%     \multicolumn{1}{|c|}{Predictable}            & \textit{***} & \textit{0,44}          & \textit{***} & \textit{**}  & \textit{***} & \textit{*}   & \textit{***} & \textit{*}   & \textit{***} & \textit{**}  & \textit{} \\ \cline{1-11}
-%     \end{tabular}
-%     \caption{Significant differences in the questionnaire answers between the different scenarios. For each item of the questionnaire are shown the overall p value and $\eta^2$ (effect size) obtained after an ANOVA. Additionally, the p values obtained after conducting Bonferroni Post-hoc-Tests are shown to identify which in a pair-wise manner which scenario were significantly different from others. As depicted, the scenarios 4 and 6 are distinguishable from the others and their evaluation are significantly different on all the measured aspect (expect reactivity).}
-%     \label{tab:questionnaire_answers}
-% \end{table}
-
-
-\begin{sidewaystable}
+\begin{sidewaystable}[h]
     \center
-        \begin{tabular}{c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+        \begin{tabular}{c|cc|ccccccccccccccc|}
         \cline{2-18}
-        \multicolumn{1}{l|}{}                       & p   & d             & 1-2 & 1-3 & \textbf{1-4} & 1-5 & \textbf{1-6} & 2-3 & \textbf{2-4} & 2-5 & \textbf{2-6} & \textbf{3-4} & 3-5 & \textbf{3-6} & \textbf{4-5} & \textbf{4-6} & \textbf{5-6} \\ \hline
-        \multicolumn{1}{|c|}{Réactivité}            & *** & 0,16          & ns  & ns  & ns           & ns  & ns           & ns  & ns           & ns  & ns           & ns           & ns  & ns           & ns           & ns           & ns           \\ \hline
-        \multicolumn{1}{|c|}{Compétent}             & *** & 0,49          & ns  & ns  & ***          & ns  & ***          & ns  & ***          & ns  & ***          & ***          & ns  & **           & ***          & ns           & *            \\ \hline
-        \multicolumn{1}{|c|}{Intelligence}          & *** & 0,33          & ns  & ns  & **           & ns  & *            & ns  & **           & ns  & *            & **           & ns  & ***          & *            & ns           & *            \\ \hline
-        \multicolumn{1}{|c|}{\textbf{Positive}}     & *** & \textbf{0,64} & ns  & ns  & ***          & ns  & ***          & ns  & ***          & ns  & ***          & ***          & ns  & ***          & ***          & ns           & ***          \\ \hline
-        \multicolumn{1}{|c|}{Simple}                & *** & 0,33          & ns  & ns  & **           & ns  & *            & ns  & *            & ns  & ns           & *            & ns  & *            & **           & ns           & *            \\ \hline
-        \multicolumn{1}{|c|}{Clair}                 & *** & 0,41          & ns  & ns  & ***          & ns  & ***          & ns  & **           & ns  & **           & **           & ns  & **           & *            & ns           & *            \\ \hline
-        \multicolumn{1}{|c|}{\textbf{Adaptativité}} & *** & \textbf{0,62} & ns  & ns  & ***          & ns  & ***          & ns  & ***          & ns  & ***          & ***          & ns  & ***          & ***          & ns           & ***          \\ \hline
-        \multicolumn{1}{|c|}{Utile}                 & *** & 0,43          & ns  & ns  & **           & ns  & *            & ns  & ***          & ns  & ***          & ***          & ns  & **           & ***          & ns           & ***          \\ \hline
-        \multicolumn{1}{|c|}{\textbf{Efficacité}}   & *** & \textbf{0,61} & ns  & ns  & ***          & ns  & ***          & ns  & ***          & ns  & ***          & ***          & ns  & ***          & ***          & ns           & ***          \\ \hline
-        \multicolumn{1}{|c|}{\textbf{Adéquat}}      & *** & \textbf{0,6}  & ns  & ns  & ***          & **  & ***          & ns  & ***          & ns  & ***          & ***          & ns  & ***          & **           & ns           & ***          \\ \hline
-        \multicolumn{1}{|c|}{\textbf{Accommodant}}  & *** & \textbf{0,67} & ns  & ns  & ***          & ns  & ***          & ns  & ***          & ns  & ***          & ***          & ns  & ***          & ***          & ns           & ***          \\ \hline
-        \multicolumn{1}{|c|}{Prévisible}            & *** & 0,44          & ns  & ns  & ***          & **  & ***          & ns  & **           & ns  & *            & ***          & *   & ***          & *            & ns           & **           \\ \hline
+        \multicolumn{1}{l|}{}                        & \multicolumn{2}{c|}{ANOVA}                                 & \multicolumn{15}{c|}{Bonferroni Post hoc tests}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         \\ \cline{2-18} 
+        \multicolumn{1}{l|}{}                        & \multicolumn{1}{c|}{p}            & $\eta^2$               & \multicolumn{1}{c|}{1-2}         & \multicolumn{1}{c|}{1-3}         & \multicolumn{1}{c|}{\textbf{1-4}}          & \multicolumn{1}{c|}{1-5}                  & \multicolumn{1}{c|}{\textbf{1-6}}          & \multicolumn{1}{c|}{2-3}         & \multicolumn{1}{c|}{\textbf{2-4}}          & \multicolumn{1}{c|}{2-5}         & \multicolumn{1}{c|}{\textbf{2-6}}          & \multicolumn{1}{c|}{\textbf{3-4}}          & \multicolumn{1}{c|}{3-5}                 & \multicolumn{1}{c|}{\textbf{3-6}}          & \multicolumn{1}{c|}{\textbf{4-5}}          & \multicolumn{1}{c|}{\textbf{4-6}} & \textbf{5-6}          \\ \hline
+        \multicolumn{1}{|c|}{Responsive}             & \multicolumn{1}{c|}{\textit{***}} & \textit{0,16}          & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{ns}}           & \multicolumn{1}{c|}{\textit{ns}}          & \multicolumn{1}{c|}{\textit{ns}}           & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{ns}}           & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{ns}}           & \multicolumn{1}{c|}{\textit{ns}}           & \multicolumn{1}{c|}{\textit{ns}}         & \multicolumn{1}{c|}{\textit{ns}}           & \multicolumn{1}{c|}{\textit{ns}}           & \multicolumn{1}{c|}{\textit{ns}}  & \textit{ns}           \\ \hline
+        \multicolumn{1}{|c|}{Competent}              & \multicolumn{1}{c|}{\textit{***}} & \textit{0,49}          & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{ns}}          & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{ns}}         & \multicolumn{1}{c|}{\textit{\textbf{**}}}  & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{ns}}  & \textit{\textbf{*}}   \\ \hline
+        \multicolumn{1}{|c|}{Intelligent}            & \multicolumn{1}{c|}{\textit{***}} & \textit{0,33}          & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{\textbf{**}}}  & \multicolumn{1}{c|}{\textit{ns}}          & \multicolumn{1}{c|}{\textit{\textbf{*}}}   & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{\textbf{**}}}  & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{\textbf{*}}}   & \multicolumn{1}{c|}{\textit{\textbf{**}}}  & \multicolumn{1}{c|}{\textit{ns}}         & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{\textbf{*}}}   & \multicolumn{1}{c|}{\textit{ns}}  & \textit{\textbf{*}}   \\ \hline
+        \multicolumn{1}{|c|}{\textbf{Positive}}      & \multicolumn{1}{c|}{\textit{***}} & \textit{\textbf{0,64}} & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{ns}}          & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{ns}}         & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{ns}}  & \textit{\textbf{***}} \\ \hline
+        \multicolumn{1}{|c|}{Simple}                 & \multicolumn{1}{c|}{\textit{***}} & \textit{0,33}          & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{\textbf{**}}}  & \multicolumn{1}{c|}{\textit{ns}}          & \multicolumn{1}{c|}{\textit{\textbf{*}}}   & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{\textbf{*}}}   & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{ns}}           & \multicolumn{1}{c|}{\textit{\textbf{*}}}   & \multicolumn{1}{c|}{\textit{ns}}         & \multicolumn{1}{c|}{\textit{\textbf{*}}}   & \multicolumn{1}{c|}{\textit{\textbf{**}}}  & \multicolumn{1}{c|}{\textit{ns}}  & \textit{\textbf{*}}   \\ \hline
+        \multicolumn{1}{|c|}{Clear}                  & \multicolumn{1}{c|}{\textit{***}} & \textit{0,41}          & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{ns}}          & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{\textbf{**}}}  & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{\textbf{**}}}  & \multicolumn{1}{c|}{\textit{\textbf{**}}}  & \multicolumn{1}{c|}{\textit{ns}}         & \multicolumn{1}{c|}{\textit{\textbf{**}}}  & \multicolumn{1}{c|}{\textit{\textbf{*}}}   & \multicolumn{1}{c|}{\textit{ns}}  & \textit{\textbf{*}}   \\ \hline
+        \multicolumn{1}{|c|}{\textbf{Adaptive}}      & \multicolumn{1}{c|}{\textit{***}} & \textit{\textbf{0,62}} & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{ns}}          & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{ns}}         & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{ns}}  & \textit{\textbf{***}} \\ \hline
+        \multicolumn{1}{|c|}{Useful}                 & \multicolumn{1}{c|}{\textit{***}} & \textit{0,43}          & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{\textbf{**}}}  & \multicolumn{1}{c|}{\textit{ns}}          & \multicolumn{1}{c|}{\textit{\textbf{*}}}   & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{ns}}         & \multicolumn{1}{c|}{\textit{\textbf{**}}}  & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{ns}}  & \textit{\textbf{***}} \\ \hline
+        \multicolumn{1}{|c|}{\textbf{Efficient}}     & \multicolumn{1}{c|}{\textit{***}} & \textit{\textbf{0,61}} & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{ns}}          & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{ns}}         & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{ns}}  & \textit{\textbf{***}} \\ \hline
+        \multicolumn{1}{|c|}{\textbf{Appropriate}}   & \multicolumn{1}{c|}{\textit{***}} & \textit{\textbf{0,6}}  & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{**}}          & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{ns}}         & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{\textbf{**}}}  & \multicolumn{1}{c|}{\textit{ns}}  & \textit{\textbf{***}} \\ \hline
+        \multicolumn{1}{|c|}{\textbf{Accommodating}} & \multicolumn{1}{c|}{\textit{***}} & \textit{\textbf{0,67}} & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{ns}}          & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{ns}}         & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{ns}}  & \textit{\textbf{***}} \\ \hline
+        \multicolumn{1}{|c|}{Predictable}            & \multicolumn{1}{c|}{\textit{***}} & \textit{0,44}          & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{\textbf{**}}} & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{\textbf{**}}}  & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{\textbf{*}}}   & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{\textbf{*}}} & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{\textbf{*}}}   & \multicolumn{1}{c|}{\textit{ns}}  & \textit{\textbf{**}}  \\ \hline
         \end{tabular}
-    \caption{Significant differences in the questionnaire answers between the different scenarios. For each item of the questionnaire are shown the overall p value and $\eta^2$ (effect size) obtained after an ANOVA. Additionally, the p values obtained after conducting Bonferroni Post-hoc-Tests are shown to identify which in a pair-wise manner which scenario were significantly different from others. As depicted, the scenarios 4 and 6 are distinguishable from the others and their evaluation are significantly different on all the measured aspect (expect reactivity).}
-    \label{tab:questionnaire_answers}
+        \caption{Significant differences in the questionnaire answers between the different scenarios. For each item of the questionnaire are shown the overall p value and $\eta^2$ (effect size) obtained after an ANOVA. Additionally, the p values obtained after conducting Bonferroni Post-hoc-Tests are shown to identify which in a pair-wise manner which scenario were significantly different from others. As depicted, the scenarios 4 and 6 are distinguishable from the others and their evaluation are significantly different on all the measured aspect (expect reactivity).}
+        \label{tab:questionnaire_answers}
 \end{sidewaystable}
 
-\begin{table}[]
+\begin{table}[h]
     \footnotesize
     \begin{tabular}{ccc}
     \hline
@@ -431,7 +430,9 @@ We notice very few significant differences on HF only.
 
 \section{Discussion}
 
-fazfa
+\textit{Highlight that study validates both the planning approach and the model of exec (HF)}
+
+Overall, the study shows that the robot was always useful, reactive
 
 
 \section{Conclusion}
