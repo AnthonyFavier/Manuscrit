@@ -57,7 +57,7 @@ The Hierarchical Agent-based Task Planner (HATP) proposes a hierarchical approac
 
 \subsection{Other human-aware task planner}
 
-\textbf{TODO: List planners and approaches, general and some specific ones? maybe not, already done in next chapters}
+\textbf{TODO: List and develop some human-aware / HRC task planners}
 
 \section{Problem Specification and Solution}
 
@@ -149,7 +149,7 @@ For our example, the initial state $s_0$ would be as follows:
 \end{align*}
 }
 
-Note that $d^H_0$ is empty except in scenario (a) where H1 establish a shared goal. Also, for legibility reasons the sets $B$ and $X$ have been slightly modified because in fact the cubes are explicitly associated to colors which are used in the task decompositions. Hence, the solution is simply expressed using the colors and not the cube names. Finding the exact cube to place is described in the action models.
+Note that $d^H_0$ is empty except in scenario (a) where H1 establishes a shared goal. Also, for legibility reasons, the sets $B$ and $X$ have been slightly modified because in fact the cubes are explicitly associated with colors which are used in the task decompositions. Hence, the solution is simply expressed using the colors and not the cube names. Finding the exact cube to place is described in the action models.
 
 The process of estimating the next actions that an agent $\varphi \in Agents$ is likely to perform in a state $s_i \in S$ will be detailed later. Meanwhile, when refining the agent's agenda $d^{\varphi}$ based on its belief $val^\varphi_i$, we obtain a \textit{refinement} as follows $\textit{ref}(d^\varphi_i, val^\varphi_i)= \{ (a_1,d_1),...,(a_j,d_j) \}$. 
 A \textit{refinement} contains a tuple for each estimated possible action $a_j$ and the associated new agenda $d_j$ after being refined. 
@@ -170,24 +170,24 @@ The execution of an action in HATP/EHDA is known by both agents, and thus, for b
 
 
 \subsection{Solution}
-\textbf{TODO: develop and add figure}
 
-AND/OR Tree resulting in a robot policy. Add figure of AND/OR Tree, we plan in a turn taking fashion where each human action is an AND edge and each robot action is a OR edge, and nodes planning states (beliefs + agendas).
+The solution produced by HATP/EHDA is a robot policy mapping each state preceded by a human action to an optimal robot action. It assumes a turn-taking fashion where agents act one after another. If the robot is starting, a dummy human action is inserted into the plan. In practice, it produces a tree of sequential actions where every human action is succeeded by one optimal robot action. Additionally, whenever it is estimated that the human can perform several actions, a branch is created for possible action, ensuring to cover all possible human choices. Each branch is a possible course of alternating robot and human actions leading to the goal.
 
+\textbf{TODO: Insert figure for policy: same as \ref{fig:HATPEHDA_planning_process} bottom left}.
 
 
 \section{Exploration}
 
-To start planning, HATP/EHDA must be given the two action models (the robot and the human HTNs), the initial beliefs of both agents (which can differ) and the initial agenda of both agents. The initial agenda of the robot represents the task to decompose, while the agenda of the human represents any task the human is estimated to be commited to. If a shared goal has been established prior to planning between the robot and the human (\textit{e.g.} the human asking to perform a task with the robot), the agenda of both agent will be filled with the same task.
+To start planning, HATP/EHDA must be given the two action models (the robot and the human HTNs), the initial beliefs of both agents (which can differ) and the initial agenda of both agents. The initial agenda of the robot represents the task to decompose, while the agenda of the human represents any task the human is estimated to be committed to. If a shared goal has been established prior to planning between the robot and the human (\textit{e.g.} the human asking to perform a task with the robot), the agenda of both agents will be filled with the same task.
 
-The planning process is done in three parts: (1) First, both HTNs are explored in a turn taking fashion, resulting in a valid joint plans tree. (2) Then, based on this tree, robot actions are selected according to action, plan-wide and social costs, resulting in a conditional plan, where at each step multiple human actions can be performed but only one robot action is set. (3) Finally, causal and threat links are added between actions of the conditional plan to ease its execution.
+The planning process is done in three parts: (1) First, both HTNs are explored in a turn-taking fashion, resulting in a valid joint plans tree. (2) Then, based on this tree, robot actions are selected according to action, plan-wide and social costs, resulting in a conditional plan, where at each step multiple human actions can be performed but only one robot action is set. (3) Finally, causal and threat links are added between actions of the conditional plan to ease its execution.
 
 The robot HTN exploration is a pretty standard depth-first algorithm. The first task $\lambda$ from its agenda $d^R$ is popped, then if it is an abstract task $\lambda \in Ab$, all the applicable methods are applied, and their results are prepended to the agenda, thus giving new agents state (with the same beliefs as the previous ones but with the robot agenda updated) and branching our search space. We recursively iterate with the new task popped from the new robot agenda. Eventually, the popped task will be a primitive one $\lambda \in Op$, its function will then be applied to the currently explored agent states. If it returns \textit{false} ($\bot$), the action is not applicable, and the exploration backtracks to another decomposition of an abstract task. However, if the action is applicable (returns a new agents state), the action is added to the robot plan and the triggers are run for each agent, updating their agenda if necessary. Then, the human HTN is queried to get their possible next actions from this new agents state. The possible actions found are added to the human plan, and, for each possible new agents state, we apply the triggers of each agent then we continue the robot HTN exploration. This exploration continues until the robot agenda is empty, or all the branches return \textit{false}. The HTNs exploration process is summarized on Fig.~\ref{fig:HATPEHDA_planning_process}.
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\linewidth]{Chapter2/HATPEHDA_planning_process.pdf}
-    \caption{The HTNs exploration consists in iterative loops of four steps : (1) Get possible robot actions from the robot HTN, add them in the plan and apply their specific effects on the H \& R beliefs, (2) Check Triggers and add the reactions in the corresponding agendas, (3) Get possible human actions based on his/her updated (estimated) beliefs, add them in the plan and apply their effects on the H \& R  beliefs, (4) Check Triggers again and add the reactions in the corresponding agendas.}
+    \includegraphics[width=0.6\linewidth]{Chapter2/HATPEHDA_planning_process.pdf}
+    \caption{The HTNs exploration consists in iterative loops of four steps : (1) Get possible robot actions from the robot HTN, add them to the plan and apply their specific effects on the H \& R beliefs, (2) Check Triggers and add the reactions in the corresponding agendas, (3) Get possible human actions based on their estimated beliefs, add them in the plan and apply their effects on the H \& R  beliefs, (4) Check Triggers again and add the reactions in the corresponding agendas. Here the robot is starting, but the human could with the following ordering: (3)>(4)>(1)>(2).}
     \label{fig:HATPEHDA_planning_process}
 \end{figure}
 
