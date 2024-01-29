@@ -113,7 +113,7 @@ More details about how the environment should be divided into places will be giv
 
 We update the definition of a \textit{state}, or \textit{planning state}, to consider the two functions introduced above s.t. $s_i = \{ \agentstate[R][i], \agentstate[H][i], \obsf[i], \locf[i] \}$. This definition still consider the two agent states s.t. $\agentstate[\varphi][i] = \{ \valf[\varphi][i], \agenda[\varphi][i], \partialplan[\varphi][i] \}$. Now, we keep track in each state of the observability type and location of each state variable, and we can reason on them to update the human beliefs ($\valf[H]$) accordingly. 
 
-We remind that a state $s_i \in S$ contains \textit{false beliefs}, or \textit{belief divergences}, if $\exists x_j \in X, val^H_i(x_j) \neq val^R_i(x_j)$. 
+We remind that a state $s_i \in S$ contains \textit{false beliefs}, or \textit{belief divergences}, if $\exists x_j \in X, \valf[H][i](x_j) \neq \valf[R][i](x_j)$. 
 
 The initial state of our cooking example can be described as follows. There is no initial belief diverge, the initial partial plans are empty, and both agents but perform the shared cooking task named $CookPasta$. In addition, the robot must clean the kitchen counter once the cooking is done, hence, the task $CleanCounter$ is added in the initial robot agenda after the shared task. The only \textit{non-obversable} facts are the presence of salt in the pot and if the counter is clean. All entities, including the counter, the stove and the salt, are located in the kitchen, only the pasta are in the adjacent room. More precisely, the initial state $s_0$ can be written like this: 
 
