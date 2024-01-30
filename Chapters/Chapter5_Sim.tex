@@ -82,6 +82,7 @@ Last but not least, I developed a fourth controller whose main job is to transla
 Let's first comment the low-level generic actions available. This controller is given a list of the object names (cubes) and the names of some predefined locations in the scene (placing locations in the stack). Note also that many of the following actions can be performed either by the human or the robot, this is defined by a parameter given when calling the action. The following low-level actions are available:
 
 \begin{itemize}
+    \itemsep0em
     \item \textbf{move\_pose\_target:}          moves either the hand/robot arm to a given position.
     \item \textbf{move\_location\_target:}      moves either the hand/robot arm to the position of a given location.
     \item \textbf{move\_obj\_target:}           moves the hand/robot arm to the position of a given object.
@@ -119,7 +120,7 @@ One last thing, the simulator controller is in charge of indicating when a step 
 
 The model of execution synchronizes the agents based on explicit visual signals such as the start of a step, the start of an action, the end of an action or hand gesture (PASS). Those signals are modeled explicitly inside the system and managed by the simulator controller.
 
-Indeed, when starting an action, the associated visual signal is sent only when the agent starts to move. Hence, we track the arm and hand motions to know when the action is visible to the other agent. Then, when an action is over, the associated visual signal is sent directly. It is worth mentioning that the human will naturally have a reaction time when seeing the robot visual signals (start/end of action, step start). However, so far, the robot doesn't have any reaction time to such symbolic visual signals. Thus, to simulate the delay introduced by a real perception module (here perfectly simulated) the human visual signals are delayed to the robot by reaction time set to 0.3s. This is still quite fast but at least the robot doesn't interpret instantly the human motions.  
+Indeed, when starting an action, the associated visual signal is sent only when the agent starts to move. Hence, we track the arm and hand motions to know when the action is visible to the other agent. Then, when an action is over, the associated visual signal is sent directly. It is worth mentioning that the human will naturally have a reaction time when seeing the robot visual signals (start/end of action, step start). However, so far, the robot doesn't have any reaction time to such symbolic visual signals. Thus, to simulate the delay introduced by a real perception module (here perfectly simulated) the human visual signals are delayed to the robot by reaction time set to 0.3s. This is still quite fast but at least the robot doesn't interpret instantly the human motions.   
 
 \section{Robot execute and supervision}
 
@@ -142,6 +143,67 @@ text prompt, clickable zones, signals
 Human operator or participant can interact with the simulation by performing any feasible action during the process. The model of execution is still followed, thus, every step starts by the robot sound and a dedicated process receives internally the list of the feasible human actions for the current step. This list is sent by the robot execution scheme which is reading the solution graph. Yet, the feasible actions aren't shown nor known by the participants.
 Each possible human action is associated to a zone (rectangle) on the screen. When the human mouse click in a zone associated to a currently feasible action, then the process request the simulation controller to perform the corresponding human action.  delayed visual signal for robot.
 
+\section{Logs and timeline}
+
+There is also a dedicated process to record the different events and signals during one execution. All other components can send events to log to this process to save them for later post-processing. A log event is defined with a name and a time stamp. Additionally, visual signals are also captured by this logging process and saved them both as a signal and creates an associated event. Logged events mostly help to trace the internal states and processes ran by the robot during the execution. The human ones mostly only serve to identify when the human is acting or not since we don't have access to the internal reasoning process of the human participant. 
+
+\subsection{Activities extraction}
+
+All logs are saved after each execution and can be loaded later for post-processing. The post-processing involve three steps. First, the agent activities are extracted from the event list. The human and the robot have different possible activities, but again, since we don't have access to the internal human reasoning there are more robot activities than human ones. The extracted activities are shown in the following table~\ref{tab:agent_activities}. The activities orders try to match what can happen during the execution but not all activities are present in every step. Indeed, on the robot side, the ID process isn't always necessary and thus not always executed, and the robot either perform an action or is passive for diverse reasons. But the robot always end up waiting for the end of the step, perform the SA process and get ready for the next step. On the human side, if the human performs an action or make a hand gesture, there will be a decision time than respectively the human action or the explicit passive activity. If the human remains passive without signaling the robot then the only activity is passive without signaling. Only if the human is active, the waiting next step to start activity is added, otherwise being passive for a step is implicitly equivalent to waiting for the next step.  
+
+\begin{table}[]
+    \begin{tabular}{|l|l|}
+    \hline
+    \multicolumn{1}{|c|}{\textbf{Robot Activities}}                                           & \multicolumn{1}{c|}{\textbf{Human Activities}}                                                       \\ \hline
+    Waiting for human decision                                                                & Decision Time                                                                                        \\ \hline
+    Identification Process (ID process)                                                       & \multirow{3}{*}{Human Action}                                                                        \\ \cline{1-1}
+    Planning arm motion                                                                       &                                                                                                      \\ \cline{1-1}
+    Robot Action                                                                              &                                                                                                      \\ \hline
+    \begin{tabular}[c]{@{}l@{}}Waiting for human action when\\ itself cannot act\end{tabular} & \begin{tabular}[c]{@{}l@{}}Being passive with signaling \\ (after PASS hand gesture)\end{tabular}    \\ \hline
+    Being passive                                                                             & \begin{tabular}[c]{@{}l@{}}Being passive without signaling\\ (after TimeOut is reached)\end{tabular} \\ \hline
+    Waiting for the end of the step                                                           & \multirow{3}{*}{Waiting for the next step to start}                                                  \\ \cline{1-1}
+    Situation Assessment Process (SA process)                                                 &                                                                                                      \\ \cline{1-1}
+    Getting ready for the next step                                                           &                                                                                                      \\ \hline
+    \end{tabular}
+    \caption{Agent activities extracted from logs. The activities orders and relative positions try to match the execution but not all activities are present in every step.  }
+    \label{tab:agent_activities}
+    \end{table}
+
+\subsection{Metrics computation}
+
+The second step happening when load the execution logs is to extract a list of metrics from the events and extracted activities. Currently, 27 metrics are extracted, but the following list only shows 11 because some items include several sub metrics by computing the total sum, average, standard deviation, min and max values of the corresponding metric.
+
+\begin{enumerate}
+    \itemsep0em
+    \item \textbf{Task completion time:}                 Time for the stack to be completed.
+    \item \textbf{Number of steps:}                      Number of steps executed.
+    \item \textbf{Number of human optimal actions:}      Number of human action being optimal regarding a given objective.
+    \item \textbf{Ratio of human optimal actions:}       Number of human optimal actions divided by the number of steps.
+    \item \textbf{Decision time:}                        Time for the human to make a visible decision in a step. Five different metrics are extracted regarding all steps of the scenario: total/sum, average, standard deviation, min and max.
+    \item \textbf{Waiting Next Step:}                    Time during which the human waits for the next step to start. Again, are extracted over all the steps: total, average, standard deviation, min and max values.
+    \item \textbf{Number of human action:}               Number of human actions executed in the scenario.
+    \item \textbf{Human action duration:}                Over all steps are extracted the total, average, standard deviation, min and max duration of the human actions.
+    \item \textbf{Number of robot action:}               Number of robot actions executed in the scenario.
+    \item \textbf{Robot action duration:}                Over all steps are extracted the total, average, standard deviation, min and max duration of the robot actions.
+    \item \textbf{Time human free:}                      Time after which the human is free, i.e., isn't mandatory for the task to be completed.
+\end{enumerate}
+
+\subsection{Timeline}
+
+Eventually, using the previously extracted agent activities, we can draw a visual timeline depicting the different steps, the extracted activities and the visual signals exchanged between the agents. Here are two examples of timelines 
+
+Here is an example of a timeline and below the associated extracted metrics:
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.40\linewidth]{Chapter5/timeline_one_2023_12_19_11_46_01_S2.png}
+    \includegraphics[width=0.40\linewidth]{Chapter5/timeline_two_2023_12_19_15_37_29_S5.png}
+    \caption{Two timelines with different execution.}
+    \label{fig:timeline_example}
+\end{figure}
+
+
+\textbf{TODO: List associated extracted metrics + legende pour timeline (signal name/description, activities link to list above.)}
 
 % ***********
 
