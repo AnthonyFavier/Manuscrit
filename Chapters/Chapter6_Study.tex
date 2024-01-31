@@ -142,14 +142,15 @@ Eventually, we associate each of the three previous pairs of preferences and est
     \label{tab:scenario_names}
 \end{table}
 
-Note that our goal is to evaluate and compare the different robot behaviors. However, at the beginning, the participants don't have any references to compare with which can influence their answers in the very first scenarios. One solution is to ask the participants to answer all six questionnaires at the end, after being familiar with the six scenarios. We consider that this option demands a too heavy mental workload to recall accurately each specific scenario, and may bias the answers. As a consequence, we decided to ask the participants to answer the questionnaire after each scenario as a draft. Along the experiment, they can rectify their answers to match more accurately their feelings. At the end, using the drafts, they share their final answers for each scenario. We believe this process allow to more accurately gather the feelings of the participants. Moreover, the ordering in which the participants encounter the scenarios is uniformly randomized to prevent any order effect. 
+Note that our goal is to evaluate and compare the different robot behaviors. However, at the beginning, the participants don't have any references to compare with which can influence their answers in the very first scenarios. One solution is to ask the participants to answer all six questionnaires at the end, after being familiar with the six scenarios. We consider that this option demands a too heavy mental workload to recall accurately each specific scenario, and may bias the answers. As a consequence, we decided to ask the participants to answer the questionnaire after each scenario as a draft. During the experiment, they can rectify their answers to match more accurately their feelings. At the end, using the drafts, they share their final answers for each scenario. We believe this process allows to more accurately gather the feelings of the participants. Moreover, the ordering in which the participants encounter the scenarios is uniformly randomized to prevent any order effect. 
 
 \textbf{TODO: Give more details about the PeRDITA questionnaire (questions, goal, etc..)}
 
-On top of the answered questionnaires, for each scenario, the interactive simulator produces logs from which we extract several metrics and an overall timeline of the execution. The timeline depicts the activities and actions of each agent along the task progression. The subjective measures done through the questionnaire are complemented with the objective metrics extracted such as the duration to complete the task, the number of human action, the total duration of human inactivity, and more. 
+On top of the answered questionnaires, for each scenario, the interactive simulator produces logs from which we extract several metrics and an overall timeline of the execution. The timeline depicts the activities and actions of each agent along the task progression. The subjective measures done through the questionnaire are complemented with the objective metrics extracted such as the duration to complete the task, the number of human actions, the total duration of human inactivity, and more. 
 
 
-
+There are a few restrictions on the actions that can be performed. First, an agent can only pick cubes that can be placed immediately. This means that agents cannot pick cube in advance to anticipate each other's actions. Allowing such behavior could generate a very interesting scenario. However, here we want to purposely generate some conflicts to evaluate the robot's behavior and reactions. Without this restriction, the agents would have too much flexibility in their actions and decisions which makes it harder for the conflicts to happen.  
+Additionally, when holding a cube, the agents can only place the cube in the stack on back to its original place. As a result, the agents cannot displace the cube on the table to make them reachable to the other agent. This restriction has been added for the same reasons as the first one and simplifies the conflicts generation. 
 
 
 \section{Study results}
@@ -178,21 +179,29 @@ In the last case, Bonferroni Post-hoc-Tests are performed to identify exactly wh
 \begin{figure}
     \center
     \includegraphics[width=\linewidth]{Chapter6/preferences_sastisfaction.pdf}
-    \caption{Human preference satisfaction. According to scenario it corresponds either to completing the task as fast as possible (Pair A and B) or being free as soon as possible (Pair C). Using t-tests for paired samples, we can identify in pair B and C the criteria of preferences is significantly better satisfied. In pair A, the difference isn't significant but the completion time is slightly shorter when using RF.}
+    \caption{Human preference satisfaction. According to the scenarios, it corresponds either to completing the task as fast as possible (Pair A and B) or being free as soon as possible (Pair C). Using t-tests for paired samples, we can identify in pair B and C the criteria of preferences is significantly better satisfied. In pair A, the difference isn't significant but the completion time is slightly shorter when using RF.}
     \label{fig:preferences_satisfaction}
 \end{figure}
 
-We should be able to show that in scenario with similar execution, i.e. in pair A with S1 and S2, RF allows to solve the task faster, thus, human preferences are better satisfied with RF. Indeed, the S1 M1 group had higher values (M = 59,9, SD = 5,95) than the S2 M1 group (M = 56,29, SD = 6,34). A t-test for paired samples showed that this difference was statistically significant, t(23) = 2,27, p = ,033, (Small Effect)
+In this study, the human preferences consist of either finishing the collaborative task as soon as possible or being free as soon as possible while letting the robot finish alone. 
+Thus, to evaluate how the human preferences were satisfied, we can measure in the first case the time to complete the task and in the second case the time after which the human can leave. 
+
+Figure~\ref{fig:preferences_satisfaction} depicts through box plots for each pair of scenarios the corresponding relevant metric to evaluate the human preferences' satisfaction. We used t-tests for paired samples for pairwise comparison. For each pair, the tests for normal distribution suggest that the data does not significantly deviate from normality, and thus parametric tests such as t-tests can be conducted.
+
+In Pair A, in addition to completing the stack the human wants it to be completed as soon as possible. The robot has a correct estimation of human preferences. The completion time using HF and RF are shown. The completion times in S1 and S2 are roughly similar with the respective values: $mean=59.84s SD=5.83s$ and $mean=56.64s SD=6.46s$. The completion time of Scenario 1 is higher than Scenario 2. However, a t-test for paired samples showed that this difference was not statistically significant ($p = 0.055$) and there was a small effect ($d = 0.4$) according to Cohen's \textit{d}~\cite{cohen1988concepts} (small effect = $0.2$, medium effect = $0.5$, large effect = $0.8$). Thus, the RF regime allowed the human to solve the task slightly faster than the HF regime, and thus, satisfy their preferences slightly better. 
+In both scenarios, the collaboration goes smoothly, and the task is achieved without trouble.
+
+In Pair B, the human still wants the stack to be completed as fast as possible, however, the robot has an erroneous and adversarial estimation of their preferences. This time the HF regime in S3 had lower values ($M=66.62s, SD=14.87s$) than the RF regime in S4 ($M=82.82s, SD=4.42s$). This difference is statistically significant ($p < 0.001$) and there was a large effect ($d = 1.07$). This indicates that in S4 the participants' preferences were significantly less satisfied than in S3. 
+Indeed, in this pair, the robot erroneously thinks that the human wants to minimize their effort. Thus, the robot ends up trying to ``\textit{steal}'' cubes from the human to prevent them from acting, thus, minimizing their effort. With RF the human has no choice and cannot act most of the time, leading to a high completion time with a low standard deviation due to the restricted human choices leading to very similar executions. With HF the robot always acts compliantly in parallel right after the human. Hence, the human is able to pick the cubes they want and that the robot wants to pick, \textit{forcing} the robot to adapt and pick other cubes. This eventually leads to executions close to S1. However, if for any reason the human doesn't pick the cubes then the robot picks them preventing again the human from acting, explaining the high standard deviation. Comments about the feelings of the participants in each of these scenarios are given in the next subsection using the answers to the questionnaire. Overall, S4 was perceived as frustrating and S3 was perceived similarly to S1 and S2. 
+
+In Pair C, the human prefers to be freed as soon as possible. Hence, we measured the time after which the human isn't mandatory to finish the task, i.e., the time after which the robot can finish the task alone. Scenario 5 (HF) allowed the human to be free earlier ($M=22s, SD=2.35s$) than Scenario 6 (RF) ($M=65.45s, SD=9.08s$). This difference is statistically significant ($p < 0.001$) and there was a very large effect ($d = 4.43$). This indicates that the HF regime allowed the participants to satisfy their preferences significantly better than the RF regime. 
+Here, the erroneous estimation of human preferences makes the robot try to place its pink bar first, which implies that the human should place their own at the top of the stack as the last cube. Such a plan forces the human to stay until the end of the task which is in direct contradiction with the actual human preferences. Hence, after placing the yellow and red cubes concurrently, both agents tend to pick their pink bar. At this point, in S5 (HF) the robot waits for the human decision, the human can place their bar and free themselves from the task, and the robot compliantly drops its pink bar before finishing the stack alone. However, in S6 (RF), the robot doesn't wait for the human decision and places its pink bar before the human can do anything, forcing them to stay until the end to place the pink bar. As a result, the S6 values are significantly higher than S5. Moreover, the participants had various reactions to the frustrating robot action of placing the pink bar before them. Some remained passive until the end while holding their bar, others would drop it to help the robot aiming to place the bar as fast as possible anyway. These various reactions led to various executions explaining the high SD of S6.
+
+****
+
+\textit{We should be able to show that in scenario with similar execution, i.e. in pair A with S1 and S2, RF allows to solve the task faster, thus, human preferences are better satisfied with RF. Indeed, the S1 M1 group had higher values (M = 59,9, SD = 5,95) than the S2 M1 group (M = 56,29, SD = 6,34). A t-test for paired samples showed that this difference was statistically significant, t(23) = 2,27, p = ,033, (Small Effect)
 In addition, since agents have to synchronize together at each step, we are able to measure the amount of time the human has to wait for the robot. This amount should be significantly lower when using RF than HF.
-The S1 M11 (Wait ns total) group had higher values (M = 2,04, SD = 0,32) than the S2 M11 group (M = 1,29, SD = 0,36). A t-test for paired samples showed that this difference was statistically significant, t(23) = 7,4, p = <.001 (Large effect)
-
-In other pairs of scenarios, the erroneous estimation leads to significant execution differences between HF and RF. Thus, when there is an erroneous estimation using the RF regime the human fails to satisfy optimally their preferences. Let's look at the other two pairs where there is an erroneous human preferences estimation. 
-
-With Pair B, HF allows to solve the task significantly faster than using RF. Thus, the human preferences are significantly more satisfied using HF.   
-Indeed, the S3 1 group (S3 time task completion) had lower values (M = 68,79, SD = 10,68) than the S4 1 group (S4 time task completion) (M = 83,08, SD = 4,56). A t-test for paired samples showed that this difference was statistically significant, t(15) = -4,68, p = <.001. Large effect.
-
-With Pair C, the human prefers to be freed as soon as possible. We mesured the time after which the human is freed from the task, that is, the time the human places their pink bar which is the only cube not reachable by the robot. The results that HF allowed the human to be freed significantly earlier than with RF. Thus, with erroneous estimation, HF satisfies significantly better the human preferences than RF.
-Indeed, the S5 19 group had lower values (M = 21,92, SD = 2,1) than the S6 19 group (M = 63,9, SD = 8,44). A t-test for paired samples showed that this difference was statistically significant, t(15) = -19,47, p = <.001. Large effect. 
+The S1 M11 (Wait ns total) group had higher values (M = 2,04, SD = 0,32) than the S2 M11 group (M = 1,29, SD = 0,36). A t-test for paired samples showed that this difference was statistically significant, t(23) = 7,4, p = <.001 (Large effect)}
 
 \subsubsection*{Ratio human optimally}
 The participants were given objective/preferences to satisfy and that guide their behavior. However, in practice, the explicit actions to conduct were not given, and the participants were free to act as they will. Naturally, not all participants behaved in the same way. There were differences on the reaction time of each, but also in the action decisions, leading to different execution traces. Since different execution traces influence significantly influencing the metrics of the timeline, it is worth discussing how the participants behaved.
@@ -261,9 +270,6 @@ As depicted in fig.~\ref{fig:action_durations}, the human actions are in average
 
 Over all scenarios and steps, the maximum human action duration is $4.63s$ and the minimum is  $2.55s$. For the robot, the maximum action duration is $9.09$ and the minimum duration is $1.46$.
 
-\subsection*{Combien de fois dépasse TO?}
-\textbf{TODO: hard to measure actually... Would be easy to just count number to TO signals. However, with AUTO-PASS TO are triggered anyway, and which shouldn't be counted as TO.}
-
 \subsection{From questionnaires}
 
 Statistical significance. It has been commonly assumed that a statistical test demonstrates a significant difference if a p value lower than $0.05$ is obtained. However, obtaining a value lower than $0.001$ is desired. To make the p values more legible the following standard notation has been adopted:
@@ -274,6 +280,34 @@ Statistical significance. It has been commonly assumed that a statistical test d
     p \leq 0.01     & \Rightarrow ** ~ (\textrm{very significant})\\
     p \leq 0.001    & \Rightarrow *** ~ (\textrm{highly significant})\\
 \end{align*}
+
+\subsubsection{Overall analysis}
+
+all mean and SD values. 
+
+Notice that S4 and S6 are distinguishable from the others
+
+HF mean values are higher than RF mean values.
+
+HF SD are lower than RF SD.
+
+* Show all graphs
+
+Q with interesting comments (reactive doesn't change over S, highest/lowest SD Q, highest/lowest M Q) 
+
+\subsubsection{ANOVA Analysis}
+
+p-values table
+
+Except reactive, all Q significantly vary according to scenarios
+
+S4 and S6 are significantly different from others
+
+with effect size talk about Q than are most diff [~0.6-0.7] (Positive, Adaptive, Efficient, Appropriate, Accommodating), medium diff [~0.4-0.5] (Competent, Clear, Useful, Predictable), low diff [~0.3] (Intelligent, Simple) and lowest [0.16] (Reactive)
+
+Talk about the few other diff (1-5, )
+
+*****
 
 Some questions have large standard deviations, such as about the perceived ``Intelligence'', but often only on specific scenarios.
 
