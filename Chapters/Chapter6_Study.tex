@@ -197,6 +197,8 @@ Indeed, in this pair, the robot erroneously thinks that the human wants to minim
 In Pair C, the human prefers to be freed as soon as possible. Hence, we measured the time after which the human isn't mandatory to finish the task, i.e., the time after which the robot can finish the task alone. Scenario 5 (HF) allowed the human to be free earlier ($M=22s, SD=2.35s$) than Scenario 6 (RF) ($M=65.45s, SD=9.08s$). This difference is statistically significant ($p < 0.001$) and there was a very large effect ($d = 4.43$). This indicates that the HF regime allowed the participants to satisfy their preferences significantly better than the RF regime. 
 Here, the erroneous estimation of human preferences makes the robot try to place its pink bar first, which implies that the human should place their own at the top of the stack as the last cube. Such a plan forces the human to stay until the end of the task which is in direct contradiction with the actual human preferences. Hence, after placing the yellow and red cubes concurrently, both agents tend to pick their pink bar. At this point, in S5 (HF) the robot waits for the human decision, the human can place their bar and free themselves from the task, and the robot compliantly drops its pink bar before finishing the stack alone. However, in S6 (RF), the robot doesn't wait for the human decision and places its pink bar before the human can do anything, forcing them to stay until the end to place the pink bar. As a result, the S6 values are significantly higher than S5. Moreover, the participants had various reactions to the frustrating robot action of placing the pink bar before them. Some remained passive until the end while holding their bar, others would drop it to help the robot aiming to place the bar as fast as possible anyway. These various reactions led to various executions explaining the high SD of S6.
 
+Overall, RF tends to slightly better satisfy human preferences only when the estimation is correct (Pair A), yet, the difference wasn't significant compared the HF. On the other hand, when the estimation is erroneous, HF satisfies human preferences significantly better than RF due to how compliant the robot is when using HF. This indicates that using our model of execution instead of a simplistic baseline (RF) is beneficial for collaboration in terms of satisfaction of human preferences. 
+
 ****
 
 \textit{We should be able to show that in scenario with similar execution, i.e. in pair A with S1 and S2, RF allows to solve the task faster, thus, human preferences are better satisfied with RF. Indeed, the S1 M1 group had higher values (M = 59,9, SD = 5,95) than the S2 M1 group (M = 56,29, SD = 6,34). A t-test for paired samples showed that this difference was statistically significant, t(23) = 2,27, p = ,033, (Small Effect)
@@ -204,20 +206,20 @@ In addition, since agents have to synchronize together at each step, we are able
 The S1 M11 (Wait ns total) group had higher values (M = 2,04, SD = 0,32) than the S2 M11 group (M = 1,29, SD = 0,36). A t-test for paired samples showed that this difference was statistically significant, t(23) = 7,4, p = <.001 (Large effect)}
 
 \subsubsection*{Ratio human optimally}
-The participants were given objective/preferences to satisfy and that guide their behavior. However, in practice, the explicit actions to conduct were not given, and the participants were free to act as they will. Naturally, not all participants behaved in the same way. There were differences on the reaction time of each, but also in the action decisions, leading to different execution traces. Since different execution traces influence significantly influencing the metrics of the timeline, it is worth discussing how the participants behaved.
-In the same manner as for the robot, an optimal human policy is generated for each scenario (considering the actual preferences given to the participant). Hence, it is possible to check at each step if the participant performed the optimal action or not, and thus, compute an optimal ratio which is the number of optimal human action performed divided by the total number of human action performed.  
+The participants were given in every scenario an objective to satisfy, to consider as their own preferences regarding the task, and that should guide their behavior. However, in practice, the explicit actions to conduct were not given, and the participants were free to act as they would. Naturally, not all participants behaved in the same way. There were differences in the reaction time of each, but also in the action decisions, leading to different execution traces. Since different execution traces influence significantly the metrics of the timeline, it is worth discussing how the participants behaved.
+In the same manner as for the robot, an optimal human policy is generated for each scenario (considering the actual preferences given to the participant). Hence, it is possible to check at each step if the participant performed the optimal action or not, and thus, compute an optimal ratio which is the number of optimal human actions performed divided by the total number of human actions performed. This can help us to analyze the results and can explain some outlier values. 
 
-Though there are no significant difference between the different scenarios, some scenarios still have lower average optimal ratio and high standard deviation, meaning that participants tend to have more various behaviors on these specific scenarios. 
-The average number of human action per scenario is about 7, from x to x. 
+Though there are no significant differences between the different scenarios, some scenarios still have a lower average optimal ratio and high standard deviation, meaning that participants tend to have more varied behaviors in these specific scenarios. 
+The average number of human actions per scenario is about 7, from 2 to 10. 
 
 \begin{table}[h]
     \center
     \begin{tabular}{c|c|c|c|c|c|c|}
     \cline{2-7}
     \textbf{}                            & S1             & S2             & S3             & S4             & S5            & S6             \\ \hline
-    \multicolumn{1}{|c|}{Mean}           & \textit{95,34} & \textit{95,91} & \textit{91,71} & \textit{97,95} & \textit{96,6} & \textit{88,11} \\ \hline
-    \multicolumn{1}{|c|}{Std. Deviation} & \textit{7,66}  & \textit{7,52}  & \textit{8,29}  & \textit{4,66}  & \textit{7,78} & \textit{12,74} \\ \hline
-    \multicolumn{1}{|c|}{Minimum}        & \textit{71,43} & \textit{71,43} & \textit{78,57} & \textit{81,25} & \textit{75}   & \textit{61,54} \\ \hline
+    \multicolumn{1}{|c|}{Mean}           & \textit{95.52} & \textit{95.4} & \textit{92.04} & \textit{98.03} & \textit{96.74} & \textit{87.09} \\ \hline
+    \multicolumn{1}{|c|}{Std. Deviation} & \textit{7.56}  & \textit{7.78}  & \textit{8.28}  & \textit{4.58}  & \textit{7.65} & \textit{13.48} \\ \hline
+    \multicolumn{1}{|c|}{Minimum}        & \textit{71.43} & \textit{71.43} & \textit{78.57} & \textit{81.25} & \textit{75}   & \textit{61.54} \\ \hline
     \multicolumn{1}{|c|}{Maximum}        & \textit{100}   & \textit{100}   & \textit{100}   & \textit{100}   & \textit{100}  & \textit{100}   \\ \hline
     \end{tabular}
     \caption{Optimal human action ratio per scenario}
@@ -229,28 +231,30 @@ The average number of human action per scenario is about 7, from x to x.
 As depicted in the table~\ref{tab:optimal_human_ratio}, 
 S6 has the lowest average optimal ratio and the highest std. deviation. In this scenario the robot places its own pink bar even though the human holds one already, preventing the human from placing it and forcing them to drop it back on the table. This surprising behavior seems to cause frustration and confusion which led to various human decisions and actions, and more likely to deviate from the optimal course of action. In practice, a significant amount of participants get confused and are passive during several steps after the frustrating robot action. Some even remain passive almost for the whole task, waiting for the robot to stack the cubes alone until the human pink bar has to be placed. This diversity in the participants' reaction is reflected in the high sd of S6.
 
-The low sd of S4 is also noticeable. Indeed, here the robot tends to steal the cube from the reach of the human. This behavior prevents the human from acting, and thus, from making decisions. As a result, fewer decisions are taken by the human in this scenario which results in less possible deviation from the optimal course of action.
+The low SD of S4 is also noticeable. Indeed, here the robot tends to steal the cube from the reach of the human. This behavior prevents the human from acting, and thus, from making decisions. As a result, fewer decisions are taken by the human in this scenario which results in less possible deviation from the optimal course of action.
 
-\subsubsection*{Reaction time}
-Participants' reaction time fluctuates a lot. Especially with HF. Indeed, at every step, the HF robot waits for a defined amount of time to observe the human decision, and acts accordingly. Any human visual signal received interrupts this timer. This amount of time will be referred to as the HF Timeout because after it is reached the robot considers the human as passive.
+\subsubsection*{Decision time}
+Participants' decision time fluctuates a lot. Especially with HF. Indeed, at every step, the HF robot waits for a defined amount of time to observe the human decision and acts accordingly. Any human visual signal received interrupts this timer. This amount of time will be referred to as the HF Timeout because after it is reached the robot considers the human as passive. This timeout was initially set to 3$s$ with the hypothesis that it should be quite small to allow fluent interaction. With a precise action in mind, the human is able to act first, otherwise, the robot fluently takes the lead and acts first. However, during the preliminary tests, the participants felt in a rush and oppressed by this relatively low timeout. Indeed, when they didn't have a precise action to perform when the step started, they didn't have the time to think properly and tended to be rushed by the timer progressing towards the timeout. Hence, we decided to increase the timeout from 3$s$ to 4$s$ which was felt way more comfortable. 
 
-By the way, this timeout was initially set to 3$s$ with the hypothesis that it should be quite small to allow fluent interaction. With a precise action in mind, the human is able to act first, otherwise, the robot fluently takes the lead and acts first. However, during the preliminary tests, the participants felt in a rush and oppressed by this relatively low timeout. Indeed, when they didn't have a precise action to perform when the step started, they didn't have the time to think properly and tend to be rushed by the timer progressing towards the timeout. Hence, we decided to increase the timeout from 3$s$ to 4$s$ which was felt way more comfortable. 
+One could think about comparing the total (sum, cumulative) decision time over each scenario. However, since different human actions can lead to various number of steps, this isn't representative. (except in scenario with same execution, only use 100\% opti ratio?)
 
+We compare the average human decision times which are measured similarly with HF and RF and as follows. After one participant finished one scenario, we measured their decision time on each step. To do so, we first consider for each step the time when the step begins, which is signaled with text, a gaze and a sound from the robot. Then we consider the time when the human sends a signal by either starting an action or by waving their hand. The duration between these two times is considered as the decision time of the human. Note that if the human remains passive (no signal until) for a step, no decision time is computed for this specific step. Then, we extract the average decision time of the participant on the scenario from all the computed ones, compute the standard deviation and get the maximum and minimum values. 
 
-% \begin{figure}[h]
-%     \centering
-%     \includegraphics[width=\linewidth]{Chapter6/av_reaction_times.png}
-%     \caption{Average reaction times. For all 6 scenarios. HF has odd numbers, and RF has even numbers. The horizontal dotted line represents the mean value and the dotted triangles the standard deviation around the average.}
-%     \label{fig:h_reaction_time}
-% \end{figure}
+A one-factor analysis of variance with repeated measures showed that there was a significant difference between the variables, F = 5.99, p = <.001 with an effect size Eta squared $\eta² = 0.2$ which corresponds to a large effect.
+When doing pairwise comparisons with t-tests obtain the following results.
 
-One could think about comparing the total (sum, cumulative) reaction time over each scenario. However, since different h actions can lead to various number of steps, this isn't representative. (except in scenario with same execution, only use 100\% opti ratio?) Thus we use the average reaction time computed as follow. 
+In pair A, S1 (HF) had lower values ($M=0.66, SD=0.41$) than S2 (RF) ($M=1.04, SD=0.58$). This difference is statistically significant ($p=0.002$) with a medium effect ($d=0.68$).
 
-The average reaction times are measured as follows. After one participant finished one scenario, we measured their reaction time on each step. To do so, we first consider for each step the time when the step begins, which is signaled with text, a gaze and a sound from the robot. Then we consider the time when the human sends a signal by either starting an action or by waving their hand. The duration between these two times is considered as the reaction time of the human. Note that if the human remains passive (no signal) for a step, no reaction time is computed for this specific step. Then, we extract the average reaction time of the participant on the scenario from all the computed ones, compute the standard deviation \textit{and get the maximum and minimum values.}
+In pair B, S3 (HF) had lower values ($M=0.54, SD=0.51$) than S4 (RF) ($M=0.62, SD=0.55$). This difference is not statistically significant ($p=0.551$) with a very small effect ($d=0.12$).
 
-A one-factor analysis of variance with repeated measures showed that there was a significant difference between the variables, F = 5,32, p = <.001.
-A Bonferroni Post hoc test was used to compare the groups in pairs to find out which was significantly different.
-The Bonferroni post-hoc test revealed that the pairwise group comparisons of S2-S3, S2-S5, S3-S6, and S5-S6 have a p-value less than 0,05 and thus, based on the available data, it can be assumed that these groups were each significantly different pairwise. 
+In pair C, S5 (HF) had lower values ($M=0.56, SD=0.11$) than S6 (RF) ($M=0.91, SD=0.46$). This difference is statistically significant ($p=0.001$) with a medium effect ($d=0.76$).
+
+\begin{figure}
+    \center
+    \includegraphics[width=\linewidth]{Chapter6/decision_time.pdf}
+    \caption{Average human decision time in the six scenarios. This decision time tends to be lower when using HF than with RF.}
+    \label{fig:decision_time}
+\end{figure}
 
 Considering the defined scenario pairs, the reaction time with RF tends to be longer. However, this difference is statically significant only for pair C (S5-S6). This is expected because when the robot places the first pink bar the human gets confused and takes time to adapt to the situation. On the other hand, this is not reflected in S4 despite the similar confusing robot actions. Indeed, in S4 the robot ``steals'' cubes from the human reach which is confusing, but this prevents the human from acting and thus no reaction time can be computed.  
 
