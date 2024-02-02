@@ -11,36 +11,57 @@
 \minitoc
 
 \section{Introduction}
-Vers simulation humain intelligent pour benchmarker planner robot (nav + tache)
 
-An interactive simulator for user study is useful but not automated
+\textbf{TODO: update, currently from copy/paste from SSC}
 
-InHuS:
-ère du digital twin : 1er pas vers ça, un peu générique, fait pour nav mais pourrait aller plus loin
-A mettre dans un chapitre "a part"
+Significant efforts are being dedicated today toward the development of robots that interact, assist or work side-by-side with humans. However, people working in the field of human-robot interactions (HRI) face constraining issues while testing and evaluating their systems. 
+Apart from being mandatory to validate mature systems, experimenting using real humans and robots is burdensome: they are slow, hardly repeatable, expensive, etc. Moreover, the system needs to be run extensively for debugging and tuning before it reaches maturity. Doing so with real-life experiments is generally a long and tiresome process where colleagues in the lab and volunteers spend unproductive hours, if not days, interacting with a robot running a system under debugging. Moreover, such methods require exclusive physical access to the robot, a place to run the tests, and cannot run faster than real-time or be parallelized.
 
-Objectives - Current challenges in testing ha nav
+Simulations are well suited for such tasks as they allow working without a real robot or a physical space. Further, they allow multiple tests to run simultaneously and faster than in real life. The simulated environment for the tests can be changed very easily in contrast to real-life tests. However, simulating realistic human behaviors and interactions is tough, which could make simulations unreliable. Consequently, HRI researchers face some difficulties such as: ``How to test repeatedly and intensively their systems even when they are not sufficiently robust?'' and ``How to challenge their systems in a large variety of environments and situations?''. Therefore, there is a need for an ``intelligent artificial human'' that would help challenge the robot's interactive and decision-making abilities. 
 
-\section{Related work}
+\subsection{Human simulations in human-aware robot navigation}
 
-\textbf{TODO: Cite all the ones in zotero, and from paper}
+Being a part of HRI, the field of human-aware social robot navigation inherits all these limitations. One way that is employed for simulating an intelligent avatar in this field is to manually control the human avatar, in real-time \cite{echeverria_simulating_2012}. 
+This can be done using a variety of devices like a gaming controller, keyboard, or motion capture. Such approaches require a real human operator only focused on controlling the avatar, which brings back some mentioned limitations like human fatigue. Autonomous human avatars on the other hand seem to offer an adequate solution to this, but they often lack intelligence and rationality. 
+
+Most of the current autonomous avatars available are either scripted or reactive. A scripted avatar executes a series of predefined actions, like following a fixed path, without being reactive to its environment which makes interactions very limited. Reactive agents use models like social force \cite{helbing1995social} or optimal reciprocal collision avoidance (ORCA) \cite{van2011reciprocal}. These systems are highly scalable and can simulate groups or even crowds composed of numerous agents. MengeROS \cite{aroor_mengeros_2018} and PedSim\_ROS\footnote{https://github.com/srl-freiburg/pedsim\_ros} are some examples. Despite their number, the generated agents usually fail in intricate social scenarios. Some recent works like VirtualHome~\cite{puig_virtualhome_2018} and SEAN~\cite{Tsoi_2020_HAI,tsoi2022sean} discuss simulating human agents to challenge robot systems, but the navigation of the agents in these systems is still based on reactive-only models. 
+The work presented in~\cite{social_igibson} proposes a learning-based method to generate more realistic pedestrian navigation. This ongoing work shows an interesting navigation behavior like waiting and letting the other agent pass embedded in iGibson~\cite{shenigibson} simulator. However, this work is more focused on motion generation than decision-making to solve conflicts. 
+
+We propose the InHuS System to contribute to the lack of intelligent and rational human agents with conflict-resolution skills to challenge the human-aware robot navigation systems. Our contribution includes 1) an intelligent human agent controller, 2) a high-level interface to control the simulated agents, and 3) a GUI to plot execution data and metrics for evaluating the interaction. Such a system could help people working in the field of human-aware robot navigation to test and debug their schemes. Our system is designed to run, analyze and evaluate repeatable and long navigation scenarios involving a robot and an autonomous reactive and rational avatar. This work focuses on intricate and narrow scenarios where, in addition to being reactive, rational decisions should be taken in order to solve the conflicts occurring. Note that our contribution is focused on navigation decision-making and not the motion generation part. Throughout this paper, we use the term `rational' in a meaning close to Goal Reasoning~\cite{vattam_breadth_nodate,abbass_goal_2018}, i.e., the ability of autonomous agents which can dynamically reason about and adjust their goals. It enables the agents to adapt intelligently to changing conditions and unexpected events, allowing them to address a wide variety of complex situations.
+
+
+% ****
+
+% Vers simulation humain intelligent pour benchmarker planner robot (nav + tache)
+
+% An interactive simulator for user study is useful but not automated
+
+% InHuS:
+% ère du digital twin : 1er pas vers ça, un peu générique, fait pour nav mais pourrait aller plus loin
+% A mettre dans un chapitre "a part"
+
+% Objectives - Current challenges in testing ha nav
+
+% \section{Related work}
+
 
 \section{Description}
  
-The InHuS System%
-\footnote{https://github.com/AnthonyFavier/InHuS\_Social\_Navigation}
-works along with a human operator, a chosen simulator, and the challenged robot controller as depicted in Fig.~\ref{fig:overview}. The system is mainly implemented using ROS. The InHuS  System is three-sided. First, the system comes with a high-level interface called Boss that helps to manage the simulated agents. Secondly, there is the main part which is the intelligent human avatar controller itself, called InHuS.
-Finally, a GUI provides an interactive visualization of the data and metrics computed by InHuS during execution that can help to evaluate interactions. We present below some details for each component.
-
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.7\linewidth]{Chapter7/Inhus.drawio.pdf}
     \caption{
     The InHuS System interacts with three external systems: the simulator, the robot controller, and a human operator. Our system is separated into three parts: the Boss high-level interface gathering inputs from the human operator, InHuS which is the actual human controller, and a GUI to plot the metrics and other data produced.
     }
-    \label{fig:overview}
+    \label{fig:overview_inhus}
     \vspace{-0.8cm}
 \end{figure}
+
+The InHuS System%
+\footnote{https://github.com/AnthonyFavier/InHuS\_Social\_Navigation}
+works along with a human operator, a chosen simulator, and the challenged robot controller as depicted in Fig~\ref{fig:overview_inhus}. The system is mainly implemented using ROS. The InHuS  System is three-sided. First, the system comes with a high-level interface called Boss that helps to manage the simulated agents. Secondly, there is the main part which is the intelligent human avatar controller itself, called InHuS.
+Finally, a GUI provides an interactive visualization of the data and metrics computed by InHuS during execution that can help to evaluate interactions. We present below some details for each component.
+
 
 \subsection{Boss}
 For the human operator to easily control the simulated agents and run repeatable scenarios, we provide a simple graphical user interface component called Boss. Predefined or manually entered goals can be sent to the human, the robot, or both. Goals are by default considered as ``Pose goals'' that only require one navigation action to be achieved. However, the human agent (only) can handle ``Compound goals'' that need a specified sequence of navigation and waiting for actions to be achieved. This type of compound goal is useful to emulate more complex activities. For example, ``Make coffee'' could be described as a sequence of three actions: nav(coffeeMachine), wait(15$s$), nav(myOffice).
@@ -240,4 +261,20 @@ This work has been extended through the help of an intern to the IMHuS framework
 \subsection{results?}
 
 \section{Discussion and Limitations}
+
+Although InHuS provides an autonomous human agent, if needed, the agent can be controlled manually. We do not yet provide a handy controller, but velocity commands generated by any means can be sent to the Boss component to control the human. This extends the usability of InHuS as one can use scripted trajectories or motion capture to control the human agent in the simulator.
+
+The proposed system interacts with an external simulator and robot controller. Since the system is mainly implemented using ROS, switching from one simulator to another is straightforward if it has a ROS interface. 
+InHuS has specific components to abstract the simulation data format. Thus, just by slightly editing these components we were already able to run InHuS on three different simulators: MORSE~\cite{echeverria2011modular}, Stage\footnote{https://github.com/ros-simulation/stage\_ros} and Gazebo~\cite{koenig2004design}. Furthermore, any robot controller using the ROS Navigation Stack can be directly used with InHuS.
+
+
+Simulating intelligent human avatars is a novel field and only few works apart from ours try to address this limitation. A similar work in ROS2 was recently presented in \cite{perezhunavsim}.
+It is clear that the idea of intelligent human agents is of interest to the community, and it is a necessity to test social navigation effectively. Like any other system, InHuS has limitations too. We claim to generate only reactive and somewhat rational behavior, which is still far from natural or realistic human behavior. We currently handle scenarios with two agents only, the human and the robot. We can run scenarios with other human agents, but they will be treated like robots.
+
 \section{Conclusion}
+
+\textbf{TODO: update, copy/pasted from SSC paper}
+
+Human-aware social robot navigation is rapidly growing, but the community lacks good human agent simulations to test and debug their systems. The existing reactive approaches offer only limited testing. Through the InHuS system, we proposed a pertinent approach to address this issue. We showed that our system could generate conflicting situations that need resolution by making rational choices. Moreover, all the metrics and data recorded during execution and their visual plots allow us to evaluate the interaction and behavior of the robot. With such evaluation, we showed that we could compare different robot controllers. InHuS can also generate various tunable behaviors that can diversify the situations and conflicts imposed on the robot, and thus, it helps to debug and tune the system. Long runs provide additional potential ways to improve the system.  
+
+\textit{We already use this system to test our human-aware motion planners and refine them over time using the tests conducted. In the future, we plan to integrate situation detection and diagnosis in the long run to catch the problematic situations that need to be analyzed afterward to tune, refine or extend a given planner. We also plan to handle scenarios with more human agents, like groups and crowds, using a combination of intelligent and reactive agents. }
