@@ -1,1 +1,2 @@
 {"rule":"DT_JJ_NO_NOUN","sentence":"^\\QAction preconditions are functions with a world state as input and return a boolean.\\E$"}
+{"rule":"ENGLISH_WORD_REPEAT_BEGINNING_RULE","sentence":"^\\QThis work aims to bridge the gap between robotic capabilities and human expectations, fostering a new era of seamless and intuitive collaboration between humans and robots in shared environments.\\E$"}

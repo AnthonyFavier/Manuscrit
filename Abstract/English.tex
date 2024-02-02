@@ -1,3 +1,18 @@
 \chapter*{Abstract}
- 
-blabla summarized in english
+
+% 4000 caractères
+
+Human-robot collaboration and coordination must be seamless for robots to become significant parts of our everyday lives. 
+Despite human-robot collaboration being proven beneficial, most of today's robots work in a physically separated workspace from humans or their abilities are severely restricted in close vicinity of humans.
+The goal of Human-Robot Collaboration (HRC), a growing field in robotics and AI research, is to enable humans to collaborate safely and effectively with robots to achieve any industrial, service or household tasks.
+This work aims to bridge the gap between robotic capabilities and human expectations, fostering a new era of seamless and intuitive collaboration between humans and robots in shared environments. More precisely, this manuscript presents an exploration of decision-making in the context of Human-Robot Collaboration, especially in the subfields of human-aware navigation and task planning.
+
+First, we discuss various related fields and works of HRC to better understand the context of my work. 
+After being familiarized with the HATP/EHDA task planner I present my first contribution which incorporates some Theory of Mind concepts in HRC task planning. Some models and algorithms are proposed and evaluated to better estimate and maintain human beliefs in order to better anticipate their behavior. As a result, we can identify when the human has a false belief about a fact evaluated as relevant for the task. In such cases, the robot can proactively inform the human to correct the false belief or the robot can purposely delay its action to make sure the human sees its execution and infer the corresponding fact, avoiding verbal communication. Results show that this scheme allows to effectively maintain human beliefs in false beliefs task scenarios and allows for solving a broader class of problems than HATP/EHDA while not communicating systematically.
+
+My second contribution is a new task planning approach producing a behavioral robot policy ensuring smooth collaboration where the human always has a full latitude of decision and where the robot always complies concurrently with the human actions.
+This approach is based on a model of concurrent and compliant joint action that we designed. This model in the form of an automaton captures the uncontrollability factor of humans and social signals. We also propose a new plan evaluation and selection based on estimations of the human inner preferences regarding the task. Empirical results show that this approach allows a concurrent robot behavior compliant with human online decisions and preferences.
+
+To validate this approach we conducted a user study using an interactive collaboration simulator specifically developed for this. Participants were asked to collaborate in several BlocksWorld scenarios with a simulated robot following the policies produced by our approach. We used a baseline opposite to our approach for comparison where the human is forced to comply with the robot choices. We showed through statistical analysis that our approach allowed satisfying significantly better human preferences. Likewise, we also showed, compared to the baseline, that our approach induces a significantly more positive interaction, adaptive and efficient collaboration, and significantly more adaptive and accommodating robot decisions.
+
+Eventually, my third contribution concerns the decision-making in navigation. I propose a system producing an ``intelligent'' human avatar that on top of being reactive can make rational decisions about navigation tasks. This system serves as a benchmarking and testing tool for robot navigation systems to be challenged. This way, robot navigation systems can be evaluated, tuned and stress tested in simulation allowing them to run mature real-life experiments faster.
