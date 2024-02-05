@@ -371,7 +371,7 @@ Eventually, I would like to insist on the average answers concerning the RF regi
 
 So far, we only conducted a preliminary analysis of the questionnaire's answers using only the average values and standard deviations. Now, a statistical analysis must be conducted to confirm the preliminary comments of the previous subsection. For each question, and thus each item of the questionnaire, we performed an analysis of the variance with repeated measures. Each analysis led to p-values $<=0.001$ indicating that there is a significant difference between the 6 scenarios. To evaluate the strength of this significant difference the effect size Eta squared $\eta^2$ has been calculated where the limits are $.01$ (small effect), $.06$ (medium effect), and $.14$ (large effect). However, ANOVA tests can only indicate if there is a significant difference between N-samples, but it is only of interest to identify between which exact group that difference exists.  In the Bonferroni post-hoc test in a repeated measures ANOVA, multiple t-tests are calculated for dependent samples. However, the problem with multiple testing is that the so-called alpha error (the false rejection of the null hypothesis) increases with the number of tests. To counteract this, the Bonferroni post-hoc test calculates the obtained p-values times the number of tests. The obtained p-values indicate in a pairwise manner between which samples the significant difference exists. The results from the ANOVA and Bonferroni post-hoc test are shown in table~\ref{tab:questionnaire_answers}.
 
-\begin{sidewaystable}[h]
+\begin{sidewaystable}
     \center
         \begin{tabular}{c|cc|ccccccccccccccc|}
         \cline{2-18}
@@ -397,54 +397,66 @@ So far, we only conducted a preliminary analysis of the questionnaire's answers 
 As suggested by the preliminary analysis, the Reactivity of the robot is the item with the lowest difference. The ANOVA indicates that answers regarding the reactivity are significantly different with a large effect over the 6 scenarios. However, compared to other items, the effect size $\eta^2$ is quite low indicating that this difference is less significant than for other items. Also, the Bonferroni post-hoc test wasn't able to identify where exactly the difference exists, which means again that this difference isn't very significant in the end. 
 
 Besides reactivity, all other items have large significant differences according to the scenario which can be exploited using the Bonferroni post-hoc test. 
-Indeed, the pairwise comparisons indicate the existence of major significant differences in the following pairs: S1-S4, S1-S6, S2-S4, S2-S6, S3-S4, S3-S6, S4-S5, and S5-S6 (in bold in the table). Having in mind that S4 and S6 are the two scenarios using Robot-First with erroneous estimations, we can see that erroneous estimation with RF systematically leads to significant differences compared to all other scenarios using HF or RF with a correct estimation (S4-S1, S4-S2, S4-S3, S4-S5, and S6-S1, S6-S2, S6-S3, S6-S5). This is a clear indicator that the RF regime is very sensitive to the estimation of the human preferences and thus an erroneous estimation is significantly detrimental to the collaboration and the overall interaction. 
+Indeed, the pairwise comparisons indicate the existence of major significant differences for every question in the following pairs: S1-S4, S1-S6, S2-S4, S2-S6, S3-S4, S3-S6, S4-S5, and S5-S6 (in bold in the table). Having in mind that S4 and S6 are the two scenarios using Robot-First with erroneous estimations, we can see that erroneous estimation with RF systematically leads to significant differences compared to all other scenarios using HF or RF with a correct estimation (S4-S1, S4-S2, S4-S3, S4-S5, and S6-S1, S6-S2, S6-S3, S6-S5). This is a clear indicator that the RF regime is very sensitive to the estimation of the human preferences and thus an erroneous estimation is significantly detrimental to the collaboration and the overall interaction. 
 
 Only a few other significant differences exist and are in S1-S5 and S3-S5. Indeed, in S5, the robot's actions were perceived as more or less significantly less appropriate ($p=0.004$) and predictable ($p=0.004$) than in S1, slightly less predictable ($p=0.017$) than in S3. Indeed, in S5 the HF robot surprisingly picks up its pink bar while the human picks up its own whereas the human wants to place their bar to be freed from the task. Using HF allows the human to place their bar anyway, but the robot actions were therefore perceived as less predictable and appropriate than in S1 or S3. 
 We can also notice that despite S3 having an erroneous estimation in contrast to S1, there is no significant difference in answers for each question between S1 and S3. 
 This indicates that using the HF regime allows the robot to be way more robust to erroneous estimation than RF. However, the few existing significant differences among the HF scenarios indicate that an erroneous estimation is still noticeable and can still have a detrimental influence. Thus, the robot cannot fully rely on being reactive and compliant to human actions. Estimating the human preferences accurately to plan appropriately the robot's actions is mandatory for optimal collaboration.
 
+Looking at the eta squared $\eta^2$ of every question, one can notice that we can group the items into 4 groups. 
+% First, the Reactivity item is alone with the lowest effect size ($\eta^2=0.16$). This group doesn't really help to distinguish the regimes. 
+% Secondly, with an effect size of around $\eta^2 \simeq 0.33$, we can state that when using RF the robot was perceived as slightly less intelligent and the interaction as slightly less simple than when using HF. 
+% Then, with an effect size of around $\eta^2 \simeq 0.45$, we can state that when using RF the robot was perceived as moderately less competent, the interaction as moderately less clear, the collaboration as moderately less useful, and the robot actions as moderately less predictable. 
+% Eventually, with an effect size of around $\eta^2 \simeq 0.64$, when using the RF regime the interaction was perceived as significantly less positive, the collaboration as significantly less adaptive and efficient, and the robot actions as significantly less appropriate and less accommodation. 
+% Since the five items from the last group are the ones with the highest effect size, they can be seen as the main characteristics differentiating the HF from the RF regimes and thus are highlighted in the table.
+\begin{enumerate}
+    \item $\eta^2=0.16$: First, the Reactivity item is alone with the lowest effect size. This group doesn't help to distinguish the regimes. 
+    \item $\eta^2 \simeq 0.33$: Secondly, we can state that when using RF the robot was perceived as slightly less intelligent and the interaction as slightly less simple than when using HF. 
+    \item $\eta^2 \simeq 0.45$: Then, due to the moderate effect size, we can state that when using RF the robot was perceived as moderately less competent, the interaction as moderately less clear, the collaboration as moderately less useful, and the robot actions as moderately less predictable. 
+    \item $\eta^2 \simeq 0.64$: Eventually, with a high effect size, when using the RF regime the interaction was perceived as significantly less positive, the collaboration as significantly less adaptive and efficient, and the robot actions as significantly less appropriate and less accommodation. Since the five items from the last group are the ones with the highest effect size, they can be seen as the main characteristics differentiating the HF from the RF regimes and thus are highlighted in the table.
+\end{enumerate}
 
-***
+% ***
 
 % Except reactive, all Q significantly vary according to scenarios
 
 % S4 and S6 are significantly different from others
 
-with effect size talk about Q that are most diff [~0.6-0.7] (Positive, Adaptive, Efficient, Appropriate, Accommodating), 
+% with effect size talk about Q that are most diff [~0.6-0.7] (Positive, Adaptive, Efficient, Appropriate, Accommodating), 
 
-medium diff [~0.4-0.5] (Competent, Clear, Useful, Predictable), 
+% medium diff [~0.4-0.5] (Competent, Clear, Useful, Predictable), 
 
-low diff [~0.3] (Intelligent, Simple) 
+% low diff [~0.3] (Intelligent, Simple) 
 
-and lowest [0.16] (Reactive)
+% and lowest [0.16] (Reactive)
 
 % Talk about the few other diff (1-5, )
 
-*****
+% *****
 
-Some questions have large standard deviations, such as about the perceived ``Intelligence'', but often only on specific scenarios.
+% Some questions have large standard deviations, such as about the perceived ``Intelligence'', but often only on specific scenarios.
 
-The ``Reactive'' answers are overall the same, whatever execution regime and scenario. 
-Overall, based on an ANalysis Of the VAriance with repeated measures (ANOVA), all other answers than ``Reactive'' vary significantly. Post-tests show that the main differences come from scenarios S4 and S6. Those two scenarios correspond to ones where the robot has an incorrect estimation of the human preferences and is following the \textit{Robot-First} execution regime. This indicates that all HF behaviors are perceived similarly despite the erroneous estimation of the robot. It also indicates that the RF scenario with correct estimation is positively perceived, but an erroneous estimation has a significant impact on the answers when using RF.  
+% The ``Reactive'' answers are overall the same, whatever execution regime and scenario. 
+% Overall, based on an ANalysis Of the VAriance with repeated measures (ANOVA), all other answers than ``Reactive'' vary significantly. Post-tests show that the main differences come from scenarios S4 and S6. Those two scenarios correspond to ones where the robot has an incorrect estimation of the human preferences and is following the \textit{Robot-First} execution regime. This indicates that all HF behaviors are perceived similarly despite the erroneous estimation of the robot. It also indicates that the RF scenario with correct estimation is positively perceived, but an erroneous estimation has a significant impact on the answers when using RF.  
 
-Except for the ``Reactive'' aspect, answers about RF have a larger standard deviation. Thus, participants tend to be more indecisive regarding RF than HF.
+% Except for the ``Reactive'' aspect, answers about RF have a larger standard deviation. Thus, participants tend to be more indecisive regarding RF than HF.
 
-About ``Reactive''. A Bonferroni Post hoc test was used to compare the groups in pairs to find out which was significantly different.
-Despite the significant difference in the ANOVA, no pairwise group comparison was significant in the Bonferroni Post hoc test; all p values were greater than 0,05. 
+% About ``Reactive''. A Bonferroni Post hoc test was used to compare the groups in pairs to find out which was significantly different.
+% Despite the significant difference in the ANOVA, no pairwise group comparison was significant in the Bonferroni Post hoc test; all p values were greater than 0,05. 
 
-S4 and S6 received significantly worse answers than the other scenarios. It is interesting to notice that in a pair-wise manner, all other scenarios 
+% S4 and S6 received significantly worse answers than the other scenarios. It is interesting to notice that in a pair-wise manner, all other scenarios 
 
-We notice very few significant differences on HF only.
+% We notice very few significant differences on HF only.
 
-In table \ref{tab:questionnaire_answers} there almost only significant differences in pairs involving S4 and S6. The only few other differences are the following. 
-S1 is significantly more appropriate than S5. And S5 is significantly less predictable than S1 and S3
+% In table \ref{tab:questionnaire_answers} there almost only significant differences in pairs involving S4 and S6. The only few other differences are the following. 
+% S1 is significantly more appropriate than S5. And S5 is significantly less predictable than S1 and S3
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=\linewidth]{Chapter6/signif_accommo.pdf}
-    \caption{Accommodating Interaction Scale with ANOVA + Post-hoc-Tests}
-    \label{fig:accommodating_scale_anova}
-\end{figure}
+% \begin{figure}[h]
+%     \centering
+%     \includegraphics[width=\linewidth]{Chapter6/signif_accommo.pdf}
+%     \caption{Accommodating Interaction Scale with ANOVA + Post-hoc-Tests}
+%     \label{fig:accommodating_scale_anova}
+% \end{figure}
 
 \subsection{From comments}
 
