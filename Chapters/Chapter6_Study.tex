@@ -144,21 +144,43 @@ Eventually, we associate each of the three previous pairs of preferences and est
 
 Note that our goal is to evaluate and compare the different robot behaviors. However, at the beginning, the participants don't have any references to compare with which can influence their answers in the very first scenarios. One solution is to ask the participants to answer all six questionnaires at the end, after being familiar with the six scenarios. We consider that this option demands a too heavy mental workload to recall accurately each specific scenario, and may bias the answers. As a consequence, we decided to ask the participants to answer the questionnaire after each scenario as a draft. During the experiment, they can rectify their answers to match more accurately their feelings. At the end, using the drafts, they share their final answers for each scenario. We believe this process allows to more accurately gather the feelings of the participants. Moreover, the ordering in which the participants encounter the scenarios is uniformly randomized to prevent any order effect. 
 
-\textbf{TODO: Give more details about the PeRDITA questionnaire (questions, goal, etc..)}
 
-On top of the answered questionnaires, for each scenario, the interactive simulator produces logs from which we extract several metrics and an overall timeline of the execution. The timeline depicts the activities and actions of each agent along the task progression. The subjective measures done through the questionnaire are complemented with the objective metrics extracted such as the duration to complete the task, the number of human actions, the total duration of human inactivity, and more. 
+\begin{table}[h]
+    \footnotesize
+    \begin{tabular}{ccc}
+    \hline
+    \textbf{Dimension}                         & \textbf{Question}                                                                                                                     & \textbf{Item}             \\ \hline
+    \multirow{3}{*}{\textbf{Robot perception}} & \multirow{3}{*}{\begin{tabular}[c]{@{}c@{}}In your opinion,\\ the robot is rather:\end{tabular}}                                      & Apathetic/Responsive      \\
+                                               &                                                                                                                                       & Incompetent/Competent     \\
+                                               &                                                                                                                                       & Unintelligent/Intelligent \\ \hline
+    \multirow{3}{*}{\textbf{Interaction}}      & \multirow{3}{*}{\begin{tabular}[c]{@{}c@{}}In your opinion, the interaction\\ with the robot was:\end{tabular}}                       & Negative/Positive         \\
+                                               &                                                                                                                                       & Complicated/Simple        \\
+                                               &                                                                                                                                       & Ambiguous/Clear           \\ \hline
+    \multirow{3}{*}{\textbf{Collaboration}}    & \multirow{3}{*}{\begin{tabular}[c]{@{}c@{}}In your opinion, the collaboration\\ with the robot to perform the task was:\end{tabular}} & Restrictive/Adaptive      \\
+                                               &                                                                                                                                       & Useless/Useful            \\
+                                               &                                                                                                                                       & Inefficient/Efficient     \\ \hline
+    \multirow{3}{*}{\textbf{Acting}}           & \multirow{3}{*}{\begin{tabular}[c]{@{}c@{}}In your opinion, the robot\\ choices of action were:\end{tabular}}                         & Inappropriate/Appropriate \\
+                                               &                                                                                                                                       & Annoying/Accommodating    \\
+                                               &                                                                                                                                       & Unpredictable/Predictable \\ \hline
+    \end{tabular}
+    \caption{PeRDITA Questionnaire: Participants have to place themselves between the two antonym items in a scale of 7.}
+    \label{tab:perdita_questionnaire}
+\end{table}
+
+The questionnaire filled by the participants after each scenario is a shotten version of the PeRDITA questionnaire, and its items are gathered in table~\ref{tab:perdita_questionnaire}. 
+In addition to the questionnaires, for each scenario, the interactive simulator produces logs from which we extract several metrics and an overall timeline of the execution. The timeline depicts the activities and actions of each agent along the task progression. The subjective measures done through the questionnaire are complemented with the objective metrics extracted such as the duration to complete the task, the number of human actions, the total duration of human inactivity, and more. 
 
 
 There are a few restrictions on the actions that can be performed. First, an agent can only pick cubes that can be placed immediately. This means that agents cannot pick cube in advance to anticipate each other's actions. Allowing such behavior could generate a very interesting scenario. However, here we want to purposely generate some conflicts to evaluate the robot's behavior and reactions. Without this restriction, the agents would have too much flexibility in their actions and decisions which makes it harder for the conflicts to happen.  
 Additionally, when holding a cube, the agents can only place the cube in the stack on back to its original place. As a result, the agents cannot displace the cube on the table to make them reachable to the other agent. This restriction has been added for the same reasons as the first one and simplifies the conflicts generation. 
 
+\section{Participants}
+
+This section shares and analyze some information on the participants.
+
+number, age, ext, familiar with R tech, vision of robotics
 
 \section{Study results}
-
-% ns  P > 0.05
-% *   P ≤ 0.05
-% **  P ≤ 0.01
-% *** P ≤ 0.001
 
 In this section, we share the main results obtained through the answered questionnaires and the metrics extracted from the logs.
 
@@ -170,9 +192,19 @@ Here the data, most of the metrics, are close to following a normal distribution
 
 In the last case, Bonferroni Post-hoc-Tests are performed to identify exactly which groups are significantly different from others.
 
+It has been commonly assumed that a statistical test demonstrates a significant difference if a p-value lower than $0.05$ is obtained. However, obtaining a value lower than $0.001$ is desired. To make the p-values more legible the following standard notation is commonly used and will be used below:
+
+\begin{align*}
+    p > 0.05        & \Rightarrow ns ~ (\textrm{non significant})\\
+    p \leq 0.05     & \Rightarrow * ~ (\textrm{significant})\\
+    p \leq 0.01     & \Rightarrow ** ~ (\textrm{very significant})\\
+    p \leq 0.001    & \Rightarrow *** ~ (\textrm{highly significant})\\
+\end{align*}
 
 
-\subsection{From timeline}
+\subsection{From execution logs}
+
+This section is focused on analyzing the results obtained through the execution logs saved after each scenario. 
 
 \subsubsection*{Preferences satisfaction (task completion time + time to be freed)}
 
@@ -266,100 +298,78 @@ I think the overall slower human reaction time in the RF scenarios is due to the
 \begin{figure}[h]
     \center
     \includegraphics[width=\linewidth]{Chapter6/action_duration.pdf}
-    \caption{Average action duration of the human and robot agents over the 6 scenarios. Compared to the human action durations, the robot ones tend to be longer and have various durations.}
+    \caption{Average action duration of the human and robot agents over the 6 scenarios, with standard deviations. Compared to the human action durations, the robot ones tend to be longer and have various durations.}
     \label{fig:action_durations}
 \end{figure}
 
 As depicted in fig.~\ref{fig:action_durations}, the human actions are in average significantly faster than the robot ones. In addition, the robot action durations tend to fluctuate more than the human one. This can be explained by the difference in motion execution between the avatar and the robot. The human has a simplified motion planner that simply moves the hand at a constant speed and in straight lines to the cubes or the stack. However, the robot uses a real motion planner to move its arm which is longer than the human motions. The motion planning process doesn't always found the same solutions, nor in the same amount of time. Meaning that both the motion planning duration and the motion execution duration can fluctuate. Here only the motion execution duration is considered in this metric. Note that to avoid having too much difference between the human and robot action durations, collisions with the dynamic objects are not considered in the robot motion planner, nor the objects' orientation. Hence, the robot can pick or place cubes from any angle and pass through the other cubes. When placing a cube its orientation is corrected. Collisions with the table where kept preventing the robot from picking cubes from below.  
 
-Over all scenarios and steps, the maximum human action duration is $4.63s$ and the minimum is  $2.55s$. For the robot, the maximum action duration is $9.09$ and the minimum duration is $1.46$.
+Overall scenarios and steps, the maximum human action duration is $4.63s$ and the minimum is  $2.55s$. For the robot, the maximum action duration is $9.09$ and the minimum duration is $1.46$.
 
 \subsection{From questionnaires}
 
-Statistical significance. It has been commonly assumed that a statistical test demonstrates a significant difference if a p value lower than $0.05$ is obtained. However, obtaining a value lower than $0.001$ is desired. To make the p values more legible the following standard notation has been adopted:
+This section is focused on providing the results obtained by analyzing the answers to the questionnaires filled by the participants after each scenario.
 
-\begin{align*}
-    p > 0.05        & \Rightarrow ns ~ (\textrm{non significant})\\
-    p \leq 0.05     & \Rightarrow * ~ (\textrm{significant})\\
-    p \leq 0.01     & \Rightarrow ** ~ (\textrm{very significant})\\
-    p \leq 0.001    & \Rightarrow *** ~ (\textrm{highly significant})\\
-\end{align*}
+To help the reader understand the following plots we list here the items of the questionnaire from the table~\ref{tab:questionnaire_answers} with their associated numeric ID in table~\ref{tab:items_id}. These IDs will be used in many plots in the x-axis to analyze the questionnaire's answers.
+
+\begin{table}[h]
+    \center
+    \begin{tabular}{|cl|cl|cl|cl|}
+    \hline
+    \multicolumn{2}{|c|}{\textbf{Robot perception}} & \multicolumn{2}{c|}{\textbf{Interaction}} & \multicolumn{2}{c|}{\textbf{Collaboration}} & \multicolumn{2}{c|}{\textbf{Acting}} \\ \hline
+    1                 & Responsive                  & 4                & Positive               & 7                & Adaptive                 & 10          & Appropriate            \\ \hline
+    2                 & Competent                   & 5                & Simple                 & 8                & Useful                   & 11          & Accommodating          \\ \hline
+    3                 & Intelligent                 & 6                & Clear                  & 9                & Efficient                & 12          & Predictable            \\ \hline
+    \end{tabular}
+    \caption{Questionnaire items with their associated IDs.}
+    \label{tab:items_id}
+    \end{table}
+
 
 \subsubsection{Overall analysis}
 
-all mean and SD values. 
+We start by commenting overall questionnaire's results using some relevant average values and standard deviations before having a deeper statistical analysis in the next subsection.
 
-Notice that S4 and S6 are distinguishable from the others
+\begin{figure}[h]
+    \center
+    \includegraphics[width=\linewidth]{Chapter6/scenario_answers.pdf}
+    \caption{W.r.t. each scenario, average answers (M, top) and standard deviations (SD, bottom) obtained for each question of the questionnaire.}
+    \label{fig:scenario_answers}
+\end{figure}
 
-HF mean values are higher than RF mean values.
+Figure~\ref{fig:scenario_answers} depicts the answers obtained for each question of the questionnaire w.r.t. each scenario. This figure provides a very visual overall summary of the study. On the top part, for each of the 12 questions on the x-axis, the average answers obtained are plotted for each scenario, 7 being the maximal or best value and 1 being the minimal or worst value. 
+We can see that four scenarios obtained quite similar high answers whereas scenarios S4 and S6 have noticeably worse answers. Those scenarios are the Robot-First scenarios of pairs B and C where the robot has an erroneous, and even adversarial, estimation of human preferences. 
+Note that question 1 (Q1) which evaluates the reactivity of the robot is the only question which answers are relatively high in every scenario.
+Considering the answers to all other questions than Q1, S4 and S6 seem to deviate significantly from the other scenarios which can be analyzed as follows.
+First, it means that with a correct estimation both HF and RF regimes are roughly perceived similarly. 
+Second, an erroneous estimation doesn't seem to induce lower answers, and thus, despite the wrong estimation the robot in S3 and S5 is roughly perceived similarly to the one in S1 with a correct estimation.
+On the other hand, when using RF, an erroneous estimation seems to have a significant detrimental impact on how the robot is perceived by the participants.
+All these preliminary conclusions will be confirmed in the statistical analysis below.
 
-HF SD are lower than RF SD.
+It is also worth commenting on the standard deviations obtained, depicted in the bottom part of figure~\ref{fig:scenario_answers}. The standard deviations depend a lot on the scenarios and go from $0.6$ up to $2.1$. There are two noticeable facts to comment on.
+First, question 3 evaluating how intelligent the robot is perceived is the only question with a relatively high SD for every scenario. Participants had various definitions of ``intelligence'' which led to a wide range of answers. Some participants evaluated the intelligence of the robot on its choices of actions, and thus, fluctuated depending on the scenario. Some others evaluated the intelligence of the robot on other criteria independent of the robot's decisions. Thus, they would rather indicate that the robot was always intelligent (or not) over all scenarios.
+Additionally, we can see that the SD of S4 and S6 seem to be higher than the other scenarios.
 
-* Show all graphs
+\begin{figure}[h]
+    \center
+    \includegraphics[width=\linewidth]{Chapter6/regime_answers.pdf}
+    \caption{W.r.t. each regime of execution, average answers (M, top) and standard deviations (SD, bottom) obtained for each question of the questionnaire.}
+    \label{fig:regime_answers}
+\end{figure}
 
-Q with interesting comments (reactive doesn't change over S, highest/lowest SD Q, highest/lowest M Q) 
+In contrast with the previous figure, Figure~\ref{fig:regime_answers} shows the answers obtained for each question w.r.t. to each execution regime. Indeed, the HF average answers and standard deviations, shown in blue, correspond to the union of the scenario's answers using the Human-First regime, i.e., $S1 \cup S3 \cup S5$. Similarly, the RF values, shown in red, correspond to $S2 \cup S4 \cup S6$ where the Robot-First regime is used. Additionally, the results for all scenarios combined are shown in light yellow. The results shown here can be deduced from the previous figure since we already commented on all scenarios. Yet, this new figure highlights more visually the difference between the HF and RF regimes. 
+
+The first noticeable fact is that when using the HF regime the average answers for each question are better than when using the RF regime. Again, the only question where the answers are roughly the same regardless of the regime is when questioning the reactivity of the robot. HF's average answers are relatively high for all questions which indicates that the collaborations with HF seem to be appreciated. On the other hand, RF's answers are average (around 4) which indicates that collaborating with RF seems to be less appreciated.
+
+Concerning the standard deviations, it is also noticeable that the answers concerning the RF regime have higher SD. This indicates that there was a wider range of answers from the participants when collaborating with the RF regime. This means that participants tend to be less certain about their answers when evaluating RF than with HF. This can be expected because when facing the HF regime the collaboration is overall quite positive, thus, participants concentrated their answers on the higher part of the scales. However, the frustrating robot actions due to the RF regime degraded the collaboration and participants had to evaluate how bad this degradation is. Some participants were more emotionally affected than others by the robot's actions, hence, it led to a wide range of answers.
+Another interesting fact is that regardless of the regime, question 3 has a high standard deviation. This question evaluates the \textit{intelligence} of the robot. Participants had various definitions of intelligence which is reflected in this high SD. Indeed, some participants evaluated the robot as unintelligent because of its nature and thus regardless of its actions or the scenario. Others perceived less intelligence when the robot performed frustrating actions. 
+Also, we can see that the SD regarding the reactivity of the robot is quite close and low for both regimes. This is a consequence of the very high average values regarding Q1 for both regimes.   
+
+Eventually, I would like to insist on the average answers concerning the RF regime. Even if these answers are mediocre, it is important to note that they are not very low. In comparison, consider another robot behaving completely erratically. This robot would randomly pick and place cubes around itself. As a consequence, the robot would neither help the human nor solve the task, on the contrary, it might only disturb the human trying to achieve the task. The robot could make the task impossible to solve for the human by picking a relevant cube and never placing it, or by removing already well-placed cubes from the stack. Here, during one step, the RF regime forces the human to comply with the robot's decisions which can be frustrating. However, the robot takes into account the human action anyway and adapts accordingly its actions for the next step. This is thanks to our planning approach, common to both regimes, which explores every possible human action to generate the robot policy. Thus, we can say that our planning approach seems to benefit the collaboration and interaction between the human and the robot.
 
 \subsubsection{ANOVA Analysis}
 
 p-values table
-
-Except reactive, all Q significantly vary according to scenarios
-
-S4 and S6 are significantly different from others
-
-with effect size talk about Q than are most diff [~0.6-0.7] (Positive, Adaptive, Efficient, Appropriate, Accommodating), medium diff [~0.4-0.5] (Competent, Clear, Useful, Predictable), low diff [~0.3] (Intelligent, Simple) and lowest [0.16] (Reactive)
-
-Talk about the few other diff (1-5, )
-
-*****
-
-Some questions have large standard deviations, such as about the perceived ``Intelligence'', but often only on specific scenarios.
-
-The ``Reactive'' answers are overall the same, whatever execution regime and scenario. 
-Overall, based on an ANalysis Of the VAriance with repeated measures (ANOVA), all other answers than ``Reactive'' vary significantly. Post-tests show that the main differences come from scenarios S4 and S6. Those two scenarios correspond to ones where the robot has an incorrect estimation of the human preferences and is following the \textit{Robot-First} execution regime. This indicates that all HF behaviors are perceived similarly despite the erroneous estimation of the robot. It also indicates that the RF scenario with correct estimation is positively perceived, but an erroneous estimation has a significant impact on the answers when using RF.  
-
-Except for the ``Reactive'' aspect, answers about RF have a larger standard deviation. Thus, participants tend to be more indecisive regarding RF than HF.
-
-About ``Reactive''. A Bonferroni Post hoc test was used to compare the groups in pairs to find out which was significantly different.
-Despite the significant difference in the ANOVA, no pairwise group comparison was significant in the Bonferroni Post hoc test; all p values were greater than 0,05. 
-
-S4 and S6 received significantly worse answers than the other scenarios. It is interesting to notice that in a pair-wise manner, all other scenarios 
-
-We notice very few significant differences on HF only.
-
-In table \ref{tab:questionnaire_answers} there almost only significant differences in pairs involving S4 and S6. The only few other differences are the following. 
-S1 is significantly more appropriate than S5. And S5 is significantly less predictable than S1 and S3
-
-\begin{figure}[h]
-    \includegraphics[width=\linewidth]{Chapter6/scenario_mean.pdf}
-    \caption{Average value of each question w.r.t. each scenario. S4 and S6 have distinguishable lower values than the other scenarios. We can also notice that the HF scenarios and the RF scenario with correct estimation (2) have roughly the same quite positive answers.}
-    \label{fig:scenario_mean}
-\end{figure}
-
-\begin{figure}[h]
-    \includegraphics[width=\linewidth]{Chapter6/scenario_std.pdf}
-    \caption{Standard deviation of each question for each scenario.}
-    \label{fig:scenario_std}
-\end{figure}
-
-\begin{figure}[h]
-    \includegraphics[width=\linewidth]{Chapter6/regime_mean.pdf}
-    \caption{Mean values of answers w.r.t. each execution regime}
-    \label{fig:regime_mean}
-\end{figure}
-
-\begin{figure}[h]
-    \includegraphics[width=\linewidth]{Chapter6/regime_std.pdf}
-    \caption{Std values of answers w.r.t. each execution regime}
-    \label{fig:regime_std}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=\linewidth]{Chapter6/signif_accommo.pdf}
-    \caption{Accommodating Interaction Scale with ANOVA + Post-hoc-Tests}
-    \label{fig:accommodating_scale_anova}
-\end{figure}
 
 \begin{sidewaystable}[h]
     \center
@@ -384,30 +394,47 @@ S1 is significantly more appropriate than S5. And S5 is significantly less predi
         \label{tab:questionnaire_answers}
 \end{sidewaystable}
 
-\begin{table}[h]
-    \footnotesize
-    \begin{tabular}{ccc}
-    \hline
-    \textbf{Dimension}                         & \textbf{Question}                                                                                                                     & \textbf{Item}             \\ \hline
-    \multirow{3}{*}{\textbf{Robot perception}} & \multirow{3}{*}{\begin{tabular}[c]{@{}c@{}}In your opinion,\\ the robot is rather:\end{tabular}}                                      & Apathetic/Responsive      \\
-                                               &                                                                                                                                       & Incompetent/Competent     \\
-                                               &                                                                                                                                       & Unintelligent/Intelligent \\ \hline
-    \multirow{3}{*}{\textbf{Interaction}}      & \multirow{3}{*}{\begin{tabular}[c]{@{}c@{}}In your opinion, the interaction\\ with the robot was:\end{tabular}}                       & Negative/Positive         \\
-                                               &                                                                                                                                       & Complicated/Simple        \\
-                                               &                                                                                                                                       & Ambiguous/Clear           \\ \hline
-    \multirow{3}{*}{\textbf{Collaboration}}    & \multirow{3}{*}{\begin{tabular}[c]{@{}c@{}}In your opinion, the collaboration\\ with the robot to perform the task was:\end{tabular}} & Restrictive/Adaptive      \\
-                                               &                                                                                                                                       & Useless/Useful            \\
-                                               &                                                                                                                                       & Inefficient/Efficient     \\ \hline
-    \multirow{3}{*}{\textbf{Acting}}           & \multirow{3}{*}{\begin{tabular}[c]{@{}c@{}}In your opinion, the robot\\ choices of action were:\end{tabular}}                         & Inappropriate/Appropriate \\
-                                               &                                                                                                                                       & Annoying/Accommodating    \\
-                                               &                                                                                                                                       & Unpredictable/Predictable \\ \hline
-    \end{tabular}
-    \caption{PeRDITA Questionnaire: Participants have to place themselves between the two antonym items in a scale of 7.}
-    \label{tab:perdita_questionnaire}
-\end{table}
+Except reactive, all Q significantly vary according to scenarios
 
+S4 and S6 are significantly different from others
 
-\subsection{From Comments}
+with effect size talk about Q that are most diff [~0.6-0.7] (Positive, Adaptive, Efficient, Appropriate, Accommodating), 
+
+medium diff [~0.4-0.5] (Competent, Clear, Useful, Predictable), 
+
+low diff [~0.3] (Intelligent, Simple) 
+
+and lowest [0.16] (Reactive)
+
+Talk about the few other diff (1-5, )
+
+*****
+
+Some questions have large standard deviations, such as about the perceived ``Intelligence'', but often only on specific scenarios.
+
+The ``Reactive'' answers are overall the same, whatever execution regime and scenario. 
+Overall, based on an ANalysis Of the VAriance with repeated measures (ANOVA), all other answers than ``Reactive'' vary significantly. Post-tests show that the main differences come from scenarios S4 and S6. Those two scenarios correspond to ones where the robot has an incorrect estimation of the human preferences and is following the \textit{Robot-First} execution regime. This indicates that all HF behaviors are perceived similarly despite the erroneous estimation of the robot. It also indicates that the RF scenario with correct estimation is positively perceived, but an erroneous estimation has a significant impact on the answers when using RF.  
+
+Except for the ``Reactive'' aspect, answers about RF have a larger standard deviation. Thus, participants tend to be more indecisive regarding RF than HF.
+
+About ``Reactive''. A Bonferroni Post hoc test was used to compare the groups in pairs to find out which was significantly different.
+Despite the significant difference in the ANOVA, no pairwise group comparison was significant in the Bonferroni Post hoc test; all p values were greater than 0,05. 
+
+S4 and S6 received significantly worse answers than the other scenarios. It is interesting to notice that in a pair-wise manner, all other scenarios 
+
+We notice very few significant differences on HF only.
+
+In table \ref{tab:questionnaire_answers} there almost only significant differences in pairs involving S4 and S6. The only few other differences are the following. 
+S1 is significantly more appropriate than S5. And S5 is significantly less predictable than S1 and S3
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\linewidth]{Chapter6/signif_accommo.pdf}
+    \caption{Accommodating Interaction Scale with ANOVA + Post-hoc-Tests}
+    \label{fig:accommodating_scale_anova}
+\end{figure}
+
+\subsection{From comments}
 
 At the end of the experiment, every participant has been ask two questions. First, they were asked to comment on the overall robot interaction they just had. Secondly, participants were asked to indicate which scenario they preferred the most and the least.
 
