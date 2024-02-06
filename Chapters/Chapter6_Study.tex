@@ -101,7 +101,7 @@ Beforehand, every participant answers a few general/demographic questions and is
 \end{figure}
 
 We now provide details about the task, the scenarios and how the different robot behavior are generated. 
-The shared goal, which is stacking the cubes to match the given pattern, remains the same in all scenarios. The cube disposition on the table also doesn't change either. The task description is depicted in fig~\ref{fig:task_description_study}. 
+The shared goal, which is stacking the cubes to match the given pattern, remains the same in all scenarios. The cube disposition on the table also doesn't change either. The task description is depicted in fig~\ref{fig:task_description_study}. For this problem, our planning approach generated a solution graph with 700 PStates/nodes leading to 6 different final states/leaves. This solution graph comprises $6839430$ different possible courses of action. The length of the plans is about $19.77 \pm 1.59$ steps, with a minimal length of $11$ steps and a maximal length of $23$ steps.
 
 To progress in the task, the agents can perform three different primitive actions which are the following: \textit{pick} a cube, \textit{place} a cube in the stack, or, \textit{drop} a cube back on the table.
 These actions have a few preconditions, more or less intuitive, that are communicated and experienced by the participant during the integrated tutorial.
@@ -184,14 +184,28 @@ number, age, ext, familiar with R tech, vision of robotics
 
 In this section, we share the main results obtained through the answered questionnaires and the metrics extracted from the logs.
 
-\subsection{}
+\subsection{Technical comments}
+
+Numerous scenarios were executed in the simulator to conduct this study. More precisely, $150$ scenarios were executed and a total of $1914$ steps were executed. It is interesting to share a few technical comments about how those executions.
+
+To begin with, very few technical issues or crashes occurred during the study.
+About 2 or 3 crashes were due to a failure in the HMI that had happened when participants clicked at a very specific instant. I wasn't able to identify the origin of the issue, but this only happened a few times considering that $1048$ human actions were performed during the whole study. This means that $0.29\%$ of the human action failed. 
+Then, about 4 to 6 crashes occurred due to a failure of the robot arm motion controller. The arm motions were planned successfully but the controller failed to execute the planned trajectory in the simulator which led to a crash of the controller, freezing the robot. This kind of failure was specific to the MoveIt framework and I couldn't find a solution to them. But again, those issues were quite rare considering that the robot performed a total of $1586$ actions during the study. This means that $0.38\%$ of the robot action failed. 
+Overall, less than 10 scenarios crashed during the study which is less than $6\%$ of failures. 
+In practice, recovering from a crash was quite easy and fast. After a brief intervention of less than $30s$, the participants were able to start again from the scenario that crashed. Sometimes, this implied the participants to repeat a large part of the crashed scenario which affects the participant impression (less novelty effect) but none significantly changed their actions when repeating such a scenario.
+
+
+On the other hand, it is worth mentioning and discussing the durations of the different processes run by the robot.
+At every step, the robot has to decide which action to perform, move its head, plan its arm motion, and move its arm. First, the decision time of the robot is negligible because it is given by the policy computed previously by our planning approach. Before every step, the robot identifies the current state. Given a state, the policy dictates the robot which action to perform, including if the human action must be identified first. Since all this is precomputed, the decision time is negligible. 
+Head motions are also not demanding, and their execution occurs in parallel with the other robot processes, hence they can be neglected.
+However, planning the robot's arm motions is heavy computing and takes about $0.56s \pm 0.28s$. Notice that the standard deviation is quite high, about half of the average value. Indeed, the motion planning is based on algorithms using randomized exploration which makes the solving time random, sometimes begin very fast ($min \approxeq 0.001s$) and sometimes quite slow ($max = 5.37s $). Yet, we were able to plan online the arm motion.
+Eventually, the robot arm motion durations are about $4.09s$ (max=$9.09s$, min=$1.46s$) and will be discussed more precisely below
+
+Additionally, since the task is quite simplistic, repetitive and deterministic, one could say that we could have pre-computed the robot arm motions in order to lighten the execution and avoid technical problems linked to motion planners. First, we insist on the fact that the arm motions failures were due to execution failure, not planning, thus it is unclear if pre-computed the trajectory would have helped regarding those failures. Doing so would certainly make the simulator less demanding in terms of computation power. But here we wanted to keep a generic simulator able to able any other task, thus, movements couldn't be pre-computed.
 
 \subsection{Statistical assumptions}
 
-For analysis we rely on ANOVA tests that requires data to follow a normal distribution. 
-
-Here the data, most of the metrics, are close to following a normal distribution (checked using Kolmogorov-Smirnov, Shapiro-Wilk and Anderson-Darling tests). Thus, parametrics tests can be applied, and we used either paired t-tests or ANOVA with repeated measures.
-
+Our data are close to following a normal distribution (checked using Kolmogorov-Smirnov, Shapiro-Wilk and Anderson-Darling tests). Thus, parametric tests can be applied, and we used both paired t-tests and Analysis Of the VAriance (ANOVA) with repeated measures to analyze the collected data, more precisely, to identify significant differences between different group of measures. 
 In the last case, Bonferroni Post-hoc-Tests are performed to identify exactly which groups are significantly different from others.
 
 It has been commonly assumed that a statistical test demonstrates a significant difference if a p-value lower than $0.05$ is obtained. However, obtaining a value lower than $0.001$ is desired. To make the p-values more legible the following standard notation is commonly used and will be used below:
@@ -308,7 +322,7 @@ Overall the decision time of the human is an average of about $0.72s$.
 
 As depicted in fig.~\ref{fig:action_durations}, the human actions are in average significantly faster than the robot ones. In addition, the robot action durations tend to fluctuate more than the human one. This can be explained by the difference in motion execution between the avatar and the robot. The human has a simplified motion planner that simply moves the hand at a constant speed and in straight lines to the cubes or the stack. However, the robot uses a real motion planner to move its arm which is longer than the human motions. The motion planning process doesn't always found the same solutions, nor in the same amount of time. Meaning that both the motion planning duration and the motion execution duration can fluctuate. Here only the motion execution duration is considered in this metric. Note that to avoid having too much difference between the human and robot action durations, collisions with the dynamic objects are not considered in the robot motion planner, nor the objects' orientation. Hence, the robot can pick or place cubes from any angle and pass through the other cubes. When placing a cube its orientation is corrected. Collisions with the table where kept preventing the robot from picking cubes from below.  
 
-Overall scenarios and steps, the maximum human action duration is $4.63s$ and the minimum is  $2.55s$. For the robot, the maximum action duration is $9.09$ and the minimum duration is $1.46$.
+Overall scenarios and steps, mean $=3.27s$ the maximum human action duration is $4.63s$ and the minimum is $2.55s$. For the robot, mean=$4.09s$, the maximum action duration is $9.09$ and the minimum duration is $1.46$.
 
 \subsection{From questionnaires}
 
@@ -465,6 +479,105 @@ Looking at the eta squared $\eta^2$ of every question, one can notice that we ca
 \subsection{From comments}
 
 At the end of the experiment, every participant has been ask two questions. First, they were asked to comment on the overall robot interaction they just had. Secondly, participants were asked to indicate which scenario they preferred the most and the least.
+
+
+*********************
+
+
+\textbf{SIMULATION}
+\begin{itemize}
+\item overall, good experience +4
+\item simulation is clear, simple, pleasant, intuitive, captivating, funny
+\item like a video game
+\item lack of collision with cubes is unrealistic but ok
+\item H feel actor 
+\end{itemize}
+
+\textbf{DISPLAY}
+\begin{itemize}
+\item we see well the robot
+\item too much information on screen (goal+scene+text prompt)
+\item text prompt was hard to read
+\end{itemize}
+
+\textbf{GENERAL}
+\begin{itemize}
+\item robot giving indications and guidance would be great
+\item sometimes H makes wrong choices, not robot
+\item didn't really saw a difference between HF and RF
+\item diff between HR/RF we bit confusing at first but then ok
+\item Some we not able to indicate the scenario they prefered
+\item I don't like when the robot takes initiatives because it might make wrong decisions
+\end{itemize}
+
+\textbf{STEPS}
+\begin{itemize}
+\item the steps set the tempo and synchronisation which is useful
+\item step are confusing frustrating, waiting time before able to act again. 
+\end{itemize}
+
+\textbf{TASK}
+\begin{itemize}
+\item hierarchy, in simple task H knows better thus R should follow
+\item Use the common ressources (cubes) first is really a wrong decision. +1
+\item Performing the last action is satisfying, having the robot adapting to allow it is great.
+\item The fact that both agents must perform actions makes the collaboration relevant and useful. 
+\item task is clear
+\item having to drop a cub (pink bar) on the table is unpleasant
+\item in (5) there is a double satisfaction (finish task and achieve objective)
+\item in my daily life I would prefer the robot doing the time consuming tasks, thus, HFE great objective
+\item Felts a lot of emotions (satisfaction / frustration) so in a more practical and real task would enhance these feelings 
+\end{itemize}
+
+
+\textbf{RF}
+\begin{itemize}
+\item RF can be very frustrating, confusing, constraining, unpredictable, unefficient, adversarial
+\item RF good for TEE, fast
+\item RF not good for HFE
+\item RF doesn't consider my objective/preferences.
+\item RF with correct estimation is great, fast, efficient and good decisions
+\item RF still adapt after I performed an action
+\item with RF i'm more focused on preventing R mistakes than on the actual task 
+\item Following with RF simplifies the task
+\item RF stealing cubes is unpleasant +2
+\item with RF we are not in control, even when RF is doing good the lack of control is inconfortable.
+\end{itemize}
+
+\textbf{HF}
+\begin{itemize}
+\item HF is good for HFE +1
+\item HF is prefered
+\item HF able to reach objective
+\item I prefer to be in control, when the robot is follower +1
+\item We feel in control with HF
+\item HF clearly adapts to my actions 
+
+\item Once used to it, HF is smooth and efficient for TEE
+\item HF is more efficient than RF depending on the task
+\item HF is slower
+\item HF sometimes inconsistent (pink bar)
+\item HF is more interesting
+\item HF is less efficient
+\item HF is less frustrating
+\item HF is more predictable
+
+\item HF doesn't less wrong choices
+\item I enjoy being able to predict the robot's behavior/actions
+\end{itemize}
+
+\textbf{ACTIONS}
+\begin{itemize}
+\item Not being able to pick cubes in advance isn't natural, confusing, frustating and a bit complicated at first. But we get used to it quite fast.
+\item feel obliged to act at every step
+\item HFE a bit frustating since I would like to act, hard to consider this objective as my personnal preferences
+\item Actions feel stiff and unatural.
+\item Robot movements seems real
+\end{itemize}
+
+
+
+*********************
 
 
 \section{Discussion}
