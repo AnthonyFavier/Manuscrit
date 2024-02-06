@@ -20,7 +20,7 @@ Secondly, we want to validate the Model of Execution itself, that is, showing ho
 
 We decided to conduct this study in simulation for various reasons. First, one of our assumptions is that all actions should roughly have the same duration. However, real-life robots are slow and not very reactive. Those aspects may bias the results of our study which is focused on decision-making. Secondly, simulation allows several simplifications that are acceptable for study. Collision with the cubes has been disabled to make the robot faster both in planning and executing its arm movements. In addition, simulation allows having a perfect perception of the environment. In a real-life experiment, perception errors may occur leading to replan, and thus slower execution, or even wrong decisions. Moreover, our model assumes that both agents synchronize after each step. Hence, it was easy in simulation to prevent the human from acting too soon and synchronize automatically their actions. In a real-life scenario, we couldn't physically prevent the participant from acting. This would imply a heavier training process for the participants to avoid desynchronizing with the robot. In practice, an additional execution supervisor should be developed to permit desynchronizing as long as they are not too big, and hence, prevent the system from crashing. This would require a significant technical effort to implement.
 
-To conduct this study I developed a dedicated interactive simulator using a Tiago robot. In addition, the automaton described by the MoE has been implemented and integrated with the simulator to provide a proper execution and supervision scheme. Eventually, through carefully designed scenarios and using a shortened version of the PeRDITA questionnaire~\cite{devin_evaluating_2018} we gathered the feelings and impressions of the participants regarding the different robot behaviors. We also recorded logs from each executed scenario allowing us to draw a timeline of the execution and compute objective metrics for each scenario among which can be found: the time to complete the task, the human reaction time or the time for the human to be free. Several relevant facts and conclusions can be extracted from the collected results and are discussed in this chapter.
+To conduct this study I developed a dedicated interactive simulator using a Tiago robot. In addition, the automaton described by the MoE has been implemented and integrated with the simulator to provide a proper execution and supervision scheme. Eventually, through carefully designed scenarios and using a shortened version of the PeRDITA questionnaire~\cite{devin_evaluating_2018} we gathered the feelings and impressions of the participants regarding the different robot behaviors. We also recorded logs from each executed scenario allowing us to draw a timeline of the execution and compute objective metrics for each scenario among which can be found: the time to complete the task, the human decision time or the time for the human to be free. Several relevant facts and conclusions can be extracted from the collected results and are discussed in this chapter.
 
 This chapter is organized as follows. First, the interactive simulator functionalities and operations are described. Then the methodology of the user study is provided along with anonymous information on the participants. After, the results obtained are presented and then discussed, validating the proposed hypothesis.
 
@@ -176,7 +176,7 @@ Additionally, when holding a cube, the agents can only place the cube in the sta
 
 \section{Participants}
 
-This section shares and analyze some information on the participants.
+This section shares and analyzes some information on the participants.
 
 number, age, ext, familiar with R tech, vision of robotics
 
@@ -184,7 +184,9 @@ number, age, ext, familiar with R tech, vision of robotics
 
 In this section, we share the main results obtained through the answered questionnaires and the metrics extracted from the logs.
 
-\subsection{Assumptions}
+\subsection{}
+
+\subsection{Statistical assumptions}
 
 For analysis we rely on ANOVA tests that requires data to follow a normal distribution. 
 
@@ -238,7 +240,7 @@ In addition, since agents have to synchronize together at each step, we are able
 The S1 M11 (Wait ns total) group had higher values (M = 2,04, SD = 0,32) than the S2 M11 group (M = 1,29, SD = 0,36). A t-test for paired samples showed that this difference was statistically significant, t(23) = 7,4, p = <.001 (Large effect)}
 
 \subsubsection*{Ratio human optimally}
-The participants were given in every scenario an objective to satisfy, to consider as their own preferences regarding the task, and that should guide their behavior. However, in practice, the explicit actions to conduct were not given, and the participants were free to act as they would. Naturally, not all participants behaved in the same way. There were differences in the reaction time of each, but also in the action decisions, leading to different execution traces. Since different execution traces influence significantly the metrics of the timeline, it is worth discussing how the participants behaved.
+The participants were given in every scenario an objective to satisfy, to consider as their own preferences regarding the task, and that should guide their behavior. However, in practice, the explicit actions to conduct were not given, and the participants were free to act as they would. Naturally, not all participants behaved in the same way. There were differences in the decision time of each, but also in the action decisions, leading to different execution traces. Since different execution traces influence significantly the metrics of the timeline, it is worth discussing how the participants behaved.
 In the same manner as for the robot, an optimal human policy is generated for each scenario (considering the actual preferences given to the participant). Hence, it is possible to check at each step if the participant performed the optimal action or not, and thus, compute an optimal ratio which is the number of optimal human actions performed divided by the total number of human actions performed. This can help us to analyze the results and can explain some outlier values. 
 
 Though there are no significant differences between the different scenarios, some scenarios still have a lower average optimal ratio and high standard deviation, meaning that participants tend to have more varied behaviors in these specific scenarios. 
@@ -288,12 +290,14 @@ In pair C, S5 (HF) had lower values ($M=0.56, SD=0.11$) than S6 (RF) ($M=0.91, S
     \label{fig:decision_time}
 \end{figure}
 
-Considering the defined scenario pairs, the reaction time with RF tends to be longer. However, this difference is statically significant only for pair C (S5-S6). This is expected because when the robot places the first pink bar the human gets confused and takes time to adapt to the situation. On the other hand, this is not reflected in S4 despite the similar confusing robot actions. Indeed, in S4 the robot ``steals'' cubes from the human reach which is confusing, but this prevents the human from acting and thus no reaction time can be computed.  
+Considering the defined scenario pairs, the decision time with RF tends to be longer. However, this difference is statically significant only for pair C (S5-S6). This is expected because when the robot places the first pink bar the human gets confused and takes time to adapt to the situation. On the other hand, this is not reflected in S4 despite the similar confusing robot actions. Indeed, in S4 the robot ``steals'' cubes from the human reach which is confusing, but this prevents the human from acting and thus no decision time can be computed.  
 
-I think the overall slower human reaction time in the RF scenarios is due to the fact that the human acts after the robot. This way, the human has to pay attention to the scene and to the robot action/intentions, which is longer than only looking at the scene like in HF scenarios.   
+I think the overall slower human decision time in the RF scenarios is due to the fact that the human acts after the robot. This way, the human has to pay attention to the scene and to the robot action/intentions, which is longer than only looking at the scene like in HF scenarios.   
+
+Overall the decision time of the human is an average of about $0.72s$.
 
 
-\subsection*{Agent actions' duration}
+\subsubsection*{Agent actions' duration}
 
 \begin{figure}[h]
     \center
