@@ -69,7 +69,7 @@ That is why we decided to shorten the questionnaire by removing the section on c
 \section{Study protocol}
 
 Methodology: 
-Initial demographics' questionnaire to identify potential individual difference ratings. Then, presentation instructions/text. After, familiarized with simulator through an interactive tutorial. Eventually, the six scenarios in randomized order are experienced by the participant. After each scenario the participant answers a shortened version of the PeRDITA questionnaire and logs about the execution are saved. Eventually, the participant is asked about their overall impressions regarding the interaction they had with the simulated robot, and they are asked which scenario they preferred the most and the least. 
+Initial demographics' questionnaire to identify potential individual difference ratings. Then, presentation instructions/text. After, familiarized with the simulator through an interactive tutorial. Eventually, the six scenarios in randomized order are experienced by the participant. After each scenario the participant answers a shortened version of the PeRDITA questionnaire and logs about the execution are saved. Eventually, the participant is asked about their overall impressions regarding the interaction they had with the simulated robot, and they are asked which scenario they preferred the most and the least. The overall experiment takes about 35-40 min per participants. 
 
 objective, participants, material, experiment design, procedure, measures
 
@@ -478,105 +478,48 @@ Looking at the eta squared $\eta^2$ of every question, one can notice that we ca
 
 \subsection{From comments}
 
-At the end of the experiment, every participant has been asked two questions. First, they were asked to comment on the overall robot interaction they just had. Secondly, participants were asked to indicate which scenario they preferred the most and the least.
+At the end of the experiment, every participant was asked two questions gathering their general impressions. First, they were asked to comment on the overall robot interaction they just had. Secondly, participants were asked to indicate which scenario they preferred the most and the least. The exact results of the study are given in appendix~\ref{ap:study}, including questionnaire answers, execution metrics, comments, and scenario preferences. 
 
-All participants' comment have been collected and are currently shown below as a list of items: \textbf{TODO: write actual paragraph and analysis about comments}
-
-\textbf{SIMULATION}
-\begin{itemize}
-\item overall, good experience
-\item simulation is clear, simple, pleasant, intuitive, captivating, funny
-\item like a video game
-\item lack of collision with cubes is unrealistic but ok
-\item H feel as an actor 
-\end{itemize}
-
-\textbf{DISPLAY}
-\begin{itemize}
-\item we see well the robot
-\item too much information on screen (goal+scene+text prompt)
-\item text prompt was hard to read
-\end{itemize}
-
-\textbf{GENERAL}
-\begin{itemize}
-\item robot giving indications and guidance would be great
-\item sometimes H makes wrong choices, not robot
-\item didn't really saw a difference between HF and RF
-\item diff between HR/RF we bit confusing at first but then ok
-\item Some we not able to indicate the scenario they prefered
-\item I don't like when the robot takes initiatives because it might make wrong decisions
-\end{itemize}
-
-\textbf{STEPS}
-\begin{itemize}
-\item the steps set the tempo and synchronisation which is useful
-\item step are confusing frustrating, waiting time before able to act again. 
-\end{itemize}
-
-\textbf{TASK}
-\begin{itemize}
-\item hierarchy, in simple task H knows better thus R should follow
-\item Use the common ressources (cubes) first is really a wrong decision. 
-\item Performing the last action is satisfying, having the robot adapting to allow it is great.
-\item The fact that both agents must perform actions makes the collaboration relevant and useful. 
-\item task is clear
-\item having to drop a cub (pink bar) on the table is unpleasant
-\item in (5) there is a double satisfaction (finish task and achieve objective)
-\item in my daily life I would prefer the robot doing the time consuming tasks, thus, HFE great objective
-\item Felts a lot of emotions (satisfaction / frustration) so in a more practical and real task would enhance these feelings 
-\end{itemize}
+Participants' comments concern several aspects of the experiment and are worth discussing. Overall, the comments confirm the outcome of the statistical analysis, and they also provide some feedback about the overall experiment protocol and conditions, especially regarding the simulator itself. The comments are discussed per categories below. 
 
 
-\textbf{RF}
-\begin{itemize}
-\item RF can be very frustrating, confusing, constraining, unpredictable, unefficient, adversarial
-\item RF good for TEE, fast
-\item RF not good for HFE
-\item RF doesn't consider my objective/preferences.
-\item RF with correct estimation is great, fast, efficient and good decisions
-\item RF still adapt after I performed an action
-\item with RF i'm more focused on preventing R mistakes than on the actual task 
-\item Following with RF simplifies the task
-\item RF stealing cubes is unpleasant +2
-\item with RF we are not in control, even when RF is doing good the lack of control is inconfortable.
-\end{itemize}
+\subsubsection{Simulation}
+First, most of the participants found the experiment and the simulation as a good experience. They felt committed and active during the different scenarios. 
+The simulation has been described several times as clear, simple, pleasant, intuitive, captivating, and funny. 
+Some participants mentioned that it was like a video game and enjoyed it. 
+These comments suggest that collaborating with a simulated robot has been appreciated, and they raise the question if the participant had felt the same way in an experiment with a real robot. 
 
-\textbf{HF}
-\begin{itemize}
-\item HF is good for HFE +1
-\item HF is prefered
-\item HF able to reach objective
-\item I prefer to be in control, when the robot is follower +1
-\item We feel in control with HF
-\item HF clearly adapts to my actions 
+\subsubsection{Display}
+Some participants think that the simulation display had too much information (goal + scene + text prompt), and a few had trouble reading the text prompt. Yet, the robot can be seen well. Indeed, the text prompts could be a bit fast and written white on black, which can be disturbing when not used to. However, I believe this didn't affect much the executions, maybe slightly the decision times. 
 
-\item Once used to it, HF is smooth and efficient for TEE
-\item HF is more efficient than RF depending on the task
-\item HF is slower
-\item HF sometimes inconsistent (pink bar)
-\item HF is more interesting
-\item HF is less efficient
-\item HF is less frustrating
-\item HF is more predictable
+\subsubsection{General}
+A few participants would have appreciated the robot giving instructions and guidance regarding the actions to perform. This is linked to another comment saying that using the Robot-Fist regime with correct estimation felt better because makes the task simpler. If the human trusts the robot, it can be appreciated to let the robot compute the optimal plan and just follow the robot's instructions, lowering the cognitive load of the human. Indeed, some participants consider that they made mistakes and that they could have acted in a better way in some scenarios. 
 
-\item HF doesn't less wrong choices
-\item I enjoy being able to predict the robot's behavior/actions
-\end{itemize}
+\subsubsection{Steps}
+The step synchronization wasn't appreciated by everyone. Some participants found this kind of synchronization useful as it structured the collaboration. However, many others found this a bit confusing at first and frustrating because they had to wait for the robot's actions to be done before being able to act again.
 
-\textbf{ACTIONS}
-\begin{itemize}
-\item Not being able to pick cubes in advance isn't natural, confusing, frustating and a bit complicated at first. But we get used to it quite fast.
-\item feel obliged to act at every step
-\item HFE a bit frustating since I would like to act, hard to consider this objective as my personnal preferences
-\item Actions feel stiff and unatural.
-\item Robot movements seems real
-\end{itemize}
+\subsubsection{Task}
+The task was found clear and quite simple. One participant said that they felt significant emotions such as satisfaction and frustration and that if the task was less abstract and more real, these emotions would have been enhanced. Moreover, another participant said that in such simple tasks, humans tend to think they know better how to solve the task than the robot. Thus, the robot should follow human decisions in such cases, with a hierarchy relation. A few participants also mentioned that performing the last action, i.e. placing the last cube, is very satisfying. These people liked the robot adapting to allow them to do so. 
+The fact that both agents must perform actions to solve the task makes the collaboration relevant and useful. 
 
-Overall, the comments confirm the outcome of the statistical analysis, and they also provide some feedback about the overall experiment protocol and conditions, especially regarding the simulator itself. 
+\subsubsection{Objective}
+A few participants said that the objective of "trying to be free early" is a bit frustrating since they would like to keep acting, even if not necessary. It was hard for them to consider this objective as their personal preference, and thus, to act accordingly. 
+Additionally, one participant mentioned that Scenario 5 creates double satisfaction: being free early (preferences) and the task is fulfilled.
 
+\subsubsection{Action}
+Many participants said that not being able to pick cubes in advance isn't natural and at first is confusing, frustrating, and a bit complicated. Yet, they also said that they got used to it quite fast.
 
-*********************
+\subsubsection{Regimes}
+One participant said that they didn't see much difference between the two execution regimes HF and RF. The same participant couldn't indicate which scenario they preferred at the end. Moreover, some participants also indicated that the difference between HF and RF was unclear at first. However, once used to the task and the scenarios, the difference becomes clearer.
+
+\subsubsection{Being in control}
+Participants indicated that when using HF they felt in control and free to decide which action they perform. In contrast, when using RF, participants didn't feel in control and were forced to adapt to the robot's decisions. Even when the robot's decisions are good, the lack of control is uncomfortable. One participant stated that they disliked when the robot took initiative because the robot could be wrong. 
+
+\subsubsection{HF}
+
+\subsubsection{RF}
+RF, bad, not in control, bad choices: having to drop bar + using common resources first
+
 
 
 \section{Discussion}
