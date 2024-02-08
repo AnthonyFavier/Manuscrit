@@ -8,7 +8,6 @@
 % \newcolumntype{x}[1]{>{\centering\arraybackslash\hspace{0pt}}p{#1}}
 \newcolumntype{x}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}p{#1}}
 
-\usepackage{rotating}
 \usepackage{lmodern}
 \usepackage{tabularx}
 %\usepackage{tabular}
@@ -131,7 +130,7 @@ urlcolor=linkcol %couleur des liens pour les url
 \def\diag{\operatorname{Diag}}
 \newcommand{\eqRef}[1]{(\ref{#1})}
 
-\usepackage{rotating}                    % Sideways of figures & tables
+\usepackage[figuresleft]{rotating}                    % Sideways of figures & tables
 %\usepackage{bibunits}
 %\usepackage[sectionbib]{chapterbib}          % Cross-reference package (Natural BiB)
 %\usepackage{natbib}                  % Put References at the end of each chapter
