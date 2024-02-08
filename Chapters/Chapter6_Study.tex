@@ -167,7 +167,7 @@ Note that our goal is to evaluate and compare the different robot behaviors. How
     \label{tab:perdita_questionnaire}
 \end{table}
 
-The questionnaire filled by the participants after each scenario is a shotten version of the PeRDITA questionnaire, and its items are gathered in table~\ref{tab:perdita_questionnaire}. 
+The questionnaire filled by the participants after each scenario is a shorten version of the PeRDITA questionnaire, and its items are gathered in table~\ref{tab:perdita_questionnaire}. 
 In addition to the questionnaires, for each scenario, the interactive simulator produces logs from which we extract several metrics and an overall timeline of the execution. The timeline depicts the activities and actions of each agent along the task progression. The subjective measures done through the questionnaire are complemented with the objective metrics extracted such as the duration to complete the task, the number of human actions, the total duration of human inactivity, and more. 
 
 
@@ -178,11 +178,11 @@ Additionally, when holding a cube, the agents can only place the cube in the sta
 
 This section shares and analyzes some information on the participants.
 
-number, age, ext, familiar with R tech, vision of robotics
+\textbf{TODO: provide info} number, age, ext, familiar with R tech, vision of robotics
 
 \section{Study results}
 
-In this section, we share the main results obtained through the answered questionnaires and the metrics extracted from the logs.
+In this section, we analyze the results of the study with first some technical comments regarding the experiment. After, we analyze the results obtained from the execution logs. Then, we discuss the questionnaire's answers. Finally, we discuss the participant's comments regarding the experiment. Note that all the numeric results of the study are given in appendix~\ref{ap:study}, including questionnaire answers, execution metrics, comments, and scenario preferences. 
 
 \subsection{Technical comments}
 
@@ -393,7 +393,7 @@ So far, we only conducted a preliminary analysis of the questionnaire's answers 
     \center
         \begin{tabular}{c|cc|ccccccccccccccc|}
         \cline{2-18}
-        \multicolumn{1}{l|}{}                        & \multicolumn{2}{c|}{ANOVA}                                 & \multicolumn{15}{c|}{Bonferroni Post hoc tests}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        \\ \cline{2-18} 
+        \multicolumn{1}{l|}{}                        & \multicolumn{2}{c|}{\textbf{ANOVA}}                                 & \multicolumn{15}{c|}{\textbf{Bonferroni Post hoc tests}}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        \\ \cline{2-18} 
         \multicolumn{1}{l|}{}                        & \multicolumn{1}{c|}{p}            & $\eta^2$               & \multicolumn{1}{c|}{1-2}         & \multicolumn{1}{c|}{1-3}         & \multicolumn{1}{c|}{\textbf{1-4}}          & \multicolumn{1}{c|}{1-5}                  & \multicolumn{1}{c|}{\textbf{1-6}}          & \multicolumn{1}{c|}{2-3}         & \multicolumn{1}{c|}{\textbf{2-4}}          & \multicolumn{1}{c|}{2-5}         & \multicolumn{1}{c|}{\textbf{2-6}}          & \multicolumn{1}{c|}{\textbf{3-4}}          & \multicolumn{1}{c|}{3-5}                 & \multicolumn{1}{c|}{\textbf{3-6}}          & \multicolumn{1}{c|}{\textbf{4-5}}          & \multicolumn{1}{c|}{4-6}         & \textbf{5-6}          \\ \hline
         \multicolumn{1}{|c|}{Responsive}             & \multicolumn{1}{c|}{\textit{***}} & \textit{0.16}          & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{ns}}           & \multicolumn{1}{c|}{\textit{ns}}          & \multicolumn{1}{c|}{\textit{ns}}           & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{ns}}           & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{ns}}           & \multicolumn{1}{c|}{\textit{ns}}           & \multicolumn{1}{c|}{\textit{ns}}         & \multicolumn{1}{c|}{\textit{ns}}           & \multicolumn{1}{c|}{\textit{ns}}           & \multicolumn{1}{c|}{\textit{ns}} & \textit{ns}           \\ \hline
         \multicolumn{1}{|c|}{Competent}              & \multicolumn{1}{c|}{\textit{***}} & \textit{0.49}          & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{ns}}          & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{ns}} & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{ns}}         & \multicolumn{1}{c|}{\textit{\textbf{**}}}  & \multicolumn{1}{c|}{\textit{\textbf{***}}} & \multicolumn{1}{c|}{\textit{ns}} & \textit{\textbf{*}}   \\ \hline
@@ -478,10 +478,11 @@ Looking at the eta squared $\eta^2$ of every question, one can notice that we ca
 
 \subsection{From comments}
 
-At the end of the experiment, every participant was asked two questions gathering their general impressions. First, they were asked to comment on the overall robot interaction they just had. Secondly, participants were asked to indicate which scenario they preferred the most and the least. The exact results of the study are given in appendix~\ref{ap:study}, including questionnaire answers, execution metrics, comments, and scenario preferences. 
+At the end of the experiment, every participant was asked two questions gathering their general impressions. First, they were asked to comment on the overall experiment and robot interaction they just had. Secondly, participants were asked to indicate which scenario they preferred the most and the least. 
 
 Participants' comments concern several aspects of the experiment and are worth discussing. Overall, the comments confirm the outcome of the statistical analysis, and they also provide some feedback about the overall experiment protocol and conditions, especially regarding the simulator itself. The comments are discussed per categories below. 
 
+\textbf{TODO: Try to add more argumentation and links to previous results, be less descriptive...}
 
 \subsubsection{Simulation}
 First, most of the participants found the experiment and the simulation as a good experience. They felt committed and active during the different scenarios. 
@@ -502,24 +503,31 @@ The step synchronization wasn't appreciated by everyone. Some participants found
 The task was found clear and quite simple. One participant said that they felt significant emotions such as satisfaction and frustration and that if the task was less abstract and more real, these emotions would have been enhanced. Moreover, another participant said that in such simple tasks, humans tend to think they know better how to solve the task than the robot. Thus, the robot should follow human decisions in such cases, with a hierarchy relation. A few participants also mentioned that performing the last action, i.e. placing the last cube, is very satisfying. These people liked the robot adapting to allow them to do so. 
 The fact that both agents must perform actions to solve the task makes the collaboration relevant and useful. 
 
+\subsubsection{Action}
+Many participants said that not being able to pick cubes in advance isn't natural and, at first, it is confusing, frustrating, and a bit complicated. Yet, they also said that they got used to it quite fast. One also said that they felt obliged to act at every step. Indeed, a majority of the participants were signaling their passivity to the robot even when they were not able to act. 
+About the movements, one participant stated that the actions were stiff and rigid, in contrast to being able to drag and drop the cubes thanks to the physics simulation. Additionally, the lack of collision with the cubes felt a bit unrealistic but not very confusing.
+On the other hand, another participant said that the robot's movements seem real. This is probably due to the fact we used an online motion planner to move the robot arm, thus, the movements were not always optimal.
+
 \subsubsection{Objective}
 A few participants said that the objective of "trying to be free early" is a bit frustrating since they would like to keep acting, even if not necessary. It was hard for them to consider this objective as their personal preference, and thus, to act accordingly. 
 Additionally, one participant mentioned that Scenario 5 creates double satisfaction: being free early (preferences) and the task is fulfilled.
 
-\subsubsection{Action}
-Many participants said that not being able to pick cubes in advance isn't natural and at first is confusing, frustrating, and a bit complicated. Yet, they also said that they got used to it quite fast.
-
 \subsubsection{Regimes}
-One participant said that they didn't see much difference between the two execution regimes HF and RF. The same participant couldn't indicate which scenario they preferred at the end. Moreover, some participants also indicated that the difference between HF and RF was unclear at first. However, once used to the task and the scenarios, the difference becomes clearer.
+One participant said that they didn't see much difference between the two execution regimes HF and RF. The same participant couldn't indicate which scenario they preferred at the end. Moreover, some participants also indicated that the difference between HF and RF was unclear at first. However, once used to the task and the scenarios, the difference becomes clearer and before the end of the experiment, most of the participants had a clear idea of each regime, and even apprehended the RF one.
 
 \subsubsection{Being in control}
-Participants indicated that when using HF they felt in control and free to decide which action they perform. In contrast, when using RF, participants didn't feel in control and were forced to adapt to the robot's decisions. Even when the robot's decisions are good, the lack of control is uncomfortable. One participant stated that they disliked when the robot took initiative because the robot could be wrong. 
+Participants indicated that when using HF they felt in control, free to decide which action they performed, and that the robot was adapting to their decisions and actions, which was appreciated. In contrast, when using RF, participants didn't feel in control and were forced to adapt to the robot's decisions. Even when the robot's decisions are good, the lack of control is uncomfortable. One participant stated that they disliked when the robot took initiative because the robot could be wrong. 
 
-\subsubsection{HF}
+\subsubsection{Human-First (HF) regime}
+Most of the participants enjoyed the HF regime and stated that they were able to fulfill their objective with it. Some comments qualify the HF regime as slower than RF and sometimes inconsistent. The latter is mostly referring to the robot picking up the pink bar in S5. However, especially when used to it, HF has been qualified as smooth, efficient, interesting, predictable, and less frustrating than RF. Several participants mentioned that they enjoyed being able to predict the robot's behavior, proving that having predictable behavior is crucial for a seamless collaboration. It has been mentioned that HF makes less wrong choices than RF.
+Moreover, some participants said that compared to the RF regime with a correct estimation HF is less efficient, however, in pairs B and C HF is more efficient than RF.
 
-\subsubsection{RF}
+\subsubsection{Robot-First (RF) regime}
 RF, bad, not in control, bad choices: having to drop bar + using common resources first
 
+Every participant had an overall negative opinion regarding the RF regime. The latter has been qualified as very frustrating, confusing, constraining, unpredictable, inefficient, and even adversarial. A significant number of participants stated that to finish the task quickly RF could be great, fast, efficient, and less cognitively demanding, despite the lack of control. Also, a few participants noticed that even if during a specific step the human is forced to comply with the robot's actions, in the next step the robot takes into account the human action and adapts its behavior. 
+However, it has been said that RF doesn't consider the human's objective or preferences. Participants really disliked when the robot forced them to drop a cube back on the table (pink bar in S6) and when the robot picked cubes in the middle zone instead of its own zone. The latter was perceived as the robot stealing the cubes from the human.
+Due to those frustrating robot actions, the RF regime were putting the participants in an adversarial setup and the robots were explicitly qualified as ``enemies''. Some participants said that they were more focused on preventing the robot's mistakes than on the actual task.
 
 
 \section{Discussion}
