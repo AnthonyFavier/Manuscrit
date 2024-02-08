@@ -6,7 +6,7 @@
 \fi
 
 \chapter{Challenging Robot Navigation Systems by Simulating Intelligent Human: InHuS}
-\chaptermark{Challenging Robot Navigation Systems by Simulating Intelligent Human: InHuS}
+\chaptermark{Intelligent Human Simulation: InHuS}
 \label{chap:7}
 \minitoc
 
@@ -185,26 +185,8 @@ From the plots produced by our system, a lot of useful information can be extrac
 
 Our system can be used to run similar scenarios repetitively to produce robust metric values. These values can help to evaluate the human-aware performances of a given robot controller. To show this, we present a comparison between two different robot controllers. The first one is again the CoHAN system, and the second one is the Simple Move Base (or SMB). It uses the \textit{teb\_local\_planner} and the ROS navigation stack with default parameters. We just add an additional process to consider the human agent as a static obstacle to avoid it, so it is not human-aware. Therefore, we should be able to notice a clear difference through the metrics computed by our system. For this comparison, we used three different scenarios: 1) The doorway scenario where the agents have to cross a narrow opening, 2) the corridor scenario where the agents cross each other with just enough space, and 3) the open space where they cross each other without any environmental constraints. We performed 10 repetitions of each scenario for each robot controller. For each set of 10 repetitions, we extracted the mean values of three different metrics and presented them in Table~\ref{tab:compare_robots}. The metrics are the following. First, the time to goal (TTG) is the time taken by the avatar to reach its goal. Second, the minimum distance between the robot and the human (Min HRDist). And, the minimum time to collision (TTC). Intuitively, we want the TTG to be as small as possible, the minimum HRDist to be as high as possible, and since a low TTC value represents a collision threat, we want the min TTC to be as high as possible. 
 
-\begin{table}
-\vspace{-0.2cm}
     \caption{Mean values of three InHuS metrics over 10 repetitions in three different scenarios and with two different robot controllers. Bold values indicate when the corresponding robot controller has better performance than the other.}
     \label{tab:compare_robots}
-    \centering
-    \begin{tabular}{|c|c|c|c|c|c|c|}
-    \hline
-     & \multicolumn{3}{c|}{CoHAN} & \multicolumn{3}{c|}{SMB}\\
-    \cline{2-7}
-    Experiment & \textit{TTG}$(s)$ & \textit{Min Dist}$(m)$&  \textit{Min TTC}$(s)$ 
-    & \textit{TTG}$(s)$ & \textit{Min Dist}$(m)$ & \textit{Min TTC}$(s)$\\
-    \hline
-    \textit{Doorway} & 18.38 & \textbf{2.32} & \textbf{1.33} & \textbf{18.26} & 2.23 & 1.16\\
-    \hline
-    \textit{Corridor} & \textbf{16.34} & \textbf{2.06} & \textbf{1.03} & 17.05 & 1.59 & 0.81\\
-    \hline
-    \textit{Open space} & \textbf{9.55} & \textbf{2.52} & \textbf{1.61} & 11.01 & 2.34 & 1.18\\
-    \hline
-    \end{tabular}
-\vspace{-0.3cm}  
 \end{table}
 
 At first glance, we see in Table~\ref{tab:compare_robots} that almost all CoHAN values are better than SMB values. Due to the nature of the doorway environment, the execution of the scenario is quite constrained which explains why the values are not too different between the two controllers. However, we notice anyway that, compared to SMB, the CoHAN planner tends to keep a greater distance between the agents and a greater TTC (lower threat of collision). The time to goal of CoHAN is slightly higher because the robot slows down when crossing and moving in the direction of the human. Thus, it is the price to pay in this scenario to maintain adequate TTC values.
@@ -220,8 +202,6 @@ In summary, the human-aware behavior of the CoHAN controller was captured throug
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.45\linewidth]{Chapter7/harass_colored_path_bis.png}
-    \includegraphics[width=0.45\linewidth]{Chapter7/stoplook_colored_path_bis.png}
     \caption{
     Behaviors obtained by activating the \textit{Harass} and \textit{StopAndLook Attitudes}. 
     With \textit{Harass}, the human is always in front of the robot.
@@ -253,12 +233,7 @@ The proposed system can help test the stability and robustness of the robot plan
 Fig.~\ref{fig:long_run_block} depicts such a test conducted with InHuS and a human-aware robot planner from Kollmitz et. al. \cite{kollmitz_time_2015} here referred to as TDP. The agents were made to endlessly loop over four goal-positions (each with a \SI{1}{\metre} radius) in reverse order to create as many conflicts as possible. After 3 minutes, the robot got stuck in the wall of the doorway, indefinitely blocking the path for the human. In addition to highlighting problematic situations where the robot doesn't act as expected, long runs can expose low-level issues like unexpected crashes or memory leaks.
 
 
-\section{Extension: IMHuS}
 
-This work has been extended through the help of an intern to the IMHuS framework \cite{hauterville-2022}.
-
-\subsection{Describe}
-\subsection{results?}
 
 \section{Discussion and Limitations}
 
@@ -267,9 +242,11 @@ Although InHuS provides an autonomous human agent, if needed, the agent can be c
 The proposed system interacts with an external simulator and robot controller. Since the system is mainly implemented using ROS, switching from one simulator to another is straightforward if it has a ROS interface. 
 InHuS has specific components to abstract the simulation data format. Thus, just by slightly editing these components we were already able to run InHuS on three different simulators: MORSE~\cite{echeverria2011modular}, Stage\footnote{https://github.com/ros-simulation/stage\_ros} and Gazebo~\cite{koenig2004design}. Furthermore, any robot controller using the ROS Navigation Stack can be directly used with InHuS.
 
-
-Simulating intelligent human avatars is a novel field and only few works apart from ours try to address this limitation. A similar work in ROS2 was recently presented in \cite{perezhunavsim}.
+Simulating intelligent human avatars is a novel field and only a few works apart from ours try to address this limitation. A similar work in ROS2 was recently presented in \cite{perezhunavsim}.
 It is clear that the idea of intelligent human agents is of interest to the community, and it is a necessity to test social navigation effectively. Like any other system, InHuS has limitations too. We claim to generate only reactive and somewhat rational behavior, which is still far from natural or realistic human behavior. We currently handle scenarios with two agents only, the human and the robot. We can run scenarios with other human agents, but they will be treated like robots.
+
+
+
 
 \section{Conclusion}
 
