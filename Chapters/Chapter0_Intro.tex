@@ -14,12 +14,12 @@
 \acrfull{hrc} is a growing field in robotics and \acrfull{ai} research that aims to enable safe and effective teamwork between humans and robots.
 This field mostly concerns fully autonomous robots. Hence, for instance, it excludes exoskeletons or teleoperated robots such as surgery manipulators or remotely operated (aerial) vehicles. 
 
-In this manuscript, robots are considered as autonomous tools able to interact physically with their environment. As tools, robots should facilitate human tasks by reducing both the required physical effort and mental workload. 
-Industrial robots are already popular in factories because they are fast, accurate, reliable and never tire, which makes them ideal for repetitive factory tasks. 
+In this manuscript, robots are considered autonomous tools able to interact physically with their environment. As tools, robots should facilitate human tasks by reducing both the required physical effort and mental workload. 
+Industrial robots are already popular in factories because they are fast, accurate, reliable, and never tire, which makes them ideal for repetitive factory tasks. 
 However, such robots are usually contained in dedicated areas where humans cannot enter for safety reasons. 
 Hence, it is still an open challenge to endow robots with enough reliable reasoning capabilities and compliant motion control to allow efficient and trusted direct collaboration between humans and robots. 
 
-This work aims to design autonomous robots able to make explainable, acceptable and efficient decision to collaborate with humans. Moreover, \acrshort{hrc} can also occur in various contexts that must be taken into account which range from co-worker robots in factories to householder robots for our everyday lives and include service robots in public places like restaurants and shops.
+This work aims to design autonomous robots able to make explainable, acceptable, and efficient decisions to collaborate with humans. Moreover, \acrshort{hrc} can also occur in various contexts that must be taken into account which range from co-worker robots in factories to householder robots for our everyday lives and include service robots in public places like restaurants and shops.
 
 
 \mysection{Human-Robot Collaboration Challenges}
@@ -27,15 +27,15 @@ This work aims to design autonomous robots able to make explainable, acceptable 
 \acrshort{hrc} opens several challenges to address, each corresponding to a different aspect or functionality that the robot should be endowed with to fulfill its role. Hence, the ideal general collaborative robot should be the aggregation of all the notions below: 
 
 \begin{itemize}
-    \item \textbf{Navigation}: The robot should be able to acceptably and efficiently move in a human-populated environment. This implies being mechanically designed for it, anticipating and planning correct trajectories, and being able to adapt and follow these trajectories in real-time. The robot should not move threateningly and should account for humans.
+    \item \textbf{Navigation}: The robot should be able to acceptably and efficiently move in a human-populated environment. This implies being mechanically designed for it, anticipating and planning correct trajectories, and being able to adapt and follow these trajectories in real time. The robot should not move threateningly and should account for humans.
 
     \item \textbf{Manipulation}: The robot should be able to manipulate objects to interact with its environment. Hence, the robot should have an actuator like an arm and a gripper and should be able to exhibit motions that are efficient and safe to nearby humans.
 
-    \item \textbf{Decision-making}: The robot should be able to make relevant decisions to be collaborative. This implies being able to plan its actions to solve a collaborative task. It also implies being able to supervise the task execution and make online decisions to adapt to uncertainties in real-time, which includes human actions and commands. 
+    \item \textbf{Decision-making}: The robot should be able to make relevant decisions to be collaborative. This implies being able to plan its actions to solve a collaborative task. It also implies being able to supervise the task execution and make online decisions to adapt to uncertainties in real time, which includes human actions and commands. 
 
     \item \textbf{Communication}: To achieve congruent interaction and collaboration, collaborative agents must communicate. This implies that the robot should be able to communicate information to the human and understand the one received from the latter. These communications can be of various types, e.g., verbal, using natural language, prompting text on a screen, and signaling through robot movements (arms, head, mobile base). More innovative techniques can also be mentioned such as projecting arrows or desired paths on the ground, and using Augmented Reality to show internal information on the robot (decision, next action, etc...).
 
-    \item \textbf{Perception}: Eventually, the robot must be able to perceive its environment. This is mandatory for the robot to have a reliable perception scheme to know the position of near objects, of obstacles, and humans. First, relevant sensors must be used and placed on the robot or in the environment itself. After, from the sensory data, some analysis and reasoning processes must extract relevant facts about the robot's environment such as objects' positions, spatial relations, reachable objects, human knowledge and intentions, the state of the current goal, and more. This constitutes the knowledge of the robot which may include an estimation of the near human knowledge. Perception is critical because most of the other challenges rely on the robot's knowledge.
+    \item \textbf{Perception}: Eventually, the robot must be able to perceive its environment. This is mandatory for the robot to have a reliable perception scheme to know the position of near objects, obstacles, and humans. First, relevant sensors must be used and placed on the robot or in the environment itself. After, from sensory data, some analysis and reasoning processes must extract relevant facts about the robot's environment such as objects' positions, spatial relations, reachable objects, human knowledge and intentions, the state of the current goal, and more. This constitutes the knowledge of the robot which may include an estimation of the near human knowledge. Perception is critical because most of the other challenges rely on the robot's knowledge.
 
 \end{itemize}
     
@@ -58,7 +58,7 @@ In Chapter~\ref{chap:4}, as my second main contribution, I address the lack of c
 
 Chapter\ref{chap:5} is a technical description of an interactive simulator I developed to execute the robot policy generated by the approach described in \ref{chap:4}. This simulator proposes an execution scheme based on the model of execution to run and supervise the robot policy in a 3D simulator. It also allows a human operator to perform actions through intuitive mouse control. Hence, this simulator offers a way to effectively collaborate with a robot following the approach we designed.    
 
-Chapter\ref{chap:6} presents a user study validating the approach proposed in \ref{chap:4}. For this purpose, several scenarios have been designed using a BlocksWorld task and human participants were asked to collaborate with the simulated robot to evaluate its behavior. We compared our approach with a baseline consisting of a robot following a simpler version of the model of execution. 
+Chapter\ref{chap:6} presents a user study validating the approach proposed in \ref{chap:4}. For this purpose, several scenarios have been designed using a BlocksWorld task, and human participants were asked to collaborate with the simulated robot to evaluate its behavior. We compared our approach with a baseline consisting of a robot following a simpler version of the model of execution. 
 
 Conclusions regarding part~\ref{part:1} follow this chapter before starting the second part of this thesis. 
 

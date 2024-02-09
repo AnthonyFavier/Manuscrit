@@ -1,2 +1,5 @@
 {"rule":"DT_JJ_NO_NOUN","sentence":"^\\QAction preconditions are functions with a world state as input and return a boolean.\\E$"}
 {"rule":"ENGLISH_WORD_REPEAT_BEGINNING_RULE","sentence":"^\\QThis work aims to bridge the gap between robotic capabilities and human expectations, fostering a new era of seamless and intuitive collaboration between humans and robots in shared environments.\\E$"}
+{"rule":"WHITESPACE_RULE","sentence":"^$"}
+{"rule":"ALLOW_TO","sentence":"^\\QWe use a simple baseline to compare the Model of Execution with, and we show how our model allows to better satisfy human preferences and thus is preferred.\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QOlivier Hauterville, Camino Fernández, Phani-Teja Singamaneni, Anthony Favier, Vicente Matellán, et al..\\E$"}
