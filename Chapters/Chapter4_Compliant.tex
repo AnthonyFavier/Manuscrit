@@ -464,16 +464,16 @@ There is a box in \textit{RZ} in which cubes can be inserted. To pick such cubes
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{Chapter4/block_world_domain.png}
-    \caption{An instance of the BlocksWorld domain. The ideal plan is strongly influenced by the human desired  preferences. For the earliest end of the task, the human prevents using the box. A lazy human will only place the required pink bar from their side. And a human in a hurry will place concurrently the yellow cube to place the pink bar at the earliest and be able to leave.}
+    \caption{An instance of the BlocksWorld domain. The ideal plan is strongly influenced by the human desired preferences. For the earliest end of the task, the human prevents using the box. A lazy human will only place the required pink bar from their side. And a human in a hurry will place concurrently the yellow cube to place the pink bar at the earliest and be able to leave.}
     \label{fig:block_world_domain}
 \end{figure}
 
 
     \subsection{Human behavior and erroneous estimated preferences}
 
-To simulate the human behavior, we consider and define human preferences that produce a human policy in a same manner as for the robot. The produced human policy makes the human to always perform the best action regarding their defined preferences. The robot/planner doesn't have access to the human preferences but only to an estimation of them.
+To simulate the human behavior, we consider and define human preferences that produce a human policy in the same manner as for the robot. The produced human policy makes the human always perform the best action regarding their defined preferences. The robot/planner doesn't have access to the human preferences but only to an estimation of them.
 
-In order to evaluate the quality of the executed trace regarding the actual human preferences we compare and rank every possible trace from the search graph, from best to worst. For legibility purposes we normalize the ranks to obtain a score (H-score) s.t. the trace/plan with the lowest rank has a score of 0.0, while the highest rank corresponds to a score of 1.0. This score represents a quality indicator independent of the instance's size. 
+In order to evaluate the quality of the executed trace regarding the actual human preferences we compare and rank every possible trace from the search graph, from best to worst. For legibility purposes, we normalize the ranks to obtain a score (H-score) s.t. the trace/plan with the lowest rank has a score of 0.0, while the highest rank corresponds to a score of 1.0. This score represents a quality indicator independent of the instance's size. 
 Similarly, we can do the same and acquire the score regarding the robot's estimation of the preferences (R-score). 
 Keep in mind that the R-score is an estimation of the actual H-score, and the robot acts in order to maximize its R-score, hoping to maximize as well the H-score.
 
@@ -483,12 +483,12 @@ Despite the robot trying to maximize its R-score, it's important to note that re
 \begin{figure}
     \includegraphics[width=\linewidth]{Chapter4/all_corr.png}
     \caption{
-    Correlation between the H-score and R-score according to different robot estimations. Four pairs of human preferences and their estimation are considered. For each pair, all possible traces are plotted as blue crosses according their H-score and R-score. \textit{(1)} show a correct estimation while the others show incorrect estimations. \textit{(3)} and \textit{(4)} depict \textit{adversarial} estimations.
+    Correlation between the H-score and R-score according to different robot estimations. Four pairs of human preferences and their estimation are considered. For each pair, all possible traces are plotted as blue crosses according to their H-score and R-score. \textit{(1)} show a correct estimation while the others show incorrect estimations. \textit{(3)} and \textit{(4)} depict \textit{adversarial} estimations.
     }
     \label{fig:corr}
 \end{figure}
 
-In practice, given human preferences and their estimation creates a correlation the possibly obtained H-scores and R-scores when solving the task. Figure~\ref{fig:corr} depicts several possible correlations for a same task and same search graph but different pairs of human preferences and their estimation. On each sub figure are shown all possible traces as blue crosses according to their H-score and R-score. 
+In practice, a pair of human preferences and their estimation creates a correlation between the possibly obtained H-scores and R-scores when solving the task. Figure~\ref{fig:corr} depicts several possible correlations for a same task and same search graph but different pairs of human preferences and their estimation. On each sub figure are shown all possible traces as blue crosses according to their H-score and R-score. 
 Let's consider the first case where the estimation is perfectly accurate (correct). Here, the choices of the robot which are maximizing the R-score will necessarily maximize the H-score. Indeed, when considering the few top possible robot plans (crosses with near $1.0$ R-score), the human preferences are always well satisfied (near $1.0$). 
 Let's now consider the second case where the robot estimation is incorrect. Here when considering again the few top possible robot plans a wide range of H-score can be reached (near $1.0$ as well as close to $0.0$). Thus, an incorrect estimation can satisfy the human preferences but not necessarily, and so, can also fail to comply with them.
 Eventually, consider the last two cases. Here, the lack of blue crosses in the top-right corners means that the H-score cannot be near $1.0$ while also having a high R-score. As a consequence, when maximizing the R-score the robot will necessarily deteriorate the quality of the plan w.r.t. the H-score. We refer to these cases as \textit{adversarial} estimations since the robot, involuntary, goes against the human will. Such cases occur when the robot estimation is far from the actual preferences and intuitively going against the latter, for instance, the robot trying to minimize the human effort while the human is actually trying to do as much as possible.  
