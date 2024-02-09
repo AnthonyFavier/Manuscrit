@@ -68,7 +68,7 @@ Also, our scheme accommodates both verbal and non-verbal communication, allowing
 
 
 Our task planning approach uses a model of execution to improve the fluency and amenability of HRC. 
-This model is in the form of an execution controller as shown in Figure~\ref{fig:model_of_execution}, and is based on several key notions and mechanisms borrowed from studies on joint actions~\cite{Sebanz-2016,kourtis2014attention}, and adapted to Human-Robot Joint Action~\cite{clodic-2017,curioni-2019}.
+This model is in the form of an execution controller as shown in Figure~\ref{fig:simplified_model_exec}, and is based on several key notions and mechanisms borrowed from studies on joint actions~\cite{Sebanz-2016,kourtis2014attention}, and adapted to Human-Robot Joint Action~\cite{clodic-2017,curioni-2019}.
 The key idea is that co-acting agents co-represent the shared task context and integrate task components of their co-actors into their own task representation~\cite{Schmitz-2017, Yamaguchi-19}. Also, coordination and role distribution rely strongly on reciprocal information flow, e.g., social signals~\cite{curioni-2019}, prediction of other's next action~\cite{luke-2018}.
 
 Our proposed execution model is implemented on a robot that co-acts with a human, integrating explicit representation and exploration of the task representations for the robot and for the human. 
@@ -89,7 +89,7 @@ Our scheme provides this ability and also allows humans to inform about their pr
     Here, the human is always free to decide whether to start acting first, or after the robot, or not to act at all.
     To be compliant, the robot attempts to identify human decisions using perception and situation assessment as well as possible collaborative human signaling acts (e.g., gestures or speech).
     }
-    \label{fig:model_of_execution}
+    \label{fig:simplified_model_exec}
 \end{figure}
 
 % Full page figure formats w/r line of caption:
@@ -131,6 +131,7 @@ Now that the idea behind this model of execution has been explained we can prese
     \centering
     \includegraphics[width=0.99\linewidth]{Chapter4/complete_automaton_rotated.pdf}
     \caption{Complete Model of Execution - Dual Automaton. This version details the robot automaton and the assumed human automaton as well as the visual signals exchanges between the agents to synchronize themselves.}
+    \label{fig:complete_model_exec}
 \end{figure}
 
 \section{Problem specification + solution}
@@ -547,21 +548,38 @@ In this section, we provide some details about the computational performances of
 
 \section{Discussion and Limitations}
 
-\textbf{TODO: to develop...}
+% \textbf{TODO: to develop...}
 
-\begin{itemize}
-    \item Still have to synchronize with steps, currently no partial ordering. 
-    \item The robot always give the initiative to the human. Should be relevant to find an in-between model of execution where the robot intelligently switch from Human-First and Robot-First, thus, sometimes taking the initiative. Either when it has no impact (robot's best action is not dependent on human choice, thus, robot could initiate the step.)
-    \item Currently only symbolically simulated results, without durative actions, real humans nor real robot. Next chapter present a user study using an implemented version with durative action where a real human effectively interact with a simulated robot following the generated policy. 
-    \item Assume that actions have roughly the same durations.
-    \item Lack social cost, for now plan selection only relies on the estimated h preferences. Could be interesting to have a proper optimization scheme that evaluate more accurately the plans and help produce the robot policy with more criteria.
-\end{itemize}
+% \begin{itemize}
+%     \item Still have to synchronize with steps, currently no partial ordering. 
+%     \item The robot always give the initiative to the human. Should be relevant to find an in-between model of execution where the robot intelligently switch from Human-First and Robot-First, thus, sometimes taking the initiative. Either when it has no impact (robot's best action is not dependent on human choice, thus, robot could initiate the step.)
+%     \item Currently only symbolically simulated results, without durative actions, real humans nor real robot. Next chapter present a user study using an implemented version with durative action where a real human effectively interact with a simulated robot following the generated policy. 
+%     \item Assume that actions have roughly the same durations.
+%     \item Lack social cost, for now plan selection only relies on the estimated h preferences. Could be interesting to have a proper optimization scheme that evaluate more accurately the plans and help produce the robot policy with more criteria.
+% \end{itemize}
 
+% ****
+
+This section discusses a few limitations of the proposed approach and possible future works to overcome them. 
+
+First, in order to explore relevant courses of action, we assume a step-based progression toward the goal. Hence, we assume that the human and the robot must synchronize together after every action. This can work efficiently as long as we assume that all actions have roughly the same durations. However, in practice, this is never exactly the case and one agent must wait for the other at every step. Since the robot tends to be slower, the human might have to often wait for the robot during the collaboration with these assumptions. To be implemented on a real robot, this approach requires an additional execution scheme supervising the plan execution. In specific situations, this scheme could skip one synchronization and synchronize after the next step. Such a scheme could allow the human to perform more actions than the robot before synchronizing and thus promote a smooth and flexible execution.
+
+Speaking of execution, the results presented in this chapter have only been simulated symbolically, without durative actions nor real human decisions. The next two chapters (\ref{chap:5} and \ref{chap:6}) present a user study conducted on an interactive simulator where participants collaborated with a simulated robot executing the produced policy. To do so, we created an execution scheme able to supervise the execution of the robot policy with agent synchronizations. This scheme is directly based on the model of execution presented in fig.~\ref{fig:complete_model_exec}. Thus, it relies on the steps and doesn't provide the flexible execution mentioned just above. 
+
+Additionally, in the proposed model of execution, the robot always gives the initiative to the human. We show that this decision makes the collaboration robust to erroneous human preference estimations, and thus, is beneficial. However, it could be relevant for the robot to sometimes intelligently switch from follower to leader. Indeed, currently, even when there are no possible conflicts between agents' actions, the robot waits for the human to start acting to begin. Such synchronization isn't really necessary, so the robot could start acting directly to solve the task faster. 
+
+Eventually, the plan evaluation is a bit limited. For now, plan selection relies on the estimated human preferences which are a list of metrics to maximize or minimize in the priority order given by the list. This means that there is no balance between the metrics so, depending on the ordering, a plan of length $N$ where the robot is never intrusive and always compliant could be rejected against a plan of length $N-1$ where the robot is intrusive twice and never compliant. 
+Yet, in our examples, we tend to explore numerous very similar possibles plans. Thus, there are always several possible plans with a same top-priority metric value, e.g. plan length, and the ordering will help select the best plan satisfying at best the other listed metrics.   
 
 \section{Conclusion}
 
-\textbf{TODO}
+We addressed the complex challenge of concurrent task planning for a shared goal in the context of human-robot collaboration, acknowledging the inherent need for autonomy in humans' choices of `what' and `how' aspects during task execution. 
 
+Based on studies about joint action, we formulate an execution model, and we present a new human-aware task planner designed to accommodate the uncontrollability factor inherent in human agents while employing this execution model leveraging social signals to facilitate the exploration of human-robot joint actions and a smooth execution. 
+We also propose a plan evaluation and selection based on estimations of the human inner preferences.
+As a result, the planner produces the behavioral policy for a robot that complies with online human decisions and their (online) provided estimated preferences, 
+ensuring it solves the task, satisfies at best the estimated human preferences, and allows smooth and sound execution of concurrent joint action.
 
+We provide a detailed account of the novel planning process and joint action model. We demonstrated its effectiveness through symbolically simulated BlocksWorld scenarios and how our model makes the robot robust to erroneous preference estimations.
 
-
+Additionally, as mentioned in the previous section, we implemented an interactive simulator in which a real human can collaborate with a simulated robot running the generated policies. We used this simulator to conduct a user study to validate our approach with real humans. This simulator and study are described in the next two chapters.  
