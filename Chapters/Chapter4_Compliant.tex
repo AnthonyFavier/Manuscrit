@@ -569,7 +569,7 @@ Speaking of execution, the results presented in this chapter have only been simu
 Additionally, in the proposed model of execution, the robot always gives the initiative to the human. We show that this decision makes the collaboration robust to erroneous human preference estimations, and thus, is beneficial. However, it could be relevant for the robot to sometimes intelligently switch from follower to leader. Indeed, currently, even when there are no possible conflicts between agents' actions, the robot waits for the human to start acting to begin. Such synchronization isn't really necessary, so the robot could start acting directly to solve the task faster. 
 
 Eventually, the plan evaluation is a bit limited. For now, plan selection relies on the estimated human preferences which are a list of metrics to maximize or minimize in the priority order given by the list. This means that there is no balance between the metrics so, depending on the ordering, a plan of length $N$ where the robot is never intrusive and always compliant could be rejected against a plan of length $N-1$ where the robot is intrusive twice and never compliant. 
-Yet, in our examples, we tend to explore numerous very similar possibles plans. Thus, there are always several possible plans with a same top-priority metric value, e.g. plan length, and the ordering will help select the best plan satisfying at best the other listed metrics.   
+Yet, in our examples, we tend to explore numerous very similar possible plans. Thus, there are always several possible plans with a same top-priority metric value, e.g. plan length, and the ordering will help select the best plan satisfying at best the other listed metrics.   
 
 \section{Conclusion}
 
