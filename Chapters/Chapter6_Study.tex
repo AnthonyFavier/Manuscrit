@@ -536,25 +536,22 @@ RF, bad, not in control, bad choices: having to drop bar + using common resource
 
 Every participant had an overall negative opinion regarding the RF regime. The latter has been qualified as very frustrating, confusing, constraining, unpredictable, inefficient, and even adversarial. A significant number of participants stated that to finish the task quickly RF could be great, fast, efficient, and less cognitively demanding, despite the lack of control. Also, a few participants noticed that even if during a specific step the human is forced to comply with the robot's actions, in the next step the robot takes into account the human action and adapts its behavior. 
 However, it has been said that RF doesn't consider the human's objective or preferences. Participants really disliked when the robot forced them to drop a cube back on the table (pink bar in S6) and when the robot picked cubes in the middle zone instead of its own zone. The latter was perceived as the robot stealing the cubes from the human.
-Due to those frustrating robot actions, the RF regime were putting the participants in an adversarial setup and the robots were explicitly qualified as ``enemies''. Some participants said that they were more focused on preventing the robot's mistakes than on the actual task.
+Due to those frustrating robot actions, the RF regime was putting the participants in an adversarial setup and the robots were explicitly qualified as ``enemies''. Some participants said that they were more focused on preventing the robot's mistakes than on the actual task.
 
 
 \section{Discussion}
 
-\textit{Highlight that study validates both the planning approach and the model of exec (HF)}
+\textbf{TODO: to develop}
 
-Overall, the study shows that the robot was always useful, reactive
+There are several elements to discuss in this study, including several participants' comments.
 
-***
-
-Our purpose was to validate thanks to this study both the overall planning approach as well as the model of execution Human-First which is key to our approach. 
-
-After statistically analyzing as objective metrics the execution log data, and as subjective metrics the questionnaire answers and participants' comments, we can confidently state that this study successfully validates both our planning approach and our model of execution. 
-
-Indeed, we have solid proof that the HF regime has been preferred by the participants because of the control it gives to the human making the robot accommodating, adaptive, acting appropriately while being predictable. HF also helps to better satisfy the human inner preferences which makes it more robust to erroneous estimations and thus more enjoyable. 
-On the other hand, we also show how the RF regime can be appreciated a lot when estimating correctly human preferences, but we also show how erroneous estimations are strongly detrimental to collaboration and interaction when using the RF regime. 
-Hence, the Human-First regime is preferred and allows for achieving smooth, efficient, and positive collaborations.
-Yet, we also show that even when using the Robot-First regime the robot is able to always solve the task with the human, thus, it is always found as useful. It also still adapts to human actions in the next step thanks to our policy format. This means that our planning approach is still efficient and appropriate for this context. 
+\begin{itemize}
+    \item simulation to real life ? what would it take ? different results ? One in between solution is using VR. Requires flexible execution scheme like described in limitations in chapter \ref{chap:5}.
+    \item Simu not realistic enough (pass trough cubes, no orientation, etc..): since focused on decisions, was enough but we could have done better. 
+    \item Text prompt: Which info to prompt ? when ? and how (sometimes hard to read). maybe vocal would have been better ? Here no specific study has been conducted, we simply show to the participants some inner state of the robot (waiting for human, acting, identifying human action, ...)
+    \item A different task ? only manipulation ? no navigation ?  Here the task carefully design to not be too long and still be significantly influenced by pairs of pref-esti
+    \item Using an additional baseline with an erratic robot could have helped showing RF not so bad. 
+\end{itemize}
 
 \section{Conclusion}
 
