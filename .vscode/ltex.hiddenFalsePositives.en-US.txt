@@ -3,3 +3,6 @@
 {"rule":"WHITESPACE_RULE","sentence":"^$"}
 {"rule":"ALLOW_TO","sentence":"^\\QWe use a simple baseline to compare the Model of Execution with, and we show how our model allows to better satisfy human preferences and thus is preferred.\\E$"}
 {"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QOlivier Hauterville, Camino Fernández, Phani-Teja Singamaneni, Anthony Favier, Vicente Matellán, et al..\\E$"}
+{"rule":"HUMANS_BEINGS","sentence":"^\\QThen, planning decisions may require reasoning on both the robot's and the human's beliefs.\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QIn \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q they propose a hierarchical human-robot cooperation architecture called FlexHRC+ designed to provide collaborative robots with an extended degree of autonomy when supporting human operators in high-variability shop-floor tasks.\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QIn \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q, they propose a hierarchical human-robot cooperation architecture called FlexHRC+ designed to provide collaborative robots with an extended degree of autonomy when supporting human operators in high-variability shop-floor tasks.\\E$"}

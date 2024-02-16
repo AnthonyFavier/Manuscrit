@@ -14,50 +14,44 @@
 
 \section{Introduction}
 
-I was introduced to the field of task planning the work of a PhD student from my lab, Guilhem Buisan. I slightly contributed to the original version and then proposed two extensions of his work. Yet, Guilhem mainly designed and implemented this novel human-aware task planning approach dedicated to HRI which plans the robot's actions while estimating and emulating the human decisions and actions, namely HATP/EHDA. 
+I was introduced to task planning with the work of a PhD student from my lab, Guilhem Buisan. I slightly contributed to the original version and then proposed two extensions of his work. However, Guilhem mainly designed and implemented this novel human-aware task planning approach dedicated to HRI, which plans the robot's actions while estimating and emulating the human decisions and actions, namely HATP/EHDA. 
 
-We believe this planning approach suits well the needs of HRI scenarios, and thus, it became a laboratory to address relevant challenges of task-planning for HRC. 
-Two of my main contributions consist of addressing such challenges and then implementing the solutions as extensions of HATP/EHDA.   
-As a consequence, it is important to understand this work well, both its motivation and methods, before introducing my proper contributions. This section introduces, motivates and explains the HATP/EHDA approach as a background to the other chapters. 
-Naturally, a detailed description of this prototypical planner is already given in Buisan's thesis~\cite{thesisBuisan21}. Thus, large parts of this section are directly retrieved from Buisan's thesis, but they are important to have in mind. Some notations are adapted to match my contributions' descriptions in the next chapters. 
+We believe this planning approach suits the needs of HRI scenarios well; thus, it became a laboratory to address relevant challenges of task planning for HRC. 
+Two of my main contributions include addressing such challenges and implementing the solutions as extensions of HATP/EHDA.   
+Consequently, it is essential to understand this work's motivation and methods well before introducing my proper contributions. This section introduces, motivates, and explains the HATP/EHDA approach as a background to the other chapters. 
+A detailed description of this prototypical planner is already given in Buisan's thesis~\cite{thesisBuisan21}. Thus, large parts of this section are directly retrieved from Buisan's thesis, but they are essential to have in mind. Some notations are adapted to match my contributions' descriptions in the following chapters. 
 
-\subsection{Rationales}
+\section{A Hierarchical Agent-Based Task Planner (HATP)}
+
+My work and HATP/EHDA are part of a line of work that started with the Hierarchical Agent-based Task Planner (HATP) \cite{alili2009task,lallement2014hatp}.
+
+Based on Hierarchical Task Networks (HTN), this planner can elaborate a multi-agent plan based on a single HTN tree. Moreover, it maintains one belief base per agent, allowing the writer to write task decomposition rules and action preconditions and effects in any agent belief base. This approach produces a joint plan that includes actions from all involved agents. 
+
+Finally, to make HATP suitable to HRI scenarios, specific mechanisms to compute costs and filter plans have been included. To this end, HATP allows balancing efficiency, wasted time, agent effort, intricacy, and undesirable states or sequences. This way, social rules can be defined to produce a collaborative plan the human will likely accept. 
+
+However, HATP assumes a shared goal has been established between humans and robots before planning. The generated plan will be shared with and accepted by the human before the execution. Indeed, HATP does not represent the human as an agent having a separate decision process that may lead to diverging plans without robot communication. Hence, any human deviation from their generated stream of action needs supervision to perform repair action or request a replanning. Such an approach can work well but assumes that communication can easily be done at any point of the plan. Since this isn't always the case, or simply because communication can be costly, any human deviation, even due to inattention, will put the robot in a failure state which needs to be fixed before continuing (replanning).
+
+\section{HATP/EHDA Rationales}
 
 HATP/EHDA has been developed to try to satisfy several objectives: 
 \begin{enumerate}
-    \item \textbf{Plan without assuming a prior shared goal.} In HRI scenarios, the robot and the human do not always share a goal. The robot can for example plan to perform a task around humans that are not involved at first, or it may be requested by a human to do a task without wanting to take a part in it. HATP/EHDA can balance between integrating the sharing of a goal with a human (assumed to be collaborative) in the plan and making the robot do the task alone, or integrate the eventuality to ask for punctual human help. 
+    \item \textbf{Plan without assuming a prior shared goal.} In HRI scenarios, the robot and the human do not always share a goal. The robot can, for example, plan to perform a task around humans that are not involved at first, or it may be requested by a human to do a task without wanting to take part in it. HATP/EHDA can balance between integrating the sharing of a goal with a human (assumed to be collaborative) in the plan and making the robot do the task alone or integrating the eventuality to ask for punctual human help. 
 
     \item \textbf{Model the human decision processes.} When taking part in a task, a human (assumed willing to collaborate with the robot) will also plan to reach their (potentially shared) goal. HATP/EHDA must be able to account for this to provide plans that are expected and explainable by the human partner.
 
-    \item \textbf{Help the human decisions, but not compel them.} Unlike HATP, HATP/EHDA should account for human flexibility in their decision. While by modeling the human decision processes it is possible to narrow down the possible human actions, the generated plans must be able to help the supervision (execution of the plan) to avoid replanning or repairing during the execution by considering several human actions.
+    \item \textbf{Help the human decisions, but not compel them.} Unlike HATP, HATP/EHDA should account for human decision-making flexibility. While modeling the human decision processes, it is possible to narrow down the possible human actions, and the generated plans must help the supervision (execution of the plan) avoid replanning or repairing during the execution by considering several human actions.
 
-    \item \textbf{Model the potential human reactions.} It is possible to predict that the human may react to some situations, interrupting or helping their current task. Two causes have been identified for these reactions. First, they can ensue from some specific world states, that have been perceived and interpreted by the human. Then, they can also originate from explicit communications issued by the robot. These communications can either be a belief alignment, updating the human knowledge and impacting their decisions; a request to perform a specific action or a request to help the robot along with a shared goal, needing the human to plan for it.
+    \item \textbf{Model the potential human reactions.} It is possible to predict that the human may react to some situations, interrupting or helping their current task. Two causes have been identified for these reactions. First, they can result from specific world states humans perceive and interpret. Then, they can also originate from explicit communications issued by the robot. These communications can either be a belief alignment, updating the human knowledge and impacting their decisions, a request to perform a specific action, or a request to help the robot with a shared goal, needing the human to plan for it.
 
-    \item \textbf{Act and decide on the different agents' beliefs.} It is important to be able to represent actions as having different effects on the beliefs of the robot or the human. Indeed, some robot actions are partially or not observable by the human, when performing them, the human has no way of knowing the complete new world state. Besides, these effects and their observability often depend on the current world state, which representation must be supported in the planner. Then, decisions made while planning may require reasoning on both the robot and the human beliefs. This is especially the case with communication actions aiming at aligning knowledge or asking questions for example. Finally, some actions of pure decision have no direct effect on the world, but only on the internal beliefs of the agents. For example, observation actions will only update the beliefs of the agent doing it.
+    \item \textbf{Act and decide on the different agents' beliefs.} It is crucial to be able to represent actions as having different effects on the beliefs of the robot or the human. Indeed, some robot actions are partially or not observable by humans; humans cannot know the complete new world state when performing them. Besides, these effects and their observability often depend on the current world state, whose representation must be supported by the planner. Then, planning decisions may require reasoning on both the robot's and human's beliefs. This is especially true with communication actions aiming to align knowledge or ask questions. Finally, some actions of pure decision have no direct effect on the world but only on the internal beliefs of the agents. For example, observation actions will only update the beliefs of the agent doing it.
 
-    \item \textbf{Decide not only on the world state but also on the decision processes of the agents.} Some decisions made during the planning process require access not only to the beliefs of the agents representing the world state, but also to the estimation of their planning processes. For example, the decomposition of a task by the robot may be impossible if some other task is already performed in its partial plan. Other decisions may also need the estimation of the human current planning process. For example, if it has been estimated earlier in the plan that the human will perform a certain decomposition of a task, the planner would assign a complementary task to the robot.
+    \item \textbf{Decide not only on the world state but also on the decision processes of the agents.} Some decisions made during the planning process require access to the agents' beliefs representing the world state and the estimation of their planning processes. For example, the decomposition of a task by the robot may be impossible if some other task is already performed in its partial plan. Other decisions may also need the estimation of the current human planning process. For example, if it were estimated earlier in the plan that the human would perform a specific task decomposition, the planner would assign a complementary task to the robot.
 
-    \item \textbf{Adapt to the human experience, trust and preferences.} We also want the planning process to be adjusted depending on the actual human it is planning with. It must perform its plan search differently whether the human has the habit of performing this particular task with the robot or not. Moreover, the human model can be adjusted to the trust the human has in the robot and to their preferences.
+    \item \textbf{Adapt to the human experience, trust, and preferences.} We also want the planning process to be adjusted depending on the actual human it is planning with. It must perform its planned search differently, whether the human has the habit of performing this particular task with the robot or not. Moreover, the human model can be adjusted to the human's trust in the robot and to their preferences.
 
 \end{enumerate}
 
-\subsection{Running example}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\linewidth]{Chapter2/scenarios.png}
-    \caption{Cube stacking scene: A different plan is selected for each scenario, involving nearby humans in the less disturbing way possible}.
-    \label{fig:scenarios}
-\end{figure}
-
-To highlight the potential of our approach we present as an example a cube stacking scene. The scene is depicted in four different scenarios in \ref{fig:scenarios}. The goal consists of stacking the colored cubes on the empty marks to match the colors on the left of the figure. All cubes placed in the middle of the table are reachable from anywhere. However, when close to one side a cube is only reachable from this specific side.
-
 \section{Related work}
-
-\subsection{HATP}
-The Hierarchical Agent-based Task Planner (HATP) proposes a hierarchical approach to multi-agent task planning. This HTN-based planner is able to elaborate a multi-agent plan based on a single HTN tree. Moreover, it maintains one beliefs base per agent allowing to write task decomposition rules and actions preconditions and effects in any agent beliefs base. Finally, HATP also computes costs for the plans found based on action costs and predefined social rules. However, HATP assumes that a shared goal has been established between the human and the robot prior to the planning process and that the generated plan will be shared with the human before the execution. Indeed, HATP does not represent the human as an agent having a separate decision process that may lead to diverging plans without robot communication. Hence, any deviation of the human from their generated stream of action either needs supervision to perform repair action or to request for a replanning. Such an approach can work well but assumes that communication can easily be done at any point of the plan.  
-
-\subsection{Other human-aware task planner}
 
 \textbf{TODO: List and develop some human-aware / HRC task planners}
 
@@ -71,17 +65,29 @@ Robot actions must be planned according to several factors, try to find a citati
     \item Social norms/rules: The human comfort must be satisfied when collaborating, to that end, the robot should follow (implicit) social rules leading to an appropriate, legible robot behavior.
 \end{enumerate}
 
-\subsubsection{2) Hoffman - 2007 - Effects of anticipatory action on human-robot teamwork efficiency, fluency, and perception of team}
+
+Some works more focused on the adaptive execution, using online planning. 
+
+Some on explainability \ref{w2}
+
+Some on supporting human. Here the robot proactively help the human to accomplish a task but the robot doesn't have a proper task. Often closer to execution because the robot is adaptive and reactive to the human to support them \ref{w1} \ref{w6}
+
+Some service robot but on long term support \ref{w8}. Human activity leads to constrainst on the robot behavior like don't make noise while the human is sleeping  
+
+\subsubsection{Hoffman - 2007 - Effects of anticipatory action on human-robot teamwork efficiency, fluency, and perception of team}
+\label{w1}
 
 Proposes to anticipate human actions to provide efficient robot support. The human is modeled as a First-Order Markov Process and could even be modeled as a Hidden Markov Model. The probabilities constituting the human model are used in the cost evaluation of different plans, eventually leading to a robot action selection producing a robot plan. 
 
 \subsubsection{Chakraborti - 2017 - Plan Explanations as Model Reconciliation: Moving Beyond Explanation as Soliloquy}
+\label{w2}
 
 They propose to improve the explainability of a robot plan by using both a robot model $\mathcal{M^R}$ and the estimation of the model the human has of it $\mathcal{M^R_H}$. This approach, called model reconciliation, aims to make identical the optimal plans generated using both models, i.e., $\mathcal{M^R}$ and $\mathcal{M^R_H}$. They define a list of operators to modify the different models until the plans match. 
 
 Although this approach interestingly improves the explainability of the robot's plan, it does not consider the two agents to collaborate directly. Indeed, the plan produced only contains robot actions.  
 
 \subsubsection{Iocchi (Sanelli et al.) - 2017 - Short-Term Human-Robot Interaction through Conditional Planning and Execution}
+\label{w3}
 
 This work is two-sided. First, they propose a conditional planning system considering uncertainties, primarily due to human agents. This planning approach is based on planner Contingent-FF (cite Hoffman and Brafman 2005). Then, they propose a component to translate these plans into Robust Petri-Net Plan (PNP) to handle their execution. This translation is inspired by work (Iocchi 2016), which improves plans with execution rules. Eventually, this plan are executed with an existing module called PNPRos [cite?].
 
@@ -90,6 +96,7 @@ Interestingly, the expected human actions are transformed into sub-petri nets wh
 However, this approach does not model either reason on a distinct human agent model. Hence, the human reasoning process, goal, and belief are not modeled. This means that the interaction is limited to requesting the human to perform single actions without setting a proper high-level joint goal. This can be efficient in some situations, like a service robot providing information and requesting answers to some questions. However, repeated punctual interventions to collaboratively perform a longer task can become unpleasant for the human.
 
 \subsubsection{Scheutz (Buckingham et al.) - 2020 - Robot Planning with Mental Models of Co-present Humans}
+\label{w4}
 
 This planning approach proposes a unified scheme to cope with collaborative, adversarial, and non-involved human agents. This scheme considers given mental models for each human co-present with the robot, which might interact with the latter. These mental models are queried to estimate a set of actions each agent is likely to perform given a state. The robot's actions are planned according to these estimated actions to reach the robot's goal and potentially achieve the human agents' goal. In doing so, the robot's actions can influence the human ones without explicit communication, helping the robot achieve its goal.
 
@@ -99,6 +106,7 @@ In contrast, HATP/EHDA uses HTN-based mental models, which require expert knowle
 Moreover, when selecting the robot actions, HATP/EHDA minimizes the average cost of all possible human decisions, optimizing uniformly for any human decisions. This approach considers humans as congruent, rational, and cooperative but not necessarily involved in the robot's task. Hence, HATP/EHDA doesn't account for adversarial human.
 
 \subsubsection{Unhelkar / Shah - 2020 - Decision-Making for Bidirectional Communication in Sequential Human-Robot Collaborative Tasks}
+\label{w5}
 
 They propose an approach based on Partially Observable Markov Decision Process (POMDP) called CommPlan. The POMDP is built using a user defined MDP (Markov Decision Process) representing the collaborative task and an Agent Markov Model (AMM) representing the human decision-making process. Solving this POMDP produces a robot policy which decides when the robot has to communicate about its beliefs, when to question the human about theirs, and when to ask the human to perform an action.
 Besides, the AMM is not only specified by expert modeler but also refined during the interaction via learning. 
@@ -106,33 +114,55 @@ Besides, the AMM is not only specified by expert modeler but also refined during
 However, the approach considers the human model as an oracle on which reasoning is hardly possible \textbf{To develop}
 
 \subsubsection{Darvish - 2021 - A Hierarchical Architecture for Human-Robot Cooperation Processes}
+\label{w6}
 
-They propose FlexHRC+ a hierarchical human-robot cooperation architecture designed to provide collaborative robots with an extended degree of autonomy when supporting human operators in high-variability shop-floor tasks. 
+In \cite{DarvishSMC21}, they propose a hierarchical human-robot cooperation architecture called FlexHRC+ designed to provide collaborative robots with an extended degree of autonomy when supporting human operators in high-variability shop-floor tasks. This architecture is organized into three levels: perception, representation, and action. 
+They use hierarchical AND/OR graphs where arcs are sub AND/OR graphs to reduce the complexity of task descriptions, especially when including repetitive subsequences of action (like mounting four table legs). This representation is close to the HTN one used in HATP/EHDA. 
 
-Hierarchical AND/OR graph whose online behavior is formally specified using first-order logic. 
+While this interesting architecture seems to provide a robust, adaptive, and sometimes proactive collaboration, it is based on online planning, meaning their planning horizon is limited and optimality is not guaranteed. 
 
-\textbf{to develop}
+Additionally, this architecture could complement the HATP/EHDA approach by providing a robust online support to the offline conditional plan produced. 
 
-\subsubsection{A Hierarchical Human-Robot Interaction-Planning Framework for Task Allocation in Collaborative Industrial Assembly Processes}
 
-boablabla
+\subsubsection{2017 - A Hierarchical Human-Robot Interaction-Planning Framework for Task Allocation in Collaborative Industrial Assembly Processes}
+\label{w7}
+
+In \cite{johannsmeier2016hierarchical}, the authors propose a task allocation framework for human-robot collaborative assembly line tasks. They propose representing the task through an AND/OR graph and solving the optimal sub-task allocation problem considering a given cost function. Action sequences are extracted from this allocation and then shared with the respective agents to be executed. Hierarchical and concurrent hybrid state machines handle the execution of these sequences. This copes with unpredictable events likely to happen in dynamic and partially known environments, especially in the presence of humans.  
+
+Like any industrial task, assembly line tasks allow using a few assumptions about humans. Indeed, in this context, the human is working and thus should be fully committed and focused on the task. Hence, even if humans appreciate flexibility, their priority in this context is task efficiency. Thus, humans will be more likely to accept propositions from robots than in a less demanding context like a household one. Moreover, humans will likely be distracted or change their minds in household scenarios. Thus, like HATP/EHDA, it is relevant to plan and anticipate several possible human decisions instead of an optimal one.
 
 \subsubsection{A constraint-based approach for proactive, context-aware human support}
+\label{w8}
 
 more about supporting human
 
 \subsubsection{A Human Decision-Making Behavior Model for Human-Robot Interaction in Multi-Robot Systems}
+\label{w9}
 
 dd
 
 \subsubsection{A Human-Aware Method to Plan Complex Cooperative and Autonomous Tasks using Behavior Trees}
+\label{w10}
 
 The paper proposes a novel human-aware method for generating robot plans in industrial environments, allowing the robot to adapt its plan to the human partner and optimize decision-making based on human actions. The method models task-related costs considering distances from the human and the robot to the task, human ergonomics, and task duration. It enables the robot to plan online and obtain different behaviors based on user choice, considering different levels of engagement between robots and humans. The proposed solution demonstrates high potential in increasing robot reactivity and flexibility while optimizing decision-making based on human actions.
 
 \subsubsection{Improved Task Planning through Failure Anticipation in Human-Robot Collaboration}
+\label{w11}
 
+\label{w12}
 \subsubsection{Human-Robot Collaboration using Monte Carlo Tree Search}
 
+
+\section{Running example}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{Chapter2/scenarios.png}
+    \caption{Cube stacking scene: A different plan is selected for each scenario, involving nearby humans in the less disturbing way possible}.
+    \label{fig:scenarios}
+\end{figure}
+
+To highlight the potential of our approach, we present a cube-stacking scene as an example. The scene is depicted in four different scenarios in \ref{fig:scenarios}. The goal consists of stacking the colored cubes on the empty marks to match the colors on the left of the figure. All cubes placed in the middle of the table are reachable from anywhere. However, when close to one side a cube is only reachable from this specific side.
 
 
 \section{Problem Specification and Solution}
