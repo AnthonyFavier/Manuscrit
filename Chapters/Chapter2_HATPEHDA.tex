@@ -31,9 +31,9 @@ Finally, to make HATP suitable to HRI scenarios, specific mechanisms to compute 
 
 However, HATP assumes a shared goal has been established between humans and robots before planning. The generated plan will be shared with and accepted by the human before the execution. Indeed, HATP does not represent the human as an agent having a separate decision process that may lead to diverging plans without robot communication. Hence, any human deviation from their generated stream of action needs supervision to perform repair action or request a replanning. Such an approach can work well but assumes that communication can easily be done at any point of the plan. Since this isn't always the case, or simply because communication can be costly, any human deviation, even due to inattention, will put the robot in a failure state which needs to be fixed before continuing (replanning).
 
-\section{HATP/EHDA Rationales}
+\section{Rationales of a new approach HATP/EHDA}
 
-HATP/EHDA has been developed to try to satisfy several objectives: 
+The HATP approach produces what is estimated to be the best joint plan for solving the task. Hence, this approach assumes that the human is likely to accept and follow the produced plan. This leaves no room for online human decisions and assumes a fully committed human, through a prior defined shared goal. This approach also consider one shared task representation and knowledge base. To cater with the limiations of HATP, I participated in the development of a new approach, HATP/EHDA, which try to satisfy several objectives: 
 \begin{enumerate}
     \item \textbf{Plan without assuming a prior shared goal.} In HRI scenarios, the robot and the human do not always share a goal. The robot can, for example, plan to perform a task around humans that are not involved at first, or it may be requested by a human to do a task without wanting to take part in it. HATP/EHDA can balance between integrating the sharing of a goal with a human (assumed to be collaborative) in the plan and making the robot do the task alone or integrating the eventuality to ask for punctual human help. 
 
@@ -51,9 +51,11 @@ HATP/EHDA has been developed to try to satisfy several objectives:
 
 \end{enumerate}
 
+\textbf{TODO: explicitly give new things compared to HATP}
+
 \section{Related work}
 
-\textbf{TODO: List and develop some human-aware / HRC task planners}
+\textbf{TODO: List and develop some human-aware / HRC task planners, regroup them per ``categories''}
 
 Robot actions must be planned according to several factors, try to find a citation?. All these can be linked to explainable AI this it justifies the robot behavior from the human's perspective. 
 
@@ -64,7 +66,6 @@ Robot actions must be planned according to several factors, try to find a citati
     \item Human uncontrollability: The robot should not compel the human decision and should thus be adaptive to what the human does.
     \item Social norms/rules: The human comfort must be satisfied when collaborating, to that end, the robot should follow (implicit) social rules leading to an appropriate, legible robot behavior.
 \end{enumerate}
-
 
 Some works more focused on the adaptive execution, using online planning. 
 
