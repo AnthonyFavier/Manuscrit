@@ -163,7 +163,11 @@ The paper proposes a novel human-aware method for generating robot plans in indu
     \label{fig:scenarios}
 \end{figure}
 
-To highlight the potential of our approach, we present a cube-stacking scene as an example. The scene is depicted in four different scenarios in \ref{fig:scenarios}. The goal consists of stacking the colored cubes on the empty marks to match the colors on the left of the figure. All cubes placed in the middle of the table are reachable from anywhere. However, when close to one side a cube is only reachable from this specific side.
+To highlight the potential of our approach, we present a cube-stacking scene as an example. The scene is depicted in four different scenarios in \ref{fig:scenarios}. The goal consists of stacking the colored cubes on the empty marks to match the colors on the left of the figure. All cubes placed in the middle of the table are reachable from anywhere. However, when close to one side, a cube is only reachable from this specific side. Notice that one of the required red cubes is located on the opposite side of the table and cannot be grabed by the robot in the initial state.
+
+A first human, called $H1$, requests the robot to stack the colored cubes to match the goal pattern given. In the first case (a), $H1$ set a shared collaboration goal by requesting the robot to stack the cubes together with them. However, $H1$ can also just give their request to the robot and leave. In such a case, the robot has three possibilities. First, in (b), the robot can solve the task alone but must move to the other side of the table, which is slow and costly. Secondly, in (c), the robot can ask another nearby human, $H2$, for punctual help with the unreachable red cube. $H2$'s reaction can be to put the red cube directly in the stack or only make it reachable to the robot. Finally, the robot can set a shared goal by requesting $H2$ to help it build the stack together. 
+
+The HATP/EHDA approach explores and evaluates all these kinds of scenarios to produce the robot policy.
 
 
 \section{Problem Specification and Solution}
