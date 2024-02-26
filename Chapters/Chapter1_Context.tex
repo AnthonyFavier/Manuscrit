@@ -165,7 +165,7 @@ A common way of representing human activity (MrH ) and interaction with computer
 \subsection{Hierarchical models}
 
 In classical planning, each action of an agent is atomic and needs some conditions to hold in the environment to be executed, then it changes the environment when applied. The planning process has then to find the right sequence of actions, being applicable one after the other to change the environment to reach a certain goal state. 
-However, it has been shown (cite?) that humans tend to plan their actions differently. Indeed, we usually work on a more abstract level and tend to decompose tasks hierarchically into small tasks until reaching the action level. In practice, using Hierarchical Task Networks (HTNs) allow the domin designer to help the plan search by inserting expert knowledge via a hierarchy linking the actions [erol 1996]. A task network consists in tasks organized in a fully or partially ordered manner, and each task can be either abstract or primitive. Primitive tasks are elementary tasks that can be achieved by performing one associated action. On the other hand, abstract tasks are tasks that first need to be decomposed into other subtasks, ``more primitive". The goal of the planner is not to find the sequence of actions to reach a goal, but rather to select recursively for each task the right decomposition ending (if possible) with a network of actions applicable from the initial state. Such a process is named by Ghallab, Nau and Traverso as planning with refinement methods [Ghallab 2016]. This planning hierarchy not only allows the domain designer to guide the search by inserting some expertise into the model, but also to enhance explainability as the decompositions often offer a semantic to their subtasks (the why can usually be answered by going up in the hierarchy, while the how is answered by going down. 
+However, it has been shown (cite?) that humans tend to plan their actions differently. Indeed, we usually work on a more abstract level and tend to decompose tasks hierarchically into small tasks until reaching the action level. In practice, using Hierarchical Task Networks (HTNs) allow the domin designer to help the plan search by inserting expert knowledge via a hierarchy linking the actions [erol 1996]. A task network consists in tasks organized in a fully or partially ordered manner, and each task can be either abstract or primitive. Primitive tasks are elementary tasks that can be achieved by performing one associated action. On the other hand, abstract tasks are tasks that first need to be decomposed into other subtasks, ``more primitive". The goal of the planner is not to find the sequence of actions to reach a goal, but rather to select recursively for each task the right decomposition ending (if possible) with a network of actions applicable from the initial state. Such a process is named by Ghallab, Nau and Traverso as planning with refinement methods [Ghallab 2016]. This planning hierarchy not only allows the domain designer to guide the search by inserting some expertise into the model, but also to enhance explainability as the decompositions often offer a semantic to their subtasks the why can usually be answered by going up in the hierarchy, while the how is answered by going down. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Task Planning}
@@ -194,22 +194,33 @@ Classical planning has been vastly studied and can now solve efficiently various
 Overall, \textbf{Human-Aware Task Planning} is the process of considering the presence and behavior of humans in the planning and execution of robot tasks. It involves taking into account cues from the shared environment and the dynamics of human-robot interaction. The goal is to generate robot policies that are adaptable, robust, and efficient in crowded and dynamic environments. This field includes having an explicit shared task or common goal between the human and the robot, implying that the two agents will collaborate to reach the goal. It also includes not having an established shared goal, and thus, is closer to what I would call an interaction instead of a collaboration. Yet, both problems are interesting and must be addressed, with a unified approach or not. 
 The approaches presented in this thesis are in between the first three subfields listed above. 
 
+\subsection{Utilities of planning}
+
+\textbf{TODO: to develop}
+
+\begin{itemize}
+    \item Planning techniques can be generalized.
+    \item Mixed with motion planning: symbolic and geometric reasoning
+    \item In dialogue
+    \item other context?
+\end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Human-Aware Navigation}
 
-Human-aware navigation intersects research on human-robot interaction (HRI), robot motion planning, and motion control.
+\textbf{TODO: transition with task planning}
+
+In my work I studied the decision-making challenge mostly in the field of task-planning. 
+Nevertheless, I also worked on decision-making processes for navigation, more precisely, on how to simulate a navigating interactive human agent endowed with decisional capabilities to challenge robotic navigation systems. Hence, to better understand this contribution, this section provides some context on robot navigation, especially on state-of-the-art techniques and existing benchmarking tools.
 
 As stated in \cite{thesisBuisan21}, robot navigation aims to make the robot base (the whole robot) move from one place to another while avoiding static and moving obstacles. However, other constraints must be added when the robot has to move in an environment where humans are evolving. 
 Humans should not just be avoided as other moving obstacles, and their psychological and mental state must be taken into account. Hence, the robot should neither move threateningly, block the humans, nor induce drastic changes in their motion. Taking all these aspects into account is what is called human-aware robot navigation.
-
-One of my contributions is to propose a simulated human agent endowed with decision-making processes dedicated to navigation in order to challenge human-aware robot navigation systems. To do so, the simulated avatar also uses some human-aware navigation techniques. Hence, I briefly describe in this section the current robot navigation techniques and some existing benchmarking tools used in robot navigation to show the lack of such intelligent simulated agents.
 
 \subsection{Robot Navigation techniques}
 
 State-of-the-art techniques for robot navigation involve two kinds of motion planners: a global and a local planner. The global planner is in charge of finding the best overall trajectory leading the robot to its goal, producing a global plan. This planner usually only takes into account static obstacles described by a given map of the environment. Then, the local planner is in charge of producing velocity commands sent to the motor controllers to follow the produced global plan. To produce the velocity commands the local planner may produce a local plan with only a few seconds of time horizon that follows the global plan while taking into account obstacles detected in real-time by the robot sensors, including moving obstacles. This way the robot should reach its goal while being reactive to moving obstacles. 
 
-Recent techniques also involve learning methods.
+Recent techniques also involve learning methods. \textbf{TODO: add citations and description}
 
 However, how explained above, such approaches are not sufficient in human-populated environments. Humans must be detected and treated differently during the motion planning process. Human-aware approaches detect and track nearby humans and try to estimate their trajectory to plan the robot one accordingly. This is achieved in works like [cite CoHAN] where the human trajectory is estimated using goal recognition processes and elastic bands methods. Then, the robot's motion is planned using also elastic band methods that are tuned to take into account the robot's goal, the estimated human trajectory and other social norms.   
 
@@ -218,5 +229,5 @@ However, how explained above, such approaches are not sufficient in human-popula
 Where it is easy to benchmark robot navigation on objective metrics like the time to reach a goal, the distance traveled and the number of collisions [cite BARN Perille], it is more challenging to benchmark their human-aware properties.
 First, there is no consensus on the metrics to use to evaluate the human-aware properties of a navigation system. State-of-the-art metrics involve proxemics [cite]. Yet, other metrics can be relevant such as the deviation imposed to the human motion, and the feeling of threat produced.
 Also, it is challenging to find a usable system that will effectively challenge a HAN system. 
-Common approaches involve reactive-only techniques such as social force models. Such reactive models are easy to use and efficient for crowd simulations, but in intricate scenarios involving some decision-making they can perform very poorly. Thus, there was a lack of intelligent simulated agents to challenge effectively HAN system.
+Common approaches involve reactive-only techniques such as social force models \textbf{TODO: cite + figure?}. Such reactive models are easy to use and efficient for crowd simulations, but in intricate scenarios involving some decision-making they can perform very poorly. Thus, there was a lack of intelligent simulated agents to challenge effectively HAN system.
 I started to work on this aspect in 2020. Now, a few recent work also propose to simulate human agent endowed with some reasoning processes but I didn't find the time to properly compare my contribution with them. Yet, this shows that this is a subject of interest and a few a such work can be mentioned here. Some related works will be discussed in Chapter~\ref{chap:6}.
