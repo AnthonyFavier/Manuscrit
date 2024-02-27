@@ -132,14 +132,14 @@ As a result, some works are dedicated to designing robotic architectures, especi
 
 Example of cognitive architecture
 [cite SOAR Laird et al, CORTEX Bustos et al, ORO/SHARY/SPARK.. Lemaignan, perspective-aware Lemaignan]
-
+\textbf{TODO}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Models for interaction}
 
 \textbf{For now, mostly from Buisan thesis}
 
-It has been shown previously that a robotic agent interacting with a human needs to coordinate its actions with them [cite?]. Moreover, joint action theory exhibits that humans interacting together represent the task as a whole, and plan not only for their actions but also for the actions of other agents. Thus, we think that for a human to perform the most efficient and satisfactory joint task with a robot, this robot must explicitly model human actions and plan not only for its actions but also for the human ones. This is why we present in this section some notations to clarify the different models used in this thesis, and then we present in more details how to model tasks.
+It has been shown previously that a robotic agent interacting with a human needs to coordinate its actions with them \textbf{TODO}[cite?]. Moreover, joint action theory exhibits that humans interacting together represent the task as a whole, and plan not only for their actions but also for the actions of other agents. Thus, we think that for a human to perform the most efficient and satisfactory joint task with a robot, this robot must explicitly model human actions and plan not only for its actions but also for the human ones. This is why we present in this section some notations to clarify the different models used in this thesis, and then we present in more details how to model tasks.
 
 \subsection{Human and Robot agents}
 
@@ -223,12 +223,12 @@ State-of-the-art techniques for robot navigation involve two kinds of motion pla
 
 Recent techniques also involve learning methods. \textbf{TODO: add citations and description}
 
-However, how explained above, such approaches are not sufficient in human-populated environments. Humans must be detected and treated differently during the motion planning process. Human-aware approaches detect and track nearby humans and try to estimate their trajectory to plan the robot one accordingly. This is achieved in works like [cite CoHAN] where the human trajectory is estimated using goal recognition processes and elastic bands methods. Then, the robot's motion is planned using also elastic band methods that are tuned to take into account the robot's goal, the estimated human trajectory and other social norms.   
+However, how explained above, such approaches are not sufficient in human-populated environments. Humans must be detected and treated differently during the motion planning process. Human-aware approaches detect and track nearby humans and try to estimate their trajectory to plan the robot one accordingly. This is achieved in works like \cite{singamaneni2021human} where the human trajectory is estimated using goal recognition processes and elastic bands methods. Then, the robot's motion is planned using also elastic band methods that are tuned to take into account the robot's goal, the estimated human trajectory and other social norms.   
 
 \subsection{Benchmarking tools and metrics}
 
-Where it is easy to benchmark robot navigation on objective metrics like the time to reach a goal, the distance traveled and the number of collisions [cite BARN Perille], it is more challenging to benchmark their human-aware properties.
-First, there is no consensus on the metrics to use to evaluate the human-aware properties of a navigation system. State-of-the-art metrics involve proxemics [cite]. Yet, other metrics can be relevant such as the deviation imposed to the human motion, and the feeling of threat produced.
+Where it is easy to benchmark robot navigation on objective metrics like the time to reach a goal, the distance traveled and the number of collisions [\textbf{TODO}cite BARN Perille], it is more challenging to benchmark their human-aware properties.
+First, there is no consensus on the metrics to use to evaluate the human-aware properties of a navigation system. State-of-the-art metrics involve proxemics [\textbf{TODO}cite]. Yet, other metrics can be relevant such as the deviation imposed to the human motion, and the feeling of threat produced.
 Also, it is challenging to find a usable system that will effectively challenge a HAN system. 
 Common approaches involve reactive-only techniques such as social force models \textbf{TODO: cite + figure?}. Such reactive models are easy to use and efficient for crowd simulations, but in intricate scenarios involving some decision-making they can perform very poorly. Thus, there was a lack of intelligent simulated agents to challenge effectively HAN system.
 I started to work on this aspect in 2020. Now, a few recent work also propose to simulate human agent endowed with some reasoning processes but I didn't find the time to properly compare my contribution with them. Yet, this shows that this is a subject of interest and a few a such work can be mentioned here. Some related works will be discussed in Chapter~\ref{chap:6}.
