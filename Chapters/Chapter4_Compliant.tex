@@ -17,14 +17,14 @@
 \textit{From HRI paper}
 
 In the context of HRC for a shared task~\cite{selvaggio2021autonomy}, we believe, based on the literature on joint action~\cite{sebanz-2006joint,sebanz-2009,clodic-2017,gordon-2023}, that the key towards a seamless interaction is, to consider the human as an uncontrollable agent and to be fully and concurrently compliant with them. 
-The human should not be dictated which action they must perform, as in~\cite{roncone2017transparent,buisan:hal-03684211}, and the robot must comply with possible human decisions and actions during execution.
+The human should not be dictated which action they must perform, as in~\cite{roncone2017transparent,buisan_hatpehda_icra}, and the robot must comply with possible human decisions and actions during execution.
 
 To collaborate with such humans with their (hidden) preferences, one can devise an online planning scheme coupled with a plan executor. 
 However, in order to maintain real-time performance, online planning generally keeps a restricted horizon. 
 Therefore, decisions taken online may lead to a dead end or may not lead to an optimal solution. 
 Offline planning overcomes these issues. 
 
-We propose a new \textit{offline} task planner which extends an existing human-aware planning system addressed in~\cite{buisan:hal-03684211}. 
+We propose a new \textit{offline} task planner which extends an existing human-aware planning system addressed in~\cite{buisan_hatpehda_icra}. 
 The new planner is designed to take into account a \textit{Model of Execution}, which is in the form of an automaton and mainly inspired by the joint actions schemes. 
 The model captures humans' latitude in their decisions. 
 The planner's output is the robot's behavioral policy, which describes the robot's action in a state such that the action is congruent and compliant with the human's decision in this state and their (estimated) preferences, and that it is also legal to be executed in parallel. 
@@ -47,7 +47,7 @@ We can see the human activity recognition part as a form of our \textit{identifi
 But, unlike ours, they do not consider an explicit shared goal among the agents, and hence humans are not concerned with stuff robots might be interested in during collaboration, e.g., giving signals to be passive. 
 We believe that a shared goal creates a different context in HRC than the robot just being compliant with an estimated human's goals/plans. 
 Moreover, we claim that dealing with concurrent actions is inevitable in planning even if actions are instantaneous, to effectively deal with multiple agent systems~\cite{CrosbyJR14,ShekharB20}, especially if there is a human operator involved like in our case. 
-We extend HATP/EHDA~\cite{buisan:hal-03684211} to demonstrate that.
+We extend HATP/EHDA~\cite{buisan_hatpehda_icra} to demonstrate that.
 
 In another work, both \textit{recognition} and \textit{adaptation} take place simultaneously and comprehensively~\cite{levine2014concurrent}. 
 It deals with action scheduling of an already generated contingent plan comprising human's and robot's actions. 
