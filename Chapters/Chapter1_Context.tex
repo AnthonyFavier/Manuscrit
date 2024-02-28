@@ -164,10 +164,32 @@ A common way of representing human activity (MrH ) and interaction with computer
 
 \subsection{Hierarchical models}
 
-\textbf{TODO: add example with figure of HTN decomposition}
+In classical planning, each action of an agent is atomic and needs some conditions to hold in the environment to be executed, and then it changes the environment when applied. The planning process has then to find the right sequence of actions, being applicable one after the other to change the environment to reach a specific goal state. 
 
-In classical planning, each action of an agent is atomic and needs some conditions to hold in the environment to be executed, then it changes the environment when applied. The planning process has then to find the right sequence of actions, being applicable one after the other to change the environment to reach a certain goal state. 
-However, it has been shown (cite?) that humans tend to plan their actions differently. Indeed, we usually work on a more abstract level and tend to decompose tasks hierarchically into small tasks until reaching the action level. In practice, using Hierarchical Task Networks (HTNs) allow the domin designer to help the plan search by inserting expert knowledge via a hierarchy linking the actions [erol 1996]. A task network consists in tasks organized in a fully or partially ordered manner, and each task can be either abstract or primitive. Primitive tasks are elementary tasks that can be achieved by performing one associated action. On the other hand, abstract tasks are tasks that first need to be decomposed into other subtasks, ``more primitive". The goal of the planner is not to find the sequence of actions to reach a goal, but rather to select recursively for each task the right decomposition ending (if possible) with a network of actions applicable from the initial state. Such a process is named by Ghallab, Nau and Traverso as planning with refinement methods [Ghallab 2016]. This planning hierarchy not only allows the domain designer to guide the search by inserting some expertise into the model, but also to enhance explainability as the decompositions often offer a semantic to their subtasks the why can usually be answered by going up in the hierarchy, while the how is answered by going down. 
+However, humans tend to work more abstractly and decompose tasks hierarchically into smaller tasks until the action level is reached. In practice, using Hierarchical Task Networks (HTNs) allows the domain designer to help the plan search by inserting expert knowledge via a hierarchy linking the actions \cite{erol_complexity_1996}. A task network consists of tasks organized in a fully or partially ordered manner, and each task can be either abstract or primitive. Primitive tasks are elementary tasks that can be achieved by performing one associated action.
+On the other hand, abstract tasks are tasks that first need to be decomposed into other subtasks, ``more primitive''. The planner's goal is not to find the sequence of actions to reach a goal but to select recursively for each task the suitable decomposition ending (if possible) with a network of actions applicable from the initial state. Ghallab, Nau, and Traverso name such a process as \textit{planning with refinement methods} \cite{ghallab2016automated}. This planning hierarchy allows the domain designer to guide the search by inserting some expertise into the model and enhancing explainability as the decompositions often offer a semantic to their subtasks. The 'why' of a subtask can usually be answered by going up in the hierarchy, while the 'how' is answered by going down. 
+
+\begin{figure}
+    \center
+    \includegraphics{Chapter1/htn_example.pdf}
+    \caption{An HTN example. Rectangles represent abstract tasks. Each method describes a possible way to decompose an abstract task if its preconditions are met. Methods can decompose abstract tasks into primitive tasks (ellipses) and/or into other abstract tasks. The obtained subtasks can be fully ordered, such as with \emph{method 1} (represented with a one-way arrow), or partially ordered, like \emph{method 2} (represented with a two-way arrow). Note that methods can also decompose a task into nothing like \emph{method 3}, for instance, when the task is already done, and they can be recursive like \emph{method 4}.
+    }
+    \label{fig:htn_example}
+\end{figure}
+
+To better picture HTN models, a symbolic example is depicted in figure~\ref{fig:htn_example}.
+Rectangles represent abstract tasks. Each method describes a possible way to decompose an abstract task if its preconditions are met. Methods' preconditions are not necessarily mutually exclusive. Hence, as mentioned above, it is the planner's job to select the most suitable one when several ones are applicable.
+Methods decompose abstract tasks into primitive tasks, represented with ellipses, and/or into other abstract tasks. The obtained subtasks can be fully ordered, such as with \emph{method 1} (represented with a one-way arrow) where \emph{Abstract Task 2} has to be completed before \emph{Primitive Task 1}. Methods can also be partially ordered as with \emph{method 2} (represented with a two-way arrow) where \emph{Primitive Task 2} and \emph{Primitive Task 3} can be achieved in any order. Note that methods can also decompose a task into nothing like \emph{method 3}, for instance, when the task is already done. Moreover, methods can be recursive like \emph{method 4}.
+
+\begin{figure}
+    \center
+    \includegraphics[width=0.9\linewidth]{Chapter1/htn_decomposition_example.pdf}
+    \caption{Two possible decompositions of task network using the HTN described in fig~\ref{fig:htn_example}. Here, \emph{method 1} and \emph{method 2} can both be applied, leading to two different solutions.
+    }
+    \label{fig:htn_decomposition_example}
+\end{figure}
+
+Now, let us look at an example of a refinement process. We consider an initial task network only composed of \emph{Abstract Task 1}, and we refine it using the HTN described in fig~\ref{fig:htn_example} until the task network only contains primitive tasks (actions). Initially, \emph{method 1} and \emph{method 2} are both applicable and thus, are candidates to decompose \emph{Abstract Task 1}. Applying \emph{method 2} leads directly to a fully refined solution task network, including two partially ordered primitive tasks (\emph{Primitive Task 2} and \emph{Primitive Task 3}). On the other hand, \emph{method 1} can be applied, leading to a different task network that still includes abstract tasks. Then, \emph{Abstract Task 2} is recursively decomposed using M4 twice. This could correspond to scenarios like filling a box with two balls. Thus, M4 is only applicable until two more balls are in the box. Eventually, only M3 is applicable and refines \emph{Abstract Task 2} into nothing, leading to another solution task network.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Task Planning}
