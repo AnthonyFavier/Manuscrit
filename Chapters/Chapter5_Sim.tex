@@ -163,7 +163,7 @@ All logs are saved after each execution and can be loaded later for post-process
     Being passive                                                                             & \begin{tabular}[c]{@{}l@{}}Being passive without signaling\\ (after TimeOut is reached)\end{tabular} \\ \hline
     Waiting for the end of the step                                                           & \multirow{3}{*}{Waiting for the next step to start}                                                  \\ \cline{1-1}
     Situation Assessment Process (SA process)                                                 &                                                                                                      \\ \cline{1-1}
-    Getting ready for the next step                                                           &                                                                                                      \\ \hline
+    Getting ready for the next step (GRNS)                                                    &                                                                                                      \\ \hline
     \end{tabular}
     \caption{Agent activities extracted from logs. The activities orders and relative positions try to match the execution but not all activities are present in every step.  }
     \label{tab:agent_activities}
@@ -171,62 +171,72 @@ All logs are saved after each execution and can be loaded later for post-process
 
 \subsection{Metrics computation}
 
-The second step happening when load the execution logs is to extract a list of metrics from the events and extracted activities. Currently, 27 metrics are extracted, but the following list only shows 11 because some items include several sub metrics by computing the total sum, average, standard deviation, min and max values of the corresponding metric.
+When loading the execution logs we extract a set of metrics from the events and extracted activities. Currently, 27 metrics are extracted, but the following table \ref{tab:metrics} only shows 11 because several sub-metrics are hidden. Indeed, for four of the listed metrics, we compute the sum, average, standard deviation, min, and max values of the corresponding metric.
 
-\begin{enumerate}
-    \itemsep0em
-    \item \textbf{Task completion time:}                 Time for the stack to be completed.
-    \item \textbf{Number of steps:}                      Number of steps executed.
-    \item \textbf{Number of human optimal actions:}      Number of human action being optimal regarding a given objective.
-    \item \textbf{Ratio of human optimal actions:}       Number of human optimal actions divided by the number of steps.
-    \item \textbf{Decision time:}                        Time for the human to make a visible decision in a step. Five different metrics are extracted regarding all steps of the scenario: total/sum, average, standard deviation, min and max.
-    \item \textbf{Waiting Next Step:}                    Time during which the human waits for the next step to start. Again, are extracted over all the steps: total, average, standard deviation, min and max values.
-    \item \textbf{Number of human action:}               Number of human actions executed in the scenario.
-    \item \textbf{Human action duration:}                Over all steps are extracted the total, average, standard deviation, min and max duration of the human actions.
-    \item \textbf{Number of robot action:}               Number of robot actions executed in the scenario.
-    \item \textbf{Robot action duration:}                Over all steps are extracted the total, average, standard deviation, min and max duration of the robot actions.
-    \item \textbf{Time human free:}                      Time after which the human is free, i.e., isn't mandatory for the task to be completed.
-\end{enumerate}
+% {\small
+% \begin{enumerate}
+%     \itemsep0em
+%     \item \textbf{Task completion time:}                 Time for the stack to be completed.
+%     \item \textbf{Number of steps:}                      Number of steps executed.
+%     \item \textbf{Number of human optimal actions:}      Number of human action being optimal regarding a given objective.
+%     \item \textbf{Ratio of human optimal actions:}       Number of human optimal actions divided by the number of steps.
+%     \item \textbf{Decision time:}                        Time for the human to make a visible decision in a step. Five different metrics are extracted regarding all steps of the scenario: total/sum, average, standard deviation, min and max.
+%     \item \textbf{Waiting Next Step:}                    Time during which the human waits for the next step to start. Again, are extracted over all the steps: total, average, standard deviation, min and max values.
+%     \item \textbf{Number of human action:}               Number of human actions executed in the scenario.
+%     \item \textbf{Human action duration:}                Over all steps are extracted the total, average, standard deviation, min and max duration of the human actions.
+%     \item \textbf{Number of robot action:}               Number of robot actions executed in the scenario.
+%     \item \textbf{Robot action duration:}                Over all steps are extracted the total, average, standard deviation, min and max duration of the robot actions.
+%     \item \textbf{Time human free:}                      Time after which the human is free, i.e., isn't mandatory for the task to be completed.
+% \end{enumerate}
+% }
 
-\subsection{Timeline}
+\begin{table}[]
+    \begin{tabular}{|c|l|}
+    \hline
+    \textbf{Metric}                                                           & \multicolumn{1}{c|}{\textbf{Description}}                                                                                   \\ \hline
+    Task Completion Time                                                      & Time for the task to eh completed.                                                                                          \\ \hline
+    Number of steps                                                           & Number of steps executed.                                                                                                   \\ \hline
+    \begin{tabular}[c]{@{}c@{}}Number of optimal\\ human actions\end{tabular} & \begin{tabular}[c]{@{}l@{}}Number of human action being optimal regarding a \\ given objective.\end{tabular}                \\ \hline
+    \begin{tabular}[c]{@{}c@{}}Ratio of optimal\\ human actions\end{tabular}  & \begin{tabular}[c]{@{}l@{}}Number of optimal human action divided by the \\ number of steps.\end{tabular}                   \\ \hline
+    Human decision time*                                                      & \begin{tabular}[c]{@{}l@{}}Duration for the human to make a visible decision \\ in a step.\end{tabular}                     \\ \hline
+    Waiting next step*                                                        & \begin{tabular}[c]{@{}l@{}}Duration during which the human waits for the next \\ step to start.\end{tabular}                \\ \hline
+    \begin{tabular}[c]{@{}c@{}}Number of \\ human action\end{tabular}         & \begin{tabular}[c]{@{}l@{}}Number of non-passive human actions executed in \\ the scenario.\end{tabular}                    \\ \hline
+    \begin{tabular}[c]{@{}c@{}}Human action \\ duration*\end{tabular}         & Duration of the human actions.                                                                                              \\ \hline
+    \begin{tabular}[c]{@{}c@{}}Number of \\ robot action\end{tabular}         & \begin{tabular}[c]{@{}l@{}}Number of non-passive robot actions executed in \\ the scenario.\end{tabular}                    \\ \hline
+    \begin{tabular}[c]{@{}c@{}}Robot action \\ duration*\end{tabular}         & Duration of the robot actions.                                                                                              \\ \hline
+    Time human free                                                           & \begin{tabular}[c]{@{}l@{}}Time after which the human is free, i.e., as soon as \\ the robot can finish alone.\end{tabular} \\ \hline
+    \end{tabular}
+    \caption{Metrics extracted from the execution logs for each scenario. Marked items with a star (*) correspond to five sub-metrics computed over all steps: sum, average, standard deviation, min, and max values.}
+    \label{tab:metrics}
+    \end{table}
 
-Eventually, using the previously extracted agent activities, we can draw a visual timeline depicting the different steps, the extracted activities and the visual signals exchanged between the agents. Here are two examples of timelines 
+\subsection{Execution example with timeline}
 
-Here is an example of a timeline and below the associated extracted metrics:
+A complete scenario is presented and commented on in this section. Using the previously extracted agent activities, we can draw a visual timeline depicting the different steps, the extracted activities, and the visual signals exchanged between the agents. Figure \ref{fig:timeline_example} depicts the complete commented timeline, including agents' activities, exchanged signals, and snapshots from the simulator. The table \ref{tab:signals} describes the different signals exchanged during the execution and shown on the timeline. 
+
+\begin{table}[h]
+    \begin{tabular}{|c|l|}
+    \hline
+    \textbf{Signal name} & \multicolumn{1}{c|}{\textbf{Description}}                                                                                        \\ \hline
+    START                & \begin{tabular}[c]{@{}l@{}}Visual and audible signal from the robot indicating that the\\ current step has started.\end{tabular} \\ \hline
+    START\_IDLE          & \begin{tabular}[c]{@{}l@{}}Visual and audible signal indicating the start of a step where\\ the robot cannot act.\end{tabular}   \\ \hline
+    S\_RA / E\_RA        & \begin{tabular}[c]{@{}l@{}}Signals sent respectively from the start (S) and the end (E) of \\ a robot action (RA).\end{tabular}  \\ \hline
+    S\_HA / E\_HA        & \begin{tabular}[c]{@{}l@{}}Signals sent respectively from the start (S) and the end (E) of\\ a human action (HA).\end{tabular}   \\ \hline
+    H\_PASS              & \begin{tabular}[c]{@{}l@{}}Explicit hand gesture from the human informing their desire\\ the be passive.\end{tabular}            \\ \hline
+    TO                   & \begin{tabular}[c]{@{}l@{}}The TimeOut is an internal robot signal indicating that the \\ absence of human signal.\end{tabular}  \\ \hline
+    \end{tabular}
+    \caption{Signals exchanged between the agents during the execution and used for synchronization and coordination.}
+    \label{tab:signals}
+    \end{table}
 
 \begin{figure}
     \centering
-    % \includegraphics[width=0.40\linewidth]{Chapter5/timeline_one_2023_12_19_11_46_01_S2.png}
-    % \includegraphics[width=0.40\linewidth]{Chapter5/timeline_one_2023_12_19_11_46_01_S2_shorter.png}
-    % \includegraphics[width=0.40\linewidth]{Chapter5/timeline_two_2023_12_19_15_37_29_S5.png}
-    \includegraphics[height=0.97\textheight, keepaspectratio]{Chapter5/timelines.pdf}
-    \caption{Two timelines with different execution.}
+    \includegraphics[height=0.97\textheight, keepaspectratio]{Chapter5/last_timeline.png}
+    \caption{Complete execution timeline commented.}
     \label{fig:timeline_example}
 \end{figure}
 
-
-\textbf{TODO: List associated extracted metrics + legende pour timeline (signal name/description, activities link to list above.)}
-
-% ***********
+In this execution example, according to the extracted metrics, the task has been completed in $77.14s$ in $12$ steps. The average human decision time is $1.00s \pm 0.69s$ with $max=2.77s$ and $min=0.42s$. The human waited on average for the start of the next step during $1.68s \pm 1.28s$. There were $8$ human actions with an average duration of $3.67s \pm 0.72s$. According to the objective/preferences to finish the task as fast as possible, the human acted $9$ times optimally out of $12$ steps (optimal ratio$=75\%$). Indeed, the human agent purposely decided to be passive during steps 5 and 6, but they could have picked the orange cube in parallel to complete the stack faster. In this example, the task description forbids agents from picking cubes in advance. They must be able to immediately place a cube in the stack to pick it. This rule is detailed and justified later in the next chapter \ref{sec:study_protocol}. Hence, in step 9, the human picked the white cube, but the robot could not pick the bar until the white cube was placed. Thus, the human could have let the robot place the white cube to reduce their effort without slowing the task.
+There were $8$ robot actions with an average duration of $3.97s \pm 0.69s$. Overall, the robot took $5.25s$ to plan its arm motions. 
 
 
-
-% First, it is using Gazebo to simulate the scene (table, cubes, agents). 
-% The robot is a Tiago robot from PAL Robotics. We used a MoveIt controller to plan and execute arm motions. We used a publicly available component to control the gaze of the robot. The head behavior is ad hoc and designed by us.
-% The human agent is simulated only with its hand which is moved with a handmade dedicated controller. 
-% For simplicity reasons physics of objects isn't simulated, thus, each agent interact with the scene by statically attaching/detaching object respectively to the robot's gripper or the human hand.
-% A higher level component called the simulator controller is in charge of translating primitive actions to low level commands and calling the previously presented controllers to make the agent perform actions. Since it manages agent's action, it is also in charge of sending simulated visual signals and indicating when a step is over. Indeed, the agents synchronize themselves using simulated visual signals, and not internal signals. That is, when the human starts performing an action, a brief motion planning phase occur before effectively moving the hand, the motion visual signal is sent to the robot only at this moment. Moreover, to simulate some real perception aspect, a voluntary reaction time is introduced in the robot. Thus, the visual signal can be treated only after this reaction time is passed. A step starts when one agent starts acting (the human or the robot) and it is over when both agents are inactive. Hence, once one agent started to act the other is free to perform an action concurrently and the step will be over only when both are done. If the other agent doesn't act it will be considered as passive/inactive and the step will be over as soon as the first agent finishes.
-
-% Then we can find the respective agents' components. The robot component is an implemented version of the model of execution. Its purpose is to supervise the policy execution of the robot while running the automaton described in the model of execution. In practice, the robot starts by indicating when the step started with a sound signal. Then, it waits to receive the visual human signals for a defined amount of time. Without any visual signal the human is considered as passive. The human can either start acting (how will be described just after), which will eventually send a visual signal to the robot, or the human can make an explicit hand gesture to indicate to the robot that they will be passive (this doesn't force the human to be passive for the whole step). Note that even if the robot received the human visual signal of the human starting to act, the actual action being performed isn't yet identified, it only means that the human started to act. The robot must perform a dedicated identification process (ID Phase/Process) to identify the human action. We assume that the hand gesture that the human can make is always successfully identified instantly (without ID Process). Once either the signal received or the time-out reached, if the best robot action doesn't depend on the human decision then the robot can directly start executing this action. The robot action choice is sent to the simulator controller that will start executing the action. If the best robot action depends on the human decision then the human decision must be identified and the ID Process is run. Only after the robot can perform the best action indicated by the policy which is compliant with the identified human action. If the ID Process fails then the robot remains passive, this case is already part of the policy.
-% Eventually the robot waits for the step over signal from the simulator controller and run the Assessment Process. The latter identify what happened during the step (which action the human performed, even if ID wasn't necessary) and in which state we are to be ready to execute the next step and progress in the policy and toward the goal. 
-
-% The human action execution consists in the following. First, the gazebo simulator is made as the main Human-Machine Interface (HMI). Through a handmade plugin one can mouse click in the gazebo simulator window. The click position is sent on a ROS Topic and treated in a dedicated node to potentially trigger a human action. For instance, clicking on a cube starts a "picking" action with the corresponding cube as parameter, clicking on the stack area starts a "place" action, clicking on the table while holding a cube starts a "hold" action, and clicking on the hand make an explicit hand gesture to signal the robot the human desire to be passive. After clicking the hand once, the participant can click another time to indicate the robot full passivity until further notice. The robot will consider the human as unavailable or even not present and will not wait for them. 
-% For this to be possible we did the following. First, another gazebo plugin has been written to lock the GUI camera as a First Person View and avoid the participant to accidentally move the camera.
-% Then, at every step, the robot component sends to the component receiving the coordinates of the click the currently valid human actions that the participant can perform. Thus, the participant cannot try to place a cube without holding it. Eventually, each human action is mapped to a clickable zone on the gazebo window. Hence, when the click coordinates are received, we check if it is inside one of the designed zone and is the action associated to the zone is currently valid. If so, then the action decision is sent to the simulator controller to be executed. 
-% For clarification purpose, when clicking on a cube the robot doesn't immediately know that the human is picking a cube. First, it will know that the human started to act only after receiving the visual signal (after the defined reaction time). And the robot must perform an additional perception phase (ID Process) to identify which action the human performed. 
-
-% Additionally, the stacking goal pattern is shown inside the simulator and a small prompt overlay is present to simulate a potential screen with which the robot can communicate its intention to the human during the collaboration. 
-
-% Thanks to all these processes, the participant is able to intuitively perform actions using mouse control and can collaborate with the robot to solve the task.
-
-% An integrated tutorial has been made to familiarize the participant with the mouse control and the relevant concepts used in the collaboration (notion of step, able to be passive). 
