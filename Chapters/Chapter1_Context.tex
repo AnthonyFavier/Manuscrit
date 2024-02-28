@@ -65,10 +65,6 @@ To produce easy to interact with robots, the study of HCI is relevant and also s
 
 \subsection{Human-Robot Interaction}
 
-% \textbf{TODO: check for consistency and redundancy with intro of upper HRI section. Add computational HRI refs}
-
-% \textbf{Include social interactions, emotional support, story telling. Other works than collaboration}
-
 Human-Robot Interaction (HRI) is a field of study that explores the design, development, and evaluation of robots that interact with humans in various settings. HRI aims to create robots that can effectively and seamlessly collaborate with humans in domestic environments, workplaces, or other contexts. 
 HRI can be categorized in several domains, not necessarily exclusive. Here are some examples:
 
@@ -137,9 +133,8 @@ Example of cognitive architecture
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Models for interaction}
 
-\textbf{For now, mostly from Buisan thesis}
 
-It has been shown previously that a robotic agent interacting with a human needs to coordinate its actions with them \textbf{TODO}[cite?]. Moreover, joint action theory exhibits that humans interacting together represent the task as a whole, and plan not only for their actions but also for the actions of other agents. Thus, we think that for a human to perform the most efficient and satisfactory joint task with a robot, this robot must explicitly model human actions and plan not only for its actions but also for the human ones. This is why we present in this section some notations to clarify the different models used in this thesis, and then we present in more details how to model tasks.
+It has been shown previously that a robotic agent interacting with a human needs to coordinate its actions with them. Moreover, joint action theory exhibits that humans interacting together represent the task as a whole, and plan not only for their actions but also for the actions of other agents. Thus, we think that for a human to perform the most efficient and satisfactory joint task with a robot, this robot must explicitly model human actions and plan not only for its actions but also for the human ones. This is why we present in this section some notations to clarify the different models used in this thesis, and then we present in more details how to model tasks.
 
 \subsection{Human and Robot agents}
 
@@ -150,10 +145,8 @@ It has been shown previously that a robotic agent interacting with a human needs
     \label{fig:chakraborti_notations}
 \end{figure}
 
-\textbf{TODO: details whats inside of the models}
-
 Chakraborti \textit{et al.} introduced notations to differentiate between the models used in this thesis in their work~\cite{ChakrabortiBTZS15}, also used in Buisan's thesis~\cite{thesisBuisan21}. These notations summarize and differentiate elegantly the different models manipulated in the HRI/HRC field. These notations are depicted in figure~\ref{fig:chakraborti_notations}. At the bottom are depicted the human agent (on the left) and the robot agent (on the right). When solving a task alone, the robot uses its own model referred to as $\mathcal{M}^R$ and this is considered as Classical Planning. 
-Then, $\mathcal{M}^H_r$ is an estimation by the robot of the model of the human. Finally, $\tilde{\mathcal{M}}^R_h$ is an estimation of the robot model the human has. 
+Then, $\mathcal{M}^H_r$ is an estimation by the robot of the model of the human. Finally, $\tilde{\mathcal{M}}^R_h$ is an estimation of the robot model the human has. These models are likely to include knowledge about the world in the agent's perspective, an action model describing the agent's capabilities, and an agenda capturing the goal and motivation of the agent.
 
 It is important to keep in mind that when discussing a task planner it is considered as part of the robot. Thus, $\mathcal{M}^R$ is considered as the ground truth for the robot. As a consequence, if there is a belief divergence between $\mathcal{M}^H_r$ and $\mathcal{M}^R$, we always consider that $\mathcal{M}^R$ is the truth, otherwise, it would make no sense to keep this information in $\mathcal{M}^R$ while having access to the one in $\mathcal{M}^H_r$.
 
@@ -245,14 +238,24 @@ Humans should not just be avoided as other moving obstacles, and their psycholog
 
 State-of-the-art techniques for robot navigation involve two kinds of motion planners: a global and a local planner. The global planner is in charge of finding the best overall trajectory leading the robot to its goal, producing a global plan. This planner usually only takes into account static obstacles described by a given map of the environment. Then, the local planner is in charge of producing velocity commands sent to the motor controllers to follow the produced global plan. To produce the velocity commands the local planner may produce a local plan with only a few seconds of time horizon that follows the global plan while taking into account obstacles detected in real-time by the robot sensors, including moving obstacles. This way the robot should reach its goal while being reactive to moving obstacles. 
 
-Recent techniques also involve learning methods. \textbf{TODO: add citations and description}
-
-However, how explained above, such approaches are not sufficient in human-populated environments. Humans must be detected and treated differently during the motion planning process. Human-aware approaches detect and track nearby humans and try to estimate their trajectory to plan the robot one accordingly. This is achieved in works like \cite{singamaneni2021human} where the human trajectory is estimated using goal recognition processes and elastic bands methods. Then, the robot's motion is planned using also elastic band methods that are tuned to take into account the robot's goal, the estimated human trajectory and other social norms.   
+However, as explained above, such approaches are insufficient in human-populated environments. Humans must be detected and treated differently during the motion planning process. Human-aware approaches detect and track nearby humans and try to estimate their trajectory to plan the robot one accordingly. This is achieved in works like \cite{singamaneni2021human}, where the human trajectory is estimated using goal recognition processes and elastic bands methods. Then, the robot's motion is planned using tuned elastic band methods to account for the robot's goal, the estimated human trajectory, and other social norms.   
 
 \subsection{Benchmarking tools and metrics}
 
-Where it is easy to benchmark robot navigation on objective metrics like the time to reach a goal, the distance traveled and the number of collisions [\textbf{TODO}cite BARN Perille], it is more challenging to benchmark their human-aware properties.
-First, there is no consensus on the metrics to use to evaluate the human-aware properties of a navigation system. State-of-the-art metrics involve proxemics [\textbf{TODO}cite]. Yet, other metrics can be relevant such as the deviation imposed to the human motion, and the feeling of threat produced.
+Where it is easy to benchmark robot navigation on objective metrics like the time to reach a goal, the distance traveled and the number of collisions \cite{perille2020benchmarking}, it is more challenging to benchmark their human-aware properties.
+First, there is no consensus on the metrics to evaluate a navigation system's human-aware properties. State-of-the-art metrics involve proxemics \cite{samarakoon2022review}. However, other metrics can be relevant, such as the deviation imposed on human motion and the feeling of threat produced.
 Also, it is challenging to find a usable system that will effectively challenge a HAN system. 
-Common approaches involve reactive-only techniques such as social force models \textbf{TODO: cite + figure?}. Such reactive models are easy to use and efficient for crowd simulations, but in intricate scenarios involving some decision-making they can perform very poorly. Thus, there was a lack of intelligent simulated agents to challenge effectively HAN system.
-I started to work on this aspect in 2020. Now, a few recent work also propose to simulate human agent endowed with some reasoning processes but I didn't find the time to properly compare my contribution with them. Yet, this shows that this is a subject of interest and a few a such work can be mentioned here. Some related works will be discussed in Chapter~\ref{chap:6}.
+
+\begin{figure}
+    \center
+    \includegraphics[width=0.40\linewidth]{Chapter1/social_force.png}
+    \includegraphics[width=0.54\linewidth]{Chapter1/crowd1.png}
+    \caption{Social force model approximating pedestrian motion by a sum of forces.}
+    \label{fig:social_force_model}
+\end{figure}
+
+Typical approaches involve reactive-only techniques such as social force models \cite{helbing1995social,chen_social_2018}. 
+The social force model assumes that a sum of different forces can approximate pedestrians' acceleration, deceleration, and directional changes, each capturing a different desire or interaction effect. For instance, as depicted in figure \ref{fig:social_force_model}, one force corresponds to the acceleration towards the desired velocity of motion; second, repulsive forces reflect the agent keeping a certain distance from other agents and obstacles; third, attractive forces represent the goal and motivations of the agent. Eventually, using standard physics equations, the sum of these dynamic forces describes the agents' motion.
+Such reactive models are easy to use and efficient for crowd simulations. Interestingly, in crowded or evacuation scenarios, social force models exhibit several so-called ``self-organization phenomena'' such as lane formation, zipper effect, intermittent flow, or turbulence.
+Unfortunately, such a model can perform very poorly in intricate and non-crowded scenarios involving some decision-making. Thus, there was a lack of intelligent simulated agents to challenge effectively HAN system.
+A few recent works also propose simulating human agents endowed with some reasoning processes, but I did not find the time to compare my contribution with them and it remains an interesting possible future work. Nevertheless, this shows that this is a subject of interest. Some related works will be discussed in Chapter~\ref{chap:6}.
