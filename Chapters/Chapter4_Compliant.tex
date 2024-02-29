@@ -5,8 +5,7 @@
 \faketableofcontents
 \fi
 
-% \chapter{Designing a Model of Collaborative Execution and its integration in a task planner}
-\chapter{A Task Planner Making a Robot Compliant to Human Online Decisions and Preferences}
+\chapter{Model and Plan for Concurrent Joint Action to be Compliant to Human Online Decisions and Preferences}
 \chaptermark{Compliance to online human decisions and preferences}
 \label{chap:4}
 \minitoc
@@ -61,14 +60,14 @@ Also, our scheme accommodates both verbal and non-verbal communication, allowing
 
 
 
-\section{Model of Execution}
+\section{Model of Concurrent Joint Action Execution}
 
-    \subsection{Rationale}
+    \subsection{Rationale and Example}
 
 
 
 Our task planning approach uses a model of execution to improve the fluency and amenability of HRC. 
-This model is in the form of an execution controller as shown in Figure~\ref{fig:simplified_model_exec}, and is based on several key notions and mechanisms borrowed from studies on joint actions~\cite{Sebanz-2016,kourtis2014attention}, and adapted to Human-Robot Joint Action~\cite{clodic-2017,curioni-2019}.
+This model is in the form of an execution controller and is based on several key notions and mechanisms borrowed from studies on joint actions~\cite{Sebanz-2016,kourtis2014attention}, and adapted to Human-Robot Joint Action~\cite{clodic-2017,curioni-2019}.
 The key idea is that co-acting agents co-represent the shared task context and integrate task components of their co-actors into their own task representation~\cite{Schmitz-2017, Yamaguchi-19}. Also, coordination and role distribution rely strongly on reciprocal information flow, e.g., social signals~\cite{curioni-2019}, prediction of other's next action~\cite{luke-2018}.
 
 Our proposed execution model is implemented on a robot that co-acts with a human, integrating explicit representation and exploration of the task representations for the robot and for the human. 
@@ -78,7 +77,26 @@ Another essential question is the criteria for choosing the next action, or more
 Concerning the case when one actor is a robot, we think it is important to provide a standard default behavior of the robot where the robot does its best to reduce human load but still leaves full latitude to act whenever humans want. 
 Our scheme provides this ability and also allows humans to inform about their preferences at any moment.
 
-\subsection{Simplified Model of Execution - Robot Automaton}
+\begin{figure}
+    \center
+    \includegraphics{Chapter4/example_conflict_pick.pdf}
+    \caption{Example of conflict for a concurrent joint action. 
+    Shared cubes, \emph{c1} and \emph{c2}, can be picked up by both agents and only the robot can pick \emph{c3}. 
+    Agents can simulateously pick up both shared cubes, but they must coordinate their actions otherwise they might conflictingly try to pick the same cube. 
+    Similarly, another coordination is required to avoid placement conflicts between locations \emph{l1} and \emph{l2}.
+    However, notice that the robot can pick \emph{c3} without any risk of conflicts with the human action.}
+    \label{fig:conflict_pick}
+\end{figure}
+
+To better understand the problem we are trying to solve, let's consider an example where concurrent agent's actions can be conflicting. This example consisting in a simple pick and place task is depicted in fig~\ref{fig:conflict_pick}. The human and the robot have to pick cubes, \emph{c1} and \emph{c2}, that both can reach. 
+The cubes can be picked up simulateously unless the agents try to pick the same cube, which causes conflicts between their actions. As a result, despite being executable in parallel, the actions are interdependent. Thus, the agents must coordinate their actions for a smooth execution.
+A similar coordination must happen when placing the cubes to avoid conflicts between \emph{l1} and \emph{l2}.
+However, a third cube \emph{c3} is present and can only be picked up by the robot. The robot can pick \emph{c3} without any risk of conflicts with the human action. 
+
+This example illustrates the need of coodination even for simple tasks. It also shows that considering possible conflicts can also be a criterion to optimize. Thus, the best robot action might be to pick up \emph{c3} instead of one of the shared cubes to avoid potential conflicts, even if \emph{c3} is more distant and more costly to pick than \emph{c1} and \emph{c2}.
+This example also highlight the relevance of exploring several possible executions of concurrent actions while planning to anticipate and evaluate such situations and produce a robust, compliant and efficient robot policy. This is why, based on joint action literature, we formulated a model of concurrent joint action execution described below that will guide our planning search.
+
+\subsection{Simplified Joint Action Model for Planning}
 
 \begin{figure}
     \centering
@@ -177,7 +195,7 @@ This section details how the exploration happens, and thus, how the search graph
 
     \subsection{Overall process}
 
-We keep track of the p-state to explore, this set being initialized with the initial p-state. Then, until the set is empty we select one and explore it.
+We keep track of the p-state to explore, and this set is being initialized with the initial p-state. Then, until the set is empty we select one and explore it.
 First, from this selected p-state, every possible concurrent human-robot action pairs are computed considering both agendas, the world state and reasoning on the compatibility of the actions in terms of preconditions and effects. This process requires several sub-steps and is detailed later. Thus, we obtain several action pairs leading to the same amount of new p-states (with updated world state and agendas).
 Second, we check if any of the newly created p-state are similar to any existing p-state. If so, we can "merge" them to avoid redundant computations. To do so, we basically keep track of the unique p-state already checked and for each new p-state we check if it is similar to one of the already checked one. 
 If not, the new p-state is added to the set of already checked p-states. 
