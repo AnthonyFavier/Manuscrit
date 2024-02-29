@@ -115,13 +115,12 @@ This example also highlight the relevance of exploring several possible executio
 % - 4 lines = 210x301 ratio
 % - 3 lines = 210x308 ratio
 
+The model of execution we forumlated, depicted in fig~\ref{fig:simplified_model_exec}, is inspired by joint action literature and describe the agent's coordination during execution. It comprises synhcronisation and perception processes based on social signals exchanged between the agents such as starting an action (arm motion), hand gestures, or verbal communication. In this section is presented a simplified version of this model that suffice to guide our planning framework. A complete version which explictely models the human behavior and exhanged signals is provided in the next chapter and used to supervise the execution of the produced robot policy.  
 
-Consider an example to clarify the execution automaton. 
-Assume a human and a robot have to pick up two blocks, \textit{A} and \textit{B}, that both can reach. 
-They can pick it up both at the same time unless they try to pick up the same block, which causes conflicts between their actions. 
-As a result, despite being executable in parallel, the actions are interdependent, and in order to avoid conflicts, one agent must be compliant with the other. 
-However, if we consider a third block \textit{C} that only the robot can reach, it can always pick up this block without any risk of conflicts with the human's choice. 
 
+\textbf{TODO: add numbered marks in the figure to refer to easily for description, also describe the conditions: H is active, etc...}
+
+Let's describe this simplified model in the form of an automaton on which on planning algorithm is based on.
 In a state, a human decision can result in one of three outcomes.
 First, the human can choose to act first (\textit{left~subtree}).
 If the robot's best action is not in conflict with the human action (e.g., \textit{pick~C}), the robot can safely perform this action concurrently with the human operator (\textit{branch~3}).
@@ -139,18 +138,6 @@ When both agents finish their actions, the step is considered as \textit{``over'
 Then, another subroutine assesses the new world state ($s_{i+1}$), which is the result of the concurrent actions being executed in the state $s_i$, before repeating the whole process until the task is solved.
 
 Note that if both agents are passive (the human decides to be passive when the robot cannot act) then the step is repeated. 
-
-\subsection{Complete Model of Execution - Dual Automaton}
-
-Now that the idea behind this model of execution has been explained we can present its complete version. Our model supposes that the robot is running an automaton to synchronize with the human, follow the generated policy, and execute actions. This automaton is a bit more complex than the simplified version presented above. Additionally, our model supposes that the human is also following an automaton when collaborating with the robot. The complete model specifies the human automaton and the visual signals exchanged between the agents to synchronize themselves.
-
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.99\linewidth]{Chapter4/complete_automaton_rotated.pdf}
-    \caption{Complete Model of Execution - Dual Automaton. This version details the robot automaton and the assumed human automaton as well as the visual signals exchanges between the agents to synchronize themselves.}
-    \label{fig:complete_model_exec}
-\end{figure}
 
 \section{Problem specification + solution}
 
