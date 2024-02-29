@@ -554,7 +554,7 @@ In those cases, as it is evident from our simulation results in adversarial setu
 
 \textbf{TODO: To develop...}
 
-In this section, we provide some details about the computational performances of our approach. 
+In this section, we discuss the computational performances of our approach and provide some empirical measurements. 
 
 \begin{itemize}
     \item Aware that doesn't scale well
@@ -563,6 +563,10 @@ In this section, we provide some details about the computational performances of
     \item This already allows to explore millions of possible plans
     \item Give some numbers: Exploration time (tens of seconds, clearly ok but should be done offline) + policy generation (less than a second, can be done online) 
 \end{itemize}
+
+Our approach is based on exploring every decisions the human is likely to make, and every possible robot concurrent and compliant actions to those decisions. 
+This offline serach produces a directed acyclic graph (DAG) which captures all possible courses of actions. Then, from this graph, we can easily extract online the optimal robot policy to adapt and satisfy the human preferences. However, this exhaustive approach does not scale ...
+
 
 \section{Discussion and Limitations}
 
