@@ -12,18 +12,16 @@
 
 \section{Introduction}
 
-In order to validate the approach presented in the previous chapter (\ref{chap:4}), we would like to be able to perform collaboratively a task with a simulated robot executing the produced policy. This allowed us to conduct a user study validating the approach which is described in the next chapter (chap.~\ref{chap:6}).
+In order to validate the approach presented in the previous chapter (\ref{chap:4}), we would like to be able to perform a task collaboratively with a simulated robot executing the produced policy. This allowed us to conduct a user study described in the next chapter (chap.~\ref{chap:6}) which validates our planning approach.
 
-This chapter is a technical description of the interactive simulator I developed. As depicted in fig.~\ref{fig:architecture}, it consists of several components which will be detailed throughout this chapter. 
 
-\begin{figure}[h]
+\begin{figure}
     \includegraphics[width=\textwidth]{Chapter5/architecture.pdf}
     \caption{Overview of the Interactive Simulator's Architecture}
     \label{fig:architecture}
 \end{figure}
 
-It consists of an execution and supervision module directly inspired by the model of execution which takes as input a robot policy produced by the concurrent and compliant approach. A simul     
-
+This chapter is a technical description of the interactive simulator I developed. As depicted in fig.~\ref{fig:architecture}, it consists of several components detailed throughout this chapter. We describe the simulated scene corresponding to a BlocksWorld task similar to the one presented in the last chapter but with more cubes. After, the execution controller used is presented, corresponding to a refined and implemented version of the abstracted joint action execution model introduced in the last chapter. We continue by describing the different motion and simulation controllers used to interact with the simulator. Then, the Human-Machine Interface is presented, allowing participants to perform actions in the simulator. Finally, we present how the data retrieved during each execution are used to compute several metrics to evaluate the execution.  
 
 \section{Simulated scene}
 
@@ -42,6 +40,39 @@ The overall scene is depicted in the figure~\ref{fig:simu_view}. The stacking go
     \caption{Participant view of the interactive simulator. Text prompt. Goal pattern. robot. table. cubes. stacking area. human hand.}
     \label{fig:simu_view}
 \end{figure}
+
+
+\section{Execution controller - Joint Action Model for Execution}
+
+The model of execution presented in the last chapter was simplified and used to explore further relevant courses of action. This allows for anticipating the possible coordination and complying with online human decisions. 
+However, we need an execution controller that will supervise the execution of the produced policy. The execution model presented in the last chapter was simplified and abstracted to guide the planning algorithms. Here, we propose a refined and implemented model, matching the abstraction previously made, to be able to execute the produced robot policy and supervise its execution by synchronizing with the human.
+
+The complete model is depicted in fig~\ref{fig:complete_model_exec}. On top of modeling the `robot automaton' like the simplified version, it also models the human agent's behavior with another automaton that captures the possible decisions the human may make during execution. Additionally, this complete model makes all the social signals exchanged between the agents explicit and shows how they are used for coordination.  
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.99\linewidth]{Chapter5/complete_automaton_rotated.pdf}
+    \caption{Complete Model of Execution - Dual Automaton. This version details the robot automaton and the assumed human automaton as well as the visual signals exchanges between the agents to synchronize themselves.}
+    \label{fig:complete_model_exec}
+\end{figure}
+
+More precisely, \textit{describe differences between simplified and complete model}
+\begin{itemize}
+    \item ON robot automaton:
+    \item HOME/IDLE pose (new left branch)
+    \item Clock for TimeOut
+    \item Robot Reaction Time
+    \item branches 4-5 are merged and actually corresponds to compliant choice in human automaton
+    \item Send Robot signals 
+    \item Human Automaton: decision time, choices, wait signals
+    \item Human signals
+\end{itemize}
+
+
+
+This execution controller takes as input the solution DAG produced by the chap.~\ref{chap:4} approach. Then, the controller progresses from the initial state to a goal in the solution graph. The controller handles the state transitions, step by step, by sending and synchronizing on social signals. Thanks to this and the associated simulator, we now have a durative task execution with an effectice effect on a simulated environment.
+
 
 \section{Simulation controllers}
 
@@ -122,34 +153,7 @@ The model of execution synchronizes the agents based on explicit visual signals 
 
 Indeed, when starting an action, the associated visual signal is sent only when the agent starts to move. Hence, we track the arm and hand motions to know when the action is visible to the other agent. Then, when an action is over, the associated visual signal is sent directly. It is worth mentioning that humans will naturally have a reaction time when seeing the robot's visual signals (start/end of action, step start). However, the robot natively does not have any reaction time to such symbolic visual signals. Thus, to simulate the delay introduced by an actual perception module (here perfectly simulated), the human visual signals are delayed to the robot by a reaction time set to 0.3 seconds. This is still quite fast, but at least the robot does not interpret human motions instantly.   
 
-\subsection{Complete Joint Action Model for Execution}
 
-The model of execution presented in the last chapter was simplified and used to explore further relevant courses of action. This allows for anticipating the possible coordination and complying with online human decisions. 
-However, we need an execution controller that will supervise the execution of the produced policy. The execution model presented in the last chapter was simplified and abstracted to guide the planning algorithms. Here, we propose a refined and implemented model, matching the abstraction previously made, to be able to execute the produced robot policy and supervise its execution by synchronizing with the human.
-
-The complete model is depicted in fig~\ref{fig:complete_model_exec}. On top of modeling the `robot automaton' like the simplified version, it also models the human agent's behavior with another automaton that captures the possible decisions the human may make during execution. Additionally, this complete model makes all the social signals exchanged between the agents explicit and shows how they are used for coordination.  
-
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.99\linewidth]{Chapter5/complete_automaton_rotated.pdf}
-    \caption{Complete Model of Execution - Dual Automaton. This version details the robot automaton and the assumed human automaton as well as the visual signals exchanges between the agents to synchronize themselves.}
-    \label{fig:complete_model_exec}
-\end{figure}
-
-More precisely, \textit{describe differences between simplified and complete model}
-\begin{itemize}
-    \item ON robot automaton:
-    \item HOME/IDLE pose (new left branch)
-    \item Clock for TimeOut
-    \item Robot Reaction Time
-    \item branches 4-5 are merged and actually corresponds to compliant choice in human automaton
-    \item Send Robot signals 
-    \item Human Automaton: decision time, choices, wait signals
-    \item Human signals
-\end{itemize}
-
-This execution controller takes as input the solution DAG produced by the chap.~\ref{chap:4} approach. Then, the controller progresses from the initial state to a goal in the solution graph. The controller handles the state transitions, step by step, by sending and synchronizing on social signals. Thanks to this and the associated simulator, we now have a durative task execution with an effectice effect on a simulated environment.
 
 
 \section{Human Machine Interface (HMI)}
