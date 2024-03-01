@@ -93,13 +93,13 @@ However, a third cube \emph{c3} is present and can only be picked up by the robo
 This example illustrates the need of coodination even for simple tasks. It also shows that considering possible conflicts can also be a criterion to optimize. Thus, the best robot action might be to pick up \emph{c3} instead of one of the shared cubes to avoid potential conflicts, even if \emph{c3} is more distant and more costly to pick than \emph{c1} and \emph{c2}.
 This example also highlight the relevance of exploring several possible executions of concurrent actions while planning to anticipate and evaluate such situations and produce a robust, compliant and efficient robot policy. This is why, based on joint action literature, we formulated a model of concurrent joint action execution described below that will guide our planning search.
 
-\subsection{Simplified Joint Action Model for Planning}
+\subsection{Abstracted Joint Action Model for Planning}
 
 \begin{figure}
     \centering
     \includegraphics[width=0.8\linewidth]{Chapter4/simplified_automaton.pdf}
     \caption{
-    Simplified Model of Execution in the form of an automaton run by the robot. It captures the latitude of uncontrollable humans in their actions and guides our task-planning approach.
+    Abstracted Model of Execution in the form of an automaton run by the robot. It captures the latitude of uncontrollable humans in their actions and guides our task-planning approach.
     In this paradigm, the two agents can act concurrently but one is always compliant with the other's decision to act.
     Here, the human is always free to decide whether to start acting first, or after the robot, or not to act at all.
     To be compliant, the robot attempts to identify human decisions using perception and situation assessment as well as possible collaborative human signaling acts (e.g., gestures or speech).
@@ -112,29 +112,47 @@ This example also highlight the relevance of exploring several possible executio
 % - 4 lines = 210x301 ratio
 % - 3 lines = 210x308 ratio
 
-The model of execution we forumlated, depicted in fig~\ref{fig:simplified_model_exec}, is inspired by joint action literature and describe the agent's coordination during execution. It comprises synhcronisation and perception processes based on social signals exchanged between the agents such as starting an action (arm motion), hand gestures, or verbal communication. In this section is presented a simplified version of this model that suffice to guide our planning framework. A complete version which explictely models the human behavior and exhanged signals is provided in the next chapter and used to supervise the execution of the produced robot policy.  
+The model of execution we formulated, depicted in fig~\ref{fig:simplified_model_exec}, is inspired by joint action literature and describe the agent's coordination during execution. It comprises synhcronisation and perception processes based on social signals exchanged between the agents such as starting an action (arm motion), hand gestures, or verbal communication. In this section is presented a simplified and abstracted version of this model that suffice to guide our planning framework. A complete version which explictely models the human behavior and exhanged signals is provided in the next chapter and used to supervise the execution of the produced robot policy.  
 
 
-\textbf{TODO: add numbered marks in the figure to refer to easily for description, also describe the conditions: H is active, etc...}
+% \textbf{TODO: add numbered marks in the figure to refer to easily for description, also describe the conditions: H is active, etc...}
 
-Let's describe this simplified model in the form of an automaton on which on planning algorithm is based on.
-In a state, a human decision can result in one of three outcomes.
-First, the human can choose to act first (\textit{left~subtree}).
-If the robot's best action is not in conflict with the human action (e.g., \textit{pick~C}), the robot can safely perform this action concurrently with the human operator (\textit{branch~3}).
-However, if the robot's best action is either \textit{pick~A} or \textit{pick~B}, the human action must be identified first with a subroutine in order to be compliant with it.
-If this subroutine is successful the robot can perform any action which is congruent with the identified human action (\textit{branch~1}). 
-This includes the robot's choice to be \textit{passive} and let the human act alone. 
-However, if the robot is unable to identify the human action, it must remain passive in order to avoid potential conflicts (\textit{branch~2}). 
-Then, the human can either decide to be \textit{passive} or to act after the robot (\textit{right~subtree}). 
-In both cases, the human is \textit{passive} at the beginning, making the robot to start performing alone a feasible action. 
-While the robot is acting, the human is free to remain \textit{passive} until the next step (\textit{branch~5}) or to choose a congruent action to act concurrently (\textit{branch~4}). 
-As a result, the human can always choose to 1) act first, 2) act after the robot, or 3) not act at all. 
-The robot will always be compliant with these online human decisions.
+The model describes the possible transitions from a given state to another, step by step. The robot always informs the human about the beginning of a step and then wait for their decision by looking at social cues. This waiting process is represented by the top yellow rectangle in the figure. This human decision can either be to start acting or to be passive. Hence, the robot always let the human first decide which action they want to perform, including the choice to be passive. This decision is detected with perception by tracking social cues such as human motions and hand gestures.
 
-When both agents finish their actions, the step is considered as \textit{``over''}. 
-Then, another subroutine assesses the new world state ($s_{i+1}$), which is the result of the concurrent actions being executed in the state $s_i$, before repeating the whole process until the task is solved.
+The diamond shapes below the first synchronization process are conditions, driving the automaton into different branches depending on specific conditions. First, we differenciate the cases where the human is passive or not (``H is active''). 
+Ihe case where the human is performing an action, the `yes' branch, we first check if the human action must be identified or not. Indeed, so far only the fact that the human is acting is known, but not yet which particular action they are performing. 
+To avoid potential conflicts, we consider that there is no need to identify the human action if the best robot action does not depend on the human decision. For instance, consider in the cube picking example presented in figure \ref{fig:conflict_pick} that the cube \emph{c3} is easier to pick and place for the robot than the two other one. Thus, regardless of which cube the human picks, the robot should pick \emph{c3}, its best action does not depend on the human decision. In such case, there is no need to idenfiy their action. However, if \emph{c3} is effectively harder to place than \emph{c1} and \emph{c2}, the robot must first identify which cube the human is grabbing to pick the other one. As a result, the model differenciate the cases where the human action must be identified (``ID needed'') or not. If not, then the robot can directly start acting (branch 3). Otherwise, the Identification (ID) process is executed and may either be successful (``ID success'') or not. If not, to avoid any potential conflict, we decided that the robot should remain passive (branch 2). If the human action has been successfully identified then the robot can perform concurrently the best corresponding action (branch 1).
 
-Note that if both agents are passive (the human decides to be passive when the robot cannot act) then the step is repeated. 
+In the case where the human decided to be passive, the robot should start acting. 
+However, while the robot is acting, we consider that the human is free to either remain passive until the next step (branch 5) or to ``change their mind'' and start acting (branch 4).
+This is represented by the diamond shape ``H compliant''. In the case where the human decides to start acting after the robot started, the human can only perform actions that are not conflicting with the already started robot action. Note that this case can be seen as a way for the human to let the robot decide and then comply with the robot's decision. Still, the human decided to let the robot decide, thus, the human is given as much latitude of choice as possible.
+
+Overall, at every step of the execution, the human is free to decide: 1) to start performing any feasible action, the robot will comply with this decision; 2) to let the robot decide and act first, and then purposely we compliant with the robot; 3) to be passive and let the robot act alone.
+
+When both agents finish their actions, the step is considered as \textit{``over''}. This synchronization is represented by the bottom yellow rectangle ``Wait for end of step''. Then, a Situation Assessment Process is executed to assess the new world state ($s_{i+1}$), which is the result of the concurrent actions being executed in the state $s_i$. Once the next state is identified, the automaton repeats until the task is solved and a goal state is reached.
+
+Note that if for any reason both agents are passive during a step, then the state is unchanged and the step is repeated. 
+
+%%%%%%%%%%%%%%%%%%%%%%
+
+% Let's describe this simplified model in the form of an automaton on which on planning algorithm is based on.
+% In a state, a human decision can result in one of three outcomes.
+% First, the human can choose to act first (\textit{left~subtree}).
+% If the robot's best action is not in conflict with the human action (e.g., \textit{pick~C}), the robot can safely perform this action concurrently with the human operator (\textit{branch~3}).
+% However, if the robot's best action is either \textit{pick~A} or \textit{pick~B}, the human action must be identified first with a subroutine in order to be compliant with it.
+% If this subroutine is successful the robot can perform any action which is congruent with the identified human action (\textit{branch~1}). 
+% This includes the robot's choice to be \textit{passive} and let the human act alone. 
+% However, if the robot is unable to identify the human action, it must remain passive in order to avoid potential conflicts (\textit{branch~2}). 
+% Then, the human can either decide to be \textit{passive} or to act after the robot (\textit{right~subtree}). 
+% In both cases, the human is \textit{passive} at the beginning, making the robot to start performing alone a feasible action. 
+% While the robot is acting, the human is free to remain \textit{passive} until the next step (\textit{branch~5}) or to choose a congruent action to act concurrently (\textit{branch~4}). 
+% As a result, the human can always choose to 1) act first, 2) act after the robot, or 3) not act at all. 
+% The robot will always be compliant with these online human decisions.
+
+% When both agents finish their actions, the step is considered as \textit{``over''}. 
+% Then, another subroutine assesses the new world state ($s_{i+1}$), which is the result of the concurrent actions being executed in the state $s_i$, before repeating the whole process until the task is solved.
+
+% Note that if both agents are passive (the human decides to be passive when the robot cannot act) then the step is repeated. 
 
 \section{Problem specification + solution}
 
