@@ -14,7 +14,7 @@
 
 \section{Introduction}
 
-I was introduced to task planning with the work of a PhD student from my lab, Guilhem Buisan. I slightly contributed to the original version and then proposed two extensions of his work. However, Guilhem mainly designed and implemented this novel human-aware task planning approach dedicated to HRI, which plans the robot's actions while estimating and emulating the human decisions and actions, namely HATP/EHDA. 
+I was introduced to task planning with the work of a PhD student from my lab, Guilhem Buisan. I slightly contributed to the original version and then proposed two extensions of his work. However, Guilhem mainly designed and implemented this novel \textbf{H}uman-\textbf{A}ware \textbf{T}ask \textbf{P}lanning approach dedicated to HRI, which plans the robot's actions while estimating and \textbf{E}mulating the \textbf{H}uman \textbf{D}ecisions and \textbf{A}ctions, namely \textbf{HATP/EHDA}. 
 
 We believe this planning approach suits the needs of HRI scenarios well; thus, it became a laboratory to address relevant challenges of task planning for HRC. 
 Two of my main contributions include addressing such challenges and implementing the solutions as extensions of HATP/EHDA.   
@@ -176,7 +176,7 @@ The HATP/EHDA approach explores and evaluates all these kinds of scenarios to pr
 
 The notations from Buisan's thesis have been adapted to match the notations in this thesis and ease readers' comprehension. We start from classical planning formalization.
 
-We consider a \textit{classical planning domain} (\textit{state-transition system}) $\Sigma = (S, A,\gamma)$, s.t., $S$ is a finite set of states in which the system may be, $A$ is a finite set of actions that the actors may perform, $\gamma: S \times A \rightarrow S$ is a state-transition function. Each state $s \in S$ is a description of the properties of various objects in the planner's environment~\cite{ghallab2016automated}. 
+We consider a \textit{classical planning domain} (\textit{state-transition system}) $\Sigma = (S, A,\gamma)$, s.t., $S$ is a finite set of states in which the system may be, $A$ is a finite set of actions that the agents may perform, $\gamma: S \times A \rightarrow S$ is a state-transition function. Each state $s \in S$ is a description of the properties of various objects in the planner's environment~\cite{ghallab2016automated}. 
 
 To represent the objects and their properties, we will use two sets $B$ and $X$: $B$ is a set of names for all the objects, plus any mathematical constants representing the properties of those objects. $X$ is a set of syntactic terms called state variables, s.t. the value of each $x \in X$ depends solely on the state $s$.
 
@@ -186,18 +186,18 @@ A \textit{state-variable} over $B$ is a syntactic term $x = sv(b_1, ..., b_k)$, 
 Here is the description of the sets $B$ and $X$ for the stacking example given in the introduction:
 {\small
 \begin{align*}
-&B           = Entities \cup Locations \cup TableZones \cup Booleans \cup \{\textsf{nil}\} \\
+&B           = Entities \cup Locations \cup Reachability \cup Booleans \cup \{\textsf{nil}\} \\
 &\quad Entities    = Agents \cup Cubes\\
 &\quad Agents      = \{ \textsf{R}, \textsf{H} \} ~~ \backslash\backslash~\textsf{R}:robot,~\textsf{H}:human\\
 &\quad Cubes     = \{ \textsf{red1}, \textsf{red2}, \textsf{green1}, \textsf{blue1}, \textsf{yellow1} \}\\
 &\quad Locations     = \{ \textsf{base1}, \textsf{base2}, \textsf{bridge}, \textsf{top1}, \textsf{top2} \}\\
-&\quad TableZones     = \{ \textsf{middle}, \textsf{side\_h}, \textsf{side\_r} \}\\
+&\quad Reachability     = \{ \textsf{middle}, \textsf{side\_h}, \textsf{side\_r} \}\\
 &\quad Booleans    = \{ \textsf{true},\textsf{false} \}\\
 &\\
 &X = \{ at(e), holding(a), solution(l) ~ | ~ e \in Entities, a \in Agents, l \in StackLocations\}\\
 &\quad \textit{Range}(holding(a) ~|~ a \in Agents) = Cubes \cup \{\textsf{nil}\} \\
 &\quad \textit{Range}(at(a) ~|~ a \in Agents) = \{ \textsf{side\_h}, \textsf{side\_r} \}\\
-&\quad \textit{Range}(at(c) ~|~ c \in Cubes) = TableZones \cup Locations\\
+&\quad \textit{Range}(at(c) ~|~ c \in Cubes) = Reachability \cup Locations\\
 &\quad \textit{Range}(solution(l) ~|~ l \in StackLocations) = Cubes \\
 \end{align*}
 }
@@ -297,7 +297,7 @@ The robot HTN exploration is a pretty standard depth-first algorithm. The first 
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.6\linewidth]{Chapter2/HATPEHDA_planning_process.pdf}
+    \includegraphics[width=\linewidth]{Chapter2/HATPEHDA_planning_process.pdf}
     \caption{The HTNs exploration consists in iterative loops of four steps : (1) Get possible robot actions from the robot HTN, add them to the plan and apply their specific effects on the H \& R beliefs, (2) Check Triggers and add the reactions in the corresponding agendas, (3) Get possible human actions based on their estimated beliefs, add them in the plan and apply their effects on the H \& R  beliefs, (4) Check Triggers again and add the reactions in the corresponding agendas. Here the robot is starting, but the human could with the following ordering: (3)>(4)>(1)>(2).}
     \label{fig:HATPEHDA_planning_process}
 \end{figure}
@@ -373,12 +373,12 @@ Each scenario is commented below with their corresponding selected plan shown in
 \label{tab:plans}
 \end{table}
 
-\begin{figure}
+\begin{sidewaysfigure}
     \centering 
-    \includegraphics[width=0.45\textwidth]{Chapter2/plans_rotated.pdf}
+    \includegraphics[width=1.0\textwidth]{Chapter2/plans.pdf}
     \caption{Illustration of the incremental exploration of various courses of actions corresponding to scenarios depicted in Fig.~\ref{fig:scenarios}(b), (c) and (d). Since H1 requests the robot to achieve the goal, it is not a shared goal, the robot agenda is filled with the task to achieve and the agenda of H2 starts empty.}
     \label{fig:plans}
-\end{figure}
+\end{sidewaysfigure}
 
 \paragraph{(a) H1 and R act together}
 First, the human sets a shared goal by asking the robot to stack cubes with him. Since it is a shared goal, Both human and robot agendas are initialized with the ``Stack" task. Thus, the robot anticipates that the human will pick the unreachable second red cube by querying the human action model. The selected plan to collaboratively stack can be seen in TABLE~\ref{tab:plans}(a). 
