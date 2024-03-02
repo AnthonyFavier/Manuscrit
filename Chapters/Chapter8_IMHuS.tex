@@ -10,9 +10,16 @@
 \label{chap:8}
 \minitoc
 
-This short chapter introduces an additional work called Intelligent Multi-Human Simulator (IMHuS)~\cite{hauterville-2022,hauterville:hal-03865622} which is strongly inspired by the InHuS framework presented in chapter~\ref{chap:7}. Together with two researchers from the University of Leon in Spain and an intern, we designed this framework based on InHuS. The major part of the implementation has been done by the intern. This system has been evaluated in the elevator scenario, as defined for the SciRoc competition 2019. The main purpose of IMHuS is to address one of the major limitations of InHuS which is not being able to simulate several human agents. 
+\chapabstract{This chapter presents IMHuS, which complements the previous system to choreograph several agents with group movements and social behaviors. This system has been qualitatively evaluated in an elevator scenario.}
 
-We begin with a comparison between InHuS and this additional work while briefly describing it. After, a more formalized presentation of IMHuS is provided detailing the information given in the prior comparison.
+\section{Introduction}
+
+In chapter~\ref{chap:7}, we showed that the InHuS system effectively challenges robot navigation systems in intricate and human-populated environments. However, simulating the interactive agent is computationally demanding. This is why we limited the simulation to only a single intelligent agent. Nevertheless, it is also relevant to general intricate scenarios with several agents. Existing works simulating crowds are only based on a reactive approach and are not necessarily designed to be used to benchmark robot systems.
+
+This is why we propose the Intelligent Multi-Human Simulator (IMHuS). This work is strongly inspired by and complementary to the InHuS framework presented in chapter~\ref{chap:7}. Together with two researchers from the University of Leon in Spain and an intern, we designed this framework based on InHuS. The implementation of this system has been majorly done by the intern. This system allows choreographing several interactive agents with group or individual movements and social behaviors. The individual agents are less complex and demanding than the InHuS one, allowing the simulation to run smoothly.  
+This system has been evaluated in the elevator scenario, as defined for the SciRoc competition 2019.
+
+We begin with a comparison between InHuS and this additional work while briefly describing it. After, a more formalized presentation of IMHuS is provided, detailing the information given in the prior comparison. Eventually, the elevator use case evaluation is presented. 
 
 
 \section{Comparison InHuS vs. IMHuS}
