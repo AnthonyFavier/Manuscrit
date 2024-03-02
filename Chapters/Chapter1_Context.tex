@@ -105,7 +105,7 @@ In order to better picture the implications of the above theories, some key aspe
 
 \textbf{Specialization of Roles:} There are several human-robot relationships, including supervisor-subordinate, partner-partner, teacher-learner, and leader-follower. These roles can be predefined and fixed during the whole collaboration. The role distribution can also be flexible using weighting functions that allow a continuous change between the roles to adapt to every context and situation.
 
-\textbf{Establishing shared goal(s):} Through direct discussion or inference, agents must determine the shared goals they are trying to achieve. However, a shared goal isn't always necessary and can be established in the middle of a task execution either by the human or the robot.
+\textbf{Establishing shared goal(s):} Through direct discussion or inference, agents must determine and agree on the shared goals they are trying to achieve. However, a shared goal isn't always necessary and can be established in the middle of a task execution either by the human or the robot.
 
 \textbf{Allocation of subtasks:} After deciding how to achieve their goals, agents must determine what actions and subtasks will be done by each agent and how to coordinate each other. This can either be done explicitly before starting the task or be reactively done on the fly.
 
@@ -121,14 +121,26 @@ In order to better picture the implications of the above theories, some key aspe
 
 \subsection{Architectures \& Complete systems}
 
-It is important to remember that since a collaborative robot is issued from an interdisciplinary field, its different functionalities and capabilities are usually separated into several dedicated components. These components interact and communicate with each other, forming a complete architecture. This architecture covers all aspects relevant to exhibiting the robot's behavior, from sensory perception to physical motions, including reasoning processes. 
-Despite developing distinct robotic components, the robot must be considered a whole. Each component cannot be studied entirely independently of other aspects of the complete system.  
+It is important to remember that since a collaborative robot is issued from an interdisciplinary field, its different functionalities and capabilities are usually separated into several dedicated components. These components interact and communicate with each other, forming a complete architecture. Such architectures cover all aspects relevant to exhibiting the robot's behavior, from sensory perception to physical motions, including reasoning processes. 
+Despite developing distinct robotic components, the robot must be considered a whole. Each component cannot be studied entirely independently of other aspects of the complete system. As a result, optimizing by design the way these components interact has been the focus of several works proposing robotic architectures.
 
-As a result, some works are dedicated to designing robotic architectures, especially cognitive architectures, which are the most promising ones for designing collaboration robots. 
+\begin{figure}
+    \center
+    \includegraphics[width=0.9\linewidth]{Chapter1/soar_architecture.png}
+    \caption{The SOAR cognitive architecture.}
+    \label{fig:soar}
+\end{figure}
 
-Example of cognitive architecture
-[cite SOAR Laird et al, CORTEX Bustos et al, ORO/SHARY/SPARK.. Lemaignan, perspective-aware Lemaignan]
-\textbf{TODO}
+As Matthias Scheutz, Jack Harris, and Paul Schermerhorn put in \cite{scheutz_systematic_2013}, architectures for intelligent robots have improved steadily over the years. 
+Early works like \cite{alami_designing_1993,alami_architecture_1998,chatila_integrated_1992} propose architectures to provide autonomy to mobile robots, focusing on three levels: decision, execution, and functional. Diverse components that let robots negotiate increasingly complex indoor and outdoor environments as been considered and improved such architectures over the years. As a result, current robot architectures integrate multiple sophisticated algorithms for real-time perceptual, planning, and action processing, from 3D object recognition to simultaneous localization and mapping to navigation and task planning, to action sequencing. However, classical robotic architectures like the ones mentioned above typically lack components for high-level cognition, such as general-purpose reasoning and problem solving. 
+To address this issue, studies on cognitive robot architecture began mainly with the SOAR (depicted in figure~\ref{fig:soar}) and ACT-R architectures \cite{laird_soar_1987,anderson2004integrated}.
+Often based on the structure of the human mind, such cognitive architectures aim to endow robots with high-level capabilities like learning, inferring, and reasoning about how to behave in response to complex goals in complex worlds. 
+
+\cite{lemaignan_artificial_2017} identifies relevant collaborative cognitive skills and integrates them in a proposed architecture. The skills include geometric reasoning and situation assessment based on perspective-taking and affordance analysis; acquisition and representation of knowledge models for multiple agents (humans and robots, with their specificities); situated, natural, and multi-modal dialogue; human-aware task planning; human-robot joint task achievement.
+
+\cite{thierauf_toward_2024} proposes another integrated cognitive robotic architecture more focused on self-awareness. It allows the robot to assess its own performance, identify task execution failures, communicate them to the humans, and resolve them, if possible. 
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Models for interaction}
