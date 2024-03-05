@@ -1,8 +1,8 @@
-\chapter*{Conclusions}
-% \addstarredchapter{Conclusions} 
-% \markboth{Conclusions}{}
+\chapter*{Conclusion}
+\addstarredchapter{Conclusion} 
+\markboth{Conclusion}{Conclusion}
 
-
+\mysection{Contributions}
 
 % * Overall summary *
 
@@ -10,6 +10,7 @@ In this thesis, we addressed the challenge of enhancing the decision-making of r
 
 To better capture my contributions, we presented in Chapter~\ref{chap:1} the specificities and the multidisciplinarity of the Human-Robot Interaction field and the Human-Robot Collaboration subfield. Eventually, we presented state-of-the-art approaches in HRC task planning and robot navigation. 
 
+\subsection*{Task Planning Conclusions}
 % * Gap task planning *
 
 Task planning for human-robot collaboration is a research topic of high interest to which numerous works have contributed. However, most of these works do not consider distinct agent models and, thus, do not consider different beliefs, action models, or goals. Moreover, works from the literature tend to produce a joint plan that must be shared and accepted by the human, assuming in a way that the human is controllable and must follow the produced plan, which is an approach close to multi-robot planning. Finally, existing approaches usually assume the agents have already established a shared goal. However, scenarios where the robot should decide `when' and `how' to start the collaboration are also relevant to be explored. 
@@ -34,9 +35,16 @@ We evaluated this approach empirically using three domains, including shared tas
 In Chapter~\ref{chap:4}, we proposed another contribution bringing planning and execution closer. We proposed a step-based model of concurrent and compliant joint action execution. 
 This model describes several possible coordination of the agents, including the four following cases: 1) the human decides to perform any desired action and the robot complies by executing its best non-conflicting action in parallel; 2) the human decides to be passive and let the robot act alone; 3) the human is acting alone while the robot remains passive; 4) the human decides to let the robot decide and start acting purposely, then the human accompany the robot with a concurrent non-conflicting action.
 We use an abstracted version of this model to guide our search and explore further concurrent courses of action, allowing the robot to anticipate possible execution conflicts. 
-The exhaustive exploration produces a directed acyclic graph where each path from the root to a leaf is a sequence of concurrent human-robot actions leading to the goal. From this graph produced offline, the robot's behavioral policy is extracted using an estimation of the human preferences regarding the joint task. 
+The exhaustive exploration produces a directed acyclic graph where each path from the root to a leaf is a sequence of concurrent human-robot actions leading to the goal. From this graph produced offline, the robot's behavioral policy is extracted using an estimation of the human preferences regarding the joint task. These preferences can optimize various objectives, for instance, minimizing the human efforts, finishing the task as soon as possible, or freeing the human as soon as possible.  
+This policy indicates the best concurrent robot action to satisfy the estimated human preferences in every state and for each possible human action. This allows the robot to comply optimally with any human online decision.  
+Moreover, this extraction is light and can be done online. As a result, as the execution progresses, the estimated human preferences can be reevaluated, and the robot policy can be updated accordingly on the fly.
+To evaluate our approach, we used BlocksWorld scenarios where the human and the robot had to collaborate to stack colored cubes to match a given goal pattern. 
+As a first step, we evaluate the approach by symbolically simulating possible executions, following the abstracted model of execution proposed. To highlight the compliance endowed to the robot, we simulated erroneous estimations of the human preferences, making the robot's behavior more or less adversarial to the human preferences. However, the robot always aims and helps to fulfill the shared task, but not necessarily in the way the human would have preferred. The results showed that despite erroneously estimated human preferences, the actual human preferences are correctly satisfied overall because the robot constantly adapts to and follows human decisions. 
+To further validate the approach, we conducted a user study using an interactive simulator created explicitly for this purpose. This simulator includes a refined and implemented version of the model of execution used as an execution controller to supervise the robot's policy execution. This simulator allowed human participants to collaborate with a simulated Tiago robot through mouse control. We compared our approach with a contrasting baseline where the robot always imposes its decisions on the human. By recording execution data and requesting participants to answer a questionnaire, we showed that our approach performed and was appreciated significantly better than the baseline. Over the different scenarios, our approach permitted to satisfy the human preferences significantly better and the baseline. 
+Moreover, the most significant differences using our approach are that the participant perceived the Interaction as more Positive, the Collaboration as more Adaptive and Efficient, and the Robot's Decisions as more Appropriate and Accommodating.    
 
-* Agent simulation gap *
+\subsection*{Social Navigating Agents Simulation Conclusions}
+% * Agent simulation gap *
 
 On the other hand, navigation is a fundamental skill for a robot. State-of-the-art methods are efficient for static, dynamic, and unknown environments. However, navigating in human-populate environments is still challenging. Various approaches address the human-aware navigation subject, but only a few recent works propose tools to challenge, test, debug, and evaluate robot human-aware navigation systems. Without such simulation tools, preliminary experimentation and debugging must be achieved using a real robot, which is slow and burdensome. 
 Most existing simulated interactive agents are based only on reactive approaches, making them suitable for crowded scenarios but limited and unrealistic in intricate ones. 
@@ -46,7 +54,7 @@ Thus, there is a lack of simulated interactive agents endowed with some decision
 
 - Simulating interactive social agents to challenge and evaluate robot navigation in intricate human-populated scenarios. (InHus / IMHuS)
 
-\section*{Limitations and future works}
+\mysection{Limitations and future works}
 
 - Theory of Mind / epistemic planning
 

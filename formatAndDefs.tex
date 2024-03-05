@@ -238,3 +238,9 @@ urlcolor=linkcol %couleur des liens pour les url
 {\vspace*{\fill}}
 
 \usepackage{tablefootnote}
+
+\newcommand{\mysection}[1]{%
+    \section*{#1}%
+    \addcontentsline{toc}{section}{#1}%
+    \markright{#1}%
+}
