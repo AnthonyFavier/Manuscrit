@@ -3,4 +3,85 @@
 % \markboth{Conclusions}{}
 
 
-\textbf{TODO: THESIS IS CONCLUDED}
+
+% * Overall summary *
+
+In this thesis, we addressed the challenge of enhancing the decision-making of robots to ensure seamless collaboration with a human partner. Several contributions have been proposed, contributing to robotic human-aware task planning on the one hand and to robot navigation by simulating social interactive agents on the other. 
+
+To better capture my contributions, we presented in Chapter~\ref{chap:1} the specificities and the multidisciplinarity of the Human-Robot Interaction field and the Human-Robot Collaboration subfield. Eventually, we presented state-of-the-art approaches in HRC task planning and robot navigation. 
+
+% * Gap task planning *
+
+Task planning for human-robot collaboration is a research topic of high interest to which numerous works have contributed. However, most of these works do not consider distinct agent models and, thus, do not consider different beliefs, action models, or goals. Moreover, works from the literature tend to produce a joint plan that must be shared and accepted by the human, assuming in a way that the human is controllable and must follow the produced plan, which is an approach close to multi-robot planning. Finally, existing approaches usually assume the agents have already established a shared goal. However, scenarios where the robot should decide `when' and `how' to start the collaboration are also relevant to be explored. 
+Hence, there is a lack of task planning approaches preserving the human's latitude of online decisions while collaborating efficiently to solve both shared and individual tasks. 
+
+
+% * Task Planning contribution *
+
+% - Models and Algorithms, integrating Theory of Mind in human-aware task planning to better anticipate human actions and plan the robot ones. 
+In Chapter~\ref{chap:2}, we presented the HATP/EHDA human-aware task planner designed to address the highlighted gap in the literature. After participating in its development, this planning scheme became a laboratory to explore relevant human-aware task planning challenges, leading to two main contributions. 
+
+In Chapter~\ref{chap:3}, we proposed models and algorithms to integrate concepts of Theory of Mind in the planning process of HATP/EHDA and plan the robot's actions appropriately. 
+The main idea is that agents only update their beliefs from observable facts in their surroundings or by observing a co-present agent acting. 
+More precisely, we modeled observability as follows. First, each fact describing the state of the world is associated with a place, which can be symbolic. The agents are situated and can move from one place to another. When situated in the same place, two agents are said to be co-present, and an agent and a fact are said to be co-located. Second, each fact is associated with an observability type stating if the fact is observable or not. For instance, the color of an object is observable and can be learned if situated near the object. However, the presence of salt in water or the temperature of an object is not observable but can be inferred in certain situations.
+Based on these models, we propose two rules to update agent beliefs. First, an agent learns from observing a co-located observable fact. These updates are done through a systematic Situation Assessment process inserted in the planning process of HATP/EHDA and executed after each planned action. Hence, the agent will automatically observe and learn from its surroundings. For instance, when moving to another room, the agent's beliefs will be updated with (only) observable facts located in the other room.  There is no need to script this assessment in the `\textit{move}' action's effects. On the other hand, an agent learns from observing a co-present agent performing an action (including the agent itself). In this case, the agent's beliefs are directly updated with all action's effects, including effects affecting non-observable facts. This rule models the inference that humans internally perform when observing their surroundings. For instance, if the human observes the robot adding some salt to the water, they can naturally infer that some salt is now in the water, although it is not observable.
+Using those two rules, we can maintain human beliefs more precisely to predict their behavior better and detect false beliefs that may be detrimental to collaboration. Finally, we solve \textit{relevant} false human beliefs as follows. First, from the erroneous facts present in the human beliefs, we identify which ones must be corrected to solve the task. Then, a communication action correcting the minimal number of false beliefs is inserted into the robot's plan, potentially leaving some non-detrimental erroneous facts in the human beliefs. As a second possible solution, we then check if the relevant false beliefs are due to a non-observed robot action. If so, we create another possible plan where the robot delays the relevant action until the human can observe its execution, avoiding the creation of the false belief. 
+We evaluated this approach empirically using three domains, including shared tasks, several places, and non-observable facts. We showed that the proposed models and algorithms allow us to solve a broader class of problems than the original HATP/EHDA planner. Moreover, our relevant false beliefs detection and minimal communication already avoid systematic communication, and considering delaying robot actions reduces the communication rate of the solution plan produced even more. 
+
+
+% - Model of concurrent and compliant joint action execution: used to guide human-aware task planning and ensure compliance with human online decisions and preferences
+
+In Chapter~\ref{chap:4}, we proposed another contribution bringing planning and execution closer. We proposed a step-based model of concurrent and compliant joint action execution. 
+This model describes several possible coordination of the agents, including the four following cases: 1) the human decides to perform any desired action and the robot complies by executing its best non-conflicting action in parallel; 2) the human decides to be passive and let the robot act alone; 3) the human is acting alone while the robot remains passive; 4) the human decides to let the robot decide and start acting purposely, then the human accompany the robot with a concurrent non-conflicting action.
+We use an abstracted version of this model to guide our search and explore further concurrent courses of action, allowing the robot to anticipate possible execution conflicts. 
+The exhaustive exploration produces a directed acyclic graph where each path from the root to a leaf is a sequence of concurrent human-robot actions leading to the goal. From this graph produced offline, the robot's behavioral policy is extracted using an estimation of the human preferences regarding the joint task. 
+
+* Agent simulation gap *
+
+On the other hand, navigation is a fundamental skill for a robot. State-of-the-art methods are efficient for static, dynamic, and unknown environments. However, navigating in human-populate environments is still challenging. Various approaches address the human-aware navigation subject, but only a few recent works propose tools to challenge, test, debug, and evaluate robot human-aware navigation systems. Without such simulation tools, preliminary experimentation and debugging must be achieved using a real robot, which is slow and burdensome. 
+Most existing simulated interactive agents are based only on reactive approaches, making them suitable for crowded scenarios but limited and unrealistic in intricate ones. 
+Thus, there is a lack of simulated interactive agents endowed with some decision-making processes allowing them to resolve more realistically intricate scenarios, like path blockage or narrow corridor crossing.
+
+* Nav contribution *
+
+- Simulating interactive social agents to challenge and evaluate robot navigation in intricate human-populated scenarios. (InHus / IMHuS)
+
+\section*{Limitations and future works}
+
+- Theory of Mind / epistemic planning
+
+Currently limited. 
+No uncertainty in robot knowledge: we could evaluate the confidence level of information, and rely only of high confidence one.
+No uncertainty in estimated human beliefs: assume worst case scenario, we could anticipate scenario where the human correctly anticipated robot actions and keep track of several possible world (epistemic planning)
+We could add more reasoning: logical (DEL, if A or B is true, and I know not B, then A is true), causal (if action B can only be performed after A, and I see some B effects, then A has been executed)
+Communication: For now we are able to identify the minimal relevant information to communicate, however, not when to communicate it. Currently, we comm at last moment, just before the estimated divergence to occur. Could be interesting to identify the best place to comm, could be before human even leave the room.
+
+- Model of concurrent and compliant Joint Action execution
+
+The model could  be improve to enhance both the planning and the execution.
+First, double passive: not explored since same state. However, they are never consider in plan evaluation (policy Generation). Maybe, in some situations where the human decides to be passive, it is relevant for the robot to be passive also to insist on the fact that it is much better for the human to act. But to avoid being blocked indefinitly, the robot should also know when to act anyway to pursue the task execution, even if it is sub-optimal.
+Then, robot initiatives. Sometimes good to have RF. Indeed, currently a step starts with the robot waiting for a human signal before proceeding. The only exeption are when the human cannot act, then the robot directly act. It means that the robot will wait even when its action does not depend on the human decision (ID not necessary). It could be relevant instead in such situations to skip this wait and start the robot action, since again there is no possible conflict.   
+Step: Should be associated to a supervisor which allow a more flexible execution maybe even removing the step synchronisations. 
+Evaluation: we conducted a user study on an interactive simulator with mouse control. An interesting future work is to enhance and use this simulator for further experiments. For instance, integrate Virtual Reality (VR) support would make it more immersive and participants could grab object with their hand instead of cliking on them. Of course, implementing the scheme on a real robot would also be interesting but it would require a lot of engineering work. Real robots tend to be slow and may bias our results focused on decision-making. Thus, a significant amount of work would be required to use a real robot instead of a simulated one. 
+
+- Performances:
+
+Even if collaborative scenario aren't usually very long, their complexity can be high. 
+Currently we rely on exhaustive search, which is expensive but sufficient for our scenarios. In ch4 we introduce the DAG approach which improves a lot the performances but it is still an exhaustive search which will not scale. 
+Would be relevant to identify pertinent heuristics to avoid exhaustive exploration. Adding a sort of risk estimation could allow to safely not fully refine a plan before starting its execution. For instance, consider a scenario of collaborative setting the table. Due to the numerous objects and types to set (forks, knives, spoons, glasses, plates, napkins, salt, pepper, ...), the possible orderings are considerable making the exhaustive search infeasible. However, as humans, a know that there is no risk nor importance to the ordering. Knowing this, we start setting the table with the first object we find and know well that the task will be feasible without precisely knowing from the beginning the sequence of action they plan to do. However, in another scenario, possible deadends can occur requiring further planning. This estimation of how precise and exhaustive the search should be is challenging but could help a lot collaborative scenarios.
+
+- Simulating social navigating agents
+
+The InHuS architecture was initially designed to be generic and, thus, able to solve any kind of collaborative task. However, implementing the full architecture is very challenging and as a first step we limited the scheme to navigation. However, It could be interesting to integrate a more complex task planner inside InHuS, like HATP/EHDA.  
+Several humans: address in a way with IMHuS, already very interesting and able to design and reproduce challenging navigaiton scenarios. However, agents lack individual decision-making processes. Hence, we thought about another approach to extend InHuS to multi-human scenario. We could run, e.g., two instances of InHuS to control the two closest humans to the robot and control the other agents using reactive, and computationally cheap, approaches. During execution, we would dynamically switch agent control and assign the InHuS instance to different humans. This would require to carefully track the goals to pause and resume their execution in InHuS. 
+
+
+
+- Triggers
+
+In HATP/EHDA are modeled Triggers, used to model actions induced by reactions of the agents to a particular situation rather than a goal oriented actions. For instance, whatever the human is doing, when we hand over an object the human is likely to interumpt their activity to grab the object. This mechanism is useful to describe complex human action models, later used to estimate the next actions the human is likely to perform in a given state. 
+The contributions proposed in this thesis induced significant implementation modification to the original HATP/EHDA framework. For simplicity reasons triggers have not been integrated in the new version. Nevertheless, triggers can be considered as part of the actions models which themselves can be considered as black boxes. These black boxes, given an agent agenda and beliefs returns a set of possible actions, each associated to an updated agenda and beliefs. Hence, adding triggers would be an interesting future work only requiring a small additional work to be integrated.
+
+- Shared goal 
+
+Additionally, the use cases of my contributions always consider that a shared goal has been established between the agents. Nevertheless, HATP/EHDA can manage scenario without shared goal, and can even handle creation of shared goals (mostly thanks to triggers). Non shared goals were less relevant for my example but it would be interesting to investigate additional scenarios and example where no shared goal is established.
