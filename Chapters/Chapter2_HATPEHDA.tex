@@ -53,129 +53,36 @@ The HATP approach produces what is estimated to be the best joint plan for solvi
 
 \section{Related work} \label{sec:ch2_related_work}
 
-An approach to solving a collaborative task is to produce a joint plan including coordinated robot and human actions. This plan must be shared, accepted, and followed to solve collaboratively the common goal. This approach is used in the HATP planner \cite{alili2009task} presented above. By assuming the plan must be followed, the human cannot deviate from the generated plan. Hence, the human is somehow considered as controllable. This is efficient in industrial contexts but can be burdensome for humans in other contexts like household ones. [introduce work 7]
+An approach to solving a collaborative task is to produce a joint plan including coordinated robot and human actions. This plan must be shared, accepted, and followed to solve collaboratively the common goal. This approach is used in the HATP planner \cite{alili2009task} presented above. By assuming the plan must be followed, the human cannot deviate from the generated plan. Hence, this approach assumes that the human is controllable. 
+In \cite{johannsmeier2016hierarchical}, the authors use the same assumption and propose a task allocation framework for human-robot collaborative assembly line tasks. They propose representing the task through an AND/OR graph and solving the optimal sub-task allocation problem considering a given cost function. Action sequences are extracted from this allocation and then shared with the respective agents to be executed. Hierarchical and concurrent hybrid state machines handle the execution of these sequences. This copes with unpredictable events likely to happen in dynamic and partially known environments, especially in the presence of humans.  
 
-Some works are focused on HRC's psychological aspect, like the plan's acceptability and explainability. In \cite{chakraborti_plan_2017}, the authors propose to improve the explainability of a robot plan by using both a robot model $\mathcal{M^R}$ and the estimation of the model the human has of it $\mathcal{M}^R_h$. This approach, called model reconciliation, aims to make identical the optimal plans generated using both models, i.e., $\mathcal{M^R}$ and $\mathcal{M^R_h}$. They define a list of operators to modify the different models until the plans match. 
+Additionally, some works are focused on HRC's psychological aspect, like the plan's acceptability and explainability. This is beneficial to the approach described just above. In \cite{chakraborti_plan_2017}, the authors propose to improve the explainability of a robot plan by using both a robot model $\mathcal{M^R}$ and the estimation of the model the human has of it $\mathcal{M}^R_h$. This approach, called model reconciliation, aims to make identical the optimal plans generated using both models, i.e., $\mathcal{M^R}$ and $\mathcal{M^R_h}$. They define a list of operators to modify the different models until the plans match. 
 Although this approach interestingly improves the explainability of the robot's plan, it does not consider the two agents to collaborate directly. Indeed, the plan produced only contains robot actions. 
 
-The idea of considering a distinct human model $\mathcal{M}^R_h$  
-A: Human activity and actions anticipation using a human model indicating the actions the human is likely to perform and plan the robot's actions accordingly 
+Producing a joint plan that considers the human controllable is efficient and acceptable in industrial contexts. Indeed, the human is working and thus highly committed and focused on the task. Even if humans appreciate flexibility, in this context, their priority is instead task efficiency.
+However, this assumption can become burdensome for humans in other contexts, such as household ones, where humans are likely to be distracted, change their minds, and tend to prioritize minimizing their effort and flexibility instead of task efficiency. 
 
-(1) (4) (5) 
-
+As a result, some approaches started to consider a distinct human model $\mathcal{M}^R_h$ to plan the robot action.
 A first approach, described in \cite{hoffman_effects_2007}, proposes an adaptive action selection mechanism for a robotic teammate, making anticipatory decisions based on the confidence of their validity and their relative risk. They demonstrate improved task efficiency and fluency compared to a purely reactive process. The human behavior is modeled with a First-Order Markov Process and learned through Bayesian estimate. The probabilities constituting the human model are used in the cost evaluation of different plans, eventually leading to a robot action selection, producing an adaptive and proactive robot plan. 
+In \cite{unhelkar2020decision} is proposed an approach based on Partially Observable Markov Decision Process (POMDP) called CommPlan. The POMDP is built using a user-defined MDP (Markov Decision Process) representing the collaborative task and an Agent Markov Model (AMM) representing the human decision-making process. Solving this POMDP produces a robot policy that decides when the robot has to communicate about its beliefs, when to question the human about theirs, and when to ask the human to perform an action. Besides, the AMM is not only specified by an expert modeler but also refined during the interaction via learning. However, the approach considers the human model as an oracle on which reasoning is hardly possible.
 
-B: Online, robust execution  (Can benefits from human action anticipations, by modeling human) (Provide adaptive behavior both to human decision and to unexpected changes in the environment, but limited horizon optimality not guaranteed)
-
-(3) (6) (8) (9)
-
-C: Produce Joint Plan assuming a controllable human (good for industrial context)
-
-(7) (HATP)
+Other works extend the use of a distinct human model to explicitly predict and anticipate the actions the human is likely to perform. Then, for each possible human action, the best robot's actions are determined to account for human unpredictability. This is the approach used in HATP/EHDA.
+This other work \cite{buckingham_robot_2020} also uses this approach. They propose a unified scheme to cope with collaborative, adversarial, and non-involved human agents. This scheme considers given mental models for each human co-present with the robot, which might interact with the latter. These mental models are queried to estimate a set of actions each agent is likely to perform given a state. The robot's actions are planned according to these estimated actions to reach the robot's goal and potentially achieve the human agents' goal. In doing so, the robot's actions can influence the human ones without explicit communication, helping the robot achieve its goal. HATP/EHDA similarly queries a human mental model and uses an AND/OR graph where OR nodes represent possible robot actions in a state and AND nodes represent the possible human actions estimated by the models. However, despite saying the model can be generic, this work uses a basic breadth-first search planner to produce a set of minimal-cost plans solving the estimated human goal. Then, they extract the first actions of each plan to produce a set of actions the human is likely to perform. No details are given on the cost evaluation. This approach does not seem to consider human actions that are sub-optimal but still probable, which can be due to inattention. Moreover, the robot actions are selected by using a Min-Max approach on the AND/OR graph, minimizing the worst-case. This approach works well in adversarial setups and still allows cooperative human interventions. However, it is unclear how these cooperative actions are taken into account in the robot decision process. Assuming that the human will be adversarial, the robot might make ``wrong'' decisions, possibly preventing an efficient and optimal cooperative execution. HATP/EHDA minimizes the average cost of all possible human decisions, optimizing uniformly for any human decisions. This approach considers humans congruent, rational, and cooperative but not necessarily involved in the robot's task. Hence, HATP/EHDA does not account for adversarial humans but addresses the other cooperation types better.
+\cite{koppula2016anticipatory} also explicitly estimated the most likely human actions to generate the robot policy, but they use a probabilistic and learning approach. They propose a two agent collaborative MDP model and learn robot policies by taking into account the actions that can be performed by the human. They represent the environment in terms of the object affordances and learn the activity model from RGB-D videos of a human performing the activities. Then, they use this learned task model in a distributed Q-learning algorithm to learn the robot policy for a given new environment. 
+The human capabilities are captured in a MDP. Thus, the possible human actions are estimated by balancing the human habits and the best ($\epsilon$-optimal) action given by the MDP. 
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-******************************************************************************************************************
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-\subsubsection{Hoffman - 2007 - Effects of anticipatory action on human-robot teamwork efficiency, fluency, and perception of team}
-\label{w1}
-
-\cite{hoffman_effects_2007}
-
-Proposes to anticipate human actions to provide efficient robot support. The human is modeled as a First-Order Markov Process and could even be modeled as a Hidden Markov Model. The probabilities constituting the human model are used in the cost evaluation of different plans, eventually leading to a robot action selection producing a robot plan. 
-
-
-\subsubsection{Chakraborti - 2017 - Plan Explanations as Model Reconciliation: Moving Beyond Explanation as Soliloquy}
-\label{w2}
-
-\cite{chakraborti_plan_2017}
-
-They propose to improve the explainability of a robot plan by using both a robot model $\mathcal{M^R}$ and the estimation of the model the human has of it $\mathcal{M^R_H}$. This approach, called model reconciliation, aims to make identical the optimal plans generated using both models, i.e., $\mathcal{M^R}$ and $\mathcal{M^R_H}$. They define a list of operators to modify the different models until the plans match. 
-
-Although this approach interestingly improves the explainability of the robot's plan, it does not consider the two agents to collaborate directly. Indeed, the plan produced only contains robot actions.  
-
-\subsubsection{Iocchi (Sanelli et al.) - 2017 - Short-Term Human-Robot Interaction through Conditional Planning and Execution}
-\label{w3}
-
-\cite{sanelli_short_term_2017}
-
-This work is two-sided. First, they propose a conditional planning system considering uncertainties, primarily due to human agents. This planning approach is based on planner Contingent-FF (cite Hoffman and Brafman 2005). Then, they propose a component to translate these plans into Robust Petri-Net Plan (PNP) to handle their execution. This translation is inspired by work (Iocchi 2016), which improves plans with execution rules. Eventually, this plan are executed with an existing module called PNPRos [cite?].
-
-Interestingly, the expected human actions are transformed into sub-petri nets where the robot elicits the action (e.g., via verbal communication) if the human does not perform it by themselves. 
-
-However, this approach does not model either reason on a distinct human agent model. Hence, the human reasoning process, goal, and belief are not modeled. This means that the interaction is limited to requesting the human to perform single actions without setting a proper high-level joint goal. This can be efficient in some situations, like a service robot providing information and requesting answers to some questions, such as the examples presented by the authors. However, repeated punctual interventions to perform a longer task collaboratively can become unpleasant for the human.
-
-\subsubsection{Scheutz (Buckingham et al.) - 2020 - Robot Planning with Mental Models of Co-present Humans}
-\label{w4}
-
-\cite{buckingham_robot_2020}
-
-This planning approach proposes a unified scheme to cope with collaborative, adversarial, and non-involved human agents. This scheme considers given mental models for each human co-present with the robot, which might interact with the latter. These mental models are queried to estimate a set of actions each agent is likely to perform given a state. The robot's actions are planned according to these estimated actions to reach the robot's goal and potentially achieve the human agents' goal. In doing so, the robot's actions can influence the human ones without explicit communication, helping the robot achieve its goal.
-
-This mental model querying approach is similar to the HATP/EHDA approach. Similarly, it uses an AND/OR graph where OR nodes represent possible robot actions in a state and AND nodes represent the possible human actions estimated by the models. However, despite saying the model can be generic, they use a basic breadth-first search planner to produce a set of minimal-cost plans solving the estimated human goal. Then, they extract the first actions of each plan to produce a set of actions the human is likely to perform. No details are given on the cost evaluation. This approach seems not to consider human actions that are sub-optimal but still probable, that can be due to inattention. Additionally, the robot actions are selected by using a Min-Max approach on the AND/OR graph, minimizing the worst-case. This approach works well in adversarial setups and still allows cooperative human interventions. However, it is unclear how these cooperative actions are taken into account in the robot decision process. Assuming that the human will be adversarial, the robot might make ``wrong'' decisions, possibly preventing an efficient and optimal cooperative execution.
-
-In contrast, HATP/EHDA uses HTN-based mental models, which require expert knowledge to be created, but they predict human behaviors in a more flexible and task-oriented way.
-Moreover, when selecting the robot actions, HATP/EHDA minimizes the average cost of all possible human decisions, optimizing uniformly for any human decisions. This approach considers humans as congruent, rational, and cooperative but not necessarily involved in the robot's task. Hence, HATP/EHDA doesn't account for adversarial human.
-
-\subsubsection{Unhelkar / Shah - 2020 - Decision-Making for Bidirectional Communication in Sequential Human-Robot Collaborative Tasks}
-\label{w5}
-
-\cite{unhelkar2020decision}
-
-They propose an approach based on Partially Observable Markov Decision Process (POMDP) called CommPlan. The POMDP is built using a user defined MDP (Markov Decision Process) representing the collaborative task and an Agent Markov Model (AMM) representing the human decision-making process. Solving this POMDP produces a robot policy which decides when the robot has to communicate about its beliefs, when to question the human about theirs, and when to ask the human to perform an action.
-Besides, the AMM is not only specified by expert modeler but also refined during the interaction via learning. 
-
-However, the approach considers the human model as an oracle on which reasoning is hardly possible \textbf{To develop}
-
-\subsubsection{Darvish - 2021 - A Hierarchical Architecture for Human-Robot Cooperation Processes}
-\label{w6}
-
-In \cite{DarvishSMC21}, they propose a hierarchical human-robot cooperation architecture called FlexHRC+ designed to provide collaborative robots with an extended degree of autonomy when supporting human operators in high-variability shop-floor tasks. This architecture is organized into three levels: perception, representation, and action. 
+Another line of work, sometimes also using human models, is focused on online and reactive planning. The robot's behavior is decided online using planning techniques but on limited horizons. This produces robot behaviors that are adaptive to human decisions and potentially unexpected environmental changes and events. However, due to the limited horizon to maintain a real-time reactive behavior, the robot behavior's optimality is not guaranteed and might lead to dead ends. Nevertheless, these online approaches usually robustify the robot's behavior and are reactive to failures. Therefore, they could/should complement offline planning approaches like HATP/EHDA.
+The two-sided work \cite{sanelli_short_term_2017} is in this line of work. First, they propose a conditional planning system that considers uncertainties, primarily due to human agents. This planning approach is based on planner Contingent-FF \cite{hoffmann2005contingent}. Then, they propose a component to translate these plans into Robust Petri-Net Plan (PNP) to handle their execution. This translation is inspired by work \cite{iocchi2016practical}, which improves plans with execution rules. Eventually, these plans are executed with an existing module called PNPRos \cite{ziparo2011petri}. Interestingly, the expected human actions are transformed into sub-petri nets where the robot elicits the action (e.g., via verbal communication) if the human does not perform it by themselves. 
+However, this approach does not model either reason on a distinct human agent model. Hence, the human reasoning process, goal, and belief are not modeled. This means that the interaction is limited to requesting the human to perform single actions without setting a proper high-level joint goal. This can be efficient in some situations, like a service robot providing information and requesting answers to some questions, such as the examples presented by the authors. However, repeated punctual interventions to perform a more extended task collaboratively can become unpleasant for the human.
+In \cite{DarvishSMC21}, they propose a hierarchical human-robot cooperation architecture called FlexHRC+ designed to provide collaborative robots with an extended degree of autonomy when supporting human operators in high-variability shop-floor tasks. This online architecture is organized into three levels: perception, representation, and action, producing robust, adaptive, and sometimes proactive collaboration. 
 They use hierarchical AND/OR graphs where arcs are sub AND/OR graphs to reduce the complexity of task descriptions, especially when including repetitive subsequences of action (like mounting four table legs). This representation is close to the HTN one used in HATP/EHDA. 
+A reactive human-aware task planner is proposed in \cite{fusaro_human_aware_2021} taking advantage of the Behavior Tree paradigm. The approach plans the robot's actions online by minimizing weighted costs based on duration, ergonomics, and distance, which are updated online. Therefore, the robot can adapt to dynamic changes in the environment and to human intentions, motions, decisions, and availability. This approach permits considering different levels of engagement between robots and humans: coexistence, cooperation, and autonomous task execution. 
 
-While this interesting architecture seems to provide a robust, adaptive, and sometimes proactive collaboration, it is based on online planning, meaning their planning horizon is limited and optimality is not guaranteed. 
+Finally, in \cite{izquierdo_badiola_improved_2022}, the authors combine the production of a joint plan to solve a common goal with the reactive aspect of previous approaches. 
+They use a so-called ``\textit{agent state}'' to model the human mental state and translate it into action costs in a PDDL domain. This model comprises the \textit{Capacity} evaluating if the human is capable of performing an action at the specified location without difficulty, the \textit{Knowledge} evaluating if the human has all necessary knowledge to perform their assigned actions, and the \textit{Motivation} indicating if the agent is committed towards the common goa, active and not distracted. 
+In their approach, the \textit{agent state} is sensed and updated during execution. Then, whenever changes in the \textit{agent state} are detected, a replan is triggered to consider those changes in the plan, often inducing a reassignment of the actions and avoiding the probable failure of the initial plan. However, the authors do not provide a method to effectively sense and estimate the \textit{agent state} but prove its usefulness by simulating its acquisition.
 
-Additionally, this architecture could complement the HATP/EHDA approach by providing a robust online support to the offline conditional plan produced. 
-
-
-\subsubsection{2016 - A Hierarchical Human-Robot Interaction-Planning Framework for Task Allocation in Collaborative Industrial Assembly Processes}
-\label{w7}
-
-In \cite{johannsmeier2016hierarchical}, the authors propose a task allocation framework for human-robot collaborative assembly line tasks. They propose representing the task through an AND/OR graph and solving the optimal sub-task allocation problem considering a given cost function. Action sequences are extracted from this allocation and then shared with the respective agents to be executed. Hierarchical and concurrent hybrid state machines handle the execution of these sequences. This copes with unpredictable events likely to happen in dynamic and partially known environments, especially in the presence of humans.  
-
-Like any industrial task, assembly line tasks allow using a few assumptions about humans. Indeed, in this context, the human is working and thus should be fully committed and focused on the task. Hence, even if humans appreciate flexibility, their priority in this context is task efficiency. Thus, humans will be more likely to accept propositions from robots than in a less demanding context like a household one. Moreover, humans will likely be distracted or change their minds in household scenarios. Thus, like HATP/EHDA, it is relevant to plan and anticipate several possible human decisions instead of an optimal one.
-
-
-\subsubsection{2020 - A Human-Aware Method to Plan Complex Cooperative and Autonomous Tasks using Behavior Trees}
-\label{w10}
-
-% The paper proposes a novel human-aware method for generating robot plans in industrial environments, allowing the robot to adapt its plan to the human partner and optimize decision-making based on human actions. The method models task-related costs considering distances from the human and the robot to the task, human ergonomics, and task duration. It enables the robot to plan online and obtain different behaviors based on user choice, considering different levels of engagement between robots and humans. The proposed solution demonstrates high potential in increasing robot reactivity and flexibility while optimizing decision-making based on human actions.
-
-
-In \cite{fusaro_human_aware_2021} is proposed a reactive human-aware task planner taking advantage of the Behavior Tree paradigm. The approach plans the robot's actions online by minimizing weighted costs based on duration, ergonomics, and distance, which are updated online. Therefore, the robot can adapt to dynamic changes in the environment and to human intentions, motions, decisions, and availability. This approach permits considering different levels of engagement between robots and humans: coexistence, cooperation, and autonomous task execution. 
-
-* it is based on online planning, meaning their planning horizon is limited and optimality is not guaranteed. *
-
-\subsubsection{2022 - Improved Task Planning through Failure Anticipation in Human-Robot Collaboration}
-\label{w11}
-
-In \cite{izquierdo_badiola_improved_2022}
-
-Produce a joint plan to solve common goal. 
-
-agent state (capacity, knowledge, motivation) is integrated  as action costs in PDDL domain
-agent state is sensed and monitored.
-When the agent state changes a replan is triggered to consider those changes induces a reassignment of the actions and avoiding a probable failure of the initial plan.
-The authors do not provide a way to sense and estimate the agent state, but prove its usefulness by simulating its acquisition.
-
-\subsubsection{Koppula - 2016 - Anticipatory Planning for Human-Robot Teams}
-
-\cite{koppula2016anticipatory}
-
-They propose a two agent collaborative MDP model and learn robot policies by taking into account the actions that can be performed by the human. They represent the environment in terms of the object affordances and learn the activity model from RGB-D videos of a human performing the activities. Then, they use this learned task model in a destributed Q-learning algorithm to learn the robot policy for a given new environment. 
-The human capabilities are captured in a MDP. Thus, the possible human actions are estimated by balancing estimations given by the human habits and estimations of the best ($\epsilon$-optimal) action given by the MDP. 
 
 \section{Running example}
 
