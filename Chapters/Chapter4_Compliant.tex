@@ -274,11 +274,15 @@ In this approach, instead of trying to minimize action and social costs, which a
 
 Note that general metrics are complemented with additional domain specific metrics (marked with a star *), given in the problem specification. The set of metrics helps to characterize and evaluate each possible plan / trace. However, even if the possible plans are characterized we so far have no way to compare them and find the best one. Doing so requires additional criteria indicating how to prioritize and compare the different metrics.
 
-That's where we consider an estimation of the human preferences to allow us to the plans and which are given by any mean external to our system. The preferences can be estimated or also given, verbally or not. Here, we consider the human preferences in the following form. These preferences are an ordered list of the metrics characterizing the traces. Note that it's not necessary for all metrics in the list above to be present, but only them can appear in the preferences. This ordered list indicates if each metric should be maximized or minimized, and in which order / with which priority. For instance, assuming the preferences aim to minimize all metrics, the best of two given plans is the one with the lowest first metric of the list. If the two plans have equal first metric then we use the second metric, and so on. Here are two arbitrary examples of human preferences trying respectively to finish the task as fast as possible and to minimize the human effort (all metrics are minimized):
+That's where we consider an estimation of the human preferences to allow us to the plans and which are given by any mean external to our system. The preferences can be estimated or also given verbally or by any other mean. Here, we consider the human preferences in the following form. These preferences are an ordered list of the metrics characterizing the traces. Note that it's not necessary for all metrics in the list above to be present, but only them can appear in the preferences. This ordered list indicates if each metric should be maximized or minimized, and in which order / with which priority. For instance, assuming the preferences aim to minimize all metrics, the best of two given plans is the one with the lowest first metric of the list. If the two plans have equal first metric then we use the second metric, and so on. Here are two arbitrary examples of human preferences trying respectively to finish the task as fast as possible ($preferences\_1$) and to minimize the human effort ($preferences\_2$) (all metrics are minimized):
 
-TTC - GE - HE - TEH - PWH - ND 
+\begin{equation*}
+    preferences\_1: TTC > GE > HE > TEH > PWH > ND 
+\end{equation*}
+\begin{equation*}
+    preferences\_2: HE > TEH > TTC > GE > PWH > ND 
+\end{equation*}
 
-HE - TEH - TTC - GE - PWH - ND 
 
 Note that estimating either human preferences or explicit action and social costs is challenging and is hardly accurate, those are very context dependent and can even vary over time.
 Being aware of this, we use the estimated human preferences as a guide for the robot behavior, but we also make sure to be compliant to the human activity to lessen the impact of a wrong estimation. 
@@ -331,15 +335,15 @@ During this process we compute and store the best reachable set of metrics alter
 
     \subsubsection{Propagation}
 
-The propagation sub-routine is depicted in algorithm~\ref{alg:propagation} and described here. It consists in picking a node to propagate from the set $\{psToPropagate\}$. For each parent action pair of that node we create a copy of the set of metrics of the propagated node and update them according the parent action pair and propagated node. 
+The propagation sub-routine is depicted in algorithm~\ref{alg:propagation} and described here. It consists of picking a node to propagate from the set $\{psToPropagate\}$. For each parent action pair of that node we create a copy of the set of metrics of the propagated node and update the metrics according to various rules described just below.
 The metrics must be cumulative. 
 
-Rules to update the standard metrics are the following \textbf{TODO: TO UPDATE, THERE IS AN OFFSET OF 1 FOR TIME STEP METRICS => should be done by giving the default metrics}:
+The rules to update the standard metrics are the following (all metrics start at 0):
 \vspace{-\topsep}
 \begin{itemize}
     \setlength\itemsep{-0.3em}
-    \item If the pair is not \textit{IDLE}-\textit{IDLE}, then increment (by 1) \textit{Time of Task Completion}
-    \item If the pair is not \textit{IDLE}-\textit{IDLE}, if the human action is passive, and if the current \textit{Human Effort} is zero, then the temporary metric \textit{Number Last Passive Human Action} is incremented.
+    \item If the pair is not \textit{IDLE}-\textit{IDLE}, then \textit{Time of Task Completion} is incremented by 1.
+    \item If the pair is not \textit{IDLE}-\textit{IDLE}, if the human action is passive, and if the current \textit{Human Effort} is zero, then the temporary metric \textit{Number Last Passive Human Action} is incremented by 1.
     \item \textit{Time of End of Human Duty} = \textit{Time of Task Completion} - \textit{Number Last Passive Human Action}.
     \item If human action is not passive, then \textit{Human Effort} and \textit{Global Effort} are incremented.
     \item If robot is not passive, then \textit{Global Effort} is incremented.
@@ -348,7 +352,7 @@ Rules to updates domain specific metrics, must be provided:
 \vspace{-\topsep}
 \begin{itemize}
     \setlength\itemsep{-0.3em}
-    \item If human action is passive and in child p-state the human is holding a cube, then \textit{Passive While Holding} is incremented.
+    \item If human action is passive while holding a cube, then \textit{Passive While Holding} is incremented.
     \item \textit{(Similarly with the robot)}
     \item If the human action is to drop a cube back on the table, then \textit{Number of Drop} is incremented.
     \item \textit{(Similarly with the robot)}
