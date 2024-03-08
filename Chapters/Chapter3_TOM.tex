@@ -5,7 +5,7 @@
 \faketableofcontents
 \fi
 
-\chapter{Models and Algorithms to integrate Theory of Mind in human-aware task planning}
+\chapter{Models and Algorithms to Integrate Theory of Mind in Human-Aware Task Planning}
 \chaptermark{Models and Algorithms of Theory of Mind}
 \label{chap:3}
 \minitoc
@@ -50,7 +50,7 @@ We would want the robot to be able to reason and correctly maintain distinct hum
 
 
     %%% SUB-SECTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    \subsection{Epistemic planning}
+    \subsection{Epistemic Planning}
     Epistemic planning helps to plan the correct sequence of actions to reach a desired knowledge, including a desired world state. Thomas Bolander is one of this field's main contributors and describes it as follows in \cite{bolander_gentle_2017}. Epistemic Planning is the enrichment of planning with epistemic notions, that is, knowledge and beliefs. The human or robot might have to reason about epistemic aspects such as: Do I know at which post office the parcel is? If not, who would be relevant to ask? Maybe the parcel is a birthday present for my daughter, and I want to ensure that she does not get to know, and have to plan my actions accordingly (make sure she does not see me with the parcel). The epistemic notions are usually formalized using epistemic logic. Epistemic planning can naturally be seen as the combination of automated planning with epistemic logic, relying on ideas, concepts, and solutions from both areas. 
 
     It enables robots to make plans to achieve the required knowledge and to reason about the knowledge and capabilities of other agents, ensuring effective collaboration and coordination in human-robot interactions \cite{belle_epistemic_2023}.
@@ -68,10 +68,10 @@ We would want the robot to be able to reason and correctly maintain distinct hum
 
 
 %%% SECTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Maintaining the human beliefs}
+\section{Maintaining the Human Beliefs}
 
     %%% SUB-SECTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    \subsection{Enhanced problem specification}
+    \subsection{Enhanced Problem Specification}
 
 \begin{figure}
     \centering
@@ -237,7 +237,7 @@ We consider a straightforward scenario in which the human is \textit{``unaware''
 This results in estimated false human beliefs, helping to detect whether a non-observed robot action can disrupt a seamless collaboration. 
 
 %%% SECTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Relevant False human beliefs}
+\section{Relevant False Human Beliefs}
 
 In this section, we explain our procedure to detect \textit{when} a false human belief should be corrected and \textit{how}.
 
@@ -263,7 +263,7 @@ ref(tn^H_i, val^H_i) \neq ref(tn^H_i, val^R_i)
 We consider that as soon as a false belief affects human actions, it should be tackled. An interesting future work could be to check in a principled way the overall positive and detrimental impacts of this false belief on collaboration. However, it is out of the scope of this work.
 
     %%% SUB-SECTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    \subsection{Resolution with minimal communication}
+    \subsection{Resolution with Minimal Communication}
 
 A state containing a false human belief marked as \textit{relevant} must be handled. 
 The first way to do it is by planning communication actions such that the robot communicates only the required facts to the human. This allows to correct relevant human beliefs, but false beliefs that are \textit{``non-relevant''} will remain. 
@@ -297,7 +297,7 @@ The set $\mathit{CA}$ is inserted before the diverging human actions and after t
 But it could be interesting to reason with a better plan evaluation system to find the best place to insert this set.
 
     %%% SUB-SECTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    \subsection{Resolution by delaying non-observed robot action}
+    \subsection{Resolution by Delaying Non-Observed Robot Actions}
 
 So far, we relied on communication. However, communication can be cognitively demanding depending on the environment (e.g., noisy). 
 Thus, when the relevant false belief is due to a non-observed robot action, we propose also considering implicit communication by postponing the pertinent robot action until the human is estimated to observe its execution. 

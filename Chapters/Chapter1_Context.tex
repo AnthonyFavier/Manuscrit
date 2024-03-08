@@ -111,7 +111,7 @@ In order to better picture the implications of the above theories, some key aspe
 
 \textbf{Explainability:} This aspect is important for seamless collaboration as the human should be able to understand what the robot is doing and why. This topic is getting more and more attention and is often referred to as Explainable AI. This is especially relevant to counter the \textit{black box} tendency of machine learning where it's impossible to explain a specific decision. Being explainable often enhances predictability, which is also essential for a collaborative robot.
 
-\subsection{Architectures \& Complete systems}
+\subsection{Architectures \& Complete Systems}
 
 It is important to remember that since a collaborative robot is issued from an interdisciplinary field, its different functionalities and capabilities are usually separated into several dedicated components. These components interact and communicate with each other, forming a complete architecture. Such architectures cover all aspects relevant to exhibiting the robot's behavior, from sensory perception to physical motions, including reasoning processes. 
 Despite developing distinct robotic components, the robot must be considered a whole. Each component cannot be studied entirely independently of other aspects of the complete system. As a result, optimizing by design the way these components interact has been the focus of several works proposing robotic architectures.
@@ -135,12 +135,12 @@ Often based on the structure of the human mind, such cognitive architectures aim
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Models for interaction}
+\section{Models for Interaction}
 
 
 It has been shown previously that a robotic agent interacting with a human needs to coordinate its actions with them. Moreover, joint action theory exhibits that humans interacting together represent the task as a whole, and plan not only for their actions but also for the actions of other agents. Thus, we think that for a human to perform the most efficient and satisfactory joint task with a robot, this robot must explicitly model human actions and plan not only for its actions but also for the human ones. This is why we present in this section some notations to clarify the different models used in this thesis, and then we present in more details how to model tasks.
 
-\subsection{Human and Robot agents}
+\subsection{Human and Robot Agents}
 
 \begin{figure}
     \centering
@@ -154,14 +154,14 @@ Then, $\mathcal{M}^H_r$ is an estimation by the robot of the model of the human.
 
 It is important to keep in mind that when discussing a task planner it is considered as part of the robot. Thus, $\mathcal{M}^R$ is considered as the ground truth for the robot. As a consequence, if there is a belief divergence between $\mathcal{M}^H_r$ and $\mathcal{M}^R$, we always consider that $\mathcal{M}^R$ is the truth, otherwise, it would make no sense to keep this information in $\mathcal{M}^R$ while having access to the one in $\mathcal{M}^H_r$.
 
-\subsection{Task modeling}
+\subsection{Task Modeling}
 
 A common way of representing human activity (MrH ) and interaction with computers at a high abstraction level is by using task models. The hierarchical structure of human activity was first exploited by Annett and Duncan [Annett 1967]. They state that tasks can be described at several levels of abstraction until a certain criterion is met. Each task can thus be refined into subtasks detailing the procedure followed by the human to achieve the higher level task. Task modeling has then evolved to introduce interaction with systems, produced and needed information, potential errors and a wide variety of operator specifying how tasks interact with each other during their execution. Task models are now commonly used in user-centered and user-interface design processes. Most advanced notations include ConcurTaskTrees [Paternò 2004] and HAMSTERS [Martinie 2019]. These models are used to design or evaluate interactive systems. They allow the designer to better understand the user task or to study the user workflow using their system. However, these models contain too little information for a system to be able to reason and make decisions on them (either in planning or acting).
 
 
-\subsection{Hierarchical models}
+\subsection{Hierarchical Models}
 
-In classical planning, each action of an agent is atomic and needs some conditions to hold in the environment to be executed, and then it changes the environment when applied. The planning process has then to find the right sequence of actions, being applicable one after the other to change the environment to reach a specific goal state. 
+In classical planning, each action of an agent is atomic and needs some conditions to hold in the environment to be executed, and then it changes the environment when applied. The planning process then has to find the right sequence of actions, applicable one after the other, to change the environment and reach a specific goal state. 
 
 However, humans tend to work more abstractly and decompose tasks hierarchically into smaller tasks until the action level is reached. In practice, using Hierarchical Task Networks (HTNs) allows the domain designer to help the plan search by inserting expert knowledge via a hierarchy linking the actions \cite{erol_complexity_1996}. A task network consists of tasks organized in a fully or partially ordered manner, and each task can be either abstract or primitive. Primitive tasks are elementary tasks that can be achieved by performing one associated action.
 On the other hand, abstract tasks are tasks that first need to be decomposed into other subtasks, ``more primitive''. The planner's goal is not to find the sequence of actions to reach a goal but to select recursively for each task the suitable decomposition ending (if possible) with a network of actions applicable from the initial state. Ghallab, Nau, and Traverso name such a process as \textit{planning with refinement methods} \cite{ghallab2016automated}. This planning hierarchy allows the domain designer to guide the search by inserting some expertise into the model and enhancing explainability as the decompositions often offer a semantic to their subtasks. The 'why' of a subtask can usually be answered by going up in the hierarchy, while the 'how' is answered by going down. 
@@ -189,14 +189,14 @@ Methods decompose abstract tasks into primitive tasks, represented with ellipses
 Now, let us look at an example of a refinement process. We consider an initial task network only composed of \emph{Abstract Task 1}, and we refine it using the HTN described in fig~\ref{fig:htn_example} until the task network only contains primitive tasks (actions). Initially, \emph{method 1} and \emph{method 2} are both applicable and thus, are candidates to decompose \emph{Abstract Task 1}. Applying \emph{method 2} leads directly to a fully refined solution task network, including two partially ordered primitive tasks (\emph{Primitive Task 2} and \emph{Primitive Task 3}). On the other hand, \emph{method 1} can be applied, leading to a different task network that still includes abstract tasks. Then, \emph{Abstract Task 2} is recursively decomposed using M4 twice. This could correspond to scenarios like filling a box with two balls. Thus, M4 is only applicable until two more balls are in the box. Eventually, only M3 is applicable and refines \emph{Abstract Task 2} into nothing, leading to another solution task network.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Task Planning}
+\section{Task Planning Overview}
 
 \subsection{Classical Planning}
 
 As put by Ghallab, Nau and Traverso, “the purpose of planning is to synthesize an organized set of actions to carry out some activity”~\cite{ghallab2016automated}. 
 Classical planning is a type of planning that assume deterministic and fully observable environments. It involves representing the world as a set of states and actions, with plans derived through state space search algorithms. Actions have preconditions and effects, and planning problems entail finding a sequence of actions transforming an initial state into a goal state. Classical planning algorithms, including STRIPS, Graphplan, and Fast Downward, utilize heuristics to guide the search efficiently. While well-suited for domains with clear and deterministic dynamics, classical planning may face challenges in handling uncertainty or partial observability, leading to the development of alternative planning approaches for such scenarios.
 
-\subsection{Planning for HRC}
+\subsection{Task Planning for HRC}
 
 Classical planning has been vastly studied and can now solve efficiently various problems. Yet, the intricate nature of HRC scenarios demands sophisticated task-planning methodologies capable of adapting to dynamic environments, understanding human intent, and promoting a fluent exchange of information. Hence, several subfields of task-planning have emerged and are used in HRC. Here are a few examples:
 
@@ -217,9 +217,9 @@ Classical planning has been vastly studied and can now solve efficiently various
 
 Overall, \textbf{Human-Aware Task Planning} is the process of considering the presence and behavior of humans in the planning and execution of robot tasks. It involves taking into account cues from the shared environment and the dynamics of human-robot interaction. The goal is to generate robot policies that are adaptable, robust, and efficient in crowded and dynamic environments. A detailed presentation and discussion about existing task planning works for HRC is provided in the related work section (\ref{sec:ch2_related_work}) of Chapter~\ref{chap:2}.  
 
-\textbf{TODO: remove?}\textit{This field includes having an explicit shared task or common goal between the human and the robot, implying that the two agents will collaborate to reach the goal. It also includes not having an established shared goal, and thus, is closer to what I would call an interaction instead of a collaboration. Yet, both problems are interesting and must be addressed, with a unified approach or not. }
+% \textbf{TODO: remove?}\textit{This field includes having an explicit shared task or common goal between the human and the robot, implying that the two agents will collaborate to reach the goal. It also includes not having an established shared goal, and thus, is closer to what I would call an interaction instead of a collaboration. Yet, both problems are interesting and must be addressed, with a unified approach or not. }
 
-\subsection{Other usage of task planning}
+\subsection{Other Use Cases}
 
 Despite being designed for Human-Robot Collaboration, the task planning techniques presented in this work can be used in other interactive contexts. 
 

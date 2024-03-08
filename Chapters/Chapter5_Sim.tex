@@ -25,7 +25,7 @@ In order to validate the approach presented in the previous chapter (\ref{chap:4
 
 This chapter is a technical description of the interactive simulator I developed. As depicted in fig.~\ref{fig:architecture}, it consists of several components detailed throughout this chapter. We describe the simulated scene corresponding to a BlocksWorld task similar to the one presented in the last chapter but with more cubes. After, the execution controller used is presented, corresponding to a refined and implemented version of the abstracted joint action execution model introduced in the last chapter. We continue by describing the different motion and simulation controllers used to interact with the simulator. Then, the Human-Machine Interface is presented, allowing participants to perform actions in the simulator. Finally, we present how the data retrieved during each execution are used to compute several metrics to evaluate the execution.  
 
-\section{Simulated scene}
+\section{Simulated Scene}
 
 This interactive simulator is based on the Gazebo Simulator. It is an open-source 3D simulator able to simulate articulated robots in a dynamic and complex environment.
 This section describes all aspects directly linked to this existing 3D simulator our framework has been developed upon.
@@ -44,7 +44,7 @@ The overall scene is depicted in the figure~\ref{fig:simu_view}. The stacking go
 \end{figure}
 
 
-\section{Execution controller - Joint Action Model for Execution}
+\section{Execution Controller - Joint Action Model for Execution}
 
 The model of execution presented in the last chapter was simplified and used to explore further relevant courses of action. This allows for anticipating the possible coordination and complying with online human decisions. 
 However, we need an execution controller that will supervise the execution of the produced policy. The execution model presented in the last chapter was simplified and abstracted to guide the planning algorithms. Here, we propose a refined and implemented model, matching the abstraction previously made, to be able to execute the produced robot policy and supervise its execution by synchronizing with the human.

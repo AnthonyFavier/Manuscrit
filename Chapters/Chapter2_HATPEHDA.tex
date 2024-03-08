@@ -5,7 +5,7 @@
 \faketableofcontents
 \fi
 
-\chapter{A Human Aware Task Planner Emulating Human Decisions and Actions (HATP/EHDA)}
+\chapter{A Human-Aware Task Planner Emulating Human Decisions and Actions (HATP/EHDA)}
 \chaptermark{HATP/EHDA}
 \label{chap:2}
 \minitoc
@@ -31,7 +31,7 @@ Finally, to make HATP suitable to HRI scenarios, specific mechanisms to compute 
 
 However, HATP assumes a shared goal has been established between humans and robots before planning. The generated plan will be shared with and accepted by the human before the execution. Indeed, HATP does not represent the human as an agent having a separate decision process that may lead to diverging plans without robot communication. Hence, any human deviation from their generated stream of action needs supervision to perform repair action or request a replanning. Such an approach can work well but assumes that communication can easily be done at any point of the plan. Since this isn't always the case, or simply because communication can be costly, any human deviation, even due to inattention, will put the robot in a failure state which needs to be fixed before continuing (replanning).
 
-\section{Rationales of a new approach HATP/EHDA}
+\section{Rationales of the HATP/EHDA Approach}
 
 The HATP approach produces what is estimated to be the best joint plan for solving the task. Hence, this approach assumes that the human is likely to accept and follow the produced plan. This leaves no room for online human decisions and assumes a fully committed human, through a prior defined shared goal. This approach also consider one shared task representation and knowledge base. To cater with the limiations of HATP, I participated in the development of a new approach, HATP/EHDA, which try to satisfy several objectives: 
 \begin{enumerate}
@@ -84,7 +84,7 @@ They use a so-called ``\textit{agent state}'' to model the human mental state an
 In their approach, the \textit{agent state} is sensed and updated during execution. Then, whenever changes in the \textit{agent state} are detected, a replan is triggered to consider those changes in the plan, often inducing a reassignment of the actions and avoiding the probable failure of the initial plan. However, the authors do not provide a method to effectively sense and estimate the \textit{agent state} but prove its usefulness by simulating its acquisition.
 
 
-\section{Running example}
+\section{Running Example}
 
 \begin{figure}
     \centering
@@ -102,7 +102,9 @@ The HATP/EHDA approach explores and evaluates all these kinds of scenarios to pr
 
 \section{Problem Specification and Solution}
 
-\subsection{Problem Specification}
+In this section, we describe the problem specification introduced by the HATP/EHDA planning approach and used in my contributions. We also describe the solution produced by the planner.  
+
+\subsection*{Problem Specification}
 \label{sec:problem_spec}
 
 The notations from Buisan's thesis have been adapted to match the notations in this thesis and ease readers' comprehension. We start from classical planning formalization.
@@ -211,7 +213,7 @@ The execution of an action in HATP/EHDA is known by both agents, and thus, for b
 \end{equation}
 
 
-\subsection{Solution}
+\subsection*{Solution description}
 
 The solution produced by HATP/EHDA is a robot policy mapping each state preceded by a human action to an optimal robot action. It assumes a turn-taking fashion where agents act one after another. If the robot is starting, a dummy human action is inserted into the plan. In practice, it produces a tree of sequential actions where every human action is succeeded by one optimal robot action. Additionally, whenever it is estimated that the human can perform several actions, a branch is created for possible action, ensuring to cover all possible human choices. Each branch is a possible course of alternating robot and human actions leading to the goal.
 
@@ -267,7 +269,7 @@ Moreover, like in HATP we allow to define \textit{social costs} functions. These
 The approach we propose for plan selection is to minimize the average cost. It represents the human potentially selecting any course of actions in their stream (while still respecting the action model defined in their HTN).
 The algorithm is given the root action of the task network previously generated and returns the cost of the conditional plan selected while having selected the robot actions in the task network minimizing the average cost of plans.
 
-\section{Example}
+\section{Qualitative Results}
 
 The partial robot and human actions models, as well as their exploration are presented in Fig.~\ref{fig:plans}.
 
