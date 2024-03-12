@@ -10,11 +10,11 @@
 \label{chap:5}
 \minitoc
 
-\chapabstract{This chapter contains a technical description of an interactive simulator allowing human operators to collaborate with a simulated robot executing the policies described in the previous chapter. This simulator is used in the next chapter to conduct a user study to validate our approach.}
+\chapabstract{This chapter contains a technical description of an interactive simulator allowing human operators to collaborate with a simulated robot executing the policies described in the previous chapter. We used this simulator to validate our planning approach through a user study, which will be described in the next chapter.}
 
 \section{Introduction}
 
-In order to validate the approach presented in the previous chapter (\ref{chap:4}), we would like to be able to perform a task collaboratively with a simulated robot executing the produced policy. This allowed us to conduct a user study described in the next chapter (chap.~\ref{chap:6}) which validates our planning approach.
+In order to validate the approach presented in the previous chapter (\ref{chap:4}), we would like to be able to perform a task collaboratively with a simulated robot executing the produced policy. This allowed us to conduct a user study described in the next chapter (chap.~\ref{chap:6}), which validates our planning approach.
 
 
 \begin{figure}
@@ -28,28 +28,28 @@ This chapter is a technical description of the interactive simulator I developed
 \section{Simulated Scene}
 
 This interactive simulator is based on the Gazebo Simulator. It is an open-source 3D simulator able to simulate articulated robots in a dynamic and complex environment.
-This section describes all aspects directly linked to this existing 3D simulator our framework has been developed upon.
+This section describes all aspects directly linked to this existing 3D simulator on which our framework has been developed.
 
-The static scene consists of a large room, with a ground and 4 walls, and a table placed in the center with two marks on its right side. The marks represent the locations where the cubes must be stacked. The agents are represented as follows. First, the human is represented only with a floating hand as the camera simulates a first-person point-of-view. Then we used a Tiago robot from PAL Robotics because it has an arm to manipulate its environment, a head to send gaze information and signals and because many related resources are available for it (3D models, controllers, tutorials). The human and the robot are facing each other, each from one opposite side of the table. Finally, colored cubes were disposed of on the table in three distinct zones. Cubes are either close to the edge of one of the agents, or they are in the middle of the table. This disposition influences the reachability of the agents as one agent can only reach cubes from their side (just in front of them) or the middle, but never from the other agent's side. This scene corresponds to one specific collaborative task, but another setup could be easily implemented. 
+The static scene consists of a large room, with a ground and four walls, and a table placed in the center with two marks on its right side. The marks represent the locations where the cubes must be stacked. The agents are represented as follows. First, the human is represented only with a floating hand as the camera simulates a first-person point-of-view. Then we used a Tiago robot from PAL Robotics because it has an arm to manipulate its environment, a head to send gaze information and signals, and because many related resources are available for it (3D models, controllers, tutorials). The human and the robot are facing each other, each from one opposite side of the table. Finally, colored cubes were disposed of on the table in three distinct zones. Cubes are either close to one agent's side or in the middle of the table. This disposition influences the reachability of the agents as one agent can only reach cubes from their side (just in front of them) or the middle, but never from the other agent's side. This scene corresponds to one specific collaborative task, but another setup could be easily implemented. 
 
-The Gazebo simulator can be integrated with the Robot Operating System (ROS) which is a set of software libraries and tools that help to build robot applications. The main pros of ROS are its ability to run several sub-programs in parallel and make them communicate with each other. Hence, the other components of the interactive simulator have been developed with ROS.
+The Gazebo simulator can be integrated with the \acrfull{ros}, which is a set of software libraries and tools that help build robot applications. The main pros of \acrshort{ros} are its ability to run several sub-programs in parallel and allow them to communicate with each other. Hence, the other components of the interactive simulator have been developed with \acrshort{ros}.
 
-The overall scene is depicted in the figure~\ref{fig:simu_view}. The stacking goal is displayed in the top left corner and a text prompt is shown in the top right corner for the robot to communicate with the human.
+The overall scene is depicted in the figure~\ref{fig:simu_view}. The stacking goal is displayed in the top left corner, and a text prompt is shown in the top right corner so that the robot can communicate with the human.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth]{Chapter5/simu_screenshot.png}
-    \caption{Participant view of the interactive simulator. Text prompt. Goal pattern. robot. table. cubes. stacking area. human hand.}
+    \caption{Participant view of the interactive simulator. It depicts the colored cubes on the table's left, the stacking area on the table's right (the two darker spots), the goal pattern on the top left, the collaborative robot in front, the text prompt on the top right, and the human hand at the bottom right.}
     \label{fig:simu_view}
 \end{figure}
 
 
 \section{Execution Controller - Joint Action Model for Execution}
 
-The model of execution presented in the last chapter was simplified and used to explore further relevant courses of action. This allows for anticipating the possible coordination and complying with online human decisions. 
-However, we need an execution controller that will supervise the execution of the produced policy. The execution model presented in the last chapter was simplified and abstracted to guide the planning algorithms. Here, we propose a refined and implemented model, matching the abstraction previously made, to be able to execute the produced robot policy and supervise its execution by synchronizing with the human.
+The model of execution presented in the last chapter was simplified and abstracted to be used to guide the planning algorithms and explore further relevant courses of action. This allows for anticipating possible coordination and compliance with online human decisions. 
+However, we need an execution controller to supervise the execution of the produced policy. Here, we propose a refined and implemented model, matching the abstraction previously made, to be able to execute the produced robot policy and supervise its execution by synchronizing with the human through social signals.
 
-The complete model is depicted in fig~\ref{fig:complete_model_exec}. On top of refining the `robot automaton' present in the abstracted version, it also models the human agent's behavior with another automaton that captures the possible decisions the human may make during execution. Additionally, this complete model makes all the social signals exchanged between the agents explicit and shows how they are used for coordination. These differences are discussed in detail below. This execution controller takes as input the solution DAG produced by the chap.~\ref{chap:4} approach. Then, the controller progresses from the initial state to a goal in the solution graph. The controller handles the state transitions, step by step, by sending and synchronizing on social cues. Thanks to this and the associated simulator, we now have a durative task execution with an effectice effect on a simulated environment.
+The complete model is depicted in fig~\ref{fig:complete_model_exec}. On top of refining the `robot automaton' present in the abstracted version, it also models the human agent's behavior with another automaton that captures the possible decisions the human may make during execution. Additionally, this complete model makes all the social signals exchanged between the agents explicit and shows how they are used for coordination. These differences are discussed in detail below. This execution controller takes as input the solution \acrshort{dag} produced by the approach of Chapter~\ref{chap:4}. Then, the controller progresses from the initial state to a goal in the solution graph. The controller handles the state transitions, step by step, by sending and synchronizing on social cues. Thanks to this controller and the associated simulator, we now have a durative task execution that effectively affects a simulated environment.
 
 
 \begin{figure}
@@ -59,72 +59,72 @@ The complete model is depicted in fig~\ref{fig:complete_model_exec}. On top of r
     \label{fig:complete_model_exec}
 \end{figure}
 
-More precisely, \textit{describe differences between simplified and complete model}
-\begin{itemize}
-    \item ON robot automaton:
-    \item HOME/IDLE pose (new left branch)
-    \item Clock for TimeOut
-    \item Robot Reaction Time
-    \item branches 4-5 are merged and actually corresponds to compliant choice in human automaton
-    \item Send Robot signals 
-    \item Human Automaton: decision time, choices, wait signals
-    \item Human signals
-\end{itemize}
+% More precisely, \textit{describe differences between simplified and complete model}
+% \begin{itemize}
+%     \item ON robot automaton:
+%     \item HOME/IDLE pose (new left branch)
+%     \item Clock for TimeOut
+%     \item Robot Reaction Time
+%     \item branches 4-5 are merged and actually corresponds to compliant choice in a human automaton
+%     \item Send Robot signals 
+%     \item Human Automaton: decision time, choices, wait signals
+%     \item Human signals
+% \end{itemize}
 
 In the execution controller, the robot automaton is refined and more detailed. 
 First, we show the social cues sent by the robot, which are the following: \textit{START} corresponds to the visual and audible signal indicating to the human that the step begins; \textit{S\_RA} corresponds to the start of a robot action; \textit{R\_PASS} corresponds to the robot being explicitly passive. The other signals, including the human ones, will be described below.
 Also, we modeled the case where the robot cannot act in the current step. This can be determined easily given the search graph and the current state $s_i$ and by checking if there is at least one non-passive robot action in the following arcs. This checking process is represented in the figure by the diamond shape with the label ``R can act'', and the respective positive and negative answers ``yes'' (y) and ``no'' (n). When the robot cannot act, it sends a specific signal to inform the human that the step has started and cannot act (START\_IDLE), then goes in the \textit{IDLE} pose. This is a visually passive posture where the robot looks at the human with its arm retracted, indicating that it cannot act. Only a human action can progress to the next state. Thus, the robot waits for this action to start and eventually finish. Then, the Situation Assessment process identifies the executed action, and thus, the new state $s_{i+1}$ to continue. Depending on the possible actions, the robot can stay in this \textit{IDLE} pose for several steps. Once the robot can act again, the ``yes'' branch of the automaton is followed, and the robot returns to the \textit{HOME} pose. In this posture, the robot's arm is deployed, showing that the robot is ready to grab objects on the table.
 
 Additionally, the process of waiting for a human signal at the beginning of each step is more detailed. This process is interrupted by one of the three following signals: \textit{H\_PASS} is an explicit signal (hand gesture, verbal communication) sent by the human to share its desire to be passive; \textit{S\_HA} is the start of human actions, and is detected by tracking human's motion; \textit{TO} is the internal timeout signal sent by a clock $4s$ after the start of the waiting process. 
-However, the perception layer on a real robot would induce a delay for this synchronization process. 
-An additional waiting time of $1s$ is added to compensate the robot's reaction time, allowing the human to send signals just before the timeout. Without it, the human could start moving just before the timeout, but the robot would interpret this information too late and consider them as passive.
-Note that the robot only waits for a human signal if the human can act in the current step. This check is done similarly to is first diamond process. However, it is not shown in the figure for legibility reasons. Hence, it means that in situations where only the robot can act, it will not wait and will directly start acting.
+However, the perception layer on a real robot would induce a delay in this synchronization process. 
+An additional waiting time of $1s$ is added to compensate for the robot's reaction time, allowing the human to send signals just before the timeout. Without it, the human could start moving just before the timeout, but the robot would interpret this information too late and consider them as passive.
+Note that the robot only waits for a human signal if the human can act in the current step. This check is done similarly to the first diamond process. However, it is not shown in the figure for legibility reasons. Hence, it means that in situations where only the robot can act, it will not wait and will directly start acting.
 
 % Remember that this process only identifies an explicit signal like a predefined hand gesture or the start of a human motion. In the case of human motion, we do not yet identify which action the human is starting. This is achieved by the dedicated Identification (ID) process, which is longer and here about $0.6s$. Thus, we believe that the chosen duration of $0.3s$ is relevant for detecting the initial human signals. 
 
-The last visual difference with the abstracted model on the robot's side is the case where the human decides to be passive. In this branch, the human decision is pictured as a question mark. This is because we first identified the human as passive, and thus, the robot performs the best corresponding action provided by the policy. However, while the robot is acting, the human is free to start performing any action that does not conflict with the already started robot's action. These possible decisions are modeled in the human automaton described after but are identified by the robot only during the Situation Assessment process. 
+The last visual difference with the abstracted model on the robot's side is the case where the human decides to be passive. In this branch, the human decision is pictured as a question mark. This is because we first identified the human as passive, and thus, the robot performs the best corresponding action provided by the policy. However, while the robot is acting, the human is free to start performing any action that does not conflict with the already-started robot's action. These possible decisions are modeled in the human automaton described after but are identified by the robot only during the Situation Assessment process. 
 
 On the other hand, a human automaton now explicitly models how humans should behave to coordinate with robots and collaborate successfully. This automaton starts by always waiting for the beginning of the current step, indicated by the robot with the signals \textit{START} or \textit{START\_IDLE}. The simplest but less common case is when the robot cannot act during the step (after receiving \textit{START\_IDLE}). This case is depicted in the rightmost branch. Since the robot cannot act, only the human can make progress in the task by acting. Thus, the human is free to take as much time as desired, represented by the decision time in the range $[0; +\infty]$. After the start of the human action, both human and robot automatons wait for the end of the human action, and then they proceed.
-Let us discuss now the most common case where the robot can act. This time, the human must decide before the defined robot timeout (TO), otherwise they will be considered passive. The human can decide either to start acting (ACT), if possible in the current step, to indicate their passivity (PASS), or do nothing corresponding to being passive without informing the robot (WAIT). If the human decides to be passive (PASS or WAIT cases), they can either remain passive until the next step or decide to perform an action not conflicting with the robot one. This is represented with the last human diamond shape ``Compliant choice'' which is made after a duration referred to as ``compliant decision time''.
+Let us discuss now the most common case where the robot can act. This time, the human must decide before the defined robot timeout (TO), otherwise they will be considered passive. The human can decide either to start acting (ACT), to indicate their passivity (PASS), or do nothing corresponding to being passive without informing the robot (WAIT). If the human decides to be passive (PASS or WAIT cases), they can either remain passive until the next step or decide to perform an action not conflicting with the robot one. This is represented by the last human diamond shape labeled ``Compliant choice'' made after a duration referred to as ``compliant decision time''.
 
 
 \section{Simulation controllers}
 
-To control the simulated agents and the simulation, 4 distinct controllers have been developed and handle dedicated jobs. 
+Four distinct controllers have been developed to control the simulated agents and the overall simulation execution. Each controller is described below. 
 
 \subsection{Robot arm motion controller}
 
-First, there is one controller to move the robot arm. This controller is called with either a 3D position to reach (pose target) or a predefined configuration (named target). In both cases, when called, this controller uses the MoveIt framework. MoveIt creates links between several libraries in order to have access to a unified interface for Motion Planning algorithms, Inverse Kinematics, Control, or Collision Checking. This way, our controller can ``simply'' request MoveIt to find a trajectory to a given position and then make the robot follow this trajectory while taking into account the geometry of the robot arm.
+First, there is one controller that moves the robot's arm. This controller is called with either a 3D position to reach (pose target) or a predefined configuration (named target). In both cases, when called, this controller uses the MoveIt framework. MoveIt creates links between several libraries in order to have access to a unified interface for Motion Planning algorithms, Inverse Kinematics, Control, or Collision Checking. This way, our controller can ``simply'' request MoveIt to find a trajectory to a given position and then make the robot follow this trajectory while taking into account the geometry of the robot arm.
 
-In fact, this controller is slightly more sophisticated. Indeed, in our collaborative context, we prefer the robot to be reactive rather than to have optimal motions. This is why, through the MoveIt interface, we use two different motion planners. The first one is $RRT^*$ which is an optimal planner that stops only when the optimal motion plan has been found. This is desirable to have the robot exhibit consistent and efficient motions. However, this process sometimes takes too much time (4-5s), which breaks the rhythm of the interaction. As a consequence, a short timeout (0.6s) has been set for this optimal motion planner. If the optimal plan is not found within the defined timeout, we use the second motion planner. 
-The second planner is $SBL$ which is not an optimal planner. That is, the planner stops when a solution is found, but there is no guarantee of optionality. The major pro of this planner is its speed.
+In fact, this controller is slightly more sophisticated. Indeed, in our collaborative context, we prefer the robot to be reactive rather than to have optimal motions. This is why, through the MoveIt interface, we use two different motion planners. The first one is $RRT^*$, which is an optimal planner that stops only when the optimal motion plan has been found. It is desirable to have the robot exhibit consistent and efficient motions. However, this process sometimes takes too much time (4-5s), which breaks the rhythm of the interaction. As a consequence, a short timeout (0.6s) has been set for this optimal motion planner. If the optimal plan is not found within the defined timeout, we use the second motion planner. 
+The second planner is $SBL$, which is not an optimal planner. That is, the planner stops when a solution is found, but there is no guarantee of optionality. The major pro of this planner is its speed.
 Overall, for every robot arm motion, we first try to find an optimal motion within a short amount of time. If the optimal motion is not found, we quickly find a suboptimal solution to prevent the robot from being passive for too long.
 
 Additionally, to reduce motion planning time, a few simplifications have been done. 
-First, collisions are only considered with the table and the robot's body. Hence, the robot arm sometimes go through the other cubes.
-Also, the pick and place orientation are ignored, for instance, when picking a cube the robot gripper just reaches the cube's center from any angle and then the cube is attached to the gripper. When placing a cube, the robot moves the cube to the target position and when dropping it, the cube is detached and both its orientation and position are overwritten to match the actual target location. This way, the robot always performs perfect place action, improving both the reactivity of the robot and its robustness, but the robot's motions are less realistic.
+First, collisions are only considered with the table and the robot's body. Hence, the robot arm sometimes goes through the other cubes.
+Also, the pick and place orientation are ignored. When picking a cube, the robot gripper just reaches the cube's center from any angle, and then the cube is attached to the gripper. When placing a cube, the robot moves its arm to the target position, and the cube is detached from the gripper. Eventually, the cube's orientation and position are overwritten to match the target location. This way, the robot always performs perfect place action, improving both the reactivity of the robot and its robustness, but the robot's motions are less realistic.
 
 \subsection{Robot head motions}
 
-To exhibit a more intuitive and collaborative behavior, the robot head is controlled to look at various elements during the interaction. 
-Indeed, when waiting for the human the robot looks at the camera, and as soon as the human hand moves to either perform an action or indicate its passivity, the robot starts following the hand to show it is observing the human motions to understand their intentions.
+The robot head is controlled to look at various elements during the interaction to exhibit a more intuitive and collaborative behavior. 
+Indeed, when waiting for the human, the robot looks at the camera. As soon as the human hand moves to either perform an action or indicate its passivity, the robot starts following the hand to show it is observing the human motions and estimating their intentions.
 Then, the robot looks at a cube to indicate its intention to pick it since this is faster than the arm motion. 
 Also, the robot looks at the target position when placing a cube to indicate its intention to place the cube there.
 
-To perform those head motions a dedicated controller has been developed based on an existing controller provided in the Tiago robot modules. The existing controller could only change the robot's gaze through a visual and clickable window allowing an operator to manually click on the scene to change the robot's gaze. This controller has been modified to allow additional features such as directly requesting to look at 3D point or an object. But also, we can now ask to follow an object. That's how we are able to exhibit the head behavior described just above.  
+A dedicated controller has been developed to perform those head motions based on an existing controller provided in the Tiago robot modules. The existing controller could only change the robot's gaze through a visual and clickable window, allowing an operator to manually click on the scene to change the robot's gaze. This controller has been modified to allow additional features, such as directly requesting to look at a 3D point or an object. Moreover, we can now ask to follow an object. That's how we are able to exhibit the head behavior described just above.  
 
 \subsection{Human hand motions}
 
 Moving the human hand requires a dedicated controller but is much simpler than the robot arm motion one. Here, the hand must either move to a position or perform a PASS signal. The PASS signal is a hand gesture indicating to the robot that the human desires to be passive for the current step. This motion is performed by simply rotating the hand back and forth at a constant speed. The PASS motion has a duration of 0.7s. 
-On the other hand, to move the hand to a target position we do not use a real motion planner. We simply compute a straight line between the current hand pose and the target pose, and update the hand position at $50Hz$ to move at a constant speed set to $0.25 m/s$. The planning time is thus negligible compared to the robot motion planning times.
+On the other hand, we do not use a real motion planner to move the hand to a target position. We simply compute a straight line between the current hand pose and the target pose. Then, we update the hand position at $50Hz$ to move at a constant speed set to $0.25 m/s$. The planning time is thus negligible compared to the robot motion planning times.
 
 \subsection{Simulation controller}
 
 \subsubsection{Action decomposition}
 
-Last but not least, I developed a fourth controller whose main job is to translate the actions from the plan produced by our task planner to low-level motions that can be executed by the controllers listed above. Hence, some parts of this controller are domain-specific, but a major part is generic for manipulation tasks. This controller received high-level agent actions to execute such as ``Robot pick(b1)'' for the robot picking the cube b1. The first step is to decompose this action into low-level generic actions which are themselves made of low-level motions. This controller also keeps track of a few low-level facts to check low-level preconditions, such as, what are each agent holding or which object is still on the table. Hence, when an agent tries to pick a cube while already holding a cube the controller throws an error.
+Last but not least, I developed a fourth controller whose main job is to translate the actions from the plan produced by our task planner to low-level motions that can be executed by the controllers listed above. Hence, some parts of this controller are domain-specific, but a major part is generic for manipulation tasks. This controller received high-level agent actions to execute, such as ``Robot pick(b1)'' for the robot picking the cube b1. The first step is to decompose this action into low-level generic actions, which are themselves made of low-level motions. This controller also keeps track of a few low-level facts to check low-level preconditions, such as what each agent is holding or which object is still on the table. Hence, the controller throws an error when an agent tries to pick a cube while already holding one.
 
-Let's first comment the low-level generic actions available. This controller is given a list of the object names (cubes) and the names of some predefined locations in the scene (placing locations in the stack). Note also that many of the following actions can be performed either by the human or the robot, this is defined by a parameter given when calling the action. The following low-level actions are available:
+Let's first comment on the low-level generic actions available. This controller is given a list of the object names (cubes) and the names of some predefined locations in the scene (placing locations in the stack). Except for the last five, the following actions are not agent-specific and can be performed by any agent. This is defined by a parameter given when calling the action. The following low-level actions are available:
 
 \begin{itemize}
     \itemsep0em
@@ -145,25 +145,25 @@ Let's first comment the low-level generic actions available. This controller is 
     \item \textbf{robot\_head\_follow\_hand:}   makes the robot follow the human hand.
 \end{itemize}
 
-Then the high-level actions, from the plan produced, are the following with their respective simplified low-level decomposition:
+Then, the high-level actions from the plan produced are the following with their respective simplified low-level decomposition:
 
 \begin{itemize}
     \item \textbf{PickCube:}            Starts by retrieving the cube's current position by sending a request to the Gazebo simulator. If it is the robot, call robot\_head\_look\_obj to look at the cube. Then, call move\_pose\_target with the retrieved cube position. Once over, grab the cube with grab\_obj. After, move\_home is called to retract the robot arm or bring the hand to its initial position. Finally, if it is the robot, it looks to the human with robot\_head\_look\_human.
     
     \item \textbf{PlaceCube:}           Starts by retrieving the position of the target location to stack the cube. If it is the robot, call robot\_head\_look\_pose with this position. Then, we move either the arm or the hand to that position with move\_pose\_target before dropping the cube in the stack with drop\_obj and adjusting its position. After, we go back to the home configuration with move\_home. And for the robot, we look at the human with robot\_head\_look\_human. 
     
-    \item \textbf{BePassive:}           The human waves their hand to explicitly be passive, thus, human\_hand\_gesture is called. The robot does not move and only display some texts saying the robot wants to be passive. The text prompt mechanism will be described later.
+    \item \textbf{BePassive:}           The human waves their hand to explicitly be passive. Thus, human\_hand\_gesture is called. The robot does not move and only displays some texts saying the robot wants to be passive. More details about the text prompts will be provided later.
     
-    \item \textbf{DropCubeTable:}       When an agent cannot stack a cube they are holding, they can place it back on the table. First, the drop position is defined. It corresponds to the initial position of the cube being held, except for the green one which is initially on top of another cube and has a dedicated drop position. The robot looks at the drop position with robot\_head\_follow\_pose. The hand or the robot arm is moved to the position with move\_pose\_target. The cube is dropped with drop\_obj and its position is adjusted. Then, the agent is put in its home configuration with move\_home, and the robot looks at the human with robot\_head\_look\_human.  
+    \item \textbf{DropCubeTable:}       When an agent cannot stack a cube they are holding, they can place it back on the table. First, the drop position is defined. It corresponds to the initial position of the cube being held, except for the green one, which is initially on top of another cube and has a dedicated drop position. The robot looks at the drop position with robot\_head\_follow\_pose. The hand or the robot arm is moved to the position with move\_pose\_target. The cube is dropped with drop\_obj, and its position is adjusted. Then, the agent is put in its home configuration with move\_home, and the robot looks at the human with robot\_head\_look\_human.  
 \end{itemize}
 
 \subsubsection{Manage steps}
 
-One last thing, the simulator controller is in charge of indicating when a step is over. Basically, since we do not consider steps where both agents are passive, a step begins when an agent starts an action. And it is over when both agent actions are done. These rules cover many situations such as if the human initially wants to be passive and wave their hand, as a result, the robot starts performing an action which starts the step. Currently, the step would be over as soon as the robot action is over since the human is passive. However, if the human decides anyway to start performing an action concurrently then the step will be over when both the robot and human actions are over. This may imply that if the human starts acting right before the end of the robot action then the robot will just wait for the end of the human action, and thus, the end of the step before the next step begins.  
+The simulator controller is also in charge of indicating when a step is over. Since we do not consider steps where both agents are passive, a step begins when an agent starts an action. A step is over when both agent actions are done. These rules cover many situations, such as if the human initially wants to be passive and wave their hand. As a result, the robot starts performing an action, which starts the next step. Currently, the step would be over as soon as the robot's action is over since the human is passive. However, if the human decides to start performing an action concurrently, then the step will be over when both the robot's and human's actions are over. This may imply that if the human starts acting right before the end of the robot's action, then the robot will just wait for the end of the human action, and thus, the end of the step before the next step begins.  
 
 \subsubsection{Send visual signals}
 
-The model of execution synchronizes the agents based on explicit visual signals such as the start of a step, the start of an action, the end of an action, or hand gesture (PASS). Those signals are modeled explicitly inside the system and managed by the simulator controller.
+The model of execution synchronizes the agents based on explicit visual signals such as the start of a step, the start of an action, the end of an action, or a hand gesture (PASS). Those signals are modeled explicitly inside the system and managed by the simulator controller.
 
 Indeed, when starting an action, the associated visual signal is sent only when the agent starts to move. Hence, we track the arm and hand motions to know when the action is visible to the other agent. Then, when an action is over, the associated visual signal is sent directly. It is worth mentioning that humans will naturally have a reaction time when seeing the robot's visual signals (start/end of action, step start). However, the robot natively does not have any reaction time to such symbolic visual signals. Thus, to simulate the delay introduced by an actual perception module (here perfectly simulated), the human visual signals are delayed to the robot by a reaction time set to 0.3 seconds. This is still quite fast, but at least the robot does not interpret human motions instantly.   
 
@@ -172,20 +172,16 @@ Indeed, when starting an action, the associated visual signal is sent only when 
 
 \section{Human Machine Interface (HMI)}
 
-\textbf{TODO: to develop}
-
-text prompt, clickable zones, signals
-
-Human operator or participant can interact with the simulation by performing any feasible action during the process. The model of execution is still followed, thus, every step starts by the robot sound and a dedicated process receives internally the list of the feasible human actions for the current step. This list is sent by the robot execution scheme which is reading the solution graph. Yet, the feasible actions are not shown nor known by the participants.
-Each possible human action is associated to a zone (rectangle) on the screen. When the human mouse click in a zone associated to a currently feasible action, then the process request the simulation controller to perform the corresponding human action.  delayed visual signal for robot.
+The human operator, or participant, can interact with the simulation by performing any feasible action during the process. However, humans must synchronize with robots by following the execution model. For this purpose, every step starts with a robot sound/beep. Additionally, a dedicated process receives internally the list of the feasible human actions for the current step. This list is sent by the robot execution scheme, and is extracted from the solution \acrshort{dag}. However, the participants do not show or know of feasible actions.
+Each possible human action is associated with a rectangular area/zone on the screen. When the human clicks in a zone associated with a currently feasible action, the process requests the simulation controller to perform the corresponding human action.
 
 \section{Logs and timeline}
 
-There is also a dedicated process to record the different events and signals during one execution. All other components can send events to log to this process to save them for later post-processing. A log event is defined with a name and a time stamp. Additionally, visual signals are also captured by this logging process and saved them both as a signal and creates an associated event. Logged events mostly help to trace the internal states and processes ran by the robot during the execution. The human ones mostly only serve to identify when the human is acting or not since we do not have access to the internal reasoning process of the human participant. 
+There is also a dedicated process to record the different events and signals during one execution. All other components can send events to log to this process to save them for later post-processing. A log event is defined with a name and a time stamp. Additionally, visual signals are also captured by this logging process and saved both as a signal and as a corresponding event. Logged events mostly help trace the robot's internal states and processes during the execution. The human ones mainly serve to identify when the human is acting or not since we do not have access to the internal reasoning process of the human participant. 
 
 \subsection{Activities extraction}
 
-All logs are saved after each execution and can be loaded later for post-processing. The post-processing involve three steps. First, the agent activities are extracted from the event list. The human and the robot have different possible activities, but again, since we do not have access to the internal human reasoning there are more robot activities than human ones. The extracted activities are shown in the following table~\ref{tab:agent_activities}. The activities orders try to match what can happen during the execution but not all activities are present in every step. Indeed, on the robot side, the ID process is not always necessary and thus not always executed, and the robot either perform an action or is passive for diverse reasons. But the robot always end up waiting for the end of the step, perform the SA process and get ready for the next step. On the human side, if the human performs an action or make a hand gesture, there will be a decision time than respectively the human action or the explicit passive activity. If the human remains passive without signaling the robot then the only activity is passive without signaling. Only if the human is active, the waiting next step to start activity is added, otherwise being passive for a step is implicitly equivalent to waiting for the next step.  
+All logs are saved after each execution and can be loaded later for post-processing. The post-processing involves three steps. First, the agent activities are extracted from the event list. The human and the robot have different possible activities, but since we do not have access to internal human reasoning, there are more robot activities than human ones. The extracted activities are shown in the following table~\ref{tab:agent_activities}. The activities' orders try to match what can happen during the execution, but not all activities are present at every step. Indeed, on the robot side, the ID process is not always necessary and thus not always executed, and the robot either performs an action or is passive for diverse reasons. But the robot always ends up waiting for the end of the step, performing the \acrshort{sa} process and getting ready for the next step. On the human side, if the human performs an action or makes a hand gesture, there will be a measurable decision time. If the human remains passive without signaling the robot, then the only activity is passive without signaling. The ``waiting next step to start'' activity is only added if the human is active. Otherwise, being passive for a step is implicitly equivalent to waiting for the next step.  
 
 \begin{table}[]
     \begin{tabular}{|l|l|}
@@ -201,13 +197,13 @@ All logs are saved after each execution and can be loaded later for post-process
     Situation Assessment Process (SA process)                                                 &                                                                                                      \\ \cline{1-1}
     Getting ready for the next step (GRNS)                                                    &                                                                                                      \\ \hline
     \end{tabular}
-    \caption{Agent activities extracted from logs. The activities orders and relative positions try to match the execution but not all activities are present in every step.  }
+    \caption{Agent activities extracted from logs. The activities' orders and relative positions try to match the execution, but not all activities are present at every step.  }
     \label{tab:agent_activities}
     \end{table}
 
 \subsection{Metrics computation}
 
-When loading the execution logs we extract a set of metrics from the events and extracted activities. Currently, 27 metrics are extracted, but the following table \ref{tab:metrics} only shows 11 because several sub-metrics are hidden. Indeed, for four of the listed metrics, we compute the sum, average, standard deviation, min, and max values of the corresponding metric.
+When loading the execution logs, we extract a set of metrics from the events and extracted activities. Currently, 27 metrics are extracted, but the following table \ref{tab:metrics} only shows 11 because several sub-metrics are hidden. Indeed, for four of the listed metrics, we compute the sum, average, standard deviation, min, and max values of the corresponding metric.
 
 % {\small
 % \begin{enumerate}
@@ -230,8 +226,8 @@ When loading the execution logs we extract a set of metrics from the events and 
     \begin{tabular}{|c|l|}
     \hline
     \textbf{Metric}                                                           & \multicolumn{1}{c|}{\textbf{Description}}                                                                                   \\ \hline
-    Task Completion Time                                                      & Time for the task to eh completed.                                                                                          \\ \hline
-    Number of steps                                                           & Number of steps executed.                                                                                                   \\ \hline
+    Task Completion Time                                                      & Time for the task to be completed.                                                                                          \\ \hline
+    Number of steps                                                           & Number of executed steps.                                                                                                   \\ \hline
     \begin{tabular}[c]{@{}c@{}}Number of optimal\\ human actions\end{tabular} & \begin{tabular}[c]{@{}l@{}}Number of human action being optimal regarding a \\ given objective.\end{tabular}                \\ \hline
     \begin{tabular}[c]{@{}c@{}}Ratio of optimal\\ human actions\end{tabular}  & \begin{tabular}[c]{@{}l@{}}Number of optimal human action divided by the \\ number of steps.\end{tabular}                   \\ \hline
     Human decision time*                                                      & \begin{tabular}[c]{@{}l@{}}Duration for the human to make a visible decision \\ in a step.\end{tabular}                     \\ \hline
