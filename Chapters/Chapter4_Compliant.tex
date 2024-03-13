@@ -114,8 +114,6 @@ This example also highlights the relevance of exploring several possible executi
 The model of execution we formulated, depicted in fig~\ref{fig:simplified_model_exec}, is inspired by joint action literature and describes the agent's coordination during execution. It comprises synchronization and perception processes based on social signals exchanged between the agents, such as starting an action (arm motion), hand gestures, or verbal communication. This section presents a simplified and abstract version of this model that suffices to guide our planning framework. A complete version that explicitly models the human behavior and exchanged signals is provided in the next chapter and used to supervise the execution of the produced robot policy.  
 
 
-% \textbf{TODO: add numbered marks in the figure to refer to easily for description, also describe the conditions: H is active, etc...}
-
 The model describes the possible transitions from a given state to another, step by step. The robot always informs the human about the beginning of a step and then waits for their decision by looking at social cues. The top yellow rectangle in the figure represents this waiting process. This human decision can either be to start acting or to be passive. Hence, the robot always lets humans first decide which action they want to perform, including the choice to be passive. This decision is detected with perception by tracking social cues such as human motions and hand gestures.
 
 The diamond shapes below the first synchronization process are conditions, driving the automaton into different branches depending on specific conditions. First, we differentiate between cases where the human is passive and cases where the human is active (``H is active''). 
