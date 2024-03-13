@@ -26,9 +26,8 @@ To conduct this study, I developed a dedicated interactive simulator using a Tia
 
 This chapter is organized as follows. First, the interactive simulator functionalities and operations are described. Then, the methodology of the user study is provided along with anonymous information on the participants. After that, the results obtained are presented and discussed, validating the proposed approach and our model.
 
-\section{Related work}
+\section{Existing HRI questionnaires}
 
-\subsection{Questionnaires}
 Many questionnaires are used in the field of HRI. The main ones are GodSpeed, HRIES, PeRDITA, RoSAS, and Trust Perception Scale-HRI. 
 
 Each questionnaire has specificities and helps to measure certain aspects of the robot. Many include appearance items to evaluate the look of the robot. Since our focus is on robot decision-making, we decided to base our questionnaire on PeRDITA. Indeed, this questionnaire has been designed to evaluate the pertinence of robot decisions in a Human-Robot Joint Action Context, which is exactly our case. Yet, the full questionnaire is a bit heavy and also covers communication, which is not our topic in this work. 
@@ -142,13 +141,36 @@ The participants were collaborating with the robot using a mouse. The simulation
 
 \section{Participants}
 
-This section shares and analyzes some information on the participants.
+This section shares and analyzes some information about the $25$ participants involved in the study.
 
-\textbf{TODO: provide info} number, age, ext, familiar with R tech, vision of robotics
+\begin{figure}[h]
+    \center
+    \includegraphics[width=0.9\linewidth]{Chapter6/age.pdf}
+    \caption{Participants' age.}
+    \label{fig:age}
+\end{figure}
+
+The participants were aged of $29.64 \pm 10.67$ ($min=21$ and $max=62$), as depicted on figure~\ref{fig:age}. 
+
+\begin{figure}[h]
+    \center
+    \includegraphics[width=0.4\linewidth]{Chapter6/gender.pdf}
+    \caption{Participants' gender.}
+    \label{fig:gender}
+\end{figure}
+
+About $36\%$ ($9/25$) of the participants indicated they were \textit{Females} and $64\%$ ($16/25$) indicated being \textit{Males} (figure~\ref{fig:gender}). Participants could choose not to share their gender, but none selected this option. 
+
+Participants were asked to rate their opinion about robotics from $1$ (negative) to $5$ (positive). On average, participants had a highly positive opinion about robotics: $4.24 \pm 0.6$, without answers below $3$. Most participants were excited about this subject. 
+
+Only $6$ participants were not from my lab. Nevertheless, various profiles were requested to participate. Among all participants, $8$ were more or less familiar with robotic decision-making. All other participants were not familiar with robotic decision-making, like some biologists. However, $12$ participants were generally familiar with robotics, like drone control researchers.  
+
+We conducted numerous correlation analyses between the participants' personal information (age, gender, affiliation, familiarity with robotics), the questionnaire answers, and the execution metrics. Due to the considerable possible combinations, we could not exhaustively test every possible correlation. Nevertheless, our numerous Pearson and Point biserial correlation tests never identified a significant correlation between the participants' personal information and the obtained results. The only few significant correlations are between the questionnaire answers themselves representing the ``coherent'' rating of the participants. That is, participants tend to rate similarly similar situations. For instance, the better a participant rates the interaction in the first scenario, the better they tends to rate the interaction in the third scenario, in which execution is similar.
+
 
 \section{Study results}
 
-In this section, we analyze the results of the study with first some technical comments regarding the experiment. After, we analyze the results obtained from the execution logs. Then, we discuss the answers to the questionnaire. Finally, we discuss the participant's comments regarding the experiment. Note that all the numeric results of the study are given in appendix~\ref{ap:study}, including questionnaire answers, execution metrics, comments, and scenario preferences. 
+In this section, we analyze the results of the study. First, we share some technical comments regarding the experiment. After, we analyze the results obtained from the execution logs. Then, we discuss the answers to the questionnaire. Finally, we discuss the participant's comments regarding the experiment. Note that all the numeric results of the study are given in appendix~\ref{ap:study}, including questionnaire answers, execution metrics, comments, and scenario preferences. 
 
 \subsection{Technical comments}
 
