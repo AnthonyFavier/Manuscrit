@@ -139,34 +139,78 @@ Compared with the original HATP/EHDA specifications, this contribution slightly 
 
     \subsection*{Problem Specification}
 
-Belief divergences are out of the scope of this particular work. Hence, for simplicity reasons, we consider the two beliefs (robot and estimated human ones) to be constantly aligned, and they are represented as a unique world state. However, we are convinced that this work could be adapted easily to consider the two distinct beliefs.
+A few assumptions are used in this contribution, simplifying the problem specification described in Chatper~\ref{chap:2}, especially the \textit{agent state} ($\sigma^\varphi$) that can be omitted only to keep \textit{states} ($s_i$), also referred to as \textit{planning states} ($ps_i$). 
 
-The problem is specified as shown here \ref{sec:problem_spec} in Chapter~\ref{chap:2}. For simplification purposes, in this contribution, no belief divergence is considered. Therefore, unlike Chapter~\ref{chap:3}, the two agents' beliefs are always aligned and initialized with a same initial world state using state variables. Then, distinct human and robot action models are described with HTNs, and distinct human and robot initial agendas are provided, comprising a shared task to accomplish. 
+First, belief divergences are out of the scope of this particular work. Hence, for simplicity reasons, we consider the two beliefs (robot and estimated human ones) to be constantly aligned, and they are represented as a unique world state ($\valf[][i] = \valf[R][i] = \valf[H][i]$). Therefore, unlike Chapter~\ref{chap:3}, the two agents' beliefs are always aligned and initialized with a same initial world state using state variables. However, we are convinced that this work could be adapted easily to consider the two distinct beliefs.
+
+Additionally, the agents' partial plans have been removed for performance reasons. This is due to our new solution format in this contribution, switching from an AND/OR tree to a \acrfull{dag}. The domain modeler must now define relevant state variables to track specific events instead of checking the previously accessible planned action sequence. This improved the performance a lot.
+
+As a reminder, a \textit{state} fundamentally differs from \textit{beliefs}. A \textit{state} ($s_i$) corresponds to a specific state in which the planning problem is while progressing toward a solution. However, \textit{beliefs} ($val^\varphi_i$) corresponds to the state of the world in the agent $\varphi$'s perspective. Hence, \textit{beliefs} (here aligned) are part of the \textit{state}.
+
+The problem specification of the conflict example shown previously in figure~\ref{fig:conflict_pick} is given below for illustration purposes. First, the initial state $s_0$ is described by:
+
+{\small
+\begin{align*}
+&s_0 = \{\valf[][0], d^R_0, d^H_0 \} \\
+&\quad d^R_0 = d^H_0 = \{ MoveCubes \} \\
+&\quad \valf[][0] = \{at(\textsf{c1}) = at(\textsf{c2}) = \textsf{middle},~at(\textsf{c3}) = \textsf{side\_R} \\
+&\quad \quad \quad \quad free(\textsf{l1}) = free(\textsf{l2}) = \textsf{True}, \\
+&\quad \quad \quad \quad holding(\textsf{R}) = holding(\textsf{H}) = \textsf{nil} \} \\
+\end{align*}
+}
+
+% In this description, three state variables can be identified: $at, free, holding$. The first one $at$
+
+The agents' action models are still represented with \acrshort{htn}. For this example, the corresponding models are depicted in figure~\ref{fig:conflict_pick_htn}. 
+
+\begin{figure}[h]
+    \center
+    \includegraphics{Chapter4/conflict_pick_htn.pdf}
+    \caption{Robot and Human action models ($\Lambda^R$ and $\Lambda^H$) for the conflict cube picking example. Since the two HTNs are very similar, only one is represented. Unlike the robot, the human HTN does not include the blue part.}
+    \label{fig:conflict_pick_htn}
+\end{figure}
+
+Since the robot and human HTNs are very similar, they are represented as a single one for legibility purposes. The only difference between these two distinct HTNs is that the robot can pick the cube near itself $c3$. Hence, unlike the human, the robot action model includes a possible decomposition (shown in blue in the figure) picking up the $c3$ cube. Note that these action models use a recursive representation of the task. The abstract task $MoveCubes$ decomposes into several subtasks, including itself, to continue moving cubes until a given condition is satisfied. The two $MoveCubes$ methods capture this condition. The tasks decompose into picks and places if cubes are missing in the target locations. Otherwise, the task refines into nothing ($\emptyset$). Notice the $PlaceTable$ abstract subtask, which takes care of cases where an agent cannot place its cube in any target location and must place it back on the table. 
 
 \subsection*{Solution Description}
 
+Compared to Chapter~\ref{chap:2}, the solution format changed from an AND/OR tree to a \acrfull{dag}. This modification significantly improved the planning approach's performance because many branches of the original solution tree are redundant. The exploration now produces a \acrfull{dag}, referred to as the search graph, from the initial p-state to several goal p-states through sequences of concurrent human-robot action pairs. Such a graph is depicted in figure~\ref{fig:dag}. 
+
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.7\linewidth]{Chapter4/solution_graph.png}
+    \includegraphics[width=0.7\linewidth]{Chapter4/dag.pdf}
     \caption{Directed acyclic solution graph}
-    \label{fig:solution_graph}
+    \label{fig:dag}
 \end{figure}
 
-A Planning state, referred to as a p-state, corresponds to a state in which the planning problem is while progressing toward a solution. It corresponds to the definition of a \textit{state} from Chapter~\ref{chap:2}. A p-state contains the current world state (aligned beliefs of the agents) and the respective agenda of the human and the robot. Thus, keep in mind that p-states are very different from world states.
-The initial p-state is formed using the initial human-robot agendas and the initial world state given in the problem specification. P-states are connected through pairs of concurrent human-robot actions. Note that we consider passive actions. Hence, only one active agent may exist in a pair of concurrent human-robot actions. A goal p-state is characterized by a world state satisfying given goal conditions and by empty agendas.
-The exploration produces a \acrfull{dag}, referred to as the search graph, from the initial p-state to several goal p-states through sequences of concurrent action pairs. Thus, any path from the root to a leaf is a possible plan. Once the exploration is done, i.e. when the complete search graph is computed, another process extracts the optimal robot policy from the graph. In the manner of an AND-OR tree, this policy indicates for each p-state the best concurrent robot action (OR node) to execute to be compliant with any possible human action (AND node).
+In the \acrshort{dag}, any path from the root to a leaf is a possible plan corresponding to a sequence of concurrent human and robot actions. Note that we consider passive actions. Hence, only one active agent may exist in a concurrent pair of actions. Moreover, a leaf is a node without children and is considered as a goal p-state if both agendas ($\agenda[R][]$ and $\agenda[H][]$) are empty and if $\valf[][j]$ satisfies given goal conditions. In our example, the goal conditions are:
 
+{\small
+\begin{align*}
+goal~conditions: &free(\textsf{l1}) = free(\textsf{l2}) = \textsf{False}, \\
+&holding(\textsf{R}) = holding(\textsf{H}) = \textsf{nil} \\
+\end{align*}
+}
 
-First, we provide a few clarifications about the \acrshort{dag}. Nodes represent p-states and are connected with each other through directed edges representing human-robot concurrent action pairs. The graph has one root node (with no parent), the initial p-state. All leaf nodes (with no children) represent goal p-states. 
+Once the exploration is done, i.e. when the complete search graph is computed, another process extracts the optimal robot policy from the graph. In the manner of an AND-OR tree, this policy indicates for each p-state the best concurrent robot action (OR node) to execute to be compliant with any possible human action (AND node). However, this extraction is based on an estimation of human preferences. These preferences specify what metrics the human partner would prefer to maximize or minimize and in which priority. The overall planning process is depicted in figure~\ref{fig:overall_process} and both the exploration and the policy generation are detailed in the following sections..
 
-It is one of our design choices not to consider explicit action costs and perform an exhaustive offline search to produce this search graph in order to solve a problem. Since the policy generation is rapid, it allows the generation and updating of robot policies online according to human feedback. 
+% It is one of our design choices not to consider explicit action costs and perform an exhaustive offline search to produce this search graph in order to solve a problem. Since the policy generation is rapid, it allows the generation and updating of robot policies online according to human feedback. 
 
-
-\begin{figure}
+\begin{figure}[h]
     \includegraphics[width=\linewidth]{Chapter4/overall_process.png}
     \caption{Overall planning process}
     \label{fig:overall_process}
 \end{figure}
+
+Before providing more details about the planning approach, we show in figure~\ref{fig:example_partial_dag} a partial \acrshort{dag} obtained for our conflicting cube example. On this partial \acrshort{dag} are shown several sequences of concurrent human-robot actions going from the initial state to a goal state where the task is achieved. The complete \acrshort{dag} is too big to be legible. We can see in the figure that passive actions \textit{PASS} are included during the search. We also see how different ordering and concurrent execution can quickly generate numerous paths in the graph. The original AND/OR tree representation quickly becomes overwhelming and resource-consuming to manipulate. 
+
+\begin{sidewaysfigure}
+    \includegraphics[width=\linewidth]{Chapter4/example_dag.pdf}
+    \caption{Partial Directed Acyclic Graph (DAG) for the conflicting pick example.}
+    \label{fig:example_partial_dag}
+\end{sidewaysfigure}
+
+\clearpage
 
 \section{Exploration and Search Phase}
 
@@ -238,7 +282,7 @@ Hence, before giving more details about the policy itself, we first describe the
 
     \subsection{Using Estimated Human Preferences for Plan Evaluation}
 
-In this approach, instead of trying to minimize action and social costs, which are challenging to estimate accurately and quantitatively, we aimed to satisfy an estimation of human preferences. In a way, the costs are reflected in human preferences. Our approach is to characterize each possible trace with a set of various metrics such as follows:
+In this approach, instead of trying to minimize action and social costs, which are challenging to estimate accurately and quantitatively, we aimed to satisfy an estimation of human preferences. In a way, the costs are reflected in human preferences. Our approach is to characterize each possible trace with a set of various metrics. Objective and general metrics can be complemented with additional domain-specific metrics (marked with *), which must be given in the problem specification. The metrics used are the following:
 
 \begin{itemize}
     \item \textbf{Time of Task Completion}: Time step at which the task is achieved.
@@ -249,7 +293,7 @@ In this approach, instead of trying to minimize action and social costs, which a
     \item \textbf{*Number of Drops}: Number of times an agent drops a cube (place back a cube on the table, not in the stack).
 \end{itemize}
 
-Note that general metrics are complemented with additional domain-specific metrics (marked with a star *), as given in the problem specification. The set of metrics helps to characterize and evaluate each possible trace. However, even if the possible plans are characterized, we so far have no way to compare them and find the best one. Doing so requires additional criteria indicating how to prioritize and compare the different metrics.
+The set of metrics helps to characterize and evaluate each possible trace. However, even if the possible plans are characterized, we so far have no way to compare them and find the best one. Doing so requires additional criteria indicating how to prioritize and compare the different metrics.
 
 The preferences can be given verbally or estimated by any other means. Here, we consider human preferences in the following form. These preferences are an ordered list of the metrics characterizing the traces. Note that all metrics in the list above do not need to be present. This ordered list indicates if each metric should be maximized or minimized and with which priority. For instance, assuming the preferences aim to minimize all metrics, the plan with the lowest first metric of the list will be considered as better. If the plans have an equal first metric, then we use the second metric, and so on. Here are two arbitrary examples of human preferences trying respectively to finish the task as fast as possible ($preferences\_1$) and to minimize the human effort ($preferences\_2$) (all metrics are minimized):
 
@@ -276,23 +320,23 @@ To generate the robot policy $\Pi$ from the search graph, we proceed from the le
 Overall, we progressively compute the set of metrics for each possible trace. When reaching a p-state with several children, we compare the metrics of the different traces leading to this node. We can then identify the best trace leading to each partial p-state and the best trace leading to the p-state. Each best trace to a partial p-state is used to update the robot policy, and the overall best trace is used to continue the propagation with the best reachable set of metrics.
 This process is achieved by repeating two sub-routines detailed just below, namely \textit{Propagation} and \textit{Selection}. 
 
-\begin{algorithm}
-\caption{Policy Generation}\label{alg:policy_generation}
-\begin{algorithmic}[1]
+% \begin{algorithm}
+% \caption{Policy Generation}\label{alg:policy_generation}
+% \begin{algorithmic}[1]
 
-\State \textbf{input}: $leafNodes$ \Comment{Set of all leaf p-states from the search graph}
-\State $psToPropagate \gets \emptyset$
-\State $psForSelection \gets \emptyset$
+% \State \textbf{input}: $leafNodes$ \Comment{Set of all leaf p-states from the search graph}
+% \State $psToPropagate \gets \emptyset$
+% \State $psForSelection \gets \emptyset$
 
-\State $Initialization(psToPropagate, leafNodes)$
+% \State $Initialization(psToPropagate, leafNodes)$
 
-\While{ $psToPropagate \neq \emptyset$ and $psForSelection \neq \emptyset$ }
-    \State $Propagation(psToPropagate, psForSelection)$
-    \State $Selection(psToPropagate, psForSelection)$
-\EndWhile
+% \While{ $psToPropagate \neq \emptyset$ and $psForSelection \neq \emptyset$ }
+%     \State $Propagation(psToPropagate, psForSelection)$
+%     \State $Selection(psToPropagate, psForSelection)$
+% \EndWhile
 
-\end{algorithmic}
-\end{algorithm}
+% \end{algorithmic}
+% \end{algorithm}
 
     \subsubsection{Format and Initialization}
 
