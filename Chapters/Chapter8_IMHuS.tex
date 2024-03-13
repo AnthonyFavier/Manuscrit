@@ -84,7 +84,7 @@ $p_1$ at $t_2$ begins to move individually towards $l_{10}$, which reaches at $t
 Time-step ($t_i$) in figure \ref{fig:diagram} means ``\emph{choreography steps}'', that is, significant moments for the definition of the simulation. It does not refer to a magnitude measured by a clock. We will refer to them as \emph{steps}, which is an increased ordered sequence of discrete points in time at which a given set of events has to occur. For example, $step_0$ usually specifies the initial state of all the elements of the simulation, i.e., the position of the robot, human', and the other elements. A typical step specifies a set of actions that are initiated at that instant, a navigation task for one of the humans, for instance, at $step_1$ ($t_1$ in figure~\ref{fig:diagram}).
 
 
-This is the type of simulation that the tool should be able to generate. Figure~\ref{fig:imhus_architecture} shows the general architectural framework. This tool receives the definitions of the social scenarios in a definition file (an XML in its current version). It then manages the simulation, obtains the simulation data, uses existing libraries and other tools (such as $move\_base$ to calculate trajectories in ROS), and finally generates the log data for evaluation.
+This is the type of simulation that the tool should be able to generate. Figure~\ref{fig:imhus_architecture} shows the general architectural framework. This tool receives the definitions of the social scenarios in a definition file (an XML in its current version). It then manages the simulation, obtains the simulation data, uses existing libraries and other tools (such as $move\_base$ to calculate trajectories in \acrshort{ros}), and finally generates the log data for evaluation.
 
 \begin{figure}[h!]%
     \centering
@@ -169,9 +169,9 @@ In the current version, choreographies are defined in an XML file that includes 
     }
 \end{itemize}
 
-The prototype has been implemented as a new version of the InHuS tool (\cite{favier_SSC}), which connects to the Gazebo simulator to obtain information about the world. It uses the \emph{move\_base} ROS to generate the global plan for each agent and updates the positions of each agent in the next step of the simulation accordingly. The new version is capable of handling the navigation of multiple agents (humans) in parallel while managing conflicts and completing individual tasks as in the previous version. It also provides an updated graphical user interface for repeatedly selecting and executing scenarios defined in the XML file.
+The prototype has been implemented as a new version of the InHuS tool (\cite{favier_SSC}), which connects to the Gazebo simulator to obtain information about the world. It uses the \emph{move\_base} \acrshort{ros} to generate the global plan for each agent and updates the positions of each agent in the next step of the simulation accordingly. The new version is capable of handling the navigation of multiple agents (humans) in parallel while managing conflicts and completing individual tasks as in the previous version. It also provides an updated graphical user interface for repeatedly selecting and executing scenarios defined in the XML file.
 
-The IMHuS tool shown in Figure~\ref{fig:imhus} has been structured in three layers: the IMHuS layer (in blue), its configuration in the application layer (in yellow), its communication with the simulator and ROS (in red). The robot whose behavior would be tested in the tool has also been included (in violet).
+The IMHuS tool shown in Figure~\ref{fig:imhus} has been structured in three layers: the IMHuS layer (in blue), its configuration in the application layer (in yellow), its communication with the simulator and \acrshort{ros} (in red). The robot whose behavior would be tested in the tool has also been included (in violet).
 
   \begin{figure}[ht]%
      \centering
