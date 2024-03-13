@@ -14,37 +14,21 @@
 
 \section{Introduction}
 
-\textbf{TODO: update, currently from copy/paste from SSC}
 
-Significant efforts are being dedicated today toward the development of robots that interact, assist or work side-by-side with humans. However, people working in the field of human-robot interactions (HRI) face constraining issues while testing and evaluating their systems. 
-Apart from being mandatory to validate mature systems, experimenting using real humans and robots is burdensome: they are slow, hardly repeatable, expensive, etc. Moreover, the system needs to be run extensively for debugging and tuning before it reaches maturity. Doing so with real-life experiments is generally a long and tiresome process where colleagues in the lab and volunteers spend unproductive hours, if not days, interacting with a robot running a system under debugging. Moreover, such methods require exclusive physical access to the robot, a place to run the tests, and cannot run faster than real-time or be parallelized.
+Significant efforts are being dedicated today toward the development of robots that interact, assist, or work side-by-side with humans. However, people working in the field of \acrfull{hri} face constraining issues while testing and evaluating their systems. 
+Apart from being mandatory to validate mature systems, experimenting using real humans and robots is burdensome: they are slow, hardly repeatable, expensive, etc. Moreover, the system needs to be run extensively for debugging and tuning before it reaches maturity. Doing so with real-life experiments is generally a long and tiresome process where colleagues in the lab and volunteers spend unproductive hours, if not days, interacting with a robot running a system under debugging. Moreover, such methods require exclusive physical access to the robot and a place to run the tests.
 
-Simulations are well suited for such tasks as they allow working without a real robot or a physical space. Further, they allow multiple tests to run simultaneously and faster than in real life. The simulated environment for the tests can be changed very easily in contrast to real-life tests. However, simulating realistic human behaviors and interactions is tough, which could make simulations unreliable. Consequently, HRI researchers face some difficulties such as: ``How to test repeatedly and intensively their systems even when they are not sufficiently robust?'' and ``How to challenge their systems in a large variety of environments and situations?''. Therefore, there is a need for an ``intelligent artificial human'' that would help challenge the robot's interactive and decision-making abilities. 
+Simulations are well suited for such tasks as they allow working without a real robot or a physical space. Further, they allow multiple tests to run simultaneously and with a time factor greater than in real life. The simulated test environment can be changed very quickly compared to real-life tests. However, simulating realistic human behaviors and interactions is challenging, which could make simulations unreliable. Consequently, \acrshort{hri} researchers face some difficulties such as: ``How to test repeatedly and intensively their systems even when they are not sufficiently robust?'' and ``How to challenge their systems in a large variety of environments and situations?''. Therefore, there is a need for an ``intelligent artificial human'' that would help challenge the robot's interactive and decision-making abilities. 
 
 \subsection{Human simulations in human-aware robot navigation}
 
-Being a part of HRI, the field of human-aware social robot navigation inherits all these limitations. One way that is employed for simulating an intelligent avatar in this field is to manually control the human avatar, in real-time \cite{echeverria_simulating_2012}. 
-This can be done using a variety of devices like a gaming controller, keyboard, or motion capture. Such approaches require a real human operator only focused on controlling the avatar, which brings back some mentioned limitations like human fatigue. Autonomous human avatars on the other hand seem to offer an adequate solution to this, but they often lack intelligence and rationality. 
+Being a part of \acrshort{hri}, the field of human-aware social robot navigation inherits all these limitations. One way to simulate an intelligent avatar in this field is to manually control the human avatar in real-time \cite{echeverria_simulating_2012}. 
+This can be done using a variety of devices like a gaming controller, keyboard, or motion capture. Such approaches require a real human operator only focused on controlling the avatar, bringing back some already-mentioned limitations like human fatigue. On the other hand, autonomous human avatars seem to offer an adequate solution to this, but they often lack intelligence and rationality. 
 
-Most of the current autonomous avatars available are either scripted or reactive. A scripted avatar executes a series of predefined actions, like following a fixed path, without being reactive to its environment which makes interactions very limited. Reactive agents use models like social force \cite{helbing1995social} or optimal reciprocal collision avoidance (ORCA) \cite{van2011reciprocal}. These systems are highly scalable and can simulate groups or even crowds composed of numerous agents. MengeROS \cite{aroor_mengeros_2018} and PedSim\_ROS\footnote{https://github.com/srl-freiburg/pedsim\_ros} are some examples. Despite their number, the generated agents usually fail in intricate social scenarios. Some recent works like VirtualHome~\cite{puig_virtualhome_2018} and SEAN~\cite{Tsoi_2020_HAI,tsoi2022sean} discuss simulating human agents to challenge robot systems, but the navigation of the agents in these systems is still based on reactive-only models. 
+Most of the current autonomous avatars available are either scripted or reactive. A scripted avatar executes a series of predefined actions, like following a fixed path, without being reactive to its environment, which limits interactions. Reactive agents use models like social force \cite{helbing1995social} or optimal reciprocal collision avoidance (ORCA) \cite{van2011reciprocal}. These highly scalable systems can simulate groups or even crowds of numerous agents. MengeROS \cite{aroor_mengeros_2018} and PedSim\_ROS\footnote{https://github.com/srl-freiburg/pedsim\_ros} are some examples. Despite their number, the generated agents usually fail in intricate social scenarios. Some recent works like VirtualHome~\cite{puig_virtualhome_2018} and SEAN~\cite{Tsoi_2020_HAI,tsoi2022sean} discuss simulating human agents to challenge robot systems, but the navigation of the agents in these systems is still based on reactive-only models. 
 The work presented in~\cite{social_igibson} proposes a learning-based method to generate more realistic pedestrian navigation. This ongoing work shows an interesting navigation behavior like waiting and letting the other agent pass embedded in iGibson~\cite{shenigibson} simulator. However, this work is more focused on motion generation than decision-making to solve conflicts. 
 
-We propose the InHuS System to contribute to the lack of intelligent and rational human agents with conflict-resolution skills to challenge the human-aware robot navigation systems. Our contribution includes 1) an intelligent human agent controller, 2) a high-level interface to control the simulated agents, and 3) a GUI to plot execution data and metrics for evaluating the interaction. Such a system could help people working in the field of human-aware robot navigation to test and debug their schemes. Our system is designed to run, analyze and evaluate repeatable and long navigation scenarios involving a robot and an autonomous reactive and rational avatar. This work focuses on intricate and narrow scenarios where, in addition to being reactive, rational decisions should be taken in order to solve the conflicts occurring. Note that our contribution is focused on navigation decision-making and not the motion generation part. Throughout this paper, we use the term `rational' in a meaning close to Goal Reasoning~\cite{vattam_breadth_nodate,abbass_goal_2018}, i.e., the ability of autonomous agents which can dynamically reason about and adjust their goals. It enables the agents to adapt intelligently to changing conditions and unexpected events, allowing them to address a wide variety of complex situations.
-
-
-% ****
-
-% Vers simulation humain intelligent pour benchmarker planner robot (nav + tache)
-
-% An interactive simulator for user study is useful but not automated
-
-% InHuS:
-% ère du digital twin : 1er pas vers ça, un peu générique, fait pour nav mais pourrait aller plus loin
-% A mettre dans un chapitre "a part"
-
-% Objectives - Current challenges in testing ha nav
-
-% \section{Related work}
+We propose the \acrfull{inhus} System to contribute to the lack of intelligent and rational human agents with conflict-resolution skills to challenge the human-aware robot navigation systems. Our contribution includes 1) an intelligent human agent controller, 2) a high-level interface to control the simulated agents, and 3) a \acrfull{gui} to plot execution data and metrics for evaluating the interaction. Such a system could help people working in the field of human-aware robot navigation to test and debug their schemes. Our system is designed to run, analyze, and evaluate repeatable and long navigation scenarios involving a robot and an autonomous reactive and rational avatar. This work focuses on intricate and narrow scenarios where, in addition to being reactive, rational decisions should be taken in order to solve the conflicts occurring. Note that our contribution is focused on navigation decision-making and not the motion generation part. Throughout this paper, we use the term `rational' in a meaning close to Goal Reasoning~\cite{vattam_breadth_nodate,abbass_goal_2018}, i.e., the ability of autonomous agents that can dynamically reason about and adjust their goals. It enables the agents to adapt intelligently to changing conditions and unexpected events, allowing them to address a wide variety of complex situations.
 
 
 \section{Description}
@@ -53,7 +37,7 @@ We propose the InHuS System to contribute to the lack of intelligent and rationa
     \centering
     \includegraphics[width=0.7\linewidth]{Chapter7/Inhus.drawio.pdf}
     \caption{
-    The InHuS System interacts with three external systems: the simulator, the robot controller, and a human operator. Our system is separated into three parts: the Boss high-level interface gathering inputs from the human operator, InHuS which is the actual human controller, and a GUI to plot the metrics and other data produced.
+    The InHuS System interacts with three external systems: the simulator, the robot controller, and a human operator. Our system is separated into three parts: the Boss high-level interface gathering inputs from the human operator, InHuS which is the actual human controller, and a \acrshort{gui} to plot the metrics and other data produced.
     }
     \label{fig:overview_inhus}
     \vspace{-0.8cm}
@@ -61,8 +45,8 @@ We propose the InHuS System to contribute to the lack of intelligent and rationa
 
 The InHuS System%
 \footnote{https://github.com/AnthonyFavier/InHuS\_Social\_Navigation}
-works along with a human operator, a chosen simulator, and the challenged robot controller as depicted in Fig~\ref{fig:overview_inhus}. The system is mainly implemented using ROS. The InHuS  System is three-sided. First, the system comes with a high-level interface called Boss that helps to manage the simulated agents. Secondly, there is the main part which is the intelligent human avatar controller itself, called InHuS.
-Finally, a GUI provides an interactive visualization of the data and metrics computed by InHuS during execution that can help to evaluate interactions. We present below some details for each component.
+works along with a human operator, a chosen simulator, and the challenged robot controller as depicted in Fig~\ref{fig:overview_inhus}. The system is mainly implemented using ROS. The InHuS  System is three-sided. First, the system comes with a high-level interface called Boss that helps to manage the simulated agents. Secondly, the main part is the intelligent human avatar controller itself, called InHuS.
+Finally, a \acrshort{gui} provides an interactive visualization of the data and metrics computed by InHuS during execution that can help to evaluate interactions. Below, we present some details for each component.
 
 
 \subsection{Boss}
@@ -70,7 +54,7 @@ For the human operator to easily control the simulated agents and run repeatable
 
 The Boss allows defining scenarios with start positions and goals for each agent to repeatedly generate the same situation. 
 Running a scenario consists of first sending each agent to their respective starting position. Then, the corresponding goals are sent to the human and the robot.
-A delay can be specified while starting the scenario to delay either the robot's or the human's goal. This is very useful to adjust the timing of a specific situation or conflict. The Boss can also put an agent in ``endless'' mode where the agent continuously gets a new goal from a given list after completing one. 
+A delay can be specified while starting the scenario to delay either the robot's or the human's goal. This is very useful to adjust the timing of a specific situation or conflict. The Boss can also put an agent in ``endless'' mode, where the agent continuously gets a new goal from a given list after completing one. 
 
 Each navigation action can specify a radius for the ``Pose goal'', within which a new ``Pose goal'' is randomly sampled. This mechanism adds randomness to the execution and diversifies the situations encountered, especially in the ``endless'' mode. Setting the radius to zero disables the randomization and selects the given goal.
 
@@ -83,13 +67,13 @@ All the goals, scenarios, and endless goal sequences are defined using an XML fo
     \centering
     \includegraphics[height=120pt]{Chapter7/inhus_2.pdf}
     \caption{
-    The human controller InHuS with its components and subsystems. 
+    The human controller InHuS is depicted with its components and subsystems. 
     }
     \label{fig:inhus_only}
     \vspace{-1cm}
 \end{figure}
 
-The macro component InHuS is mainly in charge of controlling the avatar and generating rational behaviors. InHuS itself is made of several components as depicted in Fig.~\ref{fig:inhus_only}. However, three components, namely HumanBehaviorModel, Supervisor, and GeometricPlanner, constitute the major functional part of InHuS. We discuss each of these major components in detail.
+The macro component InHuS is mainly in charge of controlling the avatar and generating rational behaviors. InHuS itself is made of several components, as depicted in Fig.~\ref{fig:inhus_only}. However, three components, namely HumanBehaviorModel, Supervisor, and GeometricPlanner, constitute the major functional part of InHuS. We discuss each of these major components in detail.
 
 
 \subsubsection{HumanBehaviorModel:}
@@ -97,24 +81,24 @@ The macro component InHuS is mainly in charge of controlling the avatar and gene
 The HumanBehaviorModel is responsible for most of the rational behavior of the agent. The first role of this component is to manage the goals. Goals can either be received from the Boss component or generated by the HumanBehaviorModel using the same XML file as the Boss. When a goal is selected, it is sent to the Supervisor for execution. 
 
 This component is also responsible for detecting and handling navigation conflicts. Currently, the kind of navigation conflict handled by InHuS is path blockage (e.g. another agent standing in a doorway). While the human agent is navigating, a path to the goal is calculated at regular intervals using Dijkstra's algorithm, and its length is tracked to detect such conflicts. If the tracked path length increases significantly or the path ceases to exist, it could mean that another agent is blocking either the only possible way or the shortest way. When such situations are detected, the plan execution is temporarily suspended, and the agent performs an approach action to get close to the blocking location. This shows the agent's intention to move in a specific direction and might induce the blocking agent to react and clear the way.
-Eventually, once the avatar is at a specified distance of the blocking location, here set to \SI{1.5}{\metre}, the agent stops its approach and actively waits for the path to be cleared.
+Eventually, once the avatar is at a specified distance from the blocking location, set to $1.5m$, the agent stops its approach and actively waits for the path to be cleared.
 
-To generate a lot of different and specific situations, we created what we call \textit{Attitudes}. They are operating modes affecting both goal decisions and reactions toward the other agents. One can activate them through the Boss to generate diversified behaviors of the agent. Some of the \textit{Attitudes} currently implemented in InHuS consist of: 1) randomly picking a new goal, like someone suddenly changing their mind, 2) harassing the robot by constantly going in front of it, like a child would do \cite{nomura2016children}, and 3) stopping close to the robot and looking at it for a few seconds before resuming its goal which emulates a curious behavior. 
+To generate a lot of different and specific situations, we created what we call \textit{Attitudes}. They are operating modes affecting both goal decisions and reactions toward the other agents. One can activate them through the Boss to generate diversified behaviors of the agent. Some of the \textit{Attitudes} currently implemented in InHuS are the following: 1) randomly picking a new goal, like someone suddenly changing their mind; 2) harassing the robot by constantly going in front of it, like a child would do \cite{nomura2016children}; 3) stopping close to the robot and looking at it for a few seconds before resuming its goal which emulates a curious behavior. 
 
 The final purpose of this component is to build the perception of the human agent based on the map and information about the other agents from the simulator. We build the perception by directly accessing the simulation data rather than adding simulated sensors to the human avatar. Using this perception, we compute the visibility of the human agent and then update the human's knowledge about the robot's position and speed.
 
 \subsubsection{Supervisor:}
-The Supervisor is a central component as it coordinates different components to execute the plan and achieve the current goal. When the Supervisor receives a goal from the HumanBehaviorModel, it requests the TaskPlanner component a plan to achieve the goal. For now, the plan generation is quite simplistic. For a ``Pose goal'', a plan filled with a single navigation action is generated. For a ``Compound goal'', the sequence of navigation and waiting actions is extracted from the XML goal file and the plan is populated. Despite the simplistic plan generation, this architecture handles complex goals that require several steps to be achieved and emulate human activities.  
+The Supervisor is a central component as it coordinates different components to execute the plan and achieve the current goal. When the Supervisor receives a goal from the HumanBehaviorModel, it requests the TaskPlanner component a plan to achieve the goal. For now, the plan generation is quite simplistic. For a ``Pose goal'', a plan filled with a single navigation action is generated. For a ``Compound goal'', the navigation and waiting actions sequence is extracted from the XML goal file, and the plan is populated. Despite the simplistic plan generation, this architecture handles complex goals that require several steps to be achieved and emulate human activities.  
 
-The execution of each action of the plan is then supervised by the Supervisor by sending requests to other components. 
+The Supervisor then supervises the execution of each action of the plan by sending requests to other components. 
 When a navigation action needs to be performed, the Supervisor starts by sampling a random position if the given action radius is not zero. Then, it requests the GeometricPlanner to plan for the target position without considering other agents initially. This way, the avatar starts following the shortest path, and we initialize the conflict detection. After this, the system starts to consider the other agents, and the Supervisor periodically requests the HumanBehaviorModel component to check for potential navigation conflicts. The Supervisor can suspend and resume the plan execution at any time, which can be used to resolve the detected conflicts or to generate specific reactions like the \textit{Attitudes}.
 
 \subsubsection{GeometricPlanner:}
 
-The last major component is the GeometricPlanner. This motion planner component receives a target position to reach from the Supervisor and generates velocity commands to make the avatar move. This component defines how the agent moves around and adapts its velocity to the other agents in the scene. Since the system is implemented in ROS, we use the standard ROS navigation stack for the GeometricPlanner.
+The last major component is the GeometricPlanner. This motion planner component receives a target position from the supervisor to reach and generates velocity commands to make the avatar move. This component defines how the agent moves around and adapts its velocity to the other agents in the scene. Since the system is implemented in ROS, we use the standard ROS navigation stack for the GeometricPlanner.
 
 The planner used in InHuS is a publicly available human-aware navigation planner called CoHAN \cite{singamaneni2021human}. It is built over the ROS navigation stack and uses a local planner based on a modified version of the timed elastic band with human-aware properties. 
-We benefit from the high-level decision-making of InHuS and the enhanced local navigation of CoHAN with trajectory predictions. Moreover, CoHAN is highly tunable which helps to generate different agent behaviors. 
+We benefit from the high-level decision-making of InHuS and the enhanced local navigation of CoHAN with trajectory predictions. Moreover, CoHAN is highly tunable, which helps generate different agent behaviors. 
 
 \subsection{Logs, metrics and GUI} \label{sec:logs_metrics}
 
@@ -122,22 +106,20 @@ We benefit from the high-level decision-making of InHuS and the enhanced local n
     \centering
     \includegraphics[width=0.8\linewidth]{Chapter7/gui_bis_bis.png}
     \caption{
-    Overview of the GUI interface which is organized as follows. On the right side are shown the paths taken by the agents and colored over time. On the left side, several metrics and data produced by InHuS are plotted over time on graphs. Additional widgets help to configure the plots. 
+    An overview of the \acrshort{gui} interface. On the right side, the paths taken by the agents are shown and colored over time. On the left side, several metrics and data produced by InHuS are plotted over time on graphs. Additional widgets help to configure the plots. 
     }
     \label{fig:gui}
 \end{figure}
 
-The InHuS system logs the execution data like the positions and speeds of the agents along with some computed metrics. All the logged data is sent to the GUI component, which generates interactive plots. These plots can help evaluate the interaction and thus the performance of the given robot controller. The snapshot of the GUI shown in Fig.~\ref{fig:gui} shows two kinds of visualizations. On the right side, there is a colored visualization of the paths taken by each agent. These paths are colored over time according to a corresponding legend that helps estimate an agent's position at a specific moment. The left side is composed of several plots showing some computed metrics over time. The first plot is about conflict detection and solving. It shows the length of the path to the goal computed when checking for conflicts. Without any conflict, the path length should decrease linearly over time. If it's not the case, the avatar has been disturbed during the navigation. This plot also shows the conflict state of the agent: Nominal (no conflict), Approach (conflict detected), Blocked (stopped and waiting). The subsequent plots show over time the speeds of each agent, their relative speed, the distance separating them, 
-and a metric called time to collision (TTC). This metric estimates the time remaining before the agents collide with their current velocities. We can argue that TTC corresponds to a ``threat feeling'' since a low TTC value corresponds to a high threat of collision. Hence, social robots should be tuned to not exceed a minimum TTC value to make humans more comfortable.
+The InHuS system logs the execution data, such as the positions and speeds of the agents, along with some computed metrics. All the logged data is sent to the \acrshort{gui} component, which generates interactive plots. These plots can help evaluate the interaction and, thus, the performance of the given robot controller. The snapshot of the \acrshort{gui} shown in Fig.~\ref{fig:gui} shows two kinds of visualizations. On the right side, there is a colored visualization of the paths taken by each agent. These paths are colored over time according to a corresponding legend that helps estimate an agent's position at a specific moment. The left side comprises several plots showing some computed metrics over time. The first plot is about conflict detection and solving. It shows the path length to the goal computed when checking for conflicts. Without any conflict, the path length should decrease linearly over time. If it's not the case, the avatar has been disturbed during the navigation. This plot also shows the state of conflict of the agent: Nominal (no conflict), approach (conflict detected), blocked (stopped and waiting). The subsequent plots show the speeds of each agent over time, their relative speed, the distance separating them, 
+and a metric called time to collision (TTC). This metric estimates the time remaining before the agents collide with their current velocities. We can argue that TTC corresponds to a ``threat feeling'' since a low TTC value corresponds to a high collision threat. Hence, social robots should be tuned not to exceed a minimum TTC value to make humans more comfortable.
 
 \section{Main results}
-able to numerically identify the HA behavior of CoHAN w/r SMB)
-
 
 In this section, we show some results through a set of experiments to highlight how our system can help challenge human-aware robot navigation systems. First, we discuss the limits of reactive-only systems to strengthen the need for rational avatars. 
-Then, we present how our system effectively challenges robot navigation systems and we interpret the corresponding plots.
+Then, we present how our system effectively challenges robot navigation systems, and we interpret the corresponding plots.
 Next, we show how the InHuS System can compare the human-aware performances of two different robot controllers.
-Finally, we present additional experiments showing the diverse behaviors that can be produced using the \textit{Attitudes}, and how ``long runs'' can benefit the development of a robot controller.
+Finally, we present additional experiments showing the diverse behaviors that can be produced using the \textit{Attitudes} and how ``long runs'' can benefit the development of a robot controller.
 
 \subsection{Limits of reactive-only agents}
 \label{sec:pedsim_compare}
@@ -148,8 +130,8 @@ Most of the current human agent simulations used by the social navigation commun
     \includegraphics[width=0.4\linewidth]{Chapter7/pedsim_blocked.png}
     \includegraphics[width=0.4\linewidth]{Chapter7/pedsim_narrow_2.png}
     \caption{
-    In the doorway scenario (left), the reactive-only (Pedsim) agent never stops moving while trying to go through the robot even though its path is blocked. 
-    In the narrow corridor scenario (right), the agent squeezes itself between the wall and the robot colliding with both. 
+    In the doorway scenario (left), the reactive-only (Pedsim) agent never stops moving while trying to go through the robot, even though its path is blocked. 
+    In the narrow corridor scenario (right), the agent squeezes itself between the wall and the robot, colliding with both. 
     }
     \label{fig:limits_reactive}
     \vspace{-0.3cm}
@@ -157,7 +139,7 @@ Most of the current human agent simulations used by the social navigation commun
 
 Consider the doorway scene shown in the left part of Fig.~\ref{fig:limits_reactive}. Both agents have to cross a narrow opening. Here, the robot is blocking the way that the human agent intends to cross. The PedSim agent approaches the robot and tries to push itself through, but it fails due to a very high value of social force. The agent never stops moving and tends to go right or left along the wall before wiggling again just in front of the robot. 
 This confusing behavior can make the agent's intentions unclear to the robot planner. 
-The narrow corridor scenario, shown in the right part of Fig.~\ref{fig:limits_reactive}, also exposes some limits. In this scene, there is not enough space for the agents to cross each other,  and the only solution is for one of them to back off. Here the path is blocked by the static robot. The PedSim agent slowly gets closer and closer to the robot before squeezing itself between the wall and the robot. For some reason here the social forces allowed the agent to pass, unlike the previous example. It highlights that the PedSim agent does not use a defined hitbox or footprint for the agent and relies only on repulsive social forces to prevent collisions. This lack of defined collision shapes makes the agent temporarily pass through the walls and other agents. As a consequence, it breaks many intricate scenarios where a rational decision should be taken and results in unrealistic situations. Despite being efficient for large spaces or crowds, based on the above observation, we can state that in intricate scenarios such approaches can lead to confusing and even unrealistic behaviors.  
+The narrow corridor scenario, shown in the right part of Fig.~\ref{fig:limits_reactive}, also exposes some limits. In this scene, there is not enough space for the agents to cross each other. The only solution is for one of them to back off. Here, the path is blocked by the static robot. The PedSim agent slowly gets closer and closer to the robot before squeezing itself between the wall and the robot. For some reason, the social forces allowed the agent to pass, unlike the previous example. It highlights that the PedSim agent does not use a defined hitbox or footprint for the agent and relies only on repulsive social forces to prevent collisions. This lack of defined collision shapes makes the agent temporarily pass through the walls and other agents. Consequently, it breaks many intricate scenarios where a rational decision should be taken, resulting in unrealistic situations. Despite being efficient for large spaces or crowds, based on the above observation, we can state that such approaches can lead to confusing and even unrealistic behaviors in intricate scenarios.  
 
 \subsection{Interpretation of plots with human-aware planner}
 
@@ -170,22 +152,22 @@ Here, we present one such conflict and a detailed interpretation of the correspo
     \includegraphics[width=1.0\linewidth]{Chapter7/test.pdf}
     
     \caption{
-    A condensed view of the InHuS GUI and MORSE simulator for the doorway scenario with a robot running the CoHAN planner. Several plots depict the detection and resolution of the conflict created. 
+    A condensed view of the InHuS \acrshort{gui} and MORSE simulator for the doorway scenario with a robot running the CoHAN planner. Several plots depict the detection and resolution of the conflict created. 
     }
     \label{fig:cohan_passage_block}
     \vspace{-0.3cm}
 \end{figure}
 
 
-The robot starts closer to the opening and enters the doorway first. The execution can be analyzed with the metric plots and the time-colored paths of the agents in Fig.~\ref{fig:cohan_passage_block}. We notice that the robot's speed (red line on the second graph) goes down around \SI{50}{\second} as it is entering the doorway and creating a conflict. The conflict is detected by InHuS (zero path length = no path), and the agent switches to the approach state (green to the yellow line on the first graph).
-The non-zero path length in the approach state corresponds to how the approach is performed. In order to keep moving despite the blocked path, the GeometricPlanner is requested at a defined frequency to plan without considering the robot (all non-zero path length). In between these requests, to check if the path is still blocked, the conflict detection plans while considering the robot (zero path length). When the avatar is at a predefined distance from the blocking robot around \SI{53}{\second}, it switches to the blocked state (red line) to stop and wait for the path to be cleared. Further, the time-colored paths show that the GeometricPlanner made the avatar move aside while approaching to avoid blocking the robot. As a result, the agents were no longer moving towards each other, and thus, there was no longer any collision threat (no TTC values). When there is no more collision threat, around \SI{51}{\second}, the robot's speed starts to increase again. Such behavior is a good sign of human-aware properties and might increase human comfort.
+The robot starts closer to the opening and enters the doorway first. The execution can be analyzed with the metric plots and the time-colored paths of the agents in Fig.~\ref{fig:cohan_passage_block}. We notice that the robot's speed (red line on the second graph) goes down around \SI{50}{\second} as it enters the doorway and creates a conflict. The conflict is detected by InHuS (zero path length = no path), and the agent switches to the approach state (green to the yellow line on the first graph).
+The non-zero path length in the approach state corresponds to how the approach is performed. In order to keep moving despite the blocked path, the GeometricPlanner is requested at a defined frequency to plan without considering the robot (all non-zero path length). In between these requests, to check if the path is still blocked, the conflict detection plans while considering the robot (zero path length). When the avatar is at a predefined distance from the blocking robot around \SI{53}{\second}, it switches to the blocked state (red line) to stop and wait for the path to be cleared. Further, the time-colored paths show that the GeometricPlanner made the avatar move aside while approaching to avoid blocking the robot. As a result, the agents were no longer moving toward each other, and thus, there was no longer any collision threat (no TTC values). When there is no more collision threat, around \SI{51}{\second}, the robot's speed starts to increase again. Such behavior is a good sign of human-aware properties and might increase human comfort.
 
 From the plots produced by our system, a lot of useful information can be extracted for improving or evaluating the social robot planner's performance like a) finding ways to decrease the blocked state time for the human, b) maintaining a particular threshold for TTC, c) slowing down near the human, or waiting for the human to cross the door without blocking.
 
 
 \subsection{Quantitative comparison between two robot controllers}
 
-Our system can be used to run similar scenarios repetitively to produce robust metric values. These values can help to evaluate the human-aware performances of a given robot controller. To show this, we present a comparison between two different robot controllers. The first one is again the CoHAN system, and the second one is the Simple Move Base (or SMB). It uses the \textit{teb\_local\_planner} and the ROS navigation stack with default parameters. We just add an additional process to consider the human agent as a static obstacle to avoid it, so it is not human-aware. Therefore, we should be able to notice a clear difference through the metrics computed by our system. For this comparison, we used three different scenarios: 1) The doorway scenario where the agents have to cross a narrow opening, 2) the corridor scenario where the agents cross each other with just enough space, and 3) the open space where they cross each other without any environmental constraints. We performed 10 repetitions of each scenario for each robot controller. For each set of 10 repetitions, we extracted the mean values of three different metrics and presented them in Table~\ref{tab:compare_robots}. The metrics are the following. First, the time to goal (TTG) is the time taken by the avatar to reach its goal. Second, the minimum distance between the robot and the human (Min HRDist). And, the minimum time to collision (TTC). Intuitively, we want the TTG to be as small as possible, the minimum HRDist to be as high as possible, and since a low TTC value represents a collision threat, we want the min TTC to be as high as possible. 
+Our system can be used to run similar scenarios repetitively to produce robust metric values. These values can help to evaluate the human-aware performances of a given robot controller. To show this, we present a comparison between two different robot controllers. The first one is again the CoHAN system, and the second one is the Simple Move Base (SMB). It uses the \textit{teb\_local\_planner} and the ROS navigation stack with default parameters. We just add an additional process to consider the human agent as a static obstacle to avoid it, so it is not human-aware. Therefore, we should be able to notice a clear difference through the metrics computed by our system. For this comparison, we used three different scenarios: 1) The doorway scenario, where the agents have to cross a narrow opening; 2) the corridor scenario, where the agents cross each other with just enough space; 3) the open space where they cross each other without any environmental constraints. We performed ten repetitions of each scenario for each robot controller. For each set of 10 repetitions, we extracted the mean values of three different metrics and presented them in Table~\ref{tab:compare_robots}. The metrics are the following. First, the time to goal (TTG) is the time taken by the avatar to reach its goal. Second, the minimum distance between the robot and the human (Min HRDist). And the minimum time to collision (TTC). Intuitively, we want the TTG to be as small as possible, the minimum HRDist to be as high as possible, and since a low TTC value represents a collision threat, we want the minimum TTC to be as high as possible. 
 
 \begin{table}[]
     \center
@@ -197,16 +179,16 @@ Our system can be used to run similar scenarios repetitively to produce robust m
     \multicolumn{1}{|c|}{\textit{Corridor}}   & \multicolumn{1}{c|}{\textbf{16.34}}                                             & \multicolumn{1}{c|}{\textbf{2.06}}                                                    & \textbf{1.03}                                                  & \multicolumn{1}{c|}{17.05}                                                      & \multicolumn{1}{c|}{1.59}                                                             & 0.81                                                           \\ \hline
     \multicolumn{1}{|c|}{\textit{Open Space}} & \multicolumn{1}{c|}{\textbf{9.55}}                                              & \multicolumn{1}{c|}{\textbf{2.52}}                                                    & \textbf{1.61}                                                  & \multicolumn{1}{c|}{11.01}                                                      & \multicolumn{1}{c|}{2.34}                                                             & 1.18                                                           \\ \hline
     \end{tabular}
-    \caption{Mean values of three InHuS metrics over 10 repetitions in three different scenarios and with two different robot controllers. Bold values indicate when the corresponding robot controller has better performance than the other.}
+    \caption{Mean values of three InHuS metrics over ten repetitions in three different scenarios and with two different robot controllers. Bold values indicate when the corresponding robot controller performs better than the other.}
     \label{tab:compare_robots}
 \end{table}
 
-At first glance, we see in Table~\ref{tab:compare_robots} that almost all CoHAN values are better than SMB values. Due to the nature of the doorway environment, the execution of the scenario is quite constrained which explains why the values are not too different between the two controllers. However, we notice anyway that, compared to SMB, the CoHAN planner tends to keep a greater distance between the agents and a greater TTC (lower threat of collision). The time to goal of CoHAN is slightly higher because the robot slows down when crossing and moving in the direction of the human. Thus, it is the price to pay in this scenario to maintain adequate TTC values.
+At first glance, Table~\ref{tab:compare_robots} shows that almost all CoHAN values are better than SMB values. Due to the nature of the doorway environment, the execution of the scenario is quite constrained, which explains why the values are not too different between the two controllers. However, we notice anyway that, compared to SMB, the CoHAN planner tends to keep a greater distance between the agents and a greater TTC (lower collision threat). The time to goal of CoHAN is slightly higher because the robot slows down when crossing and moving in the direction of the human. Thus, in this scenario, it is the price to maintain adequate TTC values.
 
 In the corridor scenario, The SMB robot tends to wait until the last moment to move aside, which is threatening. On the other hand, the CoHAN robot proactively moves to one side of the corridor. As a consequence, it leaves more space for humans and reduces the threat of collision, which is visible in the obtained values. Also, this pro-activity has the effect of smoothing the trajectory of the avatar, which makes this last one reach its goal faster.
 
 Finally, the open space scenario is a bit similar to the previous one. The SMB robot waits until the last moment to avoid the human, which puts the load of the avoidance maneuver on the human. As a result, 
-the human has to move aside which extends the duration to reach the goal. Also, due to the same behavior, the SMB robot is on average closer to the avatar and more threatening. Since the CoHAN robot moved again aside early, its metric values are noticeably better than SMB.
+humans have to move aside, extending the duration of their efforts to reach the goal. Also, the SMB robot is closer to the avatar and more threatening on average due to the same behavior. Since the CoHAN robot moved again aside early, its metric values are noticeably better than SMB.
 
 In summary, the human-aware behavior of the CoHAN controller was captured through significant value differences in the computed metrics compared to a non-human-aware robot controller. This implies that our system can help evaluate and compare human-aware robot controllers.
 
@@ -226,8 +208,8 @@ In summary, the human-aware behavior of the CoHAN controller was captured throug
 \end{figure}
 
 By activating \textit{Attitudes}, InHuS is capable of producing more complex behaviors to diversify the conflicts and challenges imposed on the robot.
-We present the time-colored paths for the execution of two \textit{Attitudes} : \textit{Harass} and \textit{StopAndLook} in Fig.~\ref{fig:attitudes}. Concerning the \textit{Harass Attitude}, by paying attention to the colors, we see that the human is always in front of the robot that continuously tries to avoid the harassing agent causing erratic movements. The robot should be able to detect such non-cooperative behavior from humans and act accordingly.
-On the same figure we see the execution of the \textit{StopAndLook Attitude}. The color discontinuity behind the human marker shows how the human suspended its goal to stop and briefly stare at the robot before moving again. A robot not pro-active enough could be disturbed by the sudden stop of the human, which could be a situation of interest to handle. 
+We present the time-colored paths for the execution of two \textit{Attitudes}: \textit{Harass} and \textit{StopAndLook} in Fig.~\ref{fig:attitudes}. Concerning the \textit{Harass Attitude}, by paying attention to the colors, we see that the human is always in front of the robot that continuously tries to avoid the harassing agent, causing erratic movements. The robot should be able to detect such non-cooperative behavior from humans and act accordingly.
+On the same figure, we see the execution of the \textit{StopAndLook Attitude}. The color discontinuity behind the human marker shows how the human suspended its goal to stop and briefly stare at the robot before moving again. A robot that is not proactive enough could be disturbed by the sudden stop of the human, which could be a situation of interest to handle. 
 
 
 \subsection{Long run scenarios}
@@ -237,35 +219,30 @@ On the same figure we see the execution of the \textit{StopAndLook Attitude}. Th
     \centering
     \includegraphics[height=80pt]{Chapter7/TDP_long_run_path.png}
     \includegraphics[height=80pt]{Chapter7/TDP_long_run_path_blocked_cropped_final.png}
-    \caption{Execution of the long run scenario using the TDP robot planner and InHuS. We see the complete set of time-colored paths on the left. On the right, the same path is cut, around the moment when the robot got stuck in the wall. 
+    \caption{Execution of the long run scenario using the TDP robot planner and InHuS. We see the complete set of time-colored paths on the left. On the right, the same path is cut around when the robot gets stuck in the wall. 
     }
     \label{fig:long_run_block}
     \vspace{-0.3cm}
 \end{figure}
 
 The proposed system can help test the stability and robustness of the robot planner by conducting long randomized runs. Indeed, thanks to the Boss component, possibly randomized goals can be sent autonomously to the agents. This can generate unexpected situations and conflicts that can be of interest.
-Fig.~\ref{fig:long_run_block} depicts such a test conducted with InHuS and a human-aware robot planner from Kollmitz et. al. \cite{kollmitz_time_2015} here referred to as TDP. The agents were made to endlessly loop over four goal-positions (each with a \SI{1}{\metre} radius) in reverse order to create as many conflicts as possible. After 3 minutes, the robot got stuck in the wall of the doorway, indefinitely blocking the path for the human. In addition to highlighting problematic situations where the robot does not act as expected, long runs can expose low-level issues like unexpected crashes or memory leaks.
+Fig.~\ref{fig:long_run_block} depicts such a test conducted with InHuS and a human-aware robot planner from Kollmitz et al. \cite{kollmitz_time_2015} here referred to as TDP. The agents were made to endlessly loop over four goal positions (each with a $1m$ radius) in reverse order to create as many conflicts as possible. After 3 minutes, the robot got stuck in the wall of the doorway, indefinitely blocking the path of the human. In addition to highlighting problematic situations where the robot does not act as expected, long runs can expose low-level issues like unexpected crashes or memory leaks.
 
 
 
 
 \section{Discussion and Limitations}
 
-Although InHuS provides an autonomous human agent, if needed, the agent can be controlled manually. We do not yet provide a handy controller, but velocity commands generated by any means can be sent to the Boss component to control the human. This extends the usability of InHuS as one can use scripted trajectories or motion capture to control the human agent in the simulator.
+Although InHuS provides an autonomous human agent, the agent can be controlled manually if needed. We do not yet provide a handy controller, but velocity commands generated by any means can be sent to the Boss component to control the human. This extends the usability of InHuS as one can use scripted trajectories or motion capture to control the human agent in the simulator.
 
 The proposed system interacts with an external simulator and robot controller. Since the system is mainly implemented using ROS, switching from one simulator to another is straightforward if it has a ROS interface. 
-InHuS has specific components to abstract the simulation data format. Thus, just by slightly editing these components we were already able to run InHuS on three different simulators: MORSE~\cite{echeverria2011modular}, Stage\footnote{https://github.com/ros-simulation/stage\_ros} and Gazebo~\cite{koenig2004design}. Furthermore, any robot controller using the ROS Navigation Stack can be directly used with InHuS.
+InHuS has specific components to abstract the simulation data format. Thus, just by slightly editing these components, we were already able to run InHuS on three different simulators: MORSE~\cite{echeverria2011modular}, Stage\footnote{https://github.com/ros-simulation/stage\_ros} and Gazebo~\cite{koenig2004design}. Furthermore, any robot controller using the ROS Navigation Stack can be directly used with InHuS.
 
-Simulating intelligent human avatars is a novel field and only a few works apart from ours try to address this limitation. A similar work in ROS2 was recently presented in \cite{perezhunavsim}.
-It is clear that the idea of intelligent human agents is of interest to the community, and it is a necessity to test social navigation effectively. Like any other system, InHuS has limitations too. We claim to generate only reactive and somewhat rational behavior, which is still far from natural or realistic human behavior. We currently handle scenarios with two agents only, the human and the robot. We can run scenarios with other human agents, but they will be treated like robots.
-
+Simulating intelligent human avatars is a novel field, and only a few works apart from ours have tried to address this limitation. A similar work in ROS2 was recently presented in \cite{perezhunavsim}.
+Clearly, the idea of intelligent human agents is of interest to the community, and it is necessary to test social navigation effectively. Like any other system, InHuS has limitations, too. We claim to generate only reactive and somewhat rational behavior, which is still far from natural or realistic human behavior. We currently handle scenarios with two agents only: the human and the robot. We can run scenarios with other human agents, but they will be treated like robots.
 
 
 
 \section{Conclusion}
 
-\textbf{TODO: update, copy/pasted from SSC paper}
-
 Human-aware social robot navigation is rapidly growing, but the community lacks good human agent simulations to test and debug their systems. The existing reactive approaches offer only limited testing. Through the InHuS system, we proposed a pertinent approach to address this issue. We showed that our system could generate conflicting situations that need resolution by making rational choices. Moreover, all the metrics and data recorded during execution and their visual plots allow us to evaluate the interaction and behavior of the robot. With such evaluation, we showed that we could compare different robot controllers. InHuS can also generate various tunable behaviors that can diversify the situations and conflicts imposed on the robot, and thus, it helps to debug and tune the system. Long runs provide additional potential ways to improve the system.  
-
-\textit{We already use this system to test our human-aware motion planners and refine them over time using the tests conducted. In the future, we plan to integrate situation detection and diagnosis in the long run to catch the problematic situations that need to be analyzed afterward to tune, refine or extend a given planner. We also plan to handle scenarios with more human agents, like groups and crowds, using a combination of intelligent and reactive agents. }
