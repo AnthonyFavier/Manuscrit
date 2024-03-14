@@ -69,8 +69,8 @@ In \cite{unhelkar2020decision} is proposed an approach based on \acrfull{pomdp} 
 
 Other works extend the use of a distinct human model to explicitly predict and anticipate the actions the human is likely to perform. Then, for each possible human action, the best robot's actions are determined to account for human unpredictability. This is the approach used in HATP/EHDA.
 This other work \cite{buckingham_robot_2020} also uses this approach. They propose a unified scheme to cope with collaborative, adversarial, and non-involved human agents. This scheme considers given mental models for each human co-present with the robot, which might interact with the latter. These mental models are queried to estimate a set of actions each agent is likely to perform given a state. The robot's actions are planned according to these estimated actions to reach the robot's goal and potentially achieve the human agents' goal. In doing so, the robot's actions can influence the human ones without explicit communication, helping the robot achieve its goal. HATP/EHDA similarly queries a human mental model and uses an AND/OR graph where OR nodes represent possible robot actions in a state and AND nodes represent the possible human actions estimated by the models. However, despite saying the model can be generic, this work uses a basic breadth-first search planner to produce a set of minimal-cost plans solving the estimated human goal. Then, they extract the first actions of each plan to produce a set of actions the human is likely to perform. No details are given on the cost evaluation. This approach does not seem to consider human actions that are sub-optimal but still probable, which can be due to inattention. Moreover, the robot actions are selected by using a Min-Max approach on the AND/OR graph, minimizing the worst-case. This approach works well in adversarial setups and still allows cooperative human interventions. However, it is unclear how these cooperative actions are taken into account in the robot decision process. Assuming that the human will be adversarial, the robot might make ``wrong'' decisions, possibly preventing an efficient and optimal cooperative execution. HATP/EHDA minimizes the average cost of all possible human decisions, optimizing uniformly for any human decisions. This approach considers humans congruent, rational, and cooperative but not necessarily involved in the robot's task. Hence, HATP/EHDA does not account for adversarial humans but addresses the other cooperation types better.
-\cite{koppula2016anticipatory} also explicitly estimated the most likely human actions to generate the robot policy, but they use a probabilistic and learning approach. They propose a two agent collaborative MDP model and learn robot policies by taking into account the actions that can be performed by the human. They represent the environment in terms of the object affordances and learn the activity model from RGB-D videos of a human performing the activities. Then, they use this learned task model in a distributed Q-learning algorithm to learn the robot policy for a given new environment. 
-The human capabilities are captured in a MDP. Thus, the possible human actions are estimated by balancing the human habits and the best ($\epsilon$-optimal) action given by the MDP. 
+\cite{koppula2016anticipatory} also explicitly estimated the most likely human actions to generate the robot policy, but they use a probabilistic and learning approach. They propose a two agent collaborative \acrshort{mdp} model and learn robot policies by taking into account the actions that can be performed by the human. They represent the environment in terms of the object affordances and learn the activity model from RGB-D videos of a human performing the activities. Then, they use this learned task model in a distributed Q-learning algorithm to learn the robot policy for a given new environment. 
+The human capabilities are captured in a \acrshort{mdp}. Thus, the possible human actions are estimated by balancing the human habits and the best ($\epsilon$-optimal) action given by the \acrshort{mdp}. 
 
 
 Another line of work, sometimes also using human models, is focused on online and reactive planning. The robot's behavior is decided online using planning techniques but on limited horizons. This produces robot behaviors that are adaptive to human decisions and potentially unexpected environmental changes and events. However, due to the limited horizon to maintain a real-time reactive behavior, the robot behavior's optimality is not guaranteed and might lead to dead ends. Nevertheless, these online approaches usually robustify the robot's behavior and are reactive to failures. Therefore, they could/should complement offline planning approaches like HATP/EHDA.
@@ -96,25 +96,32 @@ In their approach, the \textit{agent state} is sensed and updated during executi
 
 To highlight the potential of our approach, we present a cube-stacking scene as an example. The scene is depicted in four different scenarios in \ref{fig:scenarios}. The goal consists of stacking the colored cubes on the empty marks to match the colors on the figure's left. All cubes placed in the middle of the table are reachable from anywhere. However, when close to one side, a cube is only reachable from this specific side. Notice that one of the required red cubes is located on the opposite side of the table and cannot be grabbed by the robot in the initial state.
 
-A first human, called $H1$, requests the robot to stack the colored cubes to match the goal pattern given. In the first case (a), $H1$ set a shared collaboration goal by requesting the robot to stack the cubes together with them. However, $H1$ can also just give their request to the robot and leave. In such a case, the robot has three possibilities. First, in (b), the robot can solve the task alone but must move to the other side of the table, which is slow and costly. Secondly, in (c), the robot can ask another nearby human, $H2$, for punctual help with the unreachable red cube. $H2$'s reaction can be to put the red cube directly in the stack or only make it reachable to the robot. Finally, the robot can set a shared goal by requesting $H2$ to help it build the stack together. 
+A first human, called \textit{H1}, requests the robot to stack the colored cubes to match the goal pattern given. In the first case (a), \textit{H1} set a shared collaboration goal by requesting the robot to stack the cubes together with them. However, \textit{H1} can also just give their request to the robot and leave. In such a case, the robot has three possibilities. First, in (b), the robot can solve the task alone but must move to the other side of the table, which is slow and costly. Secondly, in (c), the robot can ask another nearby human, \textit{H2}, for punctual help with the unreachable red cube. \textit{H2}'s reaction can be to put the red cube directly in the stack or only make it reachable to the robot. Finally, the robot can set a shared goal by requesting \textit{H2} to help it build the stack together. 
 
 The HATP/EHDA approach explores and evaluates all these kinds of scenarios to produce the robot policy.
 
 
-\section{Problem Specification and Solution}
+\section{Formalization}
 
-In this section, we describe the problem specification introduced by the HATP/EHDA planning approach and used in my contributions. We also describe the solution produced by the planner.  
+This section describes the formalization introduced by the HATP/EHDA planning approach and used or adapted in my contributions. It includes descriptions of the problem specifications and the solution produced by the planner.  
 
 \subsection*{Problem Specification}
 \label{sec:problem_spec}
 
-The notations from Buisan's thesis have been adapted to match the notations in this thesis and ease readers' comprehension. We start from classical planning formalization.
+The notations from Buisan's thesis have been adapted to match the notations in this thesis and ease readers' comprehension. We start from the classical planning formalization described in~\cite{ghallab2016automated}.
 
-We consider a \textit{classical planning domain} (\textit{state-transition system}) $\Sigma = (S, A,\gamma)$, s.t., $S$ is a finite set of states in which the system may be, $A$ is a finite set of actions that the agents may perform, $\gamma: S \times A \rightarrow S$ is a state-transition function. Each state $s \in S$ is a description of the properties of various objects in the planner's environment~\cite{ghallab2016automated}. 
+\begin{definition}
+    \textbf{(Classical Planning Domain $\Sigma$.)} A \emph{classical planning domain} is a state-transition system in the following form: $\Sigma = (S, A,\gamma)$. $S$ is a finite set of \emph{states} in which the system may be, $A$ is a finite set of \emph{actions} that the agents may perform, $\gamma: S \times A \rightarrow S$ is a \emph{state-transition function}. Each \emph{state} $s \in S$ is a description of the properties of various objects in the planner's environment. 
+    \label{def:classical_planning_domain}
+\end{definition}
 
 To represent the objects and their properties, we will use two sets $B$ and $X$: $B$ is a set of names for all the objects, plus any mathematical constants representing the properties of those objects. $X$ is a set of syntactic terms called state variables, s.t. the value of each $x \in X$ depends solely on the state $s$.
 
-A \textit{state-variable} over $B$ is a syntactic term $x = sv(b_1, ..., b_k)$, where $sv$ is a symbol called the state variable's name, and each $b_i$ is a member of $B$ and a parameter of $x$. Each state variable $x$ has a range, $\textit{Range}(x) \subseteq B$, which is the set of all possible values for $x$.
+\begin{definition}
+    \textbf{(State-variable $x$.)} A \emph{state-variable} over $B$ is a syntactic term $x = sv(b_1, ..., b_k)$, where $sv$ is a symbol called the state variable's name, and each $b_i$ is a member of $B$ and a parameter of $x$. Each \emph{state-variable} $x$ has a range, $\textit{Range}(x) \subseteq B$, which is the set of all possible values for $x$.
+    \label{def:state_variable}
+\end{definition}
+
 
 
 Here is the description of the sets $B$ and $X$ for the stacking example given in the introduction:
@@ -128,9 +135,9 @@ Here is the description of the sets $B$ and $X$ for the stacking example given i
 &\quad Reachability     = \{ \textsf{middle}, \textsf{side\_h}, \textsf{side\_r} \}\\
 &\quad Booleans    = \{ \textsf{true},\textsf{false} \}\\
 &\\
-&X = \{ at(e), holding(a), solution(l) ~ | ~ e \in Entities, a \in Agents, l \in StackLocations\}\\
-&\quad \textit{Range}(holding(a) ~|~ a \in Agents) = Cubes \cup \{\textsf{nil}\} \\
-&\quad \textit{Range}(at(a) ~|~ a \in Agents) = \{ \textsf{side\_h}, \textsf{side\_r} \}\\
+&X = \{ at(e), holding(a), solution(l) ~ | ~ e \in Entities, \varphi \in Agents, l \in StackLocations\}\\
+&\quad \textit{Range}(holding(\varphi) ~|~ \varphi \in Agents) = Cubes \cup \{\textsf{nil}\} \\
+&\quad \textit{Range}(at(\varphi) ~|~ \varphi \in Agents) = \{ \textsf{side\_h}, \textsf{side\_r} \}\\
 &\quad \textit{Range}(at(c) ~|~ c \in Cubes) = Reachability \cup Locations\\
 &\quad \textit{Range}(solution(l) ~|~ l \in StackLocations) = Cubes \\
 \end{align*}
@@ -138,13 +145,20 @@ Here is the description of the sets $B$ and $X$ for the stacking example given i
 
 % \vspace{-1cm}
 
-% \textbf{TODO: Make proper definitions? Here to much lost in the text... and easier in next chapter to say ``we redefine def.x''}
 
-A \textit{variable value assignment} function over $X$ is a function $val$ that maps each $x_i \in X$ into a value $z_i \in$ $\textit{Range}(x_i)$. With $X = \{ x_1, ..., x_n \}$, this function can be written as a set of assertions: $val = \{ x_1=z_1, \ldots, x_n=z_n \}$. 
+\begin{definition}
+    \textbf{(Variable value assignment function $val$.)} A \emph{variable value assignment function} over $X$ is a function $val$ that maps each $x_i \in X$ into a value $z_i \in$ $\textit{Range}(x_i)$. With $X = \{ x_1, ..., x_n \}$, this function can be written as a set of assertions: $val = \{ x_1=z_1, \ldots, x_n=z_n \}$. 
+    \label{def:variable_value_assignment_function}
+\end{definition}
 
-An \textit{action} is a tuple $\alpha = (\textit{head}(\alpha), \textit{pre}(\alpha), \textit{eff}(\alpha))$ where $\textit{head}(\alpha)$ is a syntactic expression of the form $\textit{act}(z_1, ..., z_k)$ where $act$ is a symbol called the \textit{action name} and $z_1,...,z_k$ are variables called parameters. $\textit{pre}(\alpha) = \{ p_1, ..., p_m \}$ is a set of preconditions, each of which is a literal. And $\textit{eff}(\alpha) = \{ e_1, ..., e_n \}$ is a set of effects, each of which is an expression of the form: $sv(t_1, ..., t_j) \leftarrow t_0$ with $t_0$ being the value to assign to the state variable $sv(t_1, ..., t_j)$. We note $\textit{agt}(\alpha)$ the agent performing the action $\alpha$.
 
-The problem specification of HATP/EHDA is a pair of two distinct human and robot models as follows: $P = \{ \mathcal{M}^H, \mathcal{M}^R \}$. Each model $\mathcal{M}^\varphi$, for an agent $\varphi$, comprises the following:
+\begin{definition}
+    \textbf{(Action $a$.)} An \emph{action} is a tuple $a = (\textit{head}(a), \textit{pre}(a), \textit{eff}(a))$ where $\textit{head}(a)$ is a syntactic expression of the form $\textit{act}(z_1, ..., z_k)$ where $act$ is a symbol called the \emph{action name} and $z_1,...,z_k$ are variables called parameters. $\textit{pre}(a) = \{ p_1, ..., p_m \}$ is a set of preconditions, each of which is a literal. And $\textit{eff}(a) = \{ e_1, ..., e_n \}$ is a set of effects, each of which is an expression of the form: $sv(t_1, ..., t_j) \leftarrow t_0$ with $t_0$ being the value to assign to the state variable $sv(t_1, ..., t_j)$. We note $\textit{agt}(a)$ the agent performing the action $a$.
+    \label{def:action}
+\end{definition}
+
+
+The problem specification of HATP/EHDA is a pair of two distinct human and robot models as follows: $\mathcal{P} = \{ \mathcal{M}^H, \mathcal{M}^R \}$. Each model $\mathcal{M}^\varphi$, for an agent $\varphi$, comprises the following:
 \begin{itemize}
     \item \textbf{Name} ($name^{\varphi}$): being the name of the agent. Hence, either ``robot'' or ``human''.
     
@@ -159,26 +173,45 @@ The problem specification of HATP/EHDA is a pair of two distinct human and robot
     \item \textbf{Triggers} ($Tr^{\varphi}$): describes the reactions the agent may have which might update their agenda. The agent may react to a specific world state, event sequence, or explicit communication. For instance, consider a scenario where another agent is suddenly handing over an object to the agent. This event has nothing to do with the agent's goal, and thus, the next agent action extracted from the Action Model might not consider the other agent. However, a natural reaction to this situation is to grab the handed object. Thanks to the Triggers mechanic, we can model and predict that whatever the agent is doing, the agent will grab the object when given.  
 \end{itemize}
 
-Note that most of the models' elements are static during the planning process. Only the Beliefs ($val^{\varphi}$), the Agenda ($d^{\varphi}$) and the Partial Plan ($\pi^{\varphi}$) of each agent evolve during the planning process. That is why we define specifically an \textbf{agent state}, which is part of the agent model:
-$\sigma^{\varphi} = \{ val^{\varphi}, d^{\varphi}, \pi^{\varphi} \}$. 
-And thus, the agent model can be written as $\mathcal{M}^{\varphi} = \{ name^{\varphi}, \sigma^{\varphi}, \Lambda^{\varphi}, Tr^{\varphi} \}$.
+Note that most of the models' elements are static during the planning process. Only the Beliefs ($val^{\varphi}$), the Agenda ($d^{\varphi}$) and the Partial Plan ($\pi^{\varphi}$) of each agent evolve during the planning process. 
+That is why we define specifically an \textbf{agent state} in Definition~\ref{def:agent_state}.
 
+\begin{definition}
+    \textbf{(Agent state $\sigma$.)} An \emph{agent state} $\sigma^{\varphi}$ comprises the dynamic information evolving during the planning process about an agent $\varphi$. It consists of the agent's beliefs, agenda, and partial plan. Hence, the \emph{agent state} is written as follows: $\sigma^{\varphi} = \{ val^{\varphi}, d^{\varphi}, \pi^{\varphi} \}$.
+    \label{def:agent_state}
+\end{definition}
+
+\begin{definition}
+    \textbf{(Agent model $\mathcal{M}$.)} An \emph{agent model} $\mathcal{M}^{\varphi}$ comprises all information regarding an agent $\varphi$. It consists of the static information, such as the agent's name, action model, and triggers, and the dynamic information gathered in the \emph{agent state}. Hence,  an \emph{agent model} is formalized as $\mathcal{M}^{\varphi} = \{ name^{\varphi}, \sigma^{\varphi}, \Lambda^{\varphi}, Tr^{\varphi} \}$.
+    \label{def:agent_model}
+\end{definition}
 
 The planner uses two agent models, one for the human and one for the robot. Despite their identical structure, the two models have a fundamental difference: one is a controllable agent and not the other. Indeed, the human model is only used to speculate on human decisions and actions in given situations. 
 Then, the robot model is used to plan the robot's actions according to the estimated human actions.
 Note that human decisions can still be influenced by the robot's actions, but they cannot be compelled.
 It is also important to remember that the two agents are not equivalent. The robot's role is to help, assist, and facilitate humans. Therefore, it should exhibit pertinent, legible, and acceptable behavior.
 
+\begin{definition}
+    \textbf{(State $s$.)} A \emph{state} $s_i \in S$ is a tuple composed of two \emph{agent states} capturing the state in which the planning problem is, s.t. $s_i = ( \sigma^{H}_i, \sigma^{R}_i )$.
+    \label{def:state}
+\end{definition}
  
-A \textit{state}, or \textit{planning state}, $s_i \in S$ is a tuple composed of two agent states $s_i = ( \sigma^{H}_i, \sigma^{R}_i )$.
+
 From the robot's perspective, the state of the world is captured by the variable value assignment function $val^R_i \in \sigma^{R}_i$. Since the planner is assumed to be part of the robot, the robot's beliefs are assumed to be the ground truth and are sometimes noted as $val_i$. 
-Similarly, $val^H_i \in \sigma^{H}_i$ represents the estimation of $val_i$ from the human's perspective, also called the estimated human beliefs.
-We say that a state $s_i \in S$ contains \textit{false beliefs}, or \textit{belief divergences}, if $\exists x_j \in X, val^H_i(x_j) \neq val^R_i(x_j)$. 
-Be careful not to confuse \textit{states} and \textit{beliefs}. A \textit{state}, or \textit{planning state}, is a state in which a given planning problem is. Each \textit{state} is connected to another through agent actions. On the other hand, the \textit{beliefs} refer to the state of the world from an agent's perspective. Human and robot beliefs are part of a \textit{state}.
-The other elements in the two agent states, namely the agendas and partial plans, indicate respectively what each agent still has to do and which actions they have already performed. 
+Similarly, $val^H_i \in \sigma^{H}_i$ represents the estimation of $val_i$ from the human's perspective, also called the estimated human beliefs. 
+Therefore, we can define estimated human \textbf{false belief} in Definition~\ref{def:false_belief}.
 
-For our example, the initial state $s_0$ would be as follows: 
+\begin{definition}
+    \textbf{(False belief.)} We say that a state $s_i \in S$ contains \emph{false beliefs}, or \emph{belief divergences}, if $\exists x_j \in X, val^H_i(x_j) \neq val^R_i(x_j)$. 
+    \label{def:false_belief}
+\end{definition}
 
+
+Be careful not to confuse \textbf{\textit{states}} and \textbf{\textit{beliefs}}. A \textit{state} is a state in which a given planning problem is. It comprises the robot and human \textit{agent states}. Each \textit{state} is connected to another through agent actions. On the other hand, the \textit{beliefs} refer to the state of the world from an agent's perspective. Both human and robot \textit{beliefs} are part of a \textit{state}.
+
+
+
+As an example, considering the presented stacking example, the associated initial state $s_0$ would be as follows: 
 
 {\small
 \begin{align*}
@@ -194,29 +227,59 @@ For our example, the initial state $s_0$ would be as follows:
 \end{align*}
 }
 
-Note that $d^H_0$ is empty except in scenario (a), where $H1$ establishes a shared goal. Also, the sets $B$ and $X$ have been slightly modified for legibility reasons because the cubes are, in fact, explicitly associated with colors used in the task decompositions. As a result, the solution is expressed using colors and not the cube names. Finding the exact cube to place is described in the action models.
+Note that our model permits interaction with only one human at a time. Hence, in scenario (a) on figure~\ref{fig:scenarios}, $\mathcal{M}^H$ corresponds to \textit{H1}. In all other scenarios, it corresponds to \textit{H2}.
+Therefore, $d^H_0$ is empty except in scenario (a), where \textit{H1} establishes a shared goal. Also, the sets $B$ and $X$ have been slightly modified for legibility reasons because the cubes are, in fact, explicitly associated with colors used in the task decompositions. As a result, the solution is expressed using colors and not the cube names. Finding the exact cube to place is described in the action models.
 
-Estimating the next actions that an agent $\varphi \in Agents$ is likely to perform in a state $s_i \in S$ will be detailed later. Meanwhile, when refining the agent's agenda $d^{\varphi}$ based on its belief $val^\varphi_i$, we obtain a \textit{refinement} as follows $\textit{ref}(d^\varphi_i, val^\varphi_i)= \{ (a_1,d_1),...,(a_j,d_j) \}$. 
-A \textit{refinement} contains a tuple for each estimated possible action $a_j$ and the associated new agenda $d_j$ after being refined. 
+\subsection*{Planning and Estimating Actions}
 
-In our cooking example, we obtain the following refinement if the starting agent is the human:\\
-{\small
-$\textit{ref}(d^H_0, val^H_0) = \{ (add\_salt(),d_1), (move\_to(\textsf{kitchen}),d_2) \}$
-}
+As mentioned above, the two models $\mathcal{M}^R$ and $\mathcal{M}^H$ are fundamentally different. The human one is used to estimate the actions that the human is likely to perform in a given situation. The robot one is used to plan the best robot actions according to the estimated human ones. Nevertheless, to simplify the description, we tend to refer to both cases as ``estimating an agent's next actions''.
 
-The execution of an action in HATP/EHDA is seen and known by both agents. Thus, for both agents' beliefs, we have $\forall x \in X$: 
-\begin{equation}
-    val^\varphi{i+1}(x) = \left\{ 
+The exact process of estimating the next actions that an agent $\varphi \in Agents$ is likely to perform in a state $s_i \in S$ will be detailed later. Here, we only consider an overview to introduce some notations. 
+The process roughly consists of using the agent's static action model ($\Lambda^{\varphi}$) 
+and the dynamic agent's beliefs ($\valf[\varphi][i]$)
+to refine the agent's agenda ($\agenda[\varphi][i]$). This refining process returns a so-class \textit{refinement} defined in Definition~\ref{def:refinement}.
+%  s.t. $ref(\agenda[\varphi][i], \valf[\varphi][i]) = \{ (a_1,\agenda[][]1), ..., (a_k,\agenda[][]k) \}$ 
+
+\begin{definition}
+    \textbf{(Refinement $ref$.)} A \emph{refinement} is a list of 2-tuples for each estimated action, $a$, and the associated new agenda, $d$, after being refined, s.t., $ref(\agenda[\varphi][i], \valf[\varphi][i]) = \{ (a_1,\agenda[][]1), ..., (a_k,\agenda[][]k) \}$. It is computed using the agent's action model $\Lambda^{\varphi}$.
+    \label{def:refinement}
+\end{definition}
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Estimating the next actions that an agent $\varphi \in Agents$ is likely to perform in a state $s_i \in S$ will be detailed later. Meanwhile, when refining the agent's agenda $d^{\varphi}$ based on its belief $val^\varphi_i$, we obtain a \textit{refinement} as follows $\textit{ref}(d^\varphi_i, val^\varphi_i)= \{ (a_1,d_1),...,(a_j,d_j) \}$. 
+% A \textit{refinement} contains a tuple for each estimated possible action $a_j$ and the associated new agenda $d_j$ after being refined. 
+
+In our cooking example, we obtain the following refinement if the starting agent is the human:
+
+\begin{equation*}
+    ref(d^H_0, val^H_0) = \{ (add\_salt(),d_1), (move\_to(\textsf{kitchen}),d_2) \}
+\end{equation*}
+
+The execution of an action $a$ in HATP/EHDA is seen and known by both agents. Thus, $\forall \varphi \in Agents, \forall x \in X$: 
+\begin{equation*}
+    \valf[\varphi][i+1](x) = \left\{ 
     \begin{array}{ll}
         w, & \mbox{if} ~ x \leftarrow w \in \textit{eff}(a)   \\ 
         val_i(x), & \mbox{otherwise}
     \end{array}\right.
-\end{equation}
+\end{equation*}
 
 
 \subsection*{Solution description}
 
-The solution produced by HATP/EHDA is a robot policy mapping each state preceded by a human action to an optimal robot action. It assumes a turn-taking fashion where agents act one after another. If the robot is starting, a dummy human action is inserted into the plan. In practice, it produces a tree of sequential actions where every human action is succeeded by one optimal robot action. Additionally, a new branch is created for every estimated possible human action, ensuring it covers all possible human choices. Each branch is a possible course of alternating robot and human actions leading to the goal.
+HATP/EHDA produces a robot policy extracted from an implicitly coordinated joint solution tree. This solution tree is an AND/OR tree where AND nodes correspond to human decisions, all possible human choices are preserved, and each OR node corresponds to a robot action selected among the possible robot actions. This representation assumes a turn-taking fashion where agents act one after another alternatively. The solution is formally defined in definition~\ref{def:joint-sol-plan}.
+
+\begin{definition} 
+    \label{def:joint-sol-plan}
+    \textbf{(Implicitly Coordinated Joint Solution.)} 
+    {The solution for $P$ is represented as a tree, i.e. $G=(V,E)$. Each vertex ($v \in V$) represents the robot's belief state, starting from the initial belief. Each edge ($e \in E$) represents a primitive task that is either a robot's action $a^{r}$ or a human's estimated and emulated action $a^{h}$. $G$ gets branched on the possible choices ($a^{h}_1$, $a^{h}_2$, ..., $a^{h}_m$). 
+    }  
+    \end{definition}
+    
+In practice, it produces a tree of sequential actions where every human action is succeeded by one optimal robot action. Additionally, a new branch is created for every estimated possible human action, ensuring it covers all possible human choices. Each branch is a possible course of alternating robot and human actions leading to the goal.
+Each branch in the solution tree is a sequence of primitive actions, say $\pi=(a_1^h,a_2^r,a_3^h,...,a_{k-1}^h,a_k^r)$, that must satisfy all the solution conditions of $^mathcal{P}$. 
+Here, each $a_i^h$ represents a choice, often out of several, the human could make. And each $a_{i+1}^r$ is the optimal robot action according to $a_i^h$.
 
 
 \section{Exploration}
@@ -273,15 +336,15 @@ The algorithm is given the root action of the plan tree previously generated. It
 
 \section{Qualitative Results}
 
-The partial robot and human action models and their exploration are presented in Fig.~\ref{fig:plans}.
-
 Each scenario is commented on below with their corresponding selected plan shown in TABLE~\ref{tab:plans}.
+
+The partial robot and human action models and their exploration are presented in Fig.~\ref{fig:plans}.
 
 \begin{table}
 \small
 \begin{tabularx}{0.98\textwidth}{|X||X|}
     \hline
-    \textbf{(a) R and H1 build the stack together as a shared goal requested by H1.}     & \textbf{(b) H1 requests to stack the cubes and R acts alone.} \\
+    \textbf{(a) \textit{R} and \textit{H1} build the stack together as a shared goal requested by \textit{H1}.}     & \textbf{(b) \textit{H1} requests to stack the cubes and \textit{R} acts alone.} \\
     \hline
     R-PickAndPlace(red, base)     & R-PickAndPlace(red, base) \\ 
     H1-PickAndPlace(red, base)     & R-moveTo(red) \\  
@@ -291,7 +354,7 @@ Each scenario is commented on below with their corresponding selected plan shown
                                     & R-PickAndPlace(blue, top) \\
                                     & R-PickAndPlace(yellow, top) \\
     \hline \hline
-    \textbf{(c) H1 requests R to build the stack, R decides to punctually involve H2.} & \textbf{(d) H1 requests R to build the stack, R decides to invite H2 to a shared goal.} \\
+    \textbf{(c) \textit{H1} requests R to build the stack, \textit{R} decides to punctually involve \textit{H2}.} & \textbf{(d) \textit{H1} requests R to build the stack, \textit{R} decides to invite H2 to a shared goal.} \\
     \hline
     R-PickAndPlace(red, base)     & R-PickAndPlace(red, base) \\
     H2-IDLE                        & H2-IDLE \\
@@ -311,23 +374,23 @@ Each scenario is commented on below with their corresponding selected plan shown
 \begin{sidewaysfigure}
     \centering 
     \includegraphics[width=1.0\textwidth]{Chapter2/plans.pdf}
-    \caption{Illustration of the incremental exploration of various courses of actions corresponding to scenarios depicted in Fig.~\ref{fig:scenarios}(b), (c), and (d). Since $H1$ requests the robot to complete the task without establishing a shared goal, the robot agenda only contains the task to achieve, and the agenda of $H2$ starts empty.}
+    \caption{Illustration of the incremental exploration of various courses of actions corresponding to scenarios depicted in Fig.~\ref{fig:scenarios}(b), (c), and (d). Since \textit{H1} requests the robot to complete the task without establishing a shared goal, the robot agenda only contains the task to achieve, and the agenda of \textit{H2} starts empty.}
     \label{fig:plans}
 \end{sidewaysfigure}
 
-\paragraph{(a) $H1$ and R act together}
+\paragraph{(a) \textit{H1} and R act together}
 First, the human sets a shared goal by asking the robot to stack cubes with him. Since it is a shared goal, human and robot agendas are initialized with the ``Stack" task. Thus, the robot anticipates that the human will pick the unreachable second red cube by querying the human action model. Table~\ref {tab:plans}(a) shows the selected plan to collaboratively stack the cubes. 
 
-\paragraph{(b) Robot acts alone}
+\paragraph{(b) \textit{R} acts alone}
 This time, the human asks the robot to stack the cubes but then leaves the scene, and the robot must act alone. Hence, the only applicable method to make the second red cube reachable is to move to the other side even though the movement action is expensive (we can imagine a table way longer than shown in the figure).
 
-\paragraph{(c) Robot asks punctual help}
-The first human ($H1$) requests the robot to complete the task, and another uninvolved human ($h2$) is present. The robot starts exploring its \acrshort{htn} and, thanks to the presence of the other human, a new method is applicable, allowing the robot to ask for help. It can ask for punctual help or a complete commitment of $H2$ to the task. Of course, asking for help for one cube is less costly than building the whole stack together. However, asking for help from someone not already involved in a common task is still expensive since they must put themselves in the task's context. 
+\paragraph{(c) \textit{R} asks punctual help}
+The first human (\textit{H1}) requests the robot to complete the task, and another uninvolved human ($h2$) is present. The robot starts exploring its \acrshort{htn} and, thanks to the presence of the other human, a new method is applicable, allowing the robot to ask for help. It can ask for punctual help or a complete commitment of \textit{H2} to the task. Of course, asking for help for one cube is less costly than building the whole stack together. However, asking for help from someone not already involved in a common task is still expensive since they must put themselves in the task's context. 
 Nevertheless, this punctual help is less costly for the robot than moving to the other side, so this solution is selected. Note that we model that after being asked to help punctually, the human can either stack the cube themself or make it reachable to the robot by placing it in the middle. Only the first branch is shown in table~\ref{tab:plans}(c), but the selected plan is in fact conditional with two branches as depicted in Fig.~\ref{fig:plans}.
 
-\paragraph{(d) Robot invites $H2$ to share a goal}
+\paragraph{(d) \textit{R} invites \textit{H2} to share a goal}
 Same initial setup, but now two cubes are out of reach. Asking for punctual help is still less costly than moving around the table. 
-However, each new request to $H2$ is assumed to be more and more costly, making repeated queries expensive.  
+However, each new request to \textit{H2} is assumed to be more and more costly, making repeated queries expensive.  
 Therefore, due to the two unreachable cubes in this scenario, setting a shared goal becomes less costly for the robot than asking twice for punctual help.
 
 \section{Conclusion}

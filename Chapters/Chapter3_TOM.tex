@@ -291,7 +291,7 @@ Hence, we explain a subroutine below with the three steps, describing how we ide
 \end{enumerate}
 
 Once the above subroutine finishes, the retrieved communication actions in the set $\mathit{CA} = \{ ca_{R, H}(x_1,val^R_i(x_1)),..., ca_{R, H}(x_j,val^R_i(x_j)) \}$ must be inserted in the plan for belief alignment. 
-Thus, our definition of the solution AND/OR tree is redefined to be sound w.r.t. our approach. An edge can now either be a human action $o^h$ or a robot action $o^r$ with a set of communication action $CA$.
+Thus, our definition of the conditional solution (def.~\ref{def:joint-sol-plan}) is redefined to be sound w.r.t. our approach. An edge can now either be a human action $a^h$ or a robot action $a^r$ with a set of communication action $CA$.
 At each step, humans perform \textit{Observation}, while the robot executes each communication action $ca \in \mathit{CA}$, making the human's belief to \textit{update instantaneously}.
 
 The set $\mathit{CA}$ is inserted before the diverging human actions and after the closest state where agents are co-present. 
