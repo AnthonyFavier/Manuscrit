@@ -138,7 +138,7 @@ Here is the description of the sets $B$ and $X$ for the stacking example given i
 
 % \vspace{-1cm}
 
-\textbf{TODO: Make proper definitions? Here to much lost in the text... and easier in next chapter to say ``we redefine def.x''}
+% \textbf{TODO: Make proper definitions? Here to much lost in the text... and easier in next chapter to say ``we redefine def.x''}
 
 A \textit{variable value assignment} function over $X$ is a function $val$ that maps each $x_i \in X$ into a value $z_i \in$ $\textit{Range}(x_i)$. With $X = \{ x_1, ..., x_n \}$, this function can be written as a set of assertions: $val = \{ x_1=z_1, \ldots, x_n=z_n \}$. 
 
@@ -217,8 +217,6 @@ The execution of an action in HATP/EHDA is seen and known by both agents. Thus, 
 \subsection*{Solution description}
 
 The solution produced by HATP/EHDA is a robot policy mapping each state preceded by a human action to an optimal robot action. It assumes a turn-taking fashion where agents act one after another. If the robot is starting, a dummy human action is inserted into the plan. In practice, it produces a tree of sequential actions where every human action is succeeded by one optimal robot action. Additionally, a new branch is created for every estimated possible human action, ensuring it covers all possible human choices. Each branch is a possible course of alternating robot and human actions leading to the goal.
-
-\textbf{TODO: Insert figure for policy: same as \ref{fig:HATPEHDA_planning_process} bottom left}.
 
 
 \section{Exploration}
