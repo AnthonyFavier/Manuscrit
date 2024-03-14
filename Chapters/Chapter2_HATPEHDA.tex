@@ -135,9 +135,9 @@ Here is the description of the sets $B$ and $X$ for the stacking example given i
 &\quad Reachability     = \{ \textsf{middle}, \textsf{side\_h}, \textsf{side\_r} \}\\
 &\quad Booleans    = \{ \textsf{true},\textsf{false} \}\\
 &\\
-&X = \{ at(e), holding(a), solution(l) ~ | ~ e \in Entities, \varphi \in Agents, l \in StackLocations\}\\
-&\quad \textit{Range}(holding(\varphi) ~|~ \varphi \in Agents) = Cubes \cup \{\textsf{nil}\} \\
-&\quad \textit{Range}(at(\varphi) ~|~ \varphi \in Agents) = \{ \textsf{side\_h}, \textsf{side\_r} \}\\
+&X = \{ at(e), holding(a), solution(l) ~ | ~ e \in Entities, \agent \in Agents, l \in StackLocations\}\\
+&\quad \textit{Range}(holding(\agent) ~|~ \agent \in Agents) = Cubes \cup \{\textsf{nil}\} \\
+&\quad \textit{Range}(at(\agent) ~|~ \agent \in Agents) = \{ \textsf{side\_h}, \textsf{side\_r} \}\\
 &\quad \textit{Range}(at(c) ~|~ c \in Cubes) = Reachability \cup Locations\\
 &\quad \textit{Range}(solution(l) ~|~ l \in StackLocations) = Cubes \\
 \end{align*}
@@ -147,8 +147,8 @@ Here is the description of the sets $B$ and $X$ for the stacking example given i
 
 
 \begin{definition}
-    \textbf{(Variable value assignment function $val$.)} A \emph{variable value assignment function} over $X$ is a function $val$ that maps each $x_k \in X$ into a value $z_j \in$ $\textit{Range}(x_k)$.
-    With $X = \{ x_1, ..., x_n \}$, this function can be written as a set of assertions: $val = \{ x_1=z_1, \ldots, x_n=z_n \}$. 
+    \textbf{(Variable value assignment function $\valf$.)} A \emph{variable value assignment function} over $X$ is a function $val$ that maps each $x_k \in X$ into a value $z_j \in$ $\textit{Range}(x_k)$.
+    With $X = \{ x_1, ..., x_n \}$, this function can be written as a set of assertions: $\valf = \{ x_1=z_1, \ldots, x_n=z_n \}$. 
     For legibility purposes, we use the following notation to access the value $z_j$ of a state-variable $x_k$ in the state $s_i$: $\valf[][i](x_k) = z_j$.
     \label{def:variable_value_assignment_function}
 \end{definition}
@@ -160,31 +160,31 @@ Here is the description of the sets $B$ and $X$ for the stacking example given i
 \end{definition}
 
 
-The problem specification of HATP/EHDA is a pair of two distinct human and robot models as follows: $\mathcal{P} = \{ \mathcal{M}^H, \mathcal{M}^R \}$. Each model $\mathcal{M}^\varphi$, for an agent $\varphi$, comprises the following:
+The problem specification of HATP/EHDA is a pair of two distinct human and robot models as follows: $\mathcal{P} = \{ \agentmodel[H], \agentmodel[R] \}$. Each model $\agentmodel[\agent]$, for an agent $\agent$, comprises the following:
 \begin{itemize}
-    \item \textbf{Name} ($name^{\varphi}$): being the name of the agent. Hence, either ``robot'' or ``human''.
+    \item \textbf{Name} ($name^{\agent}$): being the name of the agent. Hence, either ``robot'' or ``human''.
     
-    \item \textbf{Beliefs} ($val^{\varphi}$): estimation of the world state from the agent's perspective.
+    \item \textbf{Beliefs} ($\valf[\agent]$): estimation of the world state from the agent's perspective.
     
-    \item \textbf{Agenda} ($d^{\varphi}$): capturing the personal and/or shared goals of the agent, currently implemented as a task list/sequence but could be generalized to partially ordered task networks.
+    \item \textbf{Agenda} ($\agenda[\agent]$): capturing the personal and/or shared goals of the agent, currently implemented as a task list/sequence but could be generalized to partially ordered task networks.
     
-    \item \textbf{Partial Plan} ($\pi^{\varphi}$): storing the current partial plan on an agent. This is empty at the beginning and filled during the planning process.
+    \item \textbf{Partial Plan} ($\partialplan[\agent]$): storing the current partial plan on an agent. This is empty at the beginning and filled during the planning process.
     
-    \item \textbf{Action Model} ($\Lambda^{\varphi}$): encoding the capabilities of the agent and used to estimate the next actions of the agent given a goal and a world state. Here, it is described by a \acrfull{htn} and thus a set of operators and methods. 
+    \item \textbf{Action Model} ($\Lambda^{\agent}$): encoding the capabilities of the agent and used to estimate the next actions of the agent given a goal and a world state. Here, it is described by a \acrfull{htn} and thus a set of operators and methods. 
     
-    \item \textbf{Triggers} ($Tr^{\varphi}$): describes the reactions the agent may have which might update their agenda. The agent may react to a specific world state, event sequence, or explicit communication. For instance, consider a scenario where another agent is suddenly handing over an object to the agent. This event has nothing to do with the agent's goal, and thus, the next agent action extracted from the Action Model might not consider the other agent. However, a natural reaction to this situation is to grab the handed object. Thanks to the Triggers mechanic, we can model and predict that whatever the agent is doing, the agent will grab the object when given.  
+    \item \textbf{Triggers} ($Tr^{\agent}$): describes the reactions the agent may have which might update their agenda. The agent may react to a specific world state, event sequence, or explicit communication. For instance, consider a scenario where another agent is suddenly handing over an object to the agent. This event has nothing to do with the agent's goal, and thus, the next agent action extracted from the Action Model might not consider the other agent. However, a natural reaction to this situation is to grab the handed object. Thanks to the Triggers mechanic, we can model and predict that whatever the agent is doing, the agent will grab the object when given.  
 \end{itemize}
 
-Note that most of the models' elements are static during the planning process. Only the Beliefs ($val^{\varphi}$), the Agenda ($d^{\varphi}$) and the Partial Plan ($\pi^{\varphi}$) of each agent evolve during the planning process. 
+Note that most of the models' elements are static during the planning process. Only the Beliefs ($\valf[\agent]$), the Agenda ($\agenda[\agent]$) and the Partial Plan ($\partialplan[\agent]$) of each agent evolve during the planning process. 
 That is why we define specifically an \textbf{agent state} in Definition~\ref{def:agent_state}.
 
 \begin{definition}
-    \textbf{(Agent state $\sigma$.)} An \emph{agent state} $\sigma^{\varphi}$ comprises the dynamic information evolving during the planning process about an agent $\varphi$. It consists of the agent's beliefs, agenda, and partial plan. Hence, the \emph{agent state} is written as follows: $\sigma^{\varphi} = \{ val^{\varphi}, d^{\varphi}, \pi^{\varphi} \}$.
     \label{def:agent_state}
+    \textbf{(Agent state $\agentstate$.)} An \emph{agent state} $\agentstate[\agent]$ comprises the dynamic information evolving during the planning process about an agent $\agent$. It consists of the agent's beliefs, agenda, and partial plan. Hence, the \emph{agent state} is written as follows: $\agentstate[\agent] = \{ \valf[\agent], \agenda[\agent], \partialplan[\agent] \}$.
 \end{definition}
 
 \begin{definition}
-    \textbf{(Agent model $\mathcal{M}$.)} An \emph{agent model} $\mathcal{M}^{\varphi}$ comprises all information regarding an agent $\varphi$. It consists of the static information, such as the agent's name, action model, and triggers, and the dynamic information gathered in the \emph{agent state}. Hence,  an \emph{agent model} is formalized as $\mathcal{M}^{\varphi} = \{ name^{\varphi}, \sigma^{\varphi}, \Lambda^{\varphi}, Tr^{\varphi} \}$.
+    \textbf{(Agent model $\agentmodel$.)} An \emph{agent model} $\agentmodel[\agent]$ comprises all information regarding an agent $\agent$. It consists of the static information, such as the agent's name, action model, and triggers, and the dynamic information gathered in the \emph{agent state}. Hence,  an \emph{agent model} is formalized as $\agentmodel[\agent] = \{ name^{\agent}, \agentstate[\agent], \Lambda^{\agent}, Tr^{\agent} \}$.
     \label{def:agent_model}
 \end{definition}
 
@@ -194,17 +194,17 @@ Note that human decisions can still be influenced by the robot's actions, but th
 It is also important to remember that the two agents are not equivalent. The robot's role is to help, assist, and facilitate humans. Therefore, it should exhibit pertinent, legible, and acceptable behavior.
 
 \begin{definition}
-    \textbf{(State $s$.)} A \emph{state} $s_i \in S$ is a tuple composed of two \emph{agent states} capturing the state in which the planning problem is, s.t. $s_i = ( \sigma^{H}_i, \sigma^{R}_i )$.
+    \textbf{(State $s$.)} A \emph{state} $s_i \in S$ is a tuple composed of two \emph{agent states} capturing the state in which the planning problem is, s.t. $s_i = ( \agentstate[H][i], \agentstate[R][i] )$.
     \label{def:state}
 \end{definition}
  
 
-From the robot's perspective, the state of the world is captured by the variable value assignment function $val^R_i \in \sigma^{R}_i$. Since the planner is assumed to be part of the robot, the robot's beliefs are assumed to be the ground truth and are sometimes noted as $val_i$. 
-Similarly, $val^H_i \in \sigma^{H}_i$ represents the estimation of $val_i$ from the human's perspective, also called the estimated human beliefs. 
+From the robot's perspective, the state of the world is captured by the variable value assignment function $\valf[R][i] \in \\agentstate[R][i]$. Since the planner is assumed to be part of the robot, the robot's beliefs are assumed to be the ground truth and are sometimes noted as $\valf[][i]$. 
+Similarly, $\valf[H][i] \in \agentstate[H][i]$ represents the estimation of $val_i$ from the human's perspective, also called the estimated human beliefs. 
 Therefore, we can define estimated human \textbf{false belief} in Definition~\ref{def:false_belief}.
 
 \begin{definition}
-    \textbf{(False belief.)} We say that a state $s_i \in S$ contains \emph{false beliefs}, or \emph{belief divergences}, if $\exists x_j \in X, val^H_i(x_j) \neq val^R_i(x_j)$. 
+    \textbf{(False belief.)} We say that a state $s_i \in S$ contains \emph{false beliefs}, or \emph{belief divergences}, if $\exists x_j \in X, \valf[H][i](x_j) \neq \valf[R][i](x_j)$. 
     \label{def:false_belief}
 \end{definition}
 
@@ -217,11 +217,11 @@ As an example, considering the presented stacking example, the associated initia
 
 {\small
 \begin{align*}
-&s_0 = \{\sigma^R_0, \sigma^H_0\} \\
-&\quad \sigma^R_0 = \{ val^R_0, d^R_0, \pi^R_0 \}, \quad \sigma^H_0 = \{ val^H_0, d^H_0, \pi^H_0 \} \\
-&\quad d^R_0 = \{ Stack \}, \quad d^H_0 = \{  \} \\
-&\quad \pi^R_0 = \pi^H_0 = \{  \} \\
-&\quad val^R_0 = val^H_0 = \{at(\textsf{R}) = \textsf{side\_r},~at(\textsf{H}) = \textsf{side\_h}, ~at(\textsf{red1}) = \textsf{side\_r}, \\
+&s_0 = \{\agentstate[R][0], \agentstate[H][0]\} \\
+&\quad \agentstate[R][0] = \{ \valf[R][0], \agenda[R][0], \partialplan[R][0] \}, \quad \agentstate[H][0] = \{ \valf[H][0], \agenda[H][0], \partialplan[H][0] \} \\
+&\quad \agenda[R][0] = \{ Stack \}, \quad \agenda[H][0] = \{  \} \\
+&\quad \partialplan[R][0] = \partialplan[H][0] = \{  \} \\
+&\quad \valf[R][0] = \valf[H][0] = \{at(\textsf{R}) = \textsf{side\_r},~at(\textsf{H}) = \textsf{side\_h}, ~at(\textsf{red1}) = \textsf{side\_r}, \\
 &\quad \quad \quad at(\textsf{red2}) = \textsf{side\_h}, ~at(c) = \textsf{middle} ~|~ c \in Cubes\backslash\{ \textsf{red1}, \textsf{red2} \}, \\
 &\quad \quad \quad holding(\textsf{R}) = holding(\textsf{H}) = \textsf{nil}, \\
 &\quad \quad \quad solution(\textsf{base1}) = \textsf{red}, ~solution(\textsf{base2} = \textsf{red}), ~solution(\textsf{bridge} = \textsf{green}),   \\
@@ -229,43 +229,38 @@ As an example, considering the presented stacking example, the associated initia
 \end{align*}
 }
 
-Note that our model permits interaction with only one human at a time. Hence, in scenario (a) on figure~\ref{fig:scenarios}, $\mathcal{M}^H$ corresponds to \textit{H1}. In all other scenarios, it corresponds to \textit{H2}.
+Note that our model permits interaction with only one human at a time. Hence, in scenario (a) on figure~\ref{fig:scenarios}, $\agentmodel[H]$ corresponds to \textit{H1}. In all other scenarios, it corresponds to \textit{H2}.
 Therefore, $d^H_0$ is empty except in scenario (a), where \textit{H1} establishes a shared goal. Also, the sets $B$ and $X$ have been slightly modified for legibility reasons because the cubes are, in fact, explicitly associated with colors used in the task decompositions. As a result, the solution is expressed using colors and not the cube names. Finding the exact cube to place is described in the action models.
 
 \subsection*{Planning and Estimating Actions}
 
-As mentioned above, the two models $\mathcal{M}^R$ and $\mathcal{M}^H$ are fundamentally different. The human one is used to estimate the actions that the human is likely to perform in a given situation. The robot one is used to plan the best robot actions according to the estimated human ones. Nevertheless, to simplify the description, we tend to refer to both cases as ``estimating an agent's next actions''.
+As mentioned above, the two models $\agentmodel[R]$ and $\agentmodel[H]$ are fundamentally different. The human one is used to estimate the actions that the human is likely to perform in a given situation. The robot one is used to plan the best robot actions according to the estimated human ones. Nevertheless, to simplify the description, we tend to refer to both cases as ``estimating an agent's next actions''.
 
-The exact process of estimating the next actions that an agent $\varphi \in Agents$ is likely to perform in a state $s_i \in S$ will be detailed later. Here, we only consider an overview to introduce some notations. 
-The process roughly consists of using the agent's static action model ($\Lambda^{\varphi}$) 
-and the dynamic agent's beliefs ($\valf[\varphi][i]$)
-to refine the agent's agenda ($\agenda[\varphi][i]$). This refining process returns a so-class \textit{refinement} defined in Definition~\ref{def:refinement}.
-%  s.t. $ref(\agenda[\varphi][i], \valf[\varphi][i]) = \{ (a_1,\agenda[][]1), ..., (a_k,\agenda[][]k) \}$ 
+The exact process of estimating the next actions that an agent $\agent \in Agents$ is likely to perform in a state $s_i \in S$ will be detailed later. Here, we only consider an overview to introduce some notations. 
+The process roughly consists of using the agent's static action model ($\Lambda^{\agent}$) 
+and the dynamic agent's beliefs ($\valf[\agent][i]$)
+to refine the agent's agenda ($\agenda[\agent][i]$). This refining process returns a so-class \textit{refinement} defined in Definition~\ref{def:refinement}.
 
 \begin{definition}
-    \textbf{(Refinement $ref$.)} A \emph{refinement} is a list of 2-tuples for each estimated action, $a$, and the associated new agenda, $d$, after being refined, s.t., $ref(\agenda[\varphi][i], \valf[\varphi][i]) = \{ (a_1,\agenda[][]1), ..., (a_k,\agenda[][]k) \}$. It is computed using the agent's action model $\Lambda^{\varphi}$.
+    \textbf{(Refinement $ref$.)} A \emph{refinement} is a list of 2-tuples for each estimated action, $a$, and the associated new agenda, $d$, after being refined, s.t., $ref(\agenda[\agent][i], \valf[\agent][i]) = \{ (a_1,\agenda[]1), ..., (a_k,\agenda[]k) \}$. It is computed using the agent's action model $\Lambda^{\agent}$.
     \label{def:refinement}
 \end{definition}
 
- %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% Estimating the next actions that an agent $\varphi \in Agents$ is likely to perform in a state $s_i \in S$ will be detailed later. Meanwhile, when refining the agent's agenda $d^{\varphi}$ based on its belief $val^\varphi_i$, we obtain a \textit{refinement} as follows $\textit{ref}(d^\varphi_i, val^\varphi_i)= \{ (a_1,d_1),...,(a_j,d_j) \}$. 
-% A \textit{refinement} contains a tuple for each estimated possible action $a_j$ and the associated new agenda $d_j$ after being refined. 
 
 In our cooking example, we obtain the following refinement if the starting agent is the human:
 
 \begin{equation*}
-    ref(d^H_0, val^H_0) = \{ (add\_salt(),d_1), (move\_to(\textsf{kitchen}),d_2) \}
+    ref(\agenda[H][0], \valf[H][0]) = \{ (add\_salt(),\agenda[]1), (move\_to(\textsf{kitchen}),\agenda[]2) \}
 \end{equation*}
 
-The execution of an action $a$ in HATP/EHDA is seen and known by both agents. Thus, $\forall \varphi \in Agents, \forall x \in X$: 
-\begin{equation*}
-    \valf[\varphi][i+1](x) = \left\{ 
+The execution of an action $a$ in HATP/EHDA is seen and known by both agents. Thus, $\forall \agent \in Agents, \forall x \in X$: 
+\begin{equation}
+    \valf[\agent][i+1](x) = \left\{ 
     \begin{array}{ll}
         w, & \mbox{if} ~ x \leftarrow w \in \textit{eff}(a)   \\ 
-        val_i(x), & \mbox{otherwise}
+        \valf[\agent][i](x), & \mbox{otherwise}
     \end{array}\right.
-\end{equation*}
+\end{equation}
 
 
 \subsection*{Solution description}
@@ -329,7 +324,7 @@ Plan cost is a mix of all the following:
 I implemented in HATP/EHDA a way to specify and take into account undesired state and action sequences. Detecting any of them in a possible plan would penalize the plan cost of the specified amount. Here, the undesired elements must be specified in the problem specification and are abstracted in the planner. However, as stated above, it is hard to generalize undesired states and action sequences and integrate them directly in the planner to avoid specifying them in the problem specification.
 
 In HATP/EHDA, once the exhaustive exploration has been done, the result is a valid plan tree of alternating feasible robot and human actions along with their current beliefs leading to task completion. This second planning step aims to select robot actions, such as each human action in the plan has only one robot action as a child.
-To do so, we define a cost function $cost: \sigma \times Op \mapsto \mathbb{R}^+$ representing the cost of an action in a specific state. The data structure is now similar to a two-player game tree. However, \textit{MinMax} approaches are unsuitable here, as we are not in an adversarial setup but more in a collaborative one. Indeed, trying to minimize the maximum possible cost assumes that humans will always do the actions that lead to the worst plan. This defensive behavior could lead to non-optimal plans. We thus propose to explore this tree differently.
+To do so, we define a cost function $cost: S \times Op \mapsto \mathbb{R}^+$ representing the cost of an action in a specific state. The data structure is now similar to a two-player game tree. However, \textit{MinMax} approaches are unsuitable here, as we are not in an adversarial setup but more in a collaborative one. Indeed, trying to minimize the maximum possible cost assumes that humans will always do the actions that lead to the worst plan. This defensive behavior could lead to non-optimal plans. We thus propose to explore this tree differently.
 
 Moreover, like in \acrshort{hatp}, we can define \textit{social costs} functions. These functions take a complete human and robot sequence of actions ($\pi^R$ and $\pi^H$) and return a cost ($\mathbb{R}^+$) which is added to the cost of the plan previously determined. By doing so, we can penalize non-acceptable sequence of robot actions (\textit{e.g.}serving a meal just after taking out the trash) or non-satisfactory human required contribution (\textit{e.g.}the robot requesting the human to perform small tasks multiple times instead of giving the big picture of the actual task to perform).
 

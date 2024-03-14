@@ -105,7 +105,7 @@ To describe this problem we start from the HATP/EHDA problem specification, whic
 \end{align*}
 }
 
-Our first contribution starts from here, where we augmented the specification by associating each state variable $x_i \in X$ to a location and an observability type. Thus, we define two other functions besides the \textit{variable value assignment} function (Definition~\ref{def:variable_value_assignment_function}) to assign observability types (Definition~\ref{def:variable_observability_assignment_function}) and locations (Definition~\ref{def:variable_location_assignment_function}) to state-variables.
+Our first contribution starts from here, where we augmented the specification by associating each state-variable $x_i \in X$ to a location and an observability type. Thus, we define two other functions besides the \textit{variable value assignment} function (Definition~\ref{def:variable_value_assignment_function}) to assign observability types (Definition~\ref{def:variable_observability_assignment_function}) and locations (Definition~\ref{def:variable_location_assignment_function}) to state-variables.
 
 \begin{definition}
     \textbf{(Variable observability assignment function $obs$.)} A \emph{variable observability assignment function} over $X$ is a function $\obsf$ that maps each $x_k \in X$ into an observability type $t_j \in \{ \texttt{OBS},  \texttt{INF} \}$, s.t., $\obsf = \{ (x_1,t_1), \ldots , (x_n,t_n) \}$. With $\obsf(x_k) = \texttt{OBS} | \texttt{INF}$, $x_k$ is said to be respectively \textit{observable} $|$ \textit{inferable}.
@@ -130,9 +130,16 @@ Our first contribution starts from here, where we augmented the specification by
 
 \textbf{TODO: next}
 
-We update the definition of a \textit{state}, or \textit{planning state}, to consider the two functions introduced above s.t. $s_i = \{ \agentstate[R][i], \agentstate[H][i], \obsf[i], \locf[i] \}$. This definition still consider the two agent states s.t. $\agentstate[\varphi][i] = \{ \valf[\varphi][i], \agenda[\varphi][i], \partialplan[\varphi][i] \}$. Now, in each state, we keep track of each state variable's observability type and location, and we can reason on them to update the human beliefs ($\valf[H]$) accordingly. 
+The observability and location of the state-variable are internal to the robot but assumed to be common to both agents. Consequently, we update our \textit{state} definition (def.~\ref{def:state}) to take them into account in the new definition~\ref{def:state_tom}.
 
-We remind that a state $s_i \in S$ contains \textit{false beliefs}, or \textit{belief divergences}, if $\exists x_j \in X, \valf[H][i](x_j) \neq \valf[R][i](x_j)$. 
+\begin{definition}
+    \textbf{(State $s$.)} In this contribution, in addition to both agent states, a \emph{state} now comprises the two novel assignment functions $\obsf$ and $\locf$, s.t., $s_i = \{ \agentstate[R][i], \agentstate[H][i], \obsf[i], \locf[i] \}$.
+    \label{def:state_tom}
+\end{definition}
+
+This new definition still consider the two agent states s.t. $\agentstate[\agent][i] = \{ \valf[\agent][i], \agenda[\agent][i], \partialplan[\agent][i] \}$. Now, in each state, we keep track of each state-variable's observability type and location, and we can reason on them to update the human beliefs ($\valf[H]$) accordingly. 
+
+We remind definition~\ref{def:false_belief} stating that a state $s_i \in S$ contains \textit{false beliefs}, or \textit{belief divergences}, if $\exists x_j \in X, \valf[H][i](x_j) \neq \valf[R][i](x_j)$. That is, if any state-variable has a different value in the human beliefs w.r.t. the robot one, we assume the human has a false belief about those particular state-variables. Since the planner is part of the robot, we assume the robot beliefs are true and correspond to the ground truth. Consequently, any divergence between the two beliefs is assumed to be a human false belief, as it would make no sense to keep false information in the robot's beliefs. 
 
 The initial state of our cooking example can be described as follows. There is no initial belief divergence, the initial partial plans are empty, and both agents perform the shared cooking task named $CookPasta$. In addition, the robot must clean the kitchen counter once the cooking is done. Hence, the task $CleanCounter$ is added to the initial robot agenda after the shared task. The only \textit{non-obversable} facts are the presence of salt in the pot and if the counter is clean. All entities, including the counter, the stove, and the salt, are in the kitchen. Only the pasta is in the adjacent room. More precisely, the initial state $s_0$ can be written like this: 
 
@@ -147,13 +154,19 @@ The initial state of our cooking example can be described as follows. There is n
 &\quad \agenda[H][0] = (CookPasta)\\
 &\quad \valf[R][0] = \valf[H][0] = \{at(\textsf{R}) = at(\textsf{H}) = \textsf{kitchen},~at(\textsf{pasta})=\textsf{room},\\
 &\qquad \qquad \qquad \qquad \qquad \qquad \qquad \quad saltIn = \textsf{false},~stoveOn = \textsf{false},~counterClean = \textsf{false}\}\\
-% &\quad \obsf[0] = \{ (saltIn,\inferable),(counterClean,\inferable),(x,\observable) ~|~ x \in X \backslash \{saltIn, counterClean\} \}\\
 &\quad \obsf[0] = \{ (saltIn,\inferable),~(counterClean,\inferable),\\
 &\qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \quad \ (stoveOn,\observable),~(at(e),\observable) ~|~ e \in Entities)\}\\
-% &\quad \obsf[0] = \{ (saltIn,\inferable),(counterClean,\inferable),(stoveOn,\observable),(at(e),\observable) ~|~ e \in Entities)\}\\
 &\quad \locf[0] = \{ (saltIn,\textsf{kitchen}),~(counterClean,\textsf{kitchen}),~(stoveOn,\textsf{kitchen}), \}\\
 &\qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \ (at(e),\valf[0](at(e))) ~|~ e \in Entities \}
 \end{align*}
+
+When refining the human agenda in $s_0$ we obtain the following \textit{refinement} comprising two possible actions. The human can either begin by \textit{adding} salt to the pot, or they can move to the other room to \textit{fetch} the pasta. 
+
+{\small
+\begin{equation*}
+    \textit{ref}(\agenda[H][0], \valf[H][0]) = \{ a_1,\agenda[][1], a_2,\agenda[]2 \}= \{ (add\_salt(),\agenda[]1), (move\_to(\textsf{kitchen}),\agenda[]2) \}
+\end{equation*}
+}
 
     %%% SUB-SECTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \subsection{State Transitions and Beliefs Updates}
@@ -166,16 +179,11 @@ We now describe how the agents' beliefs are updated when executing a planned act
 
 \underline{Assumption 3}: Coming from the two previous assumptions, we assume that humans only make deterministic moves when not observed. Hence, regardless of being co-present, the robot's beliefs are always updated with the effects of the action.
 
-In our cooking example, we must refine the human agenda to estimate which actions the human will likely perform first. We obtain the following two possible actions, associated with two updated agendas:\\
-{\small
-\begin{equation*}
-    \textit{ref}(\agenda[H][0], \valf[H][0]) = \{ a_1,\agenda[][1], a_2,\agenda[][2] \}= \{ (add\_salt(),\agenda[][1]), (move\_to(\textsf{kitchen}),\agenda[][2]) \}
-\end{equation*}
-}
+
 
 Thus, Assumption 3 indicates that $\forall x \in X$ we always have,
 
-\begin{equation}
+\begin{equation} \label{eq:apply_action_r}
     val_{i+1}(x) = \left\{ 
     \begin{array}{ll}
         w, & \mbox{if} ~ x \leftarrow w \in \textit{eff}(a)   \\ 
@@ -183,13 +191,12 @@ Thus, Assumption 3 indicates that $\forall x \in X$ we always have,
     \end{array}\right.
 \end{equation}
 
-The place associated with a state variable can be modified by the action's effect, e.g., when an agent moves to another room while holding an object. 
-Currently, we assume in this work that the observability type of each fact is constant during the task. 
-However, the overall approach could be adapted to make the observability types dynamic, and this will be discussed later in this Chapter.
+The place associated with a state-variable can be modified by the action's effect, e.g., when an agent moves to another room while holding an object. However, this must be specified in the action's effects. 
+In this work, we assume that the observability type of each fact is constant during the task. Adapting the approach to allow dynamic observability types is feasible, which will be discussed later.
 So, $\forall x \in X$,
 
-\begin{align}
-    &obs_{i+1}(x) = obs_i(x) \label{eq:obs_update}\\
+\begin{align} \label{eq:obs_update}
+    &obs_{i+1}(x) = obs_i(x) \\
     &loc_{i+1}(x) = \left\{ 
     \begin{array}{ll}
         l, & \mbox{if} ~ x \leftarrow l \in \textit{eff}(a)\\
@@ -200,24 +207,24 @@ So, $\forall x \in X$,
 The new agenda of each agent ($\agenda[R][i+1], \agenda[H][i+1]$) are created by the \acrshort{htn} refinement algorithm, and thus, they are directly retrieved from the obtained refinement. 
 This refinement decomposes abstract tasks in the agenda until the first task is a primitive action. Every applicable method is applied, leading to a set of possible actions (and refined task networks).
 
-The new estimated human belief $\valf[H][i+1]$ is the two-step result of our Situation Assessment processes that models the human's real-time sensing and reasoning capabilities about their surroundings.
+The new estimated human beliefs $\valf[H][i+1]$ is the two-step result of our Situation Assessment processes that models the human's real-time sensing and reasoning capabilities about their surroundings.
 
 First, let us define the notions of \textit{co-presence} and \textit{co-location}, which will be key to maintaining the evolution of agents' beliefs as planning progresses.
 
 \begin{definition} \label{def:co-pre-loc}
-    \textbf{(Co-presence \& Co-location.)} In a state $s_i \in S$, two agents, $\varphi_1$ and $\varphi_2$, are considered to be \textit{co-present} if $val_i(at(\varphi_1)) = val_i(at(\varphi_2))$. This relation is noted $\varphi_1 \curlywedge_i \varphi_2$ in the rest of the paper. Similarly, we say that an agent $\varphi_1$ is \textit{co-located} with a state variable $x \in X$ if $val_i(at(\varphi_1)) = loc_i(x)$, noted $\varphi_1 \curlywedge_i x$.
+    \textbf{(Co-presence \& Co-location.)} In a state $s_i \in S$, two agents, $\agent_1$ and $\agent_2$, are considered to be \textit{co-present} if $val_i(at(\agent_1)) = val_i(at(\agent_2))$. This relation is noted $\agent_1 \curlywedge_i \agent_2$ in the rest of the paper. Similarly, we say that an agent $\agent_1$ is \textit{co-located} with a state-variable $x \in X$ if $val_i(at(\agent_1)) = loc_i(x)$, noted $\agent_1 \curlywedge_i x$.
 \end{definition}
 
 Now, we can define two \acrfull{sa} processes that will maintain the estimated human beliefs.
 
-\begin{definition} \label{def:new_inf}
+\begin{definition} \label{def:inference_process}
     \textbf{(Inference Process.)} An agent observes the execution of an action by being either co-present with the acting agent 
-    or by being the acting agent. If so, the agent infers the new values of every state variable in the action's effects.
+    or by being the acting agent. If so, the agent infers the new values of every state-variable in the action's effects.
 \end{definition}
 
-Based on the above definition, the human beliefs are updated as follows when action $a$ is executed in state $s_i$, 
+Based on the above definition, the human beliefs are updated a first time as follows when action $a$ is executed in state $s_i$, 
 
-\begin{equation}
+\begin{equation} \label{eq:apply_action_h}
 val'^H_{i+1}(x) = \left\{ 
 \begin{array}{ll}
     w, & \mbox{if} ~ x \leftarrow w \in \textit{eff}(a) ~ \mbox{and}  \\ 
@@ -229,12 +236,11 @@ val'^H_{i+1}(x) = \left\{
 
 To change its \textit{place} in the environment, agents would use a dedicated \textit{``move''} action, such that its effect only updates the agent's location. 
 
-\begin{definition} 
-\label{def:new_obs}
-    \textbf{(Observation Process.)} An agent observes its surroundings and assesses the exact value of each state variable located in the same place (i.e., each state variable the agent is co-located with).
+\begin{definition} \label{def:observation_process}
+    \textbf{(Observation Process.)} An agent observes its surroundings and assesses the exact value of each state-variable located in the same place (i.e., each state-variable the agent is co-located with).
 \end{definition}
 
-After applying the effects of an action to obtain $val_{i+1}$ and the human beliefs $val'^H_{i+1}$ (using the inference process), the observation process is executed. It updates again the estimated human beliefs with the facts currently observable by the human and provides fully updated human beliefs to store in the state $s_{i+1}$, $\forall x \in X$:
+After applying the effects of an action with the equations~\ref{eq:apply_action_r} to obtain $\valf[][i+1]$, and running the inference process (def.~\ref{def:inference_process}) with equation~\ref{eq:apply_action_h} to obtain the partial human beliefs $val'^H_{i+1}$, the observation process (def.~\ref{def:observation_process}) is executed. It updates again the estimated human beliefs with the facts currently observable by the human and provides the human beliefs to store in the state $s_{i+1}$. We have, $\forall x \in X$:
 
 \begin{equation}
 val^H_{i+1}(x) = \left\{ 
@@ -247,7 +253,7 @@ val'^H_{i+1}(x), & \mbox{otherwise}
 
 Before starting the planning process, the observation process is executed once on the initial state $s_0$. This allows us to potentially correct the estimated human beliefs with the facts the human should initially be able to observe. 
 
-The definition of the set $Places$, i.e., how the environment is divided into different \textit{places}, is guided by the shape of our state transition function. Hence, a $place \in Places$ is an area in the environment such that, when situated in it, agents are aware of each other's activity, and they can assess every observable fact located in it. 
+The definition of the set $Places$, i.e., how the environment is divided into different \textit{places}, is guided by the shape of our state transition function. Hence, a $place \in Places$ is an (symbolic) area in the environment such that, when situated in it, agents are aware of each other's activity, and they can assess every observable fact located in it. Agents cannot be aware of others' activity if not co-present with them, and they cannot assess observable facts if not co-located with the facts.
 
 Note that unlike in \acrshort{del}~\cite{KR2021-12}, our knowledge representation is simple and prevents us from expressing agents being \textit{uncertain} about a fact. 
 In line with the classical closed-world assumptions, agents either know the truth or have a false belief w.r.t. the ground truth. 
@@ -288,23 +294,23 @@ The first way to do it is by planning communication actions such that the robot 
 
 \subsubsection{Modeling Communication Actions} 
 In this context, we propose a generic communication action schema ($ca$). 
-An agent $\varphi_i$ can \textit{communicate} an assertion $x=z$ (with $x \in X$ and $z \in$ Range($x$)) \textit{via} the action $ca_{\varphi_i, \varphi_j}(x,z)$ if $val^{\varphi_i}(x) = z$ and $val^{\varphi_j}(x) \neq z$.
-The effect of $ca_{\varphi_i, \varphi_j}(x,z)$ corresponds to $val^{\varphi_j}(x) \leftarrow z$. Such actions are considered equally costly and instantaneous.
+An agent $\agent_i$ can \textit{communicate} an assertion $x=z$ (with $x \in X$ and $z \in$ Range($x$)) \textit{via} the action $ca_{\agent_i, \agent_j}(x,z)$ if $val^{\agent_i}(x) = z$ and $val^{\agent_j}(x) \neq z$.
+The effect of $ca_{\agent_i, \agent_j}(x,z)$ corresponds to $val^{\agent_j}(x) \leftarrow z$. Such actions are considered equally costly and instantaneous.
 
 \subsubsection{Communicate Only the Required Facts}
-Definition~\ref{def:relevant_false_belief} indicates if there is at least one diverging state variable in the human beliefs causing adverse effects, but without identifying which one(s).
-Hence, we explain a subroutine below with the three steps, describing how we identify the pertinent state variables to align and how the corresponding communication actions are created and inserted into the robot's plan.
+Definition~\ref{def:relevant_false_belief} indicates if there is at least one diverging state-variable in the human beliefs causing adverse effects, but without identifying which one(s).
+Hence, we explain a subroutine below with the three steps, describing how we identify the pertinent state-variables to align and how the corresponding communication actions are created and inserted into the robot's plan.
 
 \begin{enumerate}
     \item 
-    \textit{Store} each state variable whose value differs in the human beliefs from the robot beliefs: $X_{diff} = \{ x ~|~ x\in X, val^H_i(x) \neq val^R_i(x) \}$.
+    \textit{Store} each state-variable whose value differs in the human beliefs from the robot beliefs: $X_{diff} = \{ x ~|~ x\in X, val^H_i(x) \neq val^R_i(x) \}$.
 
     \item
-    \textit{Build}, for each stored state variable $x \in X_{diff}$, a communication action $ca_{R, H}(x,val^R_i(x))$, all stored in a set $\mathit{CA}_{diff}$.
+    \textit{Build}, for each stored state-variable $x \in X_{diff}$, a communication action $ca_{R, H}(x,val^R_i(x))$, all stored in a set $\mathit{CA}_{diff}$.
 
     \item 
     \textit{(Breadth-First Search.)} 
-    The \textit{source} is $s_i$. Applying each $ca \in \mathit{CA}_{diff}$ generates a new state by aligning \textit{exactly} one state variable in the human beliefs s.t. $s'_i = \gamma(s_i, ca )$. 
+    The \textit{source} is $s_i$. Applying each $ca \in \mathit{CA}_{diff}$ generates a new state by aligning \textit{exactly} one state-variable in the human beliefs s.t. $s'_i = \gamma(s_i, ca )$. 
     The search continues until the first state $s'_i$ selected to expand does not contain a relevant false belief. The communication actions used from the root until this selected state are \textit{retrieved} in a set $\mathit{CA}$.
 \end{enumerate}
 
@@ -322,8 +328,8 @@ So far, we relied on communication. However, communication can be cognitively de
 Thus, when the relevant false belief is due to a non-observed robot action, we propose also considering implicit communication by postponing the pertinent robot action until the human is estimated to observe its execution. 
 This prevents false beliefs from even occurring.
 
-First, a branch using communication is explored, and the state variables concerned by the relevant false beliefs are retrieved (through all $ca \in CA$).
-Then, we check if a non-observed action produces the divergence. For now, it is done by checking if the relevant divergence concerns only one inferable state variable and if it was not present in the initial state.   
+First, a branch using communication is explored, and the state-variables concerned by the relevant false beliefs are retrieved (through all $ca \in CA$).
+Then, we check if a non-observed action produces the divergence. For now, it is done by checking if the relevant divergence concerns only one inferable state-variable and if it was not present in the initial state.   
 After, we identify which action creates the divergence by regressing the current branch/trace sequentially. Hence, we can identify when the relevant divergence appears and which action should be delayed.
 Once identified, we create another branch in the plan just before the identified action. In this new branch, {\sc delay} actions are inserted in the robot's plan until the human is co-present. When the human is co-present again, the identified action is inserted and observed by the human. Then, the nominal planning process is resumed.  
 
@@ -334,7 +340,7 @@ Referring to the related work section, we are not aware of an implemented planni
 
 \subsubsection{Cooking Pasta Domain}
 The running example corresponds to a specific problem in this domain. In fact, agents and pasta can initially either be in the kitchen or in the adjacent room, the stove might be on or off, and there might be salt or not in the water.  
-The results will focus on the following three state variables from $X$. Both $stoveOn$ ($\texttt{OBS}$) and $saltIn$ ($\texttt{INF}$) are relevant to the human, unlike $Clean$ ($\texttt{INF}$) which only concerns the robot. 
+The results will focus on the following three state-variables from $X$. Both $stoveOn$ ($\texttt{OBS}$) and $saltIn$ ($\texttt{INF}$) are relevant to the human, unlike $Clean$ ($\texttt{INF}$) which only concerns the robot. 
 
 \subsubsection{Preparing Box Domain}
 A box with a sticker on it and filled with a fixed number of balls is considered prepared and needs to be sent. Both agents can \textit{fill} the box with balls from a bucket, while only the robot can \textit{paste} a sticker, and only the human can \textit{send} the box. The bucket can run out of balls, so when one ball is left, the human \textit{moves} to another room to \textit{grab} more balls and \textit{refill} it. 
@@ -397,7 +403,7 @@ In addition to this implicit communication, like in (\textit{middle}), the human
 \subsection{Experimental Results and Analysis}
 
 In each domain, the actions and tasks remain the same. So here, a problem is defined by a starting agent ($R$ or $H$) and a pair of initial beliefs ($val^R_0, val^H_ 0$).
-Initial ground truth ($val_0 \Leftrightarrow val^R_0$) is defined by setting each state variable to an initial value. Five selected state variables can have two possible values instead of one. Among these selected ones, three can diverge in human beliefs. These combinations generate 256 pairs of initial beliefs, where 12.5\% of them include initially aligned beliefs. Then, considering the starting agent, we obtain 512 problems for each domain. 
+Initial ground truth ($val_0 \Leftrightarrow val^R_0$) is defined by setting each state-variable to an initial value. Five selected state-variables can have two possible values instead of one. Among these selected ones, three can diverge in human beliefs. These combinations generate 256 pairs of initial beliefs, where 12.5\% of them include initially aligned beliefs. Then, considering the starting agent, we obtain 512 problems for each domain. 
 Each of the 1536 generated problems has been solved by HATP/EHDA, by \textit{our approach} using first \textit{only communication} and then using also \textit{delay}.
 The obtained quantitative results appear in Table~\ref{tab:q_results}.
  
@@ -414,7 +420,7 @@ The amount of communication is even reduced to $68.1\%$ when delaying actions. I
 
 This contribution has a few limitations to discuss.
 
-First, the observability types of the state variables are assumed to be constant. 
+First, the observability types of the state-variables are assumed to be constant. 
 However, dynamic observability types permit modeling scenarios like an agent placing an object in an opaque box. The object would no longer be observable despite being in the same place as the agent. Since \textit{Places} can be symbolic, with clever domain modeling, one can model objects' disappearance when placed in a drawer. Dynamic observability types would simplify such modeling and make it even more expressive. However, this extension requires further research to correctly redefine Equation~\ref{eq:obs_update}. 
 
 The underlying scheme allows just a single agent to execute a \textit{``real''} action at a time. 
@@ -425,7 +431,7 @@ We believe our modeling-level \acrshort{sa} proposals could fit in any other pla
 
 Agents' \acrshort{sa} models cannot simply refute a false belief, they can only assess new true facts to correct them.
 For instance, assume the human \textit{wrongly} believes that the pasta is in \textsf{kitchen}. The \acrshort{sa} does not help refute this when the agent is in \textsf{kitchen}
-because the state variable \textit{NotAt(Pasta)} in \textsf{kitchen} is not modeled in our domain.  
+because the state-variable \textit{NotAt(Pasta)} in \textsf{kitchen} is not modeled in our domain.  
 However, such issues do not affect the completeness and, if necessary, our approach \textit{tackles} such cases as relevant false beliefs.
 
 The relevance of estimated false human beliefs is challenging to determine. Currently, as soon as a divergence influences the next human actions, we assume that the divergence is likely detrimental to the goal and, thus, is relevant to be fixed. However, it would be interesting to find a method to evaluate the consequences of a divergence on the goal and plans in a principled way.
