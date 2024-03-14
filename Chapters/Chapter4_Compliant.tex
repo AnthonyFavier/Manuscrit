@@ -144,7 +144,7 @@ A few assumptions are used in this contribution, simplifying the problem specifi
 
 Indeed, belief divergences are out of the scope of this particular work. Hence, for simplicity reasons, we consider the two beliefs (robot and estimated human ones) to be constantly aligned and represented as unique beliefs: $\valf[][i] = \valf[R][i] = \valf[H][i]$. Therefore, unlike Chapter~\ref{chap:3}, the two agents' beliefs are always aligned and initialized with a same initial world state using state variables. However, we are convinced that this work could be adapted easily to consider the two distinct beliefs. As a reminder, \textit{states} and \textit{beliefs} are fundamentally different. A \textit{state} ($s_i$) corresponds to a specific state in which the planning problem is while progressing toward a solution. However, \textit{beliefs} ($\valf[\agent][i]$) corresponds to the state of the world in the agent $\agent$'s perspective. Hence, the \textit{beliefs}, here aligned and represented as one, are part of the \textit{state}.
 
-Additionally, the agents' partial plans have been removed for performance reasons. This is due to our new solution format in this contribution, switching from an AND/OR tree to a \acrfull{dag}. The domain modeler must now define relevant state variables to track specific events instead of checking the previously accessible planned action sequence. This improved the performance a lot.
+Additionally, the agents' partial plans have been removed for performance reasons. This is due to our new solution format in this contribution, switching from an AND/OR tree to a \acrfull{dag}. The domain modeler must now define relevant state-variables to track specific events instead of checking the previously accessible planned action sequence. For instance, it would be relevant to define a state-variable to track how many times the robot requested punctual human help, like in the example of Chapter~\ref{chap:2}. This improved the performance a lot.
 
 The problem specification of the conflict example shown previously in figure~\ref{fig:conflict_pick} is given below for illustration purposes. First, the initial state $s_0$ is described by:
 
@@ -218,7 +218,7 @@ This section details how the exploration happens and, thus, how the search graph
     \subsection{Overall Exploration Process}
 
 We keep track of the states to explore, and this set is being initialized with the initial state $s_0$. Then, until the set is empty, we select one and explore it.
-First, from this selected state, every possible concurrent human-robot action pair is computed considering both agendas, the beliefs, and reasoning on the compatibility of the actions in terms of preconditions and effects. This process requires several sub-steps and is detailed later. Thus, we obtain several action pairs leading to the same number of new states, comprising beliefs and agendas updated by applying the effects of the corresponding actions.
+First, from this selected state, every possible concurrent human-robot action pair is computed considering both agendas, the beliefs, and reasoning on the compatibility of the actions in terms of preconditions and effects. This process requires several sub-steps and is detailed later. Thus, we obtain several action pairs leading to several new states, comprising beliefs and agendas updated by applying the effects of the corresponding actions.
 Second, we check if a newly created state is similar to any existing one. If so, we can "merge" them to avoid redundant computations. To do so, we keep track of the unique states that have already been checked, and for each new state, we check if it is similar to one of them. 
 If not, the new state is added to the set of already checked states. 
 If a similar one is found, the new state is deleted, and the action pair leading to it is connected to the existing state instead.
@@ -254,7 +254,7 @@ Then, we assume that there are no causal links between the two actions and that 
 
 Such an approach to parallelize two actions comes with a benefit. Indeed, it only needs an action precondition boolean function. As a result, action estimations can be a black box with only basic low-level action precondition descriptions. This way, we can easily replace the way we estimate the next actions each agent is likely to perform. Especially for humans, we could use a pre-trained human activity estimator using a neural network or a more classical planner like PDDL. 
 
-With the causal principle above in mind, we proceed as follows to compute the possible concurrent action pairs from a given state. We start by estimating all possible human actions by refining the human agenda, which generates a new state for each possible action. For each such state, we first create an action pair where the robot is passive by inserting a \textit{PASS} robot action. This \textit{PASS} pair is stored among all other `human pass pairs''. Second, we refine the robot agenda to obtain all feasible sequences of human then robot actions and their associated p-states. We refer to them as the sequential human starting pairs. Symmetrically, we compute the sequential robot starting pairs and "robot pass pairs" by starting with the robot and then refining the human agenda.
+With the causal principle above in mind, we proceed as follows to compute the possible concurrent action pairs from a given state. We start by estimating all possible human actions by refining the human agenda, which generates a new state for each possible action. For each such state, we first create an action pair where the robot is passive by inserting a \textit{PASS} robot action. This \textit{PASS} pair is stored among all other `human pass pairs''. Second, we refine the robot agenda to obtain all feasible sequences of human then robot actions and their associated states. We refer to them as the sequential human starting pairs. Symmetrically, we compute the sequential robot starting pairs and "robot pass pairs" by starting with the robot and then refining the human agenda.
 
 Eventually, every action pair present in the human and robot starting pairs is extracted and added to a set of concurrent action pairs. 
 Additionally, here, passive actions are always parallelizable with other regular actions. The only case where this could not be the case is when considering ``joint actions'' requiring the two agents to lift an object together. For now, such actions are not considered. Thus, the two sets of \textit{PASS} pairs are directly added to the set of concurrent action pairs. 
@@ -265,31 +265,28 @@ The obtained set of concurrent action pairs corresponds to all possible concurre
 
     \subsection{Merging states}
 
-Although the tree structure produced by the process described above is complete and sound, it is inefficient and scales poorly. Indeed, during the exploration, we are likely to encounter similar states several times. For instance, consider an action pair where both the human and robot are active, leading to a new state. Consider an action pair where only the human is active and a second where only the robot is active. Performing those two last pairs in both orders creates two other branches. However, even though the trace is different, the three states are identical (same beliefs and agendas), and it is highly redundant to explore each independently. That is why, after each computation of the concurrent action pairs, we check if any newly generated p-states are similar to an existing one. If so, we connect the corresponding pair to the existing p-state to avoid redundant explorations. Doing so, we transform the tree structure present in the previous chapters into a \acrfull{dag} (on the condition that we do not consider double \textit{PASS} cycles). In the manner of a tree, we will refer to nodes without children as leaves nodes, which are goal p-states. Hence, now, each leaf can be reached with several paths. 
-When looking for similar existing p-states, we assume that p-states that are parent with the new p-state, directly or not, will necessarily be different. Thus, they are excluded from the potentially similar p-states set. This speeds up the comparison process. 
-
-Note also that for the p-states to be similar despite different concurrent executions like explained above, we had to remove the \textit{partial plan} present in the specification described in Chapter~\ref{chap:2}. To significantly improve the performance and use the \acrshort{dag}, we can no longer reason on the \textit{partial plan} of the agents. However, we can still define a dedicated state variable to keep track of specific events or action sequences if it influences the task decompositions. For instance, it would be relevant to define a state variable to track how many times the robot requested punctual human help, like in the example of Chapter~\ref{chap:2}.    
+Although the tree structure produced by the process described above is complete and sound, it is inefficient and scales poorly. Indeed, during the exploration, we will likely encounter similar states several times as depicted in the example partial \acrshort{dag} in figure~\ref{fig:example_partial_dag}. That is why, after each computation of the concurrent action pairs, we check if any newly generated states are similar to an existing one. If so, we connect the corresponding pair to the existing state to avoid redundant explorations. Doing so, we transform the tree structure used in the previous chapters into a \acrfull{dag}. In the manner of a tree, we will refer to nodes without children as leaves nodes, which are goal states. Unlike before, each leaf can now be reached with several paths. 
+When looking for similar existing states, we assume that all parent states of the new state, directly or not, will necessarily be different thanks to the previous merging checks. Thus, they are excluded from the potentially similar states set. This speeds up the comparison process. 
 
 \section{The Robot Policy}
 
-First, as depicted in figure~\ref{fig:and_or}, all child concurrent action pairs of a p-state ($PS / ps_i$) can actually be seen as an AND-OR graph. Since we want to preserve the latitude of choice the human has at execution, each possible human choice of action is considered as an AND edge and leads to a partial p-state ($PS' / ps_i^j$). From a partial p-state, each compliant concurrent robot action is considered an OR edge and leads to another p-state.
+First, all child concurrent action pairs of a state ($s_i$) can actually be seen as an AND-OR graph. This representation is depicted in figure~\ref{fig:and_or} and helps to highlight the possible human decisions. 
+Since we want to preserve the latitude of choice the human has at execution, each possible human choice of action is considered as an AND edge and leads to a partial state $s'$. 
+We note $s_i^j$ the $j$-th partial state of the state $s_i$. A partial state $s_i^j$ corresponds to the state where the human made the $j$-th decisions available in the state $s_i$. However, this decision may not be visible yet, and the associated $j$-th human action has not yet been executed.
+Every partial state is followed by several compliant concurrent robot actions considered as OR edges, leading to other states.
 
-Notations: A p-state is referred to as $ps$, and $ps_i$ is the $i$-th p-state. A partial p-state is referred to as $ps'$, and $ps_i^j$ is the $j$-th partial p-state of the $i$-th p-state.
-
-Thus, generating the robot policy $\Pi$ consists of identifying the best concurrent compliant robot action $RA^*$ for each possible human action or partial p-state $ps_i^j$.
-
-These best concurrent robot actions are determined by aiming to optimally satisfy an estimation of the human preferences regarding the task. Eventually, at execution, the human is free to perform any of the explored actions. The robot will accordingly perform an optimal concurrent action to solve the task and satisfy their estimated preferences.
-
-Hence, before giving more details about the policy itself, we first describe the format of human preferences, how we could estimate them, and what it allows us to do. After, we describe the actual process to generate the robot policy from the search graph using the estimated human preferences
-
-
-\begin{figure}
-    \includegraphics[width=\linewidth]{Chapter4/and_or_tree.png}
+\begin{figure}[h]
+    \includegraphics{Chapter4/and_or_tree.pdf}
     \caption{AND-OR graph representation of the action pairs. 
-    The robot policy must be compliant with any human decision. Hence, the problem can be seen as an AND-OR graph where, for each possible human choice of action (AND node), we must determine the best concurrent robot action among the possible robot actions (OR node).
+    This representation highlights the possible human decision (AND nodes) to identify the best concurrent and compliant robot action (OR nodes) to put in the robot's policy. 
     }
     \label{fig:and_or}
 \end{figure}
+
+
+Generating the robot policy $\Pi$ consists of identifying the best concurrent compliant robot action $RA^*$ for each possible human action or partial state $s'$. These best concurrent robot actions are determined by aiming to optimally satisfy an estimation of the human preferences regarding the task. Eventually, at execution, the human is free to perform any of the explored actions. The robot will accordingly perform an optimal concurrent action to solve the task and satisfy their estimated preferences.
+
+Hence, before giving more details about the policy itself, we first describe the format of the \textbf{estimated human preferences}, how we could estimate them, and what it allows us to do. After, we describe the actual process to generate the robot policy from the \acrshort{dag} using the estimated human preferences
 
 
     \subsection{Using Estimated Human Preferences for Plan Evaluation}
@@ -322,29 +319,31 @@ Being aware of this, we use the estimated human preferences as a guide for the r
 
     \subsection{Generation}
 
-\begin{figure}
+Generating the robot policy $\Pi$ from the \acrshort{dag} consists of repeating two processes, namely, \textit{Propagation} and \textit{Selection}. The overall process is depicted in figure~\ref{fig:policy_generation} and summarized below before being detailed in the following subsections. Since the \acrshort{dag}'s nodes correspond to \textit{states}, both names will appear and be mixed in the following descriptions. 
+
+\begin{figure}[h]
     \includegraphics[width=\linewidth]{Chapter4/policy_generation.pdf}
-    \caption{Policy generation process illustration on an arbitrary search graph. Propagation and Merge processes repeat until there are no more p-state (node) to propagate or for selection.}
+    \caption{Policy generation process illustration on an arbitrary search graph. Propagation and Merge processes repeat until there are no more state (node) to propagate or for selection.}
     \label{fig:policy_generation}
 \end{figure}
 
-To generate the robot policy $\Pi$ from the search graph, we proceed from the leaves to the root. 
-Overall, we progressively compute the set of metrics for each possible trace. When reaching a p-state with several children, we compare the metrics of the different traces leading to this node. We can then identify the best trace leading to each partial p-state and the best trace leading to the p-state. Each best trace to a partial p-state is used to update the robot policy, and the overall best trace is used to continue the propagation with the best reachable set of metrics.
-This process is achieved by repeating two sub-routines detailed just below, namely \textit{Propagation} and \textit{Selection}. 
+Starting from the leaves with a default set of metrics, we progressively update the set of metrics for each possible trace. When reaching a state with several children, we compare the metrics of the different traces leading to this node. 
+This process uses the AND/OR graph representation shown in figure~\ref{fig:and_or}, but figure~\ref{fig:policy_generation} uses the initial concurrent action pair representation for legibility purposes. 
+We can then identify the best trace leading to each partial state, and then the best trace leading to the upper state. Each best trace to a partial state is used to update the robot policy, and the overall best trace is used to continue the propagation with the best reachable set of metrics. The robot policy is complete when every state has an identified best action pair and when every partial state has an identified best concurrent robot action. 
 
 % \begin{algorithm}
 % \caption{Policy Generation}\label{alg:policy_generation}
 % \begin{algorithmic}[1]
 
-% \State \textbf{input}: $leafNodes$ \Comment{Set of all leaf p-states from the search graph}
-% \State $psToPropagate \gets \emptyset$
-% \State $psForSelection \gets \emptyset$
+% \State \textbf{input}: $leafNodes$ \Comment{Set of all leaf states from the search graph}
+% \State $sToPropagate \gets \emptyset$
+% \State $sForSelection \gets \emptyset$
 
-% \State $Initialization(psToPropagate, leafNodes)$
+% \State $Initialization(sToPropagate, leafNodes)$
 
-% \While{ $psToPropagate \neq \emptyset$ and $psForSelection \neq \emptyset$ }
-%     \State $Propagation(psToPropagate, psForSelection)$
-%     \State $Selection(psToPropagate, psForSelection)$
+% \While{ $sToPropagate \neq \emptyset$ and $sForSelection \neq \emptyset$ }
+%     \State $Propagation(sToPropagate, sForSelection)$
+%     \State $Selection(sToPropagate, sForSelection)$
 % \EndWhile
 
 % \end{algorithmic}
@@ -352,11 +351,11 @@ This process is achieved by repeating two sub-routines detailed just below, name
 
     \subsubsection{Format and Initialization}
 
-During this process we compute and store the best reachable set of metrics alternatively in the p-states and in the action pairs. Initially, we store default null metrics in every leaf p-state. Then, we keep track of two types of nodes. First, keep track of the nodes whose metrics should be propagated in the next step, stored in the set $\{psToPropagate\}$. This set is initialized with all leaf p-state nodes. The Selection sub-routine later populates this set. Secondly, we keep track of the nodes where the best action to perform among several must be identified. The propagated sets of metrics are used to identify the best action to put in the robot's policy. This set is $\{psForSelection\}$ and is populated by the propagation sub-routine while being emptied by the selection sub-routine. The process is over when the two sets are empty, thus, when there are no more nodes to propagate or for selection.
+During this generation, we compute and store the best reachable set of metrics alternatively in the states and in the action pairs. Initially, we store default null metrics in every leaf state. Then, we keep track of two types of nodes. First, the nodes whose metrics should be propagated in the upper steps. They are stored in the set $\{sToPropagate\}$, which is initialized with all leaf state. The \textit{Selection} process later populates this set. Secondly, we keep track of the nodes where the best action pair to perform among several must be identified. The propagated sets of metrics stored in the pairs are used to identify the best pair and the best robot actions to put in the policy. These nodes are stored in the $\{sForSelection\}$ set, which is populated by the \textit{Propagation} process, while being emptied by the \textit{Selection} process. The policy is complete when the two sets are empty, thus, when there are no more nodes to propagate or for selection.
 
     \subsubsection{Propagation}
 
-The propagation sub-routine is depicted in algorithm~\ref{alg:propagation} and described here. It consists of picking a node to propagate from the set $\{psToPropagate\}$. For each parent action pair of that node, we create a copy of the set of metrics of the propagated node and update the metrics according to the various rules described below.
+The \textit{Propagation} process is depicted in algorithm~\ref{alg:propagation} and described here. It consists of picking a node to propagate from the set $\{sToPropagate\}$. For each parent action pair of that node, we create a copy of the set of metrics of the propagated node and update the metrics according to the various rules described below.
 The metrics must be cumulative. 
 
 The rules to update the standard metrics are the following (all metrics start at 0):
@@ -373,29 +372,29 @@ Rules to update domain-specific metrics must be provided:
 \vspace{-\topsep}
 \begin{itemize}
     \setlength\itemsep{-0.3em}
-    \item If human action is passive while holding a cube, then \textit{Passive While Holding} is incremented.
+    \item If human action is passive while holding a cube, then \textit{*Passive While Holding} is incremented.
     \item \textit{(Similarly with the robot)}
-    \item If the human action is to drop a cube back on the table, then \textit{Number of Drops} is incremented.
+    \item If the human action is to drop a cube back on the table, then \textit{*Number of Drops} is incremented.
     \item \textit{(Similarly with the robot)}
 \end{itemize}
 
-The updated metrics are stored in their corresponding action pair. Then, two cases can occur for each parent action pair with stored metrics, referred to as propagated pairs. First, if the parent node of the propagated pair has more than one child, then we add this parent node to the set $\{psForSelection\}$. Otherwise, the metrics of the action pair are stored in the parent node, which is also added in the set $\{psToPropagate\}$. 
-The sub-routine repeats until the set $\{psToPropagate\}$ is empty.
+The updated metrics are stored in their corresponding action pair. Then, two cases can occur for each parent action pair with stored metrics, referred to as propagated pairs. First, if the parent node of the propagated pair has more than one child, then we add this parent node to the set $\{sForSelection\}$. Otherwise, the metrics of the action pair are stored in the parent node, which is also added in the set $\{sToPropagate\}$. 
+The process repeats until the set $\{sToPropagate\}$ is empty.
 
-\begin{algorithm}
-\caption{Propagation Sub-Routine}\label{alg:propagation}
+\begin{algorithm}[h]
+\caption{Propagation Process}\label{alg:propagation}
 \begin{algorithmic}[1]
 
-\While{ $psToPropagate \neq \emptyset$ }
-    \State $N \in psToPropagate$
-    \State $psToPropagate \gets psToPropagate \setminus \{N\}$
-    \For{ each $P$ in $N.parents$ }
-        \State $P.metrics \gets CopyAndUpdateMetrics(N.metrics, N, P)$
+\While{ $sToPropagate \neq \emptyset$ }
+    \State $s \in sToPropagate$
+    \State $sToPropagate \gets sToPropagate \setminus \{s\}$
+    \For{ each $P$ in $s.parents$ }
+        \State $P.metrics \gets CopyAndUpdateMetrics(s.metrics, s, P)$
         \If{ $HasOneChild(P.parent)$ }
             \State $P.parent.metrics \gets P.metrics$
-            \State $psToPropagate \gets psToPropagate \cup \{P.parent\}$
+            \State $sToPropagate \gets sToPropagate \cup \{P.parent\}$
         \Else
-            \State $psForSelection \gets psForSelection \cup \{P.parent\}$
+            \State $sForSelection \gets sForSelection \cup \{P.parent\}$
         \EndIf
     \EndFor
 \EndWhile
@@ -404,34 +403,34 @@ The sub-routine repeats until the set $\{psToPropagate\}$ is empty.
 \end{algorithm}
 
 
-
     \subsubsection{Selection}
 
-When a node has several children, i.e. several possible action pairs, then we must evaluate and compare them in order to make the best robot choices and update the policy with them. The evaluation is part is done by the propagation sub-routine. The Selection sub-routine checks when robot choices are ready to be made, then it updates the robot policy, and eventually prepares the next propagation phase. 
+When a node has several children, i.e., several possible action pairs, we must evaluate and compare them in order to identify the best course of action and the best reachable set of metrics. Additionally, we can identify the best robot choices to make according to each possible human decision. 
+The plan evaluation is done by the \textit{Propagation} process. The \textit{Selection} process checks when robot choices are ready to be made, then it updates the robot policy, and eventually prepares the next \textit{Propagation} phase. 
 
-The selection sub-routine is depicted in algorithm~\ref{alg:selection} and described here. It checks every node in the $\{psForSelection\}$ set to know if we are ready to make a choice, i.e., if every child pair of that node has metrics stored in it and has been propagated. 
+The \textit{Selection} process is depicted in algorithm~\ref{alg:selection} and described here. It checks every node in the $\{sForSelection\}$ set to know if we are ready to make a choice, i.e., if every child pair of that node has metrics stored in it and has been propagated. 
 If not, nothing happens, and the node remains in the set.
-If so, we are ready to compare the pairs and update the policy. Since we want the human to be free to perform any action, even suboptimal, we must find the best concurrent robot action for each possible human action. The first step is to organize the child pairs by similar human action. Then, for each group of pairs, we compare their metrics using the estimated human preferences and identify the best pair of the group, which is marked a ``best compliant pair''. After this, all marked pairs are compared, and the overall best pair is identified and marked as ``best pair''. Eventually, the metrics of the ``best pair'' are stored in the node from $\{psForSelection\}$, and the node is removed from the set and added to the other set $\{psToPropagate\}$.
+If so, we are ready to compare the pairs and update the policy. Since we want the human to be free to perform any action, even suboptimal, we must find the best concurrent robot action for each possible human action. The first step is to organize the child pairs by similar human action, i.e., use the AND/OR graph representation and group the pairs by partial state. Then, for each group of pairs, we compare the pairs' metrics using the estimated human preferences and identify the best pair of the group, which is marked a ``best compliant pair''. The robot action in the ``best compliant pair'' is added to the robot's policy and mapped to the associated partial state. After this, all marked pairs are compared, and the overall best pair is identified and marked as ``best pair''. Eventually, the metrics of the ``best pair'' are stored in the node from $\{sForSelection\}$, and the node is removed from the set and added to the other set $\{sToPropagate\}$.
 
-\begin{algorithm}
-\caption{Selection Sub-Routine}\label{alg:selection}
+\begin{algorithm}[h]
+\caption{Selection Process}\label{alg:selection}
 \begin{algorithmic}[1]
 
-\For{ each $PS$ in $psForSelection$ }
-    \If{ $ReadyForSelection(PS)$ }
+\For{ each $s$ in $sForSelection$ }
+    \If{ $ReadyForSelection(s)$ }
         \State $bestPairs \gets \emptyset$
-        \For{ each $partialPS$ in $GetPartialPStates(PS)$ }
-            \State $pairs \gets GetCorrespondingPairs(partialPS)$
+        \For{ each $partialS$ in $GetPartialStates(s)$ }
+            \State $pairs \gets GetCorrespondingPairs(partialS)$
             \State $P \gets IdentifyBestPair(pairs)$ \Comment{Compare metrics and identify best}
-            \State $\Pi(partialPS) \gets P.robotAction$
+            \State $\Pi(partialS) \gets P.robotAction$
             \State $bestPairs \gets bestPairs \cup \{P\}$
         \EndFor
         \State 
         \State $bestPair \gets IdentifyBestPair(bestPairs)$
         \State 
-        \State $PS.metrics \gets bestPair.metrics$
-        \State $psForSelection \gets psForSelection \setminus \{PS\}$
-        \State $psToPropagate \gets psToPropagate \cup \{PS\}$
+        \State $S.metrics \gets bestPair.metrics$
+        \State $sForSelection \gets sForSelection \setminus \{S\}$
+        \State $sToPropagate \gets sToPropagate \cup \{S\}$
     \EndIf
 \EndFor
 
@@ -440,10 +439,11 @@ If so, we are ready to compare the pairs and update the policy. Since we want th
 
     \subsubsection{Additional policy updates}
 
-After executing the main process to generate the robot policy $\Pi$, each partial p-state $ps'$ is mapped to a robot action to execute. So, the partial p-state must be identified at runtime to execute the robot policy. 
-The human action choice characterizes a partial p-state. Therefore, identifying partial p-state consists of running the \acrshort{id} process mentioned in the Model of Execution, which briefly tries to identify which action the human is starting to execute during a step. However, such identification can be challenging, so we try to avoid it when possible. 
+After repeating these two processes,  each partial state $s'$ is mapped to a robot action to execute through the robot policy $\Pi$. Therefore, partial states must be identified at runtime to execute the robot policy. 
+The human action choice characterizes a partial state. Therefore, identifying partial state consists of running the \acrshort{id} process mentioned in the Model of Execution, which briefly tries to identify which action the human is starting to execute during a step. However, such identification can be challenging, so we try to avoid it when possible. 
 
-Indeed, for any p-state $ps_i$ from the search graph, if $\forall j, \Pi(ps_i^j) = RA$ with $RA$ being one unique/same robot action, then the best robot action does not depend on the human choice. Thus, the \acrshort{id} process can be avoided in such a case, and the policy is complemented as follows $\Pi(ps_i) \gets RA$.
+Indeed, remember the conflicting example in figure~\ref{fig:conflict_pick}. Sometimes, the best robot's action w.r.t. every possible human decision, like \textit{picking} \textit{c3}. In such cases, there is no need to identify a partial state, but only the current state. 
+Consequently, $\forall s_i \in S$, if $\forall j, \Pi(s_i^j) = RA$ with $RA$ being the same robot action, then the best robot action does not depend on the human choice. Thus, the \acrshort{id} process can be avoided and the policy is complemented as follows $\Pi(s_i) \gets RA$.
 
 Moreover, we consider cases where the ID process failed to identify the human action and is noted as $\lambda$. To prevent potential conflicts due to identification failure, the policy is updated s.t. $\Pi(\lambda) = PASS$.
 Note that this work only considers identification failures and not wrong identifications. 
@@ -451,28 +451,29 @@ Note that this work only considers identification failures and not wrong identif
 
     \subsection{Execution}
 
-The execution of the policy stems from the Model of Execution automaton and is depicted in Algorithm~\ref{alg:execution}.
+The execution of the policy stems from the Model of Execution automaton and is depicted in Algorithm~\ref{alg:execution}. The robot starts by informing the human that the step has started, then waits for its decision. After, we check if the current state $s$ is already part of the robot policy $\Pi$, i.e., if the \acrshort{id} process is not necessary. If so, the associated robot action $\Pi(s)$ is executed. Otherwise, the partial state $s'$ must be identified. The synchronization and perception routine \textit{WaitHumanDecision} waits for a human signal. Hence, if an explicit passive signal is detected or no signal, the human is assumed to be passive, permitting the identification of the partial state $s'$ and executing the associated best robot action $\Pi(s')$. Otherwise, the \acrshort{id} is executed, hoping to identify the human decision and, thus, the partial state. This identification process returns either a failure $\lambda$ or the identified partial state $s'$. In both cases, the policy will indicate which action the robot should perform. 
+Eventually, the robot waits for the step to be over with \textit{WaitEndStep}, i.e., when both human and robot actions are done. After, the situation assessment process is executed to identify or confirm which actions have been executed and, thus, what the next state is.
 
 \begin{algorithm}
 \caption{Execution of the Robot Policy }\label{alg:execution}
 \begin{algorithmic}[1]
 
-\State $ps \gets ps_0$ \Comment{Initial state}
-\While{ $ps.children \neq \emptyset$ }
+\State $s \gets s_0$ \Comment{Initial state}
+\While{ $s.children \neq \emptyset$ }
     \State $IndicateStepStarted()$ \Comment{Inform the human}
     \State $WaitHumanDecision()$
-    \If{ $ps \in Domain(\Pi)$ } \Comment{If ID not needed}
-        \State $Execute(\Pi(ps))$
+    \If{ $s \in Domain(\Pi)$ } \Comment{If ID not needed}
+        \State $Execute(\Pi(s))$
     \Else
         \If{ $HumanIsPassive()$ } \Comment{Detected by $WaitHumanDecision$}
-            \State $Execute(\Pi(ps'))$
+            \State $Execute(\Pi(s'))$
         \Else
-            \State $idPartialPS \gets IDProcess()$ \Comment{$\in \{\lambda\} \cup \{ps'\}$}
-            \State $Execute(\Pi(idPartialPS))$
+            \State $idPartialS \gets IDProcess()$ \Comment{$\in \{\lambda\} \cup \{s'\}$}
+            \State $Execute(\Pi(idPartialS))$
         \EndIf
     \EndIf
     \State $WaitEndStep()$ \Comment{Human and Robot actions are done}
-    \State $ps \gets AssessementProcess()$ \Comment{Identify executed pair, and next $ps$}
+    \State $s \gets AssessementProcess()$ \Comment{Identify executed pair, and next $s$}
 \EndWhile
 
 \end{algorithmic}
@@ -485,24 +486,23 @@ We provide results obtained after simulating symbolically the execution of robot
     \subsection{Simulated Scenario}
 
 The execution is symbolically simulated by running an implemented version of the automaton described in the \textit{model of execution}. This implementation is close to the presented algorithm~\ref{alg:execution} where action execution is mocked and replaced by symbolic and instantaneous actions. 
-The \acrshort{id} process is assumed to be always successful
+The \acrshort{id} process is assumed to be always successful.
 Thus, the current state progresses in the search graph based on the human decision and the produced robot policy before eventually reaching a leaf node, indicating that the goal is satisfied. 
 We then retrieve which course of action has been executed and analyze it.
 The human behavior is simulated and described just after. 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\linewidth]{Chapter4/block_world_domain.png}
+    \caption{An instance of the BlocksWorld domain. The ideal plan is strongly influenced by the human desired preferences. For the earliest end of the task, the human prevents using the box. A lazy human will only place the required pink bar from their side. A human in a hurry will concurrently place the yellow cube to place the pink bar as soon as possible and be able to leave.}
+    \label{fig:block_world_domain}
+\end{figure}
 
 We evaluated our approach in the BlocksWorld domain. Figure~\ref{fig:block_world_domain} shows one problem instance. 
 The human and the robot are on two sides of a big table, and their shared task is to stack colored cubes, as shown in the given goal pattern. 
 Initially, all colored cubes are arranged on the table that is divided into three zones: Each agent has a dedicated zone (\textit{RZ} \& \textit{HZ}) and a common zone (\textit{CZ}) is in the middle and accessible for both. 
 Each agent can only pick cubes from either their own zone or from \textit{CZ}. 
 There is a box in \textit{RZ} in which cubes can be inserted. The robot must first perform a dedicated action to open the box before being able to use the cubes inside it like the regular ones.
-
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\linewidth]{Chapter4/block_world_domain.png}
-    \caption{An instance of the BlocksWorld domain. The ideal plan is strongly influenced by the human desired preferences. For the earliest end of the task, the human prevents using the box. A lazy human will only place the required pink bar from their side. A human in a hurry will concurrently place the yellow cube to place the pink bar as soon as possible and be able to leave.}
-    \label{fig:block_world_domain}
-\end{figure}
 
 
     \subsection{Human Behavior and Erroneous Preferences Estimations}
