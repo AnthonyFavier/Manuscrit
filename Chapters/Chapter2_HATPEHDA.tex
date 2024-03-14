@@ -147,7 +147,9 @@ Here is the description of the sets $B$ and $X$ for the stacking example given i
 
 
 \begin{definition}
-    \textbf{(Variable value assignment function $val$.)} A \emph{variable value assignment function} over $X$ is a function $val$ that maps each $x_i \in X$ into a value $z_i \in$ $\textit{Range}(x_i)$. With $X = \{ x_1, ..., x_n \}$, this function can be written as a set of assertions: $val = \{ x_1=z_1, \ldots, x_n=z_n \}$. 
+    \textbf{(Variable value assignment function $val$.)} A \emph{variable value assignment function} over $X$ is a function $val$ that maps each $x_k \in X$ into a value $z_j \in$ $\textit{Range}(x_k)$.
+    With $X = \{ x_1, ..., x_n \}$, this function can be written as a set of assertions: $val = \{ x_1=z_1, \ldots, x_n=z_n \}$. 
+    For legibility purposes, we use the following notation to access the value $z_j$ of a state-variable $x_k$ in the state $s_i$: $\valf[][i](x_k) = z_j$.
     \label{def:variable_value_assignment_function}
 \end{definition}
 

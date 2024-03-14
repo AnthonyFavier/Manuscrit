@@ -73,19 +73,22 @@ We would want the robot to be able to reason and correctly maintain distinct hum
     %%% SUB-SECTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \subsection{Enhanced Problem Specification}
 
-\begin{figure}
+As an example and for illustration purposes, let us consider cooking pasta as a human-robot collaborative shared task. This scenario is depicted in figure~\ref{fig:cooking_task}.
+
+\begin{figure}[h]
     \centering
-    \includegraphics[width=0.5\linewidth]{Chapter3/cooking_task_draw.png}
+    \includegraphics[width=0.6\linewidth]{Chapter3/cooking_task_draw.png}
     \caption{
-    Let us consider cooking pasta as a human-robot shared task. 
-    The robot has to turn on the stove (\textit{stoveOn}) and clean the counter (\textit{counterClean}), but the latter is not a part of the shared task. The human takes care of fetching the pasta while both agents can add salt into the water (\textit{saltIn}). Before pouring the pasta into the pot, the human must know the facts, \textit{stoveOn} and \textit{saltIn}. 
-    Unlike \textit{stoveOn}, the facts \textit{saltIn} and \textit{counterClean} are not directly observable. 
-    Hence, by acting while the human is away fetching the pasta, the robot may induce false beliefs, which may be detrimental to the shared task (e.g., the human adding salt again).
+        A cooking pasta collaborative shared task. It consists of turning on the \textit{stove}, adding \textit{salt} in the pot, \textit{fetching} the pasta, and \textit{pour} the pasta in the pot. Additionally, the robot has to \textit{clean} the counter. However, there are two seperated rooms and both the presence of salt in the pot and the clean aspect of the counter are not observable facts, possibly causing false beliefs.
     }
-    \label{fig:new_scene}
+    \label{fig:cooking_task}
 \end{figure}
 
-We start from the HATP/EHDA problem specification, which is the one described in Chapter~\ref{chap:2}. For our collaborative cooking example, the sets $B$ and $X$ for the collaborative cooking example are the following:
+The robot has to turn on the stove (\textit{stoveOn}) and clean the counter (\textit{counterClean}), but the latter is not a part of the shared task. The human takes care of fetching the pasta while both agents can add salt into the water (\textit{saltIn}). Before pouring the pasta into the pot, the human must know the facts, \textit{stoveOn} and \textit{saltIn}. 
+Unlike \textit{stoveOn}, the facts \textit{saltIn} and \textit{counterClean} are not directly observable. 
+Hence, by acting while the human is away fetching the pasta, the robot may induce false beliefs, which may be detrimental to the shared task (e.g., the human adding salt again).
+
+To describe this problem we start from the HATP/EHDA problem specification, which is the one described in Chapter~\ref{chap:2}. For our collaborative cooking example, the sets $B$ and $X$ for the collaborative cooking example are the following:
 {\small
 \begin{align*}
 &B           = Entities \cup Places \cup Booleans \cup \{\textsf{nil}\} \\
@@ -102,15 +105,30 @@ We start from the HATP/EHDA problem specification, which is the one described in
 \end{align*}
 }
 
-Our first contribution starts from here, where we augmented the specification by associating each state variable to a location and an observability type. Thus, we define two other functions besides the \textit{variable value assignment} function.
+Our first contribution starts from here, where we augmented the specification by associating each state variable $x_i \in X$ to a location and an observability type. Thus, we define two other functions besides the \textit{variable value assignment} function (Definition~\ref{def:variable_value_assignment_function}) to assign observability types (Definition~\ref{def:variable_observability_assignment_function}) and locations (Definition~\ref{def:variable_location_assignment_function}) to state-variables.
 
-First, a \textit{variable observability assignment} function over $X$ is a function $obs$ that maps each $x_i \in X$ into an observability type $t_i \in \{ \texttt{OBS},  \texttt{INF} \}$: $\obsf = \{ (x_1,t_1), \ldots , (x_n,t_n) \}$. Respectively, when $\obsf(x_i) = \texttt{OBS} | \texttt{INF}$ then $x_i$ is said to be \textit{observable} $|$ \textit{inferable} in the state $s_i$.
+\begin{definition}
+    \textbf{(Variable observability assignment function $obs$.)} A \emph{variable observability assignment function} over $X$ is a function $\obsf$ that maps each $x_k \in X$ into an observability type $t_j \in \{ \texttt{OBS},  \texttt{INF} \}$, s.t., $\obsf = \{ (x_1,t_1), \ldots , (x_n,t_n) \}$. With $\obsf(x_k) = \texttt{OBS} | \texttt{INF}$, $x_k$ is said to be respectively \textit{observable} $|$ \textit{inferable}.
+    We use the following notation to access the observability type $t_j$ of the state-variable $x_k$ in the state $s_i$: $\obsf[i](x_k) = t_j$.
+    \label{def:variable_observability_assignment_function}
+\end{definition}
 
-Then, a \textit{variable location assignment} function over $X$ is a function $\locf$ that maps each $x_i \in X$ into a $l_i \in Places \cup \{ \texttt{nil} \}$: $\locf = \{ (x_1,l_1), ..., (x_n,l_n) \}$. 
-$Places \subseteq B$ captures a group of constant symbols such that each member is a predefined area in the environment. 
-Agents are always either ``situated'' in a place or moving between two places. 
-We consider $x_i$ to be located in every $place \in Places$ if $\locf(x_i)=\texttt{nil}$. 
-When discussing the beliefs updates, more details about how the environment should be divided into places will be given shortly.
+\begin{definition}
+    \textbf{(Variable location assignment function $loc$.)} A \emph{variable location assignment function} over $X$ is a function $\locf$ that maps each $x_k \in X$ into a $l_j \in Places \cup \{ \texttt{nil} \}$, s.t., $\locf = \{ (x_1,l_1), ..., (x_n,l_n) \}$. 
+    $Places \subseteq B$ captures a group of constant symbols such that each member is a predefined area in the environment. 
+    Agents are always either ``situated'' in a place or moving between two places. 
+    We consider $x_i$ to be located in every $place \in Places$ if $\locf(x_i)=\texttt{nil}$. 
+    We use the following notation to access the location $l_j$ of a state-variable $x_k$ in the state $s_i$: $\locf[i](x_k) = l_j$.
+    \label{def:variable_location_assignment_function}
+\end{definition}
+
+% Then, a \textit{variable location assignment} function over $X$ is a function $\locf$ that maps each $x_i \in X$ into a $l_i \in Places \cup \{ \texttt{nil} \}$: $\locf = \{ (x_1,l_1), ..., (x_n,l_n) \}$. 
+% $Places \subseteq B$ captures a group of constant symbols such that each member is a predefined area in the environment. 
+% Agents are always either ``situated'' in a place or moving between two places. 
+% We consider $x_i$ to be located in every $place \in Places$ if $\locf(x_i)=\texttt{nil}$. 
+% When discussing the beliefs updates, more details about how the environment should be divided into places will be given shortly.
+
+\textbf{TODO: next}
 
 We update the definition of a \textit{state}, or \textit{planning state}, to consider the two functions introduced above s.t. $s_i = \{ \agentstate[R][i], \agentstate[H][i], \obsf[i], \locf[i] \}$. This definition still consider the two agent states s.t. $\agentstate[\varphi][i] = \{ \valf[\varphi][i], \agenda[\varphi][i], \partialplan[\varphi][i] \}$. Now, in each state, we keep track of each state variable's observability type and location, and we can reason on them to update the human beliefs ($\valf[H]$) accordingly. 
 
