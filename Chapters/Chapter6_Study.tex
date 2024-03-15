@@ -11,12 +11,12 @@
 \minitoc
 
 \chapabstract{
-This chapter presents a user study validating the approach proposed in Chapter~\ref{chap:4} using the simulator described in Chapter~\ref{chap:5}. For this purpose, several scenarios have been designed using a BlocksWorld task, and human participants were asked to collaborate with the simulated robot to evaluate its behavior. We compared our approach with a baseline behavior where the robot always imposes its decisions on the human. This study uses objective and subjective metrics to show that our approach performed significantly better than the baseline. 
+This chapter presents a user study validating the approach proposed in Chapter~\ref{chap:4} using the simulator described in Chapter~\ref{chap:5}. For this purpose, several scenarios have been designed using a BlocksWorld task, and human participants were asked to collaborate with the simulated robot to evaluate its behavior. We compared our approach with a baseline behavior where the robot always imposes its decisions on the human. This study uses objective and subjective metrics to show how our approach performed significantly better than the baseline. 
 }
 
 \section{Introduction}
 
-To validate the approach presented in the previous chapter, we conducted a user study of more than twenty participants. The purpose of this study is two-sided. 
+To validate the approach presented in the previous chapter, we conducted a user study of more than twenty participants. The purpose of this study is two-fold. 
 First, we want to validate our overall planning approaches. Thus, we want to show how it allows successful collaboration with humans. 
 Secondly, we want to validate our model of concurrent and compliant joint action, that is, showing how it allows the human to always be the leader and able to decide while the robot follows concurrently. We use a baseline where the robot imposes its decision on humans, and we show how our model allows satisfying human preferences better and is thus preferred. 
 
@@ -28,11 +28,11 @@ This chapter is organized as follows. First, the interactive simulator functiona
 
 \section{Existing HRI questionnaires}
 
-Many questionnaires are used in the field of HRI. The main ones are GodSpeed, HRIES, PeRDITA, RoSAS, and Trust Perception Scale-HRI. 
+Many questionnaires are used in the field of HRI. The main ones are GodSpeed~\cite{bartneck_measurement_2009}, HRIES~\cite{spatola_perception_2021}, PeRDITA~\cite{devin_evaluating_2018}, RoSAS~\cite{carpinella_robotic_2017}, and Trust Perception Scale-HRI~\cite{mittu_measuring_2016}. 
 
-Each questionnaire has specificities and helps to measure certain aspects of the robot. Many include appearance items to evaluate the look of the robot. Since our focus is on robot decision-making, we decided to base our questionnaire on PeRDITA. Indeed, this questionnaire has been designed to evaluate the pertinence of robot decisions in a Human-Robot Joint Action Context, which is exactly our case. Yet, the full questionnaire is a bit heavy and also covers communication, which is not our topic in this work. 
-That is why we decided to shorten the questionnaire by removing the section on communication and a few redundant items. Redundant items are helpful to evaluate the consistency of a questionnaire, and this has already been done in~\cite{devin_evaluating_2018}. Hence, to avoid participants getting bored and lost, we filled out the whole questionnaire. After every scenario, we kept 12 items covering the following dimensions: robot perception, interaction, collaboration, and acting.
-
+Each questionnaire has specificities and helps to measure certain aspects of the robot. Many include appearance items to evaluate the look of the robot. Since our focus is on robot decision-making, we decided to base our questionnaire on PeRDITA. Indeed, this questionnaire has been designed to evaluate the pertinence of robot decisions in a Human-Robot Joint Action Context, which is exactly our case. However, the full questionnaire is a bit heavy and also covers communication, which is not our topic in this work. 
+That is why we decided to shorten the questionnaire by removing the section on communication and a few redundant items. Redundant items are helpful to evaluate the consistency of a questionnaire, and this has already been done in~\cite{devin_evaluating_2018}. 
+However, we exposed each participant to several scenarios, sometimes only slightly different from each other, and were asked to fill out the questionnaire after every scenario. Therefore, to avoid participants getting bored and lost, we reduced the questionnaire to 12 items covering the following dimensions: robot perception, interaction, collaboration, and acting.
 
 
 \section{Study protocol} \label{sec:study_protocol}
