@@ -8,7 +8,7 @@
 \minitoc
 
 \acrfull{hrc} is a growing field in robotics and \acrfull{ai} research that aims to enable safe and effective teamwork between humans and robots.
-This field concerns fully autonomous robots. Hence, it excludes exoskeletons or teleoperated robots such as surgery manipulators or remotely operated (aerial) vehicles. 
+This field concerns fully autonomous robots endowed with decision-making capabilities. Exoskeletons, teleoperated robots such as surgery manipulators, and remotely operated (aerial) vehicles all have in common a human controlling and making decisions on behalf of the robot. In our context, autonomous robots must share tasks, decisions, and space with humans. For that, they need decisional abilities such as planning their actions appropriately and adapting online to the environment and human behavior.
 
 The work presented is assumed to be in the Joint Action context, which is described in \cite{sebanz_joint_2006} as ``any form of social interaction whereby two or more individuals coordinate their actions in space and time to bring about a change in the environment''. Various relationships can exist between humans and robots, e.g., collaborators, companions, guides, tutors, or social interaction partners. In all these cases, we think the robot should help and facilitate the human in terms of physical effort, mental workload, and even emotional state.
 
@@ -31,26 +31,33 @@ Focused on the decisional aspect of \acrshort{hrc}, this work aims to design aut
 
     \item \textbf{Perception}: It is mandatory for the robot to have a reliable perception scheme to know the position of near objects, obstacles, and humans. First, relevant sensors must be used and placed on the robot or in the environment itself. After reasoning on the sensory data, relevant facts about the robot's environment, such as objects' positions, spatial relations, reachable objects, human knowledge, intentions, or the state of the current goal, must be extracted. 
     
-    \item \uline{\textbf{Decision-making}}: This aspect is the focus of my work and implies that the robot should be able to make relevant decisions to be collaborative, that is, planning its actions to solve a collaborative task. It also implies being able to supervise the task execution and make online decisions to adapt to uncertainties in real time, which includes human actions and commands. 
+    \item \uline{\textbf{Decision-making}}: This aspect is the focus of my work and implies that the robot should be able to make relevant decisions to be collaborative, including planning its actions to solve a collaborative task. It also implies being able to supervise the task execution and make online decisions to adapt to human actions, commands, and unexpected events. The listed skills are linked because the robot must reason and rely on each to make pertinent decisions. Consequently, I studied \textit{Perception}, \textit{Communication}, and \textit{Navigation} from the \textit{decisional} point of view during my PhD.
 
 \end{itemize}
     
-\mysection{Contributions and manuscript organization}
+\mysection{Contributions}
 
-My work addressed the \textbf{decision-making} aspect of \acrshort{hrc} and led to three main contributions.
-I began by participating in the development of a novel human-aware task planner called HATP/EHDA~\cite{buisan_hatpehda_icra}. This approach considers two distinct agent models: an uncontrollable one to estimate the human's behavior and a controllable one to plan the robot's actions accordingly. The agent models include distinct beliefs, agendas, and action models. As a result, the planner can anticipate and even elicit human decisions and actions, but it never compels them. For these reasons, we believe this approach is promising to address \acrshort{hrc}, and I built two of my main contributions upon this approach.
+My work addressed the \textbf{decision-making} aspect of \acrshort{hrc} and led to different contributions.
+I began by participating in the development of a novel human-aware task planner called HATP/EHDA~\cite{buisan_hatpehda_icra}. This approach considers two distinct agent models: an uncontrollable one to estimate the human's behavior and a controllable one to plan the robot's actions accordingly. The agent models include distinct beliefs, agendas, and action models. This approach aims to make a clear distinction between the two agents and, most importantly, to model the distinct human decisional processes and to be able to reason on it. As a result, the planner can anticipate and even elicit human decisions and actions, but it never compels them. For these reasons, we believe this approach is promising to address \acrshort{hrc}, and I built two of my main contributions upon this approach.
 
-My first contribution is to propose some models and algorithms of the Theory of Mind and to integrate them into the deliberation process of HATP/EHDA. Despite considering distinct beliefs, they were only updated according to the description of the action effect provided in the estimated human action model. This means, for instance, that modeling the human observing and learning a new fact by entering a room had to be manually scripted in the `move' action description. With this contribution, we propose that an agent can learn by observing their surroundings or an action execution. Additionally, we propose a way to detect false human beliefs during the planning process, which may be detrimental to the task. Eventually, these relevant belief divergences are fixed by planning minimal verbal robot communication or delaying robot action that humans will initially not observe.
+My first contribution is to propose some models and algorithms of the Theory of Mind and to integrate them into the deliberation process of HATP/EHDA. Despite considering distinct beliefs, they were only updated according to the description of the action effect provided in the estimated human action model. This means, for instance, that modeling the human observing and acquiring a new fact by entering a room had to be manually scripted in the `move' action description. With this contribution, we propose that an agent can acquire information by observing their surroundings or an action execution. Additionally, we propose a way to detect false human beliefs during the planning process, which may be detrimental to the task. Eventually, these relevant belief divergences are fixed by planning minimal verbal robot communication or delaying robot action that humans will initially not observe.
 
 My second contribution brings planning and execution closer by addressing the turn-taking assumption of HATP/EHDA and exploring parallel executions. We formulated a step-based model of compliant and concurrent joint action. This model describes how the two agents should coordinate as well as four possible online human decisions about the execution: (1) the human decides to be passive and let the robot act alone, (2) the human acts alone and the robot is passive, (3) the human starts acting then the robot adapts and acts in parallel, and finally (4) the human deliberately let the robot decide and start acting before complying with it. This model guides the exploration of our proposed new human-aware task planning approach. After exploring all relevant courses of action, the robot's behavioral policy is extracted using a plan evaluation based on estimations of human preferences. Eventually, by following the produced policy, the robot can comply concurrently with any human online decisions and aims to satisfy human preferences, which can be updated online.
 
-My last contribution is distinguishable from the previous two because it addresses navigation decision-making instead of task planning. Indeed, I designed and implemented two systems simulating interactive social navigating agents endowed with decision-making processes. Additionally, these systems include evaluation processes to record data, compute metrics, and plot navigation performances. These systems generate challenging situations that permit challenging, debugging, and evaluating robot navigation schemes in intricate human-populated scenarios. The first system, \acrfull{inhus}, simulates a single human agent endowed with complex reasoning processes. The second system, \acrfull{imhus}, simulates several agents with social group behaviors but with less individual reasoning capabilities. 
+As another contribution validating the above approach, we implemented our proposed joint action model as an execution scheme into a dedicated simulator. Using this whole system, we conducted a user study where participants were invited to collaborate in several scenarios with a simulated robot following policies produced by our approach. In contrast with our approach, we used a baseline where the robot always imposes its decisions on the human. We showed through statistical analysis that our approach satisfies human preferences significantly more successfully than the baseline. Similarly, we have shown that our approach induces significantly more positive interaction, more adaptive and effective collaboration, and significantly more appropriate and accommodating robot decisions.
 
-These contributions are detailed in the rest of this manuscript. The latter is structured as follows.
+My last contributions concern simulating intelligent human agents. Endowing such simulated agents with decision-making capabilities can help to test, evaluate, and robustify interactive and collaborative robot systems. We propose a generic architecture called \acrfull{inhus} to simulate an intelligent autonomous human agent. Then, we present an implemented version for navigation use cases, permitting the generation of challenging intricate situations while recording and plotting relevant interaction data. This contribution simulates a single human agent endowed with complex reasoning processes navigating intricate environments.
+
+Eventually, we present a last contribution simulating several navigating agents, namely \acrfull{imhus}. These agents can exhibit social group behaviors and be choreographed to challenge and benchmark robot systems.
+
+
+\mysection{Manuscript Organization}
+
+The above contributions are detailed in the rest of this manuscript, which is structured as follows.
 
 Chapter~\ref{chap:1} provides more details about the context of my PhD by discussing related fields and works of \acrshort{hrc}. This chapter eventually highlights the gap in the literature that motivates my PhD work.
 
-The rest of the manuscript is divided into two parts. Part~\ref{part:1} gathers all my work concerning task planning for \acrshort{hrc}. It represents a major portion of my PhD work and includes the chapters~\ref{chap:2}, \ref{chap:3}, \ref{chap:4}, \ref{chap:5}, and \ref{chap:6}. Part~\ref{part:2} concerns decision-making in navigation and how to simulate interactive social navigating agents. This part includes the two last chapters: \ref{chap:7} and \ref{chap:8}.
+The rest of the manuscript is divided into two parts. Part~\ref{part:1} gathers all my work concerning task planning for \acrshort{hrc}. It represents a major portion of my PhD work and includes the chapters~\ref{chap:2}, \ref{chap:3}, \ref{chap:4}, \ref{chap:5}, and \ref{chap:6}. Part~\ref{part:2} concerns decision-making in simulating intelligent autonomous agents. This part includes the two last chapters: \ref{chap:7} and \ref{chap:8}.
 
 Part~\ref{part:1} begins with Chapter~\ref{chap:2}, which presents the HATP/EHDA task planner. This planner has been the keystone of most of my work. Hence, the reader should understand the motivation and methods of this task planner.
 
@@ -58,22 +65,23 @@ Chapter~\ref{chap:3} describes my first main contribution, proposing models and 
 
 Chapter~\ref{chap:4} presents my second main contribution, proposing a new human-aware task planning approach based on a step-based compliant and concurrent joint action model. The approach's description is supported by empirical results proving its effectiveness in terms of the latitude of choice given to the human and the satisfaction of their internal preferences. We further validated this by developing an interactive simulator used for a user study, described in the following chapters.
 
-Chapter~\ref{chap:5} is a technical description of an interactive simulator I developed to execute the robot policy generated by the approach described in the previous chapter. This simulator proposes an execution scheme based on the model of execution to run and supervise the robot policy in a 3D simulator. It also allows a human operator to perform actions through intuitive mouse control. Hence, this simulator offers a way to collaborate with a robot following the approach we designed, and it will be used in the next chapter to evaluate the approach.    
+Chapter~\ref{chap:5} presents our joint action model implemented as an execution scheme into a dedicated simulator. 
+This simulator allows a human operator to perform actions through intuitive mouse control and collaborate with a simulated robot executing policies our planning approach produces. In addition to giving more details about our model, this chapter also provides technical details about the developed simulator. 
 
 Chapter~\ref{chap:6} presents a user study validating the approach proposed in Chapter~\ref{chap:4} using the simulator described in Chapter~\ref{chap:5}. For this purpose, several scenarios have been designed using a BlocksWorld task, and human participants were asked to collaborate with the simulated robot to evaluate its behavior. We compared our approach with a baseline behavior where the robot always imposes its decisions on the human. 
 
 Part~\ref{part:2} begins with Chapter~\ref{chap:7}.
-This chapter describes the InHuS system, addressing decision-making in navigation and challenging robot navigation schemes. This chapter also compares two robot navigation systems using InHuS, proving that our approach effectively challenges robot schemes and allows measuring and comparing human-aware navigation properties.
+This chapter describes the \acrshort{inhus} system, addressing decision-making in navigation and challenging robot navigation schemes. This chapter also compares two robot navigation systems using \acrshort{inhus}, proving that our approach effectively challenges robot schemes and allows measuring and comparing human-aware navigation properties.
 
 
-Chapter~\ref{chap:8} presents IMHuS, which complements the previous system to choreograph several agents with group movements and social behaviors. This system has been qualitatively evaluated in an elevator scenario.
+Chapter~\ref{chap:8} presents \acrshort{imhus}, which complements the previous system to choreograph several agents with group movements and social behaviors. This system has been qualitatively evaluated in an elevator scenario.
 
 
 Eventually, general conclusions regarding my overall PhD work are shared. Additional materials are provided in the appendix.  
 
 \mysection{List of Publications}
 
-\subsubsection*{As main author}
+\subsection*{As main author}
 \begin{itemize}
 
     \item Anthony Favier, Phani-Teja Singamaneni, Rachid Alami. Simulating Intelligent Human Agents for Intricate Social Robot Navigation. Social Robot Navigation workshop - Robotics: Science and Systems (RSS'21), Jul 2021, Washington, United States. 
@@ -86,7 +94,7 @@ Eventually, general conclusions regarding my overall PhD work are shared. Additi
 
 \end{itemize}
     
-\subsubsection*{As co-author}
+\subsection*{As co-author}
 \begin{itemize}
     
     \item Guilhem Buisan, Anthony Favier, Amandine Mayima, Rachid Alami. HATP/EHDA: A Robot Task Planner Anticipating and Eliciting Human Decisions and Actions. IEEE International Conference On Robotics and Automation (ICRA 2022), May 2022, Philadelphia, United States. ⟨10.1109/ICRA46639.2022.9812227⟩. 
