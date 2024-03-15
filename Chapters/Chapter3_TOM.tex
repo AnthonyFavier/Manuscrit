@@ -153,10 +153,10 @@ The initial state of our cooking example can be described as follows. There is n
 &\quad \valf[R][0] = \valf[H][0] = \{at(\textsf{R}) = at(\textsf{H}) = \textsf{kitchen},~at(\textsf{pasta})=\textsf{room},\\
 &\qquad \qquad \qquad \qquad \qquad \qquad \qquad \quad saltIn = \textsf{false},~stoveOn = \textsf{false},~counterClean = \textsf{false}\}\\
 &\quad \obsf[0] = \{ (saltIn,\inferable),~(counterClean,\inferable),\\
-&\qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \quad \ (stoveOn,\observable),~(at(e),\observable) ~|~ e \in Entities)\}\\
-&\quad \locf[0] = \{ (saltIn,\textsf{kitchen}),~(counterClean,\textsf{kitchen}),~(stoveOn,\textsf{kitchen}), \}\\
+&\qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \quad \ (stoveOn,\observable),~(at(e),\observable) ~|~ e \in Entities\}\\
+&\quad \locf[0] = \{ (saltIn,\textsf{kitchen}),~(counterClean,\textsf{kitchen}),~(stoveOn,\textsf{kitchen}),\\
 &\qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \ (at(e),\valf[0](at(e))) ~|~ e \in Entities \}
-\end{align*}
+\end{align*}}
 
 When refining the human agenda in $s_0$ we obtain the following \textit{refinement} comprising two possible actions. The human can either begin by \textit{adding} salt to the pot, or they can move to the other room to \textit{fetch} the pasta. 
 
@@ -176,7 +176,6 @@ We now describe how the agents' beliefs are updated when executing a planned act
 \underline{Assumption 2}: We do not consider cases where the robot's beliefs can diverge. The actual ground truth is unknown since the planner is part of the robot. We can only assume that the robot's estimation of the state of the world is correct and then reason using this estimation.
 
 \underline{Assumption 3}: Coming from the two previous assumptions, we assume that humans only make deterministic moves when not observed. Hence, regardless of being co-present, the robot's beliefs are always updated with the effects of the action.
-
 
 
 Thus, Assumption 3 indicates that $\forall x \in X$ we always have,
