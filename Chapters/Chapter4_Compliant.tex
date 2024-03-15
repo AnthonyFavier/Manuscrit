@@ -294,24 +294,22 @@ Hence, before giving more details about the policy itself, we first describe the
 In this approach, instead of trying to minimize action and social costs, which are challenging to estimate accurately and quantitatively, we aimed to satisfy an estimation of human preferences. In a way, the costs are reflected in human preferences. Our approach is to characterize each possible trace with a set of various metrics. Objective and general metrics can be complemented with additional domain-specific metrics (marked with *), which must be given in the problem specification. The metrics used are the following:
 
 \begin{itemize}
-    \item \textbf{Time of Task Completion}: Time step at which the task is achieved.
-    \item \textbf{Time of End of Human Duty}: Time step after which the human can remain passive.
-    \item \textbf{Human Effort}: Number of non-passive human action.
-    \item \textbf{Global Effort}: Number of non-passive human and robot action.
-    \item \textbf{*Passive While Holding}: Number of steps where an agent is passive while holding a cube.
-    \item \textbf{*Number of Drops}: Number of times an agent drops a cube (place back a cube on the table, not in the stack).
+    \item \textbf{Time of Task Completion (TTC)}: Time step at which the task is achieved.
+    \item \textbf{Time of End of Human Duty (TEH)}: Time step after which the human can remain passive.
+    \item \textbf{Human Effort (HE)}: Number of non-passive human action.
+    \item \textbf{Global Effort (GE)}: Number of non-passive human and robot action.
+    \item \textbf{*Passive While Holding (PWH)}: Number of steps where an agent is passive while holding a cube.
+    \item \textbf{*Number of Drops (ND)}: Number of times an agent drops a cube (place back a cube on the table, not in the stack).
 \end{itemize}
 
 The set of metrics helps to characterize and evaluate each possible trace. However, even if the possible plans are characterized, we so far have no way to compare them and find the best one. Doing so requires additional criteria indicating how to prioritize and compare the different metrics.
 
-The preferences can be given verbally or estimated by any other means. Here, we consider human preferences in the following form. These preferences are an ordered list of the metrics characterizing the traces. Note that all metrics in the list above do not need to be present. This ordered list indicates if each metric should be maximized or minimized and with which priority. For instance, assuming the preferences aim to minimize all metrics, the plan with the lowest first metric of the list will be considered as better. If the plans have an equal first metric, then we use the second metric, and so on. Here are two arbitrary examples of human preferences trying respectively to finish the task as fast as possible ($preferences\_1$) and to minimize the human effort ($preferences\_2$) (all metrics are minimized):
+The preferences can be given verbally or estimated by any other means. Here, we consider human preferences in the following form. These preferences are an ordered list of the metrics characterizing the traces. Note that all metrics in the list above do not need to be present. This ordered list indicates if each metric should be maximized or minimized and with which priority. For instance, assuming the preferences aim to minimize all metrics, the plan with the lowest first metric of the list will be considered as better. If the plans have an equal first metric, then we use the second metric, and so on. Here are two arbitrary examples of human preferences trying respectively to finish the task as fast as possible ($TaskEndEarlyPrefs$) and to minimize the human effort ($MinHumanEffortPrefs$). They both minimize all metrics according to the priority orders below:
 
-\begin{equation*}
-    preferences\_1: TTC > GE > HE > TEH > PWH > ND 
-\end{equation*}
-\begin{equation*}
-    preferences\_2: HE > TEH > TTC > GE > PWH > ND 
-\end{equation*}
+\begin{align*}
+    TaskEndEarlyPrefs&: \quad TTC > GE > HE > TEH > PWH > ND \\
+    MinHumanEffortPrefs&: \quad HE > TEH > TTC > GE > PWH > ND 
+\end{align*}
 
 
 Note that estimating either human preferences or explicit action and social costs is challenging and is hardly accurate. Those are very context-dependent and can even vary over time.
