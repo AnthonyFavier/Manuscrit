@@ -5,43 +5,29 @@
 \faketableofcontents
 \fi
 
-\chapter{Interactive Simulator}
+\chapter{Implementing a Joint Action Execution Scheme in an Interactive Simulator}
 \chaptermark{Interactive Simulator}
 \label{chap:5}
 \minitoc
 
-\chapabstract{This chapter contains a technical description of an interactive simulator allowing human operators to collaborate with a simulated robot executing the policies described in the previous chapter. We used this simulator to validate our planning approach through a user study, which will be described in the next chapter.}
+\chapabstract{
+The joint action model we proposed in the previous chapter was abstracted and used to guide our planning approach. This chapter proposes implementing this model as an execution scheme integrated into a dedicated simulator. The latter allows human operators to collaborate with a simulated robot, executing the policies produced by our planning approach. We provide more details about our joint action model and technical details about the developed simulator used to conduct a user study, which will be described in the next chapter.
+}
 
 \section{Introduction}
 
-In order to validate the approach presented in the previous chapter (\ref{chap:4}), we would like to be able to perform a task collaboratively with a simulated robot executing the produced policy. This allowed us to conduct a user study described in the next chapter (chap.~\ref{chap:6}), which validates our planning approach.
+In order to validate the approach presented in the previous chapter (\ref{chap:4}), we would like to be able to perform a task collaboratively with a simulated robot executing the produced policy.
+For that, we refined our model of concurrent and compliant joint action execution. In Chapter~\ref{chap:4}, this model was abstracted and used to guide the planning process to explore further relevant courses of action. As another contribution, we implemented the model as an execution scheme capturing subtleties and social cues of a smooth collaboration. Then, we integrated this scheme into a simulator, allowing human operators to collaborate with a simulated robot running policies produced by our planning approach. An overview of the complete system is shown in figure~\ref{fig:architecture}.
+Eventually, we used this simulator to conduct a user study, which will be described in the next chapter. 
 
 
-\begin{figure}
+\begin{figure}[h]
     \includegraphics[width=\textwidth]{Chapter5/architecture.pdf}
     \caption{Overview of the Interactive Simulator's Architecture}
     \label{fig:architecture}
 \end{figure}
 
-This chapter is a technical description of the interactive simulator I developed. As depicted in fig.~\ref{fig:architecture}, it consists of several components detailed throughout this chapter. We describe the simulated scene corresponding to a BlocksWorld task similar to the one presented in the last chapter but with more cubes. After, the execution controller used is presented, corresponding to a refined and implemented version of the abstracted joint action execution model introduced in the last chapter. We continue by describing the different motion and simulation controllers used to interact with the simulator. Then, the Human-Machine Interface is presented, allowing participants to perform actions in the simulator. Finally, we present how the data retrieved during each execution are used to compute several metrics to evaluate the execution.  
-
-\section{Simulated Scene}
-
-This interactive simulator is based on the Gazebo Simulator. It is an open-source 3D simulator able to simulate articulated robots in a dynamic and complex environment.
-This section describes all aspects directly linked to this existing 3D simulator on which our framework has been developed.
-
-The static scene consists of a large room, with a ground and four walls, and a table placed in the center with two marks on its right side. The marks represent the locations where the cubes must be stacked. The agents are represented as follows. First, the human is represented only with a floating hand as the camera simulates a first-person point-of-view. Then we used a Tiago robot from PAL Robotics because it has an arm to manipulate its environment, a head to send gaze information and signals, and because many related resources are available for it (3D models, controllers, tutorials). The human and the robot are facing each other, each from one opposite side of the table. Finally, colored cubes were disposed of on the table in three distinct zones. Cubes are either close to one agent's side or in the middle of the table. This disposition influences the reachability of the agents as one agent can only reach cubes from their side (just in front of them) or the middle, but never from the other agent's side. This scene corresponds to one specific collaborative task, but another setup could be easily implemented. 
-
-The Gazebo simulator can be integrated with the \acrfull{ros}, which is a set of software libraries and tools that help build robot applications. The main pros of \acrshort{ros} are its ability to run several sub-programs in parallel and allow them to communicate with each other. Hence, the other components of the interactive simulator have been developed with \acrshort{ros}.
-
-The overall scene is depicted in the figure~\ref{fig:simu_view}. The stacking goal is displayed in the top left corner, and a text prompt is shown in the top right corner so that the robot can communicate with the human.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=\textwidth]{Chapter5/simu_screenshot.png}
-    \caption{Participant view of the interactive simulator. It depicts the colored cubes on the table's left, the stacking area on the table's right (the two darker spots), the goal pattern on the top left, the collaborative robot in front, the text prompt on the top right, and the human hand at the bottom right.}
-    \label{fig:simu_view}
-\end{figure}
+This chapter first presents details about the refined joint action model and highlights the additions compared with the abstracted model presented in Chapter~\ref{chap:4}. Then, technical details about its implementation and the overall simulator are given. After describing the simulated scene, details about the various controllers used to run the simulator are provided. We also explain how a human operator can interact with the simulator and effectively collaborate with the robot. Finally, we describe the data we collect during and after each collaboration. 
 
 
 \section{Execution Controller - Joint Action Model for Execution}
@@ -54,22 +40,10 @@ The complete model is depicted in fig~\ref{fig:complete_model_exec}. On top of r
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.99\linewidth]{Chapter5/complete_automaton_rotated.pdf}
+    \includegraphics[width=0.90\linewidth]{Chapter5/complete_automaton_rotated.pdf}
     \caption{Complete Model of Execution - Dual Automaton. This version details the robot automaton and the assumed human automaton as well as the visual signals exchanges between the agents to synchronize themselves.}
     \label{fig:complete_model_exec}
 \end{figure}
-
-% More precisely, \textit{describe differences between simplified and complete model}
-% \begin{itemize}
-%     \item ON robot automaton:
-%     \item HOME/IDLE pose (new left branch)
-%     \item Clock for TimeOut
-%     \item Robot Reaction Time
-%     \item branches 4-5 are merged and actually corresponds to compliant choice in a human automaton
-%     \item Send Robot signals 
-%     \item Human Automaton: decision time, choices, wait signals
-%     \item Human signals
-% \end{itemize}
 
 In the execution controller, the robot automaton is refined and more detailed. 
 First, we show the social cues sent by the robot, which are the following: \textit{START} corresponds to the visual and audible signal indicating to the human that the step begins; \textit{S\_RA} corresponds to the start of a robot action; \textit{R\_PASS} corresponds to the robot being explicitly passive. The other signals, including the human ones, will be described below.
@@ -86,6 +60,25 @@ The last visual difference with the abstracted model on the robot's side is the 
 
 On the other hand, a human automaton now explicitly models how humans should behave to coordinate with robots and collaborate successfully. This automaton starts by always waiting for the beginning of the current step, indicated by the robot with the signals \textit{START} or \textit{START\_IDLE}. The simplest but less common case is when the robot cannot act during the step (after receiving \textit{START\_IDLE}). This case is depicted in the rightmost branch. Since the robot cannot act, only the human can make progress in the task by acting. Thus, the human is free to take as much time as desired, represented by the decision time in the range $[0; +\infty]$. After the start of the human action, both human and robot automatons wait for the end of the human action, and then they proceed.
 Let us discuss now the most common case where the robot can act. This time, the human must decide before the defined robot timeout (TO), otherwise they will be considered passive. The human can decide either to start acting (ACT), to indicate their passivity (PASS), or do nothing corresponding to being passive without informing the robot (WAIT). If the human decides to be passive (PASS or WAIT cases), they can either remain passive until the next step or decide to perform an action not conflicting with the robot one. This is represented by the last human diamond shape labeled ``Compliant choice'' made after a duration referred to as ``compliant decision time''.
+
+
+\section{Gazebo Simulated Scene}
+
+This interactive simulator is based on the Gazebo Simulator. It is an open-source 3D simulator able to simulate articulated robots in a dynamic and complex environment.
+This section describes all aspects directly linked to this existing 3D simulator on which our framework has been developed.
+
+The overall scene is depicted in the figure~\ref{fig:simu_view}. The stacking goal is displayed in the top left corner, and a text prompt is shown in the top right corner so that the robot can communicate with the human.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{Chapter5/simu_screenshot.png}
+    \caption{Participant view of the interactive simulator. It depicts the colored cubes on the table's left, the stacking area on the table's right (the two darker spots), the goal pattern on the top left, the collaborative robot in front, the text prompt on the top right, and the human hand at the bottom right.}
+    \label{fig:simu_view}
+\end{figure}
+
+The static scene consists of a large room, with a ground and four walls, and a table placed in the center with two marks on its right side. The marks represent the locations where the cubes must be stacked. The agents are represented as follows. First, the human is represented only with a floating hand as the camera simulates a first-person point-of-view. Then we used a Tiago robot from PAL Robotics because it has an arm to manipulate its environment, a head to send gaze information and signals, and because many related resources are available for it (3D models, controllers, tutorials). The human and the robot are facing each other, each from one opposite side of the table. Finally, colored cubes were disposed of on the table in three distinct zones. Cubes are either close to one agent's side or in the middle of the table. This disposition influences the reachability of the agents as one agent can only reach cubes from their side (just in front of them) or the middle, but never from the other agent's side. This scene corresponds to one specific collaborative task, but another setup could be easily implemented. 
+
+The Gazebo simulator can be integrated with the \acrfull{ros}, which is a set of software libraries and tools that help build robot applications. The main pros of \acrshort{ros} are its ability to run several sub-programs in parallel and allow them to communicate with each other. Hence, the other components of the interactive simulator have been developed with \acrshort{ros}.
 
 
 \section{Simulation controllers}
@@ -172,8 +165,16 @@ Indeed, when starting an action, the associated visual signal is sent only when 
 
 \section{Human Machine Interface (HMI)}
 
-The human operator, or participant, can interact with the simulation by performing any feasible action during the process. However, humans must synchronize with robots by following the execution model. For this purpose, every step starts with a robot sound/beep. Additionally, a dedicated process receives internally the list of the feasible human actions for the current step. This list is sent by the robot execution scheme, and is extracted from the solution \acrshort{dag}. However, the participants do not show or know of feasible actions.
-Each possible human action is associated with a rectangular area/zone on the screen. When the human clicks in a zone associated with a currently feasible action, the process requests the simulation controller to perform the corresponding human action.
+The human operator, or participant, can interact with the simulation by performing any feasible action during the process. However, humans must synchronize with robots by following the execution model. For this purpose, every step starts with a robot sound/beep. Additionally, a dedicated process receives internally the list of the feasible human actions for the current step. This list is sent by the robot execution scheme and is extracted from the solution \acrshort{dag}. However, the participants do not see or know of feasible actions.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{Chapter5/simu_screenshot_HMI.png}
+    \caption{Hidden clickable areas triggering human actions, if feasible. Areas from 1 to 5 trigger picking the respective cube if it is on the table and the human is not holding one already. Area 6 corresponds to placing a held cube in the stack. Area 7 makes a hand gesture indicating the human desire to be passive to the robot.}
+    \label{fig:hmi}
+\end{figure}
+
+Each possible human action is associated with a rectangular clickable area on the screen. When the human clicks in an area associated with a currently feasible action, the process requests the simulation controller to perform the corresponding human action. Areas 1 to 5 request to pick the corresponding cube if it is on the table and the human is not holding one already. Area 6 corresponds to placing a cube being held into the stack. Since cubes only have one possible stacking place at a time for this task, we consider a large area to trigger placing actions. The controllers determine the exact location to place the cubes. Finally, area 7 makes a hand gesture indicating the human desire to be passive to the robot. It corresponds to sending the \textit{H\_PASS} signal shown in figure~\ref{fig:complete_model_exec}.
 
 \section{Logs and timeline}
 
