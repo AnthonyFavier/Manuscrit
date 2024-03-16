@@ -142,9 +142,9 @@ A robotic agent interacting with a human must coordinate its actions with them. 
 
 \subsection{Human and Robot Agents}
 
-\begin{figure}
+\begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\linewidth]{Chapter1/chakraborti_notations.jpg}
+    \includegraphics[width=0.7\linewidth]{Chapter1/chakraborti_notations.jpg}
     \caption{Agent models from Chakraborti \textit{et al.} notations.}
     \label{fig:chakraborti_notations}
 \end{figure}
@@ -189,14 +189,14 @@ Methods decompose abstract tasks into primitive tasks, represented with ellipses
 Now, let us look at an example of a refinement process. We consider an initial task network only composed of \emph{Abstract Task 1}, and we refine it using the HTN described in fig~\ref{fig:htn_example} until the task network only contains primitive tasks (actions). Initially, \emph{method 1} and \emph{method 2} are both applicable and, thus, are candidates to decompose \emph{Abstract Task 1}. Applying \emph{method 2} leads directly to a fully refined solution task network, including two partially ordered primitive tasks (\emph{Primitive Task 2} and \emph{Primitive Task 3}). On the other hand, \emph{method 1} can be applied, leading to a different task network that still includes abstract tasks. Then, \emph{Abstract Task 2} is recursively decomposed using M4 twice. This could correspond to scenarios like filling a box with two balls. Thus, M4 is only applicable until two more balls are in the box. Eventually, only M3 is applicable and refines \emph{Abstract Task 2} into nothing, leading to another solution task network.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Task Planning Overview}
+\section{An Overview of Task Planning}
 
-\subsection{Classical Planning}
+\subsection{Classical Task Planning}
 
 As Ghallab, Nau, and Traverso put it, “the purpose of planning is to synthesize an organized set of actions to carry out some activity”~\cite{ghallab2016automated}. 
 Classical planning is a type of planning that assumes deterministic and fully observable environments. It involves representing the world as a set of states and actions, with plans derived through state space search algorithms. Actions have preconditions and effects, and planning problems entail finding a sequence of actions to transform an initial state into a goal state. Classical planning algorithms, including STRIPS, Graphplan, and Fast Downward, utilize heuristics to guide the search efficiently. While well-suited for domains with precise and deterministic dynamics, classical planning may face challenges in handling uncertainty or partial observability, leading to alternative planning approaches for such scenarios.
 
-\subsection{Task Planning for hrc}
+\subsection{Task Planning for HRC}
 
 Classical planning has been vastly studied and can now solve various problems efficiently. However, the intricate nature of \acrshort{hrc} scenarios demands sophisticated task planning methodologies capable of adapting to dynamic environments, understanding human intent, and promoting a fluent exchange of information. Hence, several subfields of task planning have emerged and are used in \acrshort{hrc}. Here are a few examples:
 
