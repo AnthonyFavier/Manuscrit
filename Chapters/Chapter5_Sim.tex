@@ -83,11 +83,11 @@ The static scene consists of a large room, with a ground and four walls, and a t
 The Gazebo simulator can be integrated with the \acrfull{ros}, which is a set of software libraries and tools that help build robot applications. The main pros of \acrshort{ros} are its ability to run several sub-programs in parallel and allow them to communicate with each other. Hence, the other components of the interactive simulator have been developed with \acrshort{ros}.
 
 
-\section{Simulation controllers}
+\section{Controllers}
 
 Four distinct controllers have been developed to control the simulated agents and the overall simulation execution. Each controller is described below. 
 
-\subsection{Robot arm motion controller}
+\subsection{Robot Arm Motion}
 
 First, there is one controller that moves the robot's arm. This controller is called with either a 3D position to reach (pose target) or a predefined configuration (named target). In both cases, when called, this controller uses the MoveIt framework. MoveIt creates links between several libraries in order to have access to a unified interface for Motion Planning algorithms, Inverse Kinematics, Control, or Collision Checking. This way, our controller can ``simply'' request MoveIt to find a trajectory to a given position and then make the robot follow this trajectory while taking into account the geometry of the robot arm.
 
@@ -99,7 +99,7 @@ Additionally, to reduce motion planning time, a few simplifications have been do
 First, collisions are only considered with the table and the robot's body. Hence, the robot arm sometimes goes through the other cubes.
 Also, the pick and place orientation are ignored. When picking a cube, the robot gripper just reaches the cube's center from any angle, and then the cube is attached to the gripper. When placing a cube, the robot moves its arm to the target position, and the cube is detached from the gripper. Eventually, the cube's orientation and position are overwritten to match the target location. This way, the robot always performs perfect place action, improving both the reactivity of the robot and its robustness, but the robot's motions are less realistic.
 
-\subsection{Robot head motions}
+\subsection{Robot Head Motion}
 
 The robot head is controlled to look at various elements during the interaction to exhibit a more intuitive and collaborative behavior. 
 Indeed, when waiting for the human, the robot looks at the camera. As soon as the human hand moves to either perform an action or indicate its passivity, the robot starts following the hand to show it is observing the human motions and estimating their intentions.
@@ -108,16 +108,18 @@ Also, the robot looks at the target position when placing a cube to indicate its
 
 A dedicated controller has been developed to perform those head motions based on an existing controller provided in the Tiago robot modules. The existing controller could only change the robot's gaze through a visual and clickable window, allowing an operator to manually click on the scene to change the robot's gaze. This controller has been modified to allow additional features, such as directly requesting to look at a 3D point or an object. Moreover, we can now ask to follow an object. That's how we are able to exhibit the head behavior described just above.  
 
-\subsection{Human hand motions}
+\subsection{Human Hand Motion}
 
 Moving the human hand requires a dedicated controller but is much simpler than the robot arm motion one. Here, the hand must either move to a position or perform a PASS signal. The PASS signal is a hand gesture indicating to the robot that the human desires to be passive for the current step. This motion is performed by simply rotating the hand back and forth at a constant speed. The PASS motion has a duration of 0.7s. 
 On the other hand, we do not use a real motion planner to move the hand to a target position. We simply compute a straight line between the current hand pose and the target pose. Then, we update the hand position at $50Hz$ to move at a constant speed set to $0.25 m/s$. The planning time is thus negligible compared to the robot motion planning times.
 
-\subsection{Simulation controller}
+\subsection{Simulation}
 
-\subsubsection{Action decomposition}
+Last but not least, I developed a fourth controller called the \textit{simulation controller}. Its main jobs are to decompose high-level actions into low-level commands for the simulator, to keep track of the step-based synchronization used in our joint action model, and to generate the visual social signals used in our model to coordinate the agents. 
 
-Last but not least, I developed a fourth controller whose main job is to translate the actions from the plan produced by our task planner to low-level motions that can be executed by the controllers listed above. Hence, some parts of this controller are domain-specific, but a major part is generic for manipulation tasks. This controller received high-level agent actions to execute, such as ``Robot pick(b1)'' for the robot picking the cube b1. The first step is to decompose this action into low-level generic actions, which are themselves made of low-level motions. This controller also keeps track of a few low-level facts to check low-level preconditions, such as what each agent is holding or which object is still on the table. Hence, the controller throws an error when an agent tries to pick a cube while already holding one.
+\subsubsection{Action Decomposition}
+
+First, we describe how we translate the high-level actions from the plan produced by our task planner to low-level motions that can be executed by the controllers listed above. Some parts of this controller are domain-specific, but a major part is generic for manipulation tasks. This controller received high-level agent actions to execute, such as ``Robot pick(b1)'' for the robot picking the cube b1. The first step is to decompose this action into low-level generic actions, which are themselves made of low-level motions. This controller also keeps track of a few low-level facts to check low-level preconditions, such as what each agent is holding or which object is still on the table. Hence, the controller throws an error when an agent tries to pick a cube while already holding one.
 
 Let's first comment on the low-level generic actions available. This controller is given a list of the object names (cubes) and the names of some predefined locations in the scene (placing locations in the stack). Except for the last five, the following actions are not agent-specific and can be performed by any agent. This is defined by a parameter given when calling the action. The following low-level actions are available:
 
@@ -152,11 +154,11 @@ Then, the high-level actions from the plan produced are the following with their
     \item \textbf{DropCubeTable:}       When an agent cannot stack a cube they are holding, they can place it back on the table. First, the drop position is defined. It corresponds to the initial position of the cube being held, except for the green one, which is initially on top of another cube and has a dedicated drop position. The robot looks at the drop position with robot\_head\_follow\_pose. The hand or the robot arm is moved to the position with move\_pose\_target. The cube is dropped with drop\_obj, and its position is adjusted. Then, the agent is put in its home configuration with move\_home, and the robot looks at the human with robot\_head\_look\_human.  
 \end{itemize}
 
-\subsubsection{Manage steps}
+\subsubsection{Manage Steps Synchronizations}
 
 The simulator controller is also in charge of indicating when a step is over. Since we do not consider steps where both agents are passive, a step begins when an agent starts an action. A step is over when both agent actions are done. These rules cover many situations, such as if the human initially wants to be passive and wave their hand. As a result, the robot starts performing an action, which starts the next step. Currently, the step would be over as soon as the robot's action is over since the human is passive. However, if the human decides to start performing an action concurrently, then the step will be over when both the robot's and human's actions are over. This may imply that if the human starts acting right before the end of the robot's action, then the robot will just wait for the end of the human action, and thus, the end of the step before the next step begins.  
 
-\subsubsection{Send visual signals}
+\subsubsection{Send Visual Signals}
 
 The model of execution synchronizes the agents based on explicit visual signals such as the start of a step, the start of an action, the end of an action, or a hand gesture (PASS). Those signals are modeled explicitly inside the system and managed by the simulator controller.
 
@@ -165,7 +167,7 @@ Indeed, when starting an action, the associated visual signal is sent only when 
 
 
 
-\section{Human Machine Interface (HMI)}
+\section{Human-Machine Interface (HMI)}
 
 The human operator, or participant, can interact with the simulation by performing any feasible action during the process. However, humans must synchronize with robots by following the execution model. For this purpose, every step starts with a robot sound/beep. Additionally, a dedicated process receives internally the list of the feasible human actions for the current step. This list is sent by the robot execution scheme and is extracted from the solution \acrshort{dag}. However, the participants do not see or know of feasible actions.
 
@@ -178,11 +180,11 @@ The human operator, or participant, can interact with the simulation by performi
 
 Each possible human action is associated with a rectangular clickable area on the screen. When the human clicks in an area associated with a currently feasible action, the process requests the simulation controller to perform the corresponding human action. Areas 1 to 5 request to pick the corresponding cube if it is on the table and the human is not holding one already. Area 6 corresponds to placing a cube being held into the stack. Since cubes only have one possible stacking place at a time for this task, we consider a large area to trigger placing actions. The controllers determine the exact location to place the cubes. Finally, area 7 makes a hand gesture indicating the human desire to be passive to the robot. It corresponds to sending the \textit{H\_PASS} signal shown in figure~\ref{fig:complete_model_exec}.
 
-\section{Logs and timeline}
+\section{Execution Data: Logs, Metrics, and Timeline}
 
 There is also a dedicated process to record the different events and signals during one execution. All other components can send events to log to this process to save them for later post-processing. A log event is defined with a name and a time stamp. Additionally, visual signals are also captured by this logging process and saved both as a signal and as a corresponding event. Logged events mostly help trace the robot's internal states and processes during the execution. The human ones mainly serve to identify when the human is acting or not since we do not have access to the internal reasoning process of the human participant. 
 
-\subsection{Activities extraction}
+\subsection{Extraction of Agents' Activities}
 
 All logs are saved after each execution and can be loaded later for post-processing. The post-processing involves three steps. First, the agent activities are extracted from the event list. The human and the robot have different possible activities, but since we do not have access to internal human reasoning, there are more robot activities than human ones. The extracted activities are shown in the following table~\ref{tab:agent_activities}. The activities' orders try to match what can happen during the execution, but not all activities are present at every step. Indeed, on the robot side, the ID process is not always necessary and thus not always executed, and the robot either performs an action or is passive for diverse reasons. But the robot always ends up waiting for the end of the step, performing the \acrshort{sa} process and getting ready for the next step. On the human side, if the human performs an action or makes a hand gesture, there will be a measurable decision time. If the human remains passive without signaling the robot, then the only activity is passive without signaling. The ``waiting next step to start'' activity is only added if the human is active. Otherwise, being passive for a step is implicitly equivalent to waiting for the next step.  
 
@@ -204,7 +206,7 @@ All logs are saved after each execution and can be loaded later for post-process
     \label{tab:agent_activities}
     \end{table}
 
-\subsection{Metrics computation}
+\subsection{Metrics Computation}
 
 When loading the execution logs, we extract a set of metrics from the events and extracted activities. Currently, 27 metrics are extracted, but the following table \ref{tab:metrics} only shows 11 because several sub-metrics are hidden. Indeed, for four of the listed metrics, we compute the sum, average, standard deviation, min, and max values of the corresponding metric.
 
@@ -245,7 +247,7 @@ When loading the execution logs, we extract a set of metrics from the events and
     \label{tab:metrics}
     \end{table}
 
-\subsection{Execution example with timeline}
+\subsection{Execution Example with Detailed Timeline}
 
 A complete scenario is presented and commented on in this section. Using the previously extracted agent activities, we can draw a visual timeline depicting the different steps, the extracted activities, and the visual signals exchanged between the agents. Figure \ref{fig:timeline_example} depicts the complete commented timeline, including agents' activities, exchanged signals, and snapshots from the simulator. The table \ref{tab:signals} describes the different signals exchanged during the execution and shown on the timeline. 
 

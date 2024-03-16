@@ -7,12 +7,14 @@
 \faketableofcontents
 \fi
 
-\chapter{A Human-Aware Task Planner Emulating Human Decisions and Actions (HATP/EHDA)}
+\chapter{A Human-Aware Task Planner able to Emulate and Elicit Human Decisions and Actions (HATP/EHDA)}
 \chaptermark{HATP/EHDA}
 \label{chap:2}
 \minitoc
 
-\chapabstract{This chapter presents the HATP/EHDA task planner. This planner has been the keystone of most of my work. Hence, the reader should understand the motivation and methods of this task planner.}
+\chapabstract{This chapter presents the HATP/EHDA task planner. 
+This approach aims to clearly distinguish between the uncontrollable human and the controllable robot agents. Most importantly, it models the distinct human decisional processes and beliefs to be able to reason on it while planning the robot's action.
+This planner has been the keystone of most of my work. Hence, the reader should understand the motivation and methods of this task planner.}
 
 \section{Introduction}
 
@@ -54,7 +56,7 @@ The \acrshort{hatp} approach produces what is estimated to be the best joint pla
 
 \end{enumerate}
 
-\section{Related work} \label{sec:ch2_related_work}
+\section{Related Work} \label{sec:ch2_related_work}
 
 An approach to solving a collaborative task is to produce a joint plan that includes coordinated robot and human actions. This plan must be shared, accepted, and followed to solve collaboratively the common goal. This approach is used in the \acrshort{hatp} planner presented above. By assuming the plan must be followed, the human cannot deviate from the generated plan. Hence, this approach assumes that the human is controllable. 
 In \cite{johannsmeier2016hierarchical}, the authors use the same assumption and propose a task allocation framework for human-robot collaborative assembly line tasks. They propose representing the task through an AND/OR graph and solving the optimal sub-task allocation problem considering a given cost function. Action sequences are extracted from this allocation and then shared with the respective agents to be executed. Hierarchical and concurrent hybrid state machines handle the execution of these sequences. This copes with unpredictable events likely to happen in dynamic and partially known environments, especially in the presence of humans.  
@@ -87,7 +89,7 @@ They use a so-called ``\textit{agent state}'' to model the human mental state an
 In their approach, the \textit{agent state} is sensed and updated during execution. Then, whenever changes in the \textit{agent state} are detected, a replan is triggered to consider those changes in the plan, often inducing a reassignment of the actions and avoiding the probable failure of the initial plan. However, the authors do not provide a method to effectively sense and estimate the \textit{agent state} but prove its usefulness by simulating its acquisition.
 
 
-\section{Running Example}
+\section{A BlocksWorld Running Example}
 
 \begin{figure}
     \centering
@@ -103,7 +105,7 @@ A first human, called \textit{H1}, requests the robot to stack the colored cubes
 The HATP/EHDA approach explores and evaluates all these kinds of scenarios to produce the robot policy.
 
 
-\section{Formalization}
+\section{Formalization of the Approach}
 
 This section describes the formalization introduced by the HATP/EHDA planning approach and used or adapted in my contributions. It includes descriptions of the problem specifications and the solution produced by the planner.  
 
@@ -281,7 +283,7 @@ Each branch in the solution tree is a sequence of primitive actions, say $\pi=(a
 Here, each $a_i^h$ represents a choice, often out of several, the human could make. And each $a_{i+1}^r$ is the optimal robot action according to $a_i^h$.
 
 
-\section{Exploration}
+\section{Exploration and Search Process}
 
 To start planning, HATP/EHDA must be given the two action models (the robot and the human HTNs), the initial beliefs of both agents (which can differ), and the initial agenda of both agents. The initial agenda of the robot represents the task to decompose, while the agenda of the human represents any task the human is estimated to be committed to. If a shared goal has been established prior to planning between the robot and the human (\textit{e.g.}, the human asking to perform a task with the robot), the agenda of both agents will be filled with the same task.
 

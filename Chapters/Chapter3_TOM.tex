@@ -17,9 +17,7 @@
 %%% SECTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
 
-
-
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.5\linewidth]{Chapter3/The-Sally-Anne-Task.jpeg}
     \caption{Sally and Anne Task}
@@ -37,9 +35,9 @@ We would want the robot to be able to reason and correctly maintain distinct hum
 
 
 %%% SECTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Related works}
+\section{Related work}
 
-    This chapter's contribution is related to several topics that have not been mentioned yet. Hence, this section introduces the new topics and relevant related works to capture our contribution better.  
+    This chapter's contribution is related to several topics that have not been mentioned yet. Hence, this section introduces the new topics and relevant related work to capture our contribution better.  
 
     \subsection{Theory of Mind in HRC}
     \acrfull{tom} refers to the ability to attribute mental states to oneself and others, such as beliefs, desires, and intentions. However, estimating the current knowledge and beliefs of the different agents is challenging. To do so, we must consider Theory of Mind concepts, especially perspective shift and the notion of co-presence.
@@ -70,7 +68,7 @@ We would want the robot to be able to reason and correctly maintain distinct hum
 
 
 %%% SECTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Maintaining the Human Beliefs}
+\section{Maintaining the Human Beliefs while Planning}
 
     %%% SUB-SECTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \subsection{Enhanced Problem Specification}
@@ -333,7 +331,7 @@ After, we identify which action creates the divergence by regressing the current
 Once identified, we create another branch in the plan just before the identified action. In this new branch, {\sc delay} actions are inserted in the robot's plan until the human is co-present. When the human is co-present again, the identified action is inserted and observed by the human. Then, the nominal planning process is resumed.  
 
 %%% SECTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Result}
+\section{Results}
 
 Referring to the related work section, we are not aware of an implemented planning system that can be used as a baseline. Hence, we use the HATP/EHDA solver to help present our approach's results on three \textit{novel} planning domains.
 

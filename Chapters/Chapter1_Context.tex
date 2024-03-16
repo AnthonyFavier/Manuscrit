@@ -18,23 +18,23 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Multidisciplinarity of Human-Robot Interaction}
+\section{A Multidisciplinary Field: Human-Robot Interaction}
 
-\begin{figure}
+In \cite{bartneck_human_robot_2020}, the \acrfull{hri} is considered unique because of the interaction of humans with social robots, which is at the core of this multidisciplinary research field. These interactions usually include physically embodied robots, and their embodiment makes them inherently different from other computing technologies. Moreover, social robots are perceived as social actors bearing cultural meaning, strongly impacting contemporary and future societies. Saying that a robot is embodied does not mean it is simply a computer on legs or wheels. Instead, we must understand how to design that embodiment, both in terms of software and hardware, as it is commonplace in robotics, and in terms of its effects on people and the kinds of interactions they can have with such a robot.
+
+Overall, \acrfull{hri} focuses on developing robots that can interact with people in various everyday environments. This opens up technical challenges resulting from the dynamics and complexities of humans and the social environment. This also opens up design challenges—related to robotic appearance, behavior, and sensing capabilities—to inspire and guide interaction. From a psychological perspective, \acrshort{hri} offers the unique opportunity to study human affect, cognition, and behavior when confronted with social agents other than humans. In this context, social robots can be research tools to study psychological mechanisms and theories.
+
+\begin{figure}[h]
     \center
     \includegraphics[width=\linewidth]{Chapter1/hri_multi.pdf}
     \caption{Multidisciplinarity of the Human-Robot Interaction field.}
     \label{fig:hri_multi}
 \end{figure}
 
-In \cite{bartneck_human_robot_2020}, the \acrfull{hri} is considered unique because of the interaction of humans with social robots, which is at the core of this multidisciplinary research field. These interactions usually include physically embodied robots, and their embodiment makes them inherently different from other computing technologies. Moreover, social robots are perceived as social actors bearing cultural meaning, strongly impacting contemporary and future societies. Saying that a robot is embodied does not mean it is simply a computer on legs or wheels. Instead, we must understand how to design that embodiment, both in terms of software and hardware, as it is commonplace in robotics, and in terms of its effects on people and the kinds of interactions they can have with such a robot.
-
-Overall, \acrfull{hri} focuses on developing robots that can interact with people in various everyday environments. This opens up technical challenges resulting from the dynamics and complexities of humans and the social environment. This also opens up design challenges—related to robotic appearance, behavior, and sensing capabilities—to inspire and guide interaction. From a psychological perspective, \acrshort{hri} offers the unique opportunity to study human affect, cognition, and behavior when confronted with social agents other than humans. In this context, social robots can be research tools to study psychological mechanisms and theories.
-
 As a result, by taking inspiration from \acrfull{hhi} and \acrfull{hci}, \acrshort{hri} is an endeavor that brings together ideas from a wide range of disciplines such as Engineering, Computer Science, Robotics, Psychology, Sociology, and Design.
 In the following, we discuss some related aspects and works of the mentioned disciplines by categorizing them between \acrshort{hhi}, \acrshort{hci}, and \acrshort{hri} as depicted in figure~\ref{fig:hri_multi}.
 
-\subsection{Human-Human Interaction}
+\subsection{Human-Human Interaction (HHI)}
 
 Many works dealing with interacting with humans take inspiration from \acrfull{hhi}, including research in sociology and psychology. \acrshort{hhi} refers to the communication and collaboration between two or more individuals, where humans engage in various forms of social, cognitive, and emotional exchanges. Such interaction can occur through verbal and non-verbal communication, such as speech, gestures, facial expressions, and body language.   
 
@@ -44,7 +44,7 @@ Since communication has a crucial role in collaboration, communication theories 
 
 We must first understand how humans interact with each other before making robots able to interact correctly with humans. However, perfectly mimicking humans is questionable since robots fundamentally differ from humans. Humans have created robots to help and assist them. Thus, HHI should inspire robot design, but additional research is mandatory to determine how to create appropriate interactive and collaborative robots.
 
-\subsection{Human-Computer Interaction}
+\subsection{Human-Computer Interaction (HCI)}
 
 A first step of artificial interaction and collaboration is the field of \acrfull{hci}. \acrshort{hci} is the field of study that focuses on optimizing how users and computers interact by designing interactive computer interfaces that satisfy users' needs. It is a multidisciplinary subject covering computer science, behavioral sciences, cognitive science, ergonomics, psychology, and design principles.
 Today, \acrshort{hci} focuses on designing, implementing, and evaluating interactive interfaces that enhance user experience using computing devices. This includes user interface design, user-centered design, and user experience design. 
@@ -57,7 +57,7 @@ The Context must be taken into account because it influences the interaction.
 
 To produce easy interaction with robots, the study of \acrshort{hci} is relevant and helps to design intuitive, user-friendly interactive robots.
 
-\subsection{Human-Robot Interaction}
+\subsection{Human-Robot Interaction (HRI)}
 
 \acrfull{hri} is a field of study exploring the design, development, and evaluation of robots interacting with humans in various settings. \acrshort{hri} aims to create robots that can effectively and seamlessly collaborate with humans in domestic environments, workplaces, or other contexts. 
 \acrshort{hri} can be categorized in several domains, not necessarily exclusive. Here are some examples:
@@ -76,11 +76,11 @@ A significant amount of work is dedicated to \acrshort{hri} in Healthcare to ass
 \uline{Human-Robot Collaboration} or \uline{Collaborative Robotics} focuses on developing robots that work alongside humans in shared workspaces, usually as a team. \acrshort{hrc} is the main topic of my thesis and is a vast subject worth delving into. Hence, the following section is dedicated to providing more details about \acrshort{hrc}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Human-Robot Collaboration}
+\section{Human-Robot Collaboration (HRC)}
 
 \acrfull{hrc} refers to the synergy and cooperation between humans and robots in shared environments to achieve common goals. In \acrshort{hrc}, humans and robots work together, often leveraging their complementary strengths to enhance overall performance and efficiency. According to human desires, the robot can also act in a way that eases and facilitates the human part of the task. This collaborative approach involves close interaction, communication, and coordination between human and robotic agents.
 
-\subsection{Inspirations \& Theories informing HRC}
+\subsection{Inspirations \& Theories Informing HRC}
 
 This interdisciplinary field takes inspiration from various theories and fields, as introduced earlier. Nevertheless, three main inspirations can be highlighted:
 
@@ -239,13 +239,13 @@ Nevertheless, I also worked on decision-making processes for navigation, more pr
 As stated in \cite{thesisBuisan21}, robot navigation aims to make the robot base (the whole robot) move from one place to another while avoiding static and moving obstacles. However, other constraints must be added when the robot has to move in an environment where humans are evolving. 
 Humans should not just be avoided as other moving obstacles, and their psychological and mental state must be taken into account. Hence, the robot should neither move threateningly, block the humans, nor induce drastic changes in their motion. Taking all these aspects into account is what is called human-aware robot navigation.
 
-\subsection{Robot Navigation techniques}
+\subsection{Robot Navigation Techniques}
 
 State-of-the-art techniques for robot navigation involve two kinds of motion planners: a global and a local planner. The global planner is in charge of finding the best overall trajectory to lead the robot to its goal and producing a global plan. This planner usually only takes into account static obstacles described by a given map of the environment. Then, the local planner is responsible for producing velocity commands sent to the motor controllers to follow the produced global plan. To produce the velocity commands, the local planner may produce a local plan with only a few seconds of time horizon that follows the global plan while considering obstacles detected in real-time by the robot sensors, including moving obstacles. This way, the robot should reach its goal while reacting to moving obstacles. 
 
 However, as explained above, such approaches are insufficient in human-populated environments. Humans must be detected and treated differently during the motion planning process. Human-aware approaches detect and track nearby humans and try to estimate their trajectory to plan the robot's one accordingly. This is achieved in works like \cite{singamaneni2021human}, where the human trajectory is estimated using goal recognition processes and elastic bands methods. Then, the robot's motion is planned using tuned elastic band methods to account for the robot's goal, the estimated human trajectory, and other social norms.   
 
-\subsection{Benchmarking tools and metrics}
+\subsection{Benchmarking Tools and Metrics}
 
 Where it is easy to benchmark robot navigation on objective metrics like the time to reach a goal, the distance traveled, and the number of collisions \cite{perille2020benchmarking}, it is more challenging to benchmark their human-aware properties.
 First, there is no consensus on the metrics to evaluate a navigation system's human-aware properties. State-of-the-art metrics involve proxemics \cite{samarakoon2022review}. However, other relevant metrics, such as the deviation imposed on human motion and the feeling of threat produced, can be used.
@@ -263,4 +263,4 @@ Typical approaches involve reactive-only techniques such as social force models 
 The social force model assumes that a sum of different forces can approximate pedestrians' acceleration, deceleration, and directional changes, each capturing a different desire or interaction effect. For instance, as depicted in figure \ref{fig:social_force_model}, one force corresponds to the acceleration towards the desired velocity of motion; second, repulsive forces reflect the agent keeping a certain distance from other agents and obstacles; third, attractive forces represent the goal and motivations of the agent. Eventually, using standard physics equations, the sum of these dynamic forces describes the agents' motion.
 Such reactive models are easy to use and efficient for crowd simulations. Interestingly, in crowded or evacuation scenarios, social force models exhibit several so-called ``self-organization phenomena'' such as lane formation, zipper effect, intermittent flow, or turbulence.
 Unfortunately, such a model can perform very poorly in intricate and non-crowded scenarios involving some decision-making. Thus, there was a lack of intelligent simulated agents to challenge effectively \acrshort{han} system.
-A few recent works also propose simulating human agents endowed with some reasoning processes. However, I did not find the time to compare my contribution with theirs, and it remains an interesting possible future work. Nevertheless, this shows that this is a subject of interest. Some related works will be discussed in Chapter~\ref{chap:6}.
+A few recent works also propose simulating human agents endowed with some reasoning processes. However, I did not find the time to compare my contribution with theirs, and it remains an interesting possible future work. Nevertheless, this shows that this is a subject of interest. Some related work will be discussed in Chapter~\ref{chap:6}.

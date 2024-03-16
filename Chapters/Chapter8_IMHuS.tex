@@ -48,7 +48,7 @@ The goal of the tool described in this paper is to provide a means to generate s
 The goal of IMHuS, the tool described in this paper, is to provide an open-source toolkit for defining high-level reactive simulated humans with the ability to show the behavior of social groups but using realistic standard robotics simulators that allow researchers to use models of their real robots, both for debugging their algorithms and for benchmarking and repeatability.
 
 
-\section{Design of a step-based social simulation}
+\section{Design of a Step-based Social Simulation}
 \label{sec:design}
 
 The goal of IMHuS is to standardize the validation of autonomous robot behavior in the presence of people, allowing researchers to design repeatable human social situations. For example, we can define a set of waypoints where different simulated people arrive, meet, and move as a group to a different position, or two people facing each other and then moving together to a different location.
@@ -58,7 +58,7 @@ Our proposal considers that both individuals and groups must be included in the 
 A central process can have perfect knowledge of the simulated environment, accessing the real and accurate positions of all the elements of the simulations (obstacles, robots, etc.). It is not designed to emulate an embedded agent since the robot simulation process has to obtain the information through the noise-simulated sensor readings provided by the simulator. This process can use the API of the simulator to get all the information directly, without noise and identification problems (it will know which types of elements are in the simulation and their state). For instance, it does not need to identify if something is ``a door" or if it is opened. The door state is obtained directly from the simulator.
 
 
-\subsection{Choreography oriented simulation}
+\subsection{Choreography Oriented Simulation}
 
 The constraints and assumptions made for IMHuS are:
 \begin{enumerate}
@@ -191,7 +191,7 @@ The IMHuS tool shown in Figure~\ref{fig:imhus} has been structured in three laye
 \end{description}
 
 
-\section{Use cases}
+\section{Use Cases}
 \label{sec:useCases}
 
 
