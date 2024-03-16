@@ -37,13 +37,13 @@ However, we need an execution controller to supervise the execution of the produ
 
 The complete model is depicted in fig~\ref{fig:complete_model_exec}. On top of refining the `robot automaton' present in the abstracted version, it also models the human agent's behavior with another automaton that captures the possible decisions the human may make during execution. Additionally, this complete model makes all the social signals exchanged between the agents explicit and shows how they are used for coordination. These differences are discussed in detail below. This execution controller takes as input the solution \acrshort{dag} produced by the approach of Chapter~\ref{chap:4}. Then, the controller progresses from the initial state to a goal in the solution graph. The controller handles the state transitions, step by step, by sending and synchronizing on social cues. Thanks to this controller and the associated simulator, we now have a durative task execution that effectively affects a simulated environment.
 
-
-\begin{figure}
+\begin{sidewaysfigure}
     \centering
-    \includegraphics[width=0.90\linewidth]{Chapter5/complete_automaton_rotated.pdf}
+    \includegraphics[width=1.0\linewidth]{Chapter5/complete_automaton.pdf}
     \caption{Complete Model of Execution - Dual Automaton. This version details the robot automaton and the assumed human automaton as well as the visual signals exchanges between the agents to synchronize themselves.}
     \label{fig:complete_model_exec}
-\end{figure}
+\end{sidewaysfigure}
+
 
 In the execution controller, the robot automaton is refined and more detailed. 
 First, we show the social cues sent by the robot, which are the following: \textit{START} corresponds to the visual and audible signal indicating to the human that the step begins; \textit{S\_RA} corresponds to the start of a robot action; \textit{R\_PASS} corresponds to the robot being explicitly passive. The other signals, including the human ones, will be described below.
