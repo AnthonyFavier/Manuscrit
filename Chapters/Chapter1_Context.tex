@@ -118,17 +118,17 @@ In order to better picture the implications of the above theories, some key aspe
 It is important to remember that since a collaborative robot is issued from an interdisciplinary field, its different functionalities and capabilities are usually separated into several dedicated components. These components interact and communicate with each other, forming a complete architecture. Such architectures cover all aspects relevant to exhibiting the robot's behavior, from sensory perception to physical motions, including reasoning processes. 
 Despite developing distinct robotic components, the robot must be considered a whole. Each component cannot be studied entirely independently of other aspects of the complete system. As a result, optimizing how these components interact by design has been the focus of several works proposing robotic architectures.
 
-\begin{figure}
+As Matthias Scheutz, Jack Harris, and Paul Schermerhorn put in \cite{scheutz_systematic_2013}, architectures for intelligent robots have improved steadily over the years. 
+Early works like \cite{alami_designing_1993,alami_architecture_1998,chatila_integrated_1992} propose architectures to provide autonomy to mobile robots, focusing on three levels: decision, execution, and functional. Diverse components that allow robots to negotiate increasingly more complex indoor and outdoor environments have been considered, and they have improved those architectures over the years. As a result, current robot architectures integrate multiple sophisticated algorithms for real-time perceptual, planning, and action processing, from 3D object recognition to simultaneous localization and mapping to navigation and task planning to action sequencing. However, classical robotic architectures like the ones mentioned above typically lack components for high-level cognition, such as general-purpose reasoning and problem-solving. 
+To address this issue, studies on cognitive robot architecture began mainly with the SOAR (depicted in figure~\ref{fig:soar}) and ACT-R architectures \cite{laird_soar_1987,anderson2004integrated}.
+Often based on the structure of the human mind, such cognitive architectures aim to endow robots with high-level capabilities like learning, inferring, and reasoning about how to behave in response to complex goals in complex worlds. 
+
+\begin{figure}[h]
     \center
     \includegraphics[width=0.9\linewidth]{Chapter1/soar_architecture.png}
     \caption{The SOAR cognitive architecture.}
     \label{fig:soar}
 \end{figure}
-
-As Matthias Scheutz, Jack Harris, and Paul Schermerhorn put in \cite{scheutz_systematic_2013}, architectures for intelligent robots have improved steadily over the years. 
-Early works like \cite{alami_designing_1993,alami_architecture_1998,chatila_integrated_1992} propose architectures to provide autonomy to mobile robots, focusing on three levels: decision, execution, and functional. Diverse components that allow robots to negotiate increasingly more complex indoor and outdoor environments have been considered, and they have improved those architectures over the years. As a result, current robot architectures integrate multiple sophisticated algorithms for real-time perceptual, planning, and action processing, from 3D object recognition to simultaneous localization and mapping to navigation and task planning to action sequencing. However, classical robotic architectures like the ones mentioned above typically lack components for high-level cognition, such as general-purpose reasoning and problem-solving. 
-To address this issue, studies on cognitive robot architecture began mainly with the SOAR (depicted in figure~\ref{fig:soar}) and ACT-R architectures \cite{laird_soar_1987,anderson2004integrated}.
-Often based on the structure of the human mind, such cognitive architectures aim to endow robots with high-level capabilities like learning, inferring, and reasoning about how to behave in response to complex goals in complex worlds. 
 
 \cite{lemaignan_artificial_2017} identifies relevant collaborative cognitive skills and integrates them into a proposed architecture. The skills include geometric reasoning and situation assessment based on perspective-taking and affordance analysis; acquisition and representation of knowledge models for multiple agents (humans and robots, with their specificities); situated, natural, and multi-modal dialogue; human-aware task planning; human-robot joint task achievement.
 
@@ -231,21 +231,36 @@ Additionally, one could think about a smart environment, e.g., a domotic house, 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Human-Aware Navigation}
+\section{Simulating Intelligent Human Agents}
 
 In my work, I studied the decision-making challenge, mainly in the field of task planning. 
-Nevertheless, I also worked on decision-making processes for navigation, more precisely, on how to simulate a navigating interactive human agent endowed with decisional capabilities to challenge robotic navigation systems. Hence, to better understand this contribution, this section provides some context on robot navigation, especially on state-of-the-art techniques and existing benchmarking tools.
+Nevertheless, I also worked on endowing simulated autonomous human agents with decision-making capabilities in order to test and challenge robotic systems.
+I propose a generic architecture to simulate such agents. Then, I describe two versions implemented for the navigation use case, simulating respectively a single and several agents. 
+
+To better understand these contributions, I discuss existing approaches to simulate human agents, present state-of-the-art robot navigation techniques, and finally, existing benchmarking tools, including simulated navigating human agents. 
+
+\subsection{Simulation for HRI \& Simulating Human Behavior}
+
+Studies in \acrshort{hri} quickly faced issues with testing and challenging the designed robotic systems, especially due to human interaction. Indeed, using a real robot and real human operator is burdensome, but it is often necessary to test an HRI robot system correctly. 
+Consequently, research on how to 
+simulate \acrshort{hri} scenarios is of growing interest. 
+
+In \cite{schmitz_simulation_2010} and \cite{hirth_development_2011}, they propose a robot development framework that simulates all required modules of the robot, its sensor system, and its environment, including persons. The simulation can represent all actuators of a humanoid robot, like body, head, arm movements, and facial expressions. Besides the simulation of actuators, all sensors are modeled. They integrate a human avatar with motions and dynamics generated with H-Anim. However, it is unclear what decision-making capabilities the avatar has, if not none.
+
+In \cite{shumaker_intelligent_2015}, they designed an agent-based online testbed that supports virtual simulation of domain-independent human-robot interaction. The simulation is implemented as an online game where humans and virtual robots work together in simulated scenarios. This testbed allows researchers to carry out human-robot interaction studies. In this contribution, the human agents are the result of combining two agent technologies: decision-theoretic planning~\cite{kaelbling_planning_1998} and recursive modeling~\cite{gmytrasiewicz_rigorous_1995}. The agents' beliefs and behaviors are generated by solving a \acrfull{pomdp}.
+
+Eventually, as mentioned previously, cognitive architectures are often based on the structure of the human mind and aim to reproduce high-level capabilities like learning, inferring, and reasoning about how to behave in response to complex goals in complex worlds. They can be used to simulate complex human behavior .
+
+\subsection{Robot Navigation}
 
 As stated in \cite{thesisBuisan21}, robot navigation aims to make the robot base (the whole robot) move from one place to another while avoiding static and moving obstacles. However, other constraints must be added when the robot has to move in an environment where humans are evolving. 
 Humans should not just be avoided as other moving obstacles, and their psychological and mental state must be taken into account. Hence, the robot should neither move threateningly, block the humans, nor induce drastic changes in their motion. Taking all these aspects into account is what is called human-aware robot navigation.
-
-\subsection{Robot Navigation Techniques}
 
 State-of-the-art techniques for robot navigation involve two kinds of motion planners: a global and a local planner. The global planner is in charge of finding the best overall trajectory to lead the robot to its goal and producing a global plan. This planner usually only takes into account static obstacles described by a given map of the environment. Then, the local planner is responsible for producing velocity commands sent to the motor controllers to follow the produced global plan. To produce the velocity commands, the local planner may produce a local plan with only a few seconds of time horizon that follows the global plan while considering obstacles detected in real-time by the robot sensors, including moving obstacles. This way, the robot should reach its goal while reacting to moving obstacles. 
 
 However, as explained above, such approaches are insufficient in human-populated environments. Humans must be detected and treated differently during the motion planning process. Human-aware approaches detect and track nearby humans and try to estimate their trajectory to plan the robot's one accordingly. This is achieved in works like \cite{singamaneni2021human}, where the human trajectory is estimated using goal recognition processes and elastic bands methods. Then, the robot's motion is planned using tuned elastic band methods to account for the robot's goal, the estimated human trajectory, and other social norms.   
 
-\subsection{Benchmarking Tools and Metrics}
+\subsection{Navigation Benchmarking Tools and Metrics}
 
 Where it is easy to benchmark robot navigation on objective metrics like the time to reach a goal, the distance traveled, and the number of collisions \cite{perille2020benchmarking}, it is more challenging to benchmark their human-aware properties.
 First, there is no consensus on the metrics to evaluate a navigation system's human-aware properties. State-of-the-art metrics involve proxemics \cite{samarakoon2022review}. However, other relevant metrics, such as the deviation imposed on human motion and the feeling of threat produced, can be used.
@@ -263,4 +278,4 @@ Typical approaches involve reactive-only techniques such as social force models 
 The social force model assumes that a sum of different forces can approximate pedestrians' acceleration, deceleration, and directional changes, each capturing a different desire or interaction effect. For instance, as depicted in figure \ref{fig:social_force_model}, one force corresponds to the acceleration towards the desired velocity of motion; second, repulsive forces reflect the agent keeping a certain distance from other agents and obstacles; third, attractive forces represent the goal and motivations of the agent. Eventually, using standard physics equations, the sum of these dynamic forces describes the agents' motion.
 Such reactive models are easy to use and efficient for crowd simulations. Interestingly, in crowded or evacuation scenarios, social force models exhibit several so-called ``self-organization phenomena'' such as lane formation, zipper effect, intermittent flow, or turbulence.
 Unfortunately, such a model can perform very poorly in intricate and non-crowded scenarios involving some decision-making. Thus, there was a lack of intelligent simulated agents to challenge effectively \acrshort{han} system.
-A few recent works also propose simulating human agents endowed with some reasoning processes. However, I did not find the time to compare my contribution with theirs, and it remains an interesting possible future work. Nevertheless, this shows that this is a subject of interest. Some related work will be discussed in Chapter~\ref{chap:6}.
+A few recent works also propose simulating human agents endowed with some reasoning processes. However, I did not find the time to compare my contribution with theirs, and it remains an interesting possible future work. Nevertheless, this shows that this is a subject of interest. More related work will be discussed in Chapter~\ref{chap:7}.
