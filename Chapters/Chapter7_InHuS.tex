@@ -1,6 +1,7 @@
-\newpage
-\thispagestyle{empty}
-\mbox{}
+% \newpage
+% \thispagestyle{empty}
+% \mbox{}
+\cleardoublepage
 
 \ifdefined\included
 \else
@@ -37,14 +38,13 @@ We propose the \acrfull{inhus} System to contribute to the lack of intelligent a
 
 \section{Architecture Description}
  
-\begin{figure}[ht]
+\begin{figure}
     \centering
-    \includegraphics[width=0.7\linewidth]{Chapter7/Inhus.drawio.pdf}
+    \includegraphics[width=0.8\linewidth]{Chapter7/Inhus.drawio.pdf}
     \caption{
     The InHuS System interacts with three external systems: the simulator, the robot controller, and a human operator. Our system is separated into three parts: the Boss high-level interface gathering inputs from the human operator, InHuS which is the actual human controller, and a \acrshort{gui} to plot the metrics and other data produced.
     }
     \label{fig:overview_inhus}
-    \vspace{-0.8cm}
 \end{figure}
 
 The InHuS System%
@@ -67,17 +67,18 @@ All the goals, scenarios, and endless goal sequences are defined using an XML fo
 
 \subsection{InHuS}
 
-\begin{figure}[b]
+
+
+The macro component InHuS is mainly in charge of controlling the avatar and generating rational behaviors. InHuS itself is made of several components, as depicted in Fig.~\ref{fig:inhus_only}. However, three components, namely HumanBehaviorModel, Supervisor, and GeometricPlanner, constitute the major functional part of InHuS. We discuss each of these major components in detail.
+
+\begin{figure}[h]
     \centering
-    \includegraphics[height=120pt]{Chapter7/inhus_2.pdf}
+    \includegraphics[width=1.0\linewidth]{Chapter7/inhus_2.pdf}
     \caption{
     The human controller InHuS is depicted with its components and subsystems. 
     }
     \label{fig:inhus_only}
-    \vspace{-1cm}
 \end{figure}
-
-The macro component InHuS is mainly in charge of controlling the avatar and generating rational behaviors. InHuS itself is made of several components, as depicted in Fig.~\ref{fig:inhus_only}. However, three components, namely HumanBehaviorModel, Supervisor, and GeometricPlanner, constitute the major functional part of InHuS. We discuss each of these major components in detail.
 
 
 \subsubsection{HumanBehaviorModel}
@@ -106,17 +107,19 @@ We benefit from the high-level decision-making of InHuS and the enhanced local n
 
 \subsection{Logs, Metrics and GUI} \label{sec:logs_metrics}
 
-\begin{figure}[!b]
+\begin{sidewaysfigure}
     \centering
-    \includegraphics[width=0.8\linewidth]{Chapter7/gui_bis_bis.png}
+    \includegraphics[width=1.0\linewidth]{Chapter7/gui_bis_bis.png}
     \caption{
     An overview of the \acrshort{gui} interface. On the right side, the paths taken by the agents are shown and colored over time. On the left side, several metrics and data produced by InHuS are plotted over time on graphs. Additional widgets help to configure the plots. 
     }
     \label{fig:gui}
-\end{figure}
+\end{sidewaysfigure}
 
 The InHuS system logs the execution data, such as the positions and speeds of the agents, along with some computed metrics. All the logged data is sent to the \acrshort{gui} component, which generates interactive plots. These plots can help evaluate the interaction and, thus, the performance of the given robot controller. The snapshot of the \acrshort{gui} shown in Fig.~\ref{fig:gui} shows two kinds of visualizations. On the right side, there is a colored visualization of the paths taken by each agent. These paths are colored over time according to a corresponding legend that helps estimate an agent's position at a specific moment. The left side comprises several plots showing some computed metrics over time. The first plot is about conflict detection and solving. It shows the path length to the goal computed when checking for conflicts. Without any conflict, the path length should decrease linearly over time. If it's not the case, the avatar has been disturbed during the navigation. This plot also shows the state of conflict of the agent: Nominal (no conflict), approach (conflict detected), blocked (stopped and waiting). The subsequent plots show the speeds of each agent over time, their relative speed, the distance separating them, 
 and a metric called time to collision (TTC). This metric estimates the time remaining before the agents collide with their current velocities. We can argue that TTC corresponds to a ``threat feeling'' since a low TTC value corresponds to a high collision threat. Hence, social robots should be tuned not to exceed a minimum TTC value to make humans more comfortable.
+
+\clearpage
 
 \section{Main Results}
 
@@ -129,7 +132,7 @@ Finally, we present additional experiments showing the diverse behaviors that ca
 \label{sec:pedsim_compare}
 Most of the current human agent simulations used by the social navigation community rely either on the social force model or ORCA. In order to highlight the limitations of such approaches, we present results obtained with a PedSim\_ROS (or simply PedSim) agent. PedSim is a pedestrian simulator that uses the social force model. It is very efficient for generating crowds to test robot navigation. However, at the individual level, the simulated agents are purely reactive and have no decisional abilities like most pedestrian simulators. 
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.4\linewidth]{Chapter7/pedsim_blocked.png}
     \includegraphics[width=0.4\linewidth]{Chapter7/pedsim_narrow_2.png}
@@ -138,7 +141,6 @@ Most of the current human agent simulations used by the social navigation commun
     In the narrow corridor scenario (right), the agent squeezes itself between the wall and the robot, colliding with both. 
     }
     \label{fig:limits_reactive}
-    \vspace{-0.3cm}
 \end{figure}
 
 Consider the doorway scene shown in the left part of Fig.~\ref{fig:limits_reactive}. Both agents have to cross a narrow opening. Here, the robot is blocking the way that the human agent intends to cross. The PedSim agent approaches the robot and tries to push itself through, but it fails due to a very high value of social force. The agent never stops moving and tends to go right or left along the wall before wiggling again just in front of the robot. 
@@ -151,7 +153,7 @@ The InHuS System is able to generate challenging situations
 and associated logs to allow further evaluation.
 Here, we present one such conflict and a detailed interpretation of the corresponding plots. The plots were produced while challenging the CoHAN system in the doorway scenario.
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=1.0\linewidth]{Chapter7/test.pdf}
     
@@ -159,7 +161,6 @@ Here, we present one such conflict and a detailed interpretation of the correspo
     A condensed view of the InHuS \acrshort{gui} and MORSE simulator for the doorway scenario with a robot running the CoHAN planner. Several plots depict the detection and resolution of the conflict created. 
     }
     \label{fig:cohan_passage_block}
-    \vspace{-0.3cm}
 \end{figure}
 
 
@@ -198,7 +199,7 @@ In summary, the human-aware behavior of the CoHAN controller was captured throug
 
 \subsection{Generating Different Behaviors with Attitudes}
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.6\linewidth]{Chapter7/harass_colored_path_bis.png}
     \includegraphics[width=0.6\linewidth]{Chapter7/stoplook_colored_path_bis.png}
@@ -208,7 +209,6 @@ In summary, the human-aware behavior of the CoHAN controller was captured throug
     With \textit{StopAndLook}, when close to the robot, the human stops to look at it for a few seconds.
     }
     \label{fig:attitudes}
-    \vspace{-0.3cm}
 \end{figure}
 
 By activating \textit{Attitudes}, InHuS is capable of producing more complex behaviors to diversify the conflicts and challenges imposed on the robot.
@@ -219,14 +219,13 @@ On the same figure, we see the execution of the \textit{StopAndLook Attitude}. T
 \subsection{Long Run Scenarios}
 
 
-\begin{figure}
+\begin{figure}[h]
     \centering
-    \includegraphics[height=80pt]{Chapter7/TDP_long_run_path.png}
-    \includegraphics[height=80pt]{Chapter7/TDP_long_run_path_blocked_cropped_final.png}
+    \includegraphics[height=120pt]{Chapter7/TDP_long_run_path.png}
+    \includegraphics[height=120pt]{Chapter7/TDP_long_run_path_blocked_cropped_final.png}
     \caption{Execution of the long run scenario using the TDP robot planner and InHuS. We see the complete set of time-colored paths on the left. On the right, the same path is cut around when the robot gets stuck in the wall. 
     }
     \label{fig:long_run_block}
-    \vspace{-0.3cm}
 \end{figure}
 
 The proposed system can help test the stability and robustness of the robot planner by conducting long randomized runs. Indeed, thanks to the Boss component, possibly randomized goals can be sent autonomously to the agents. This can generate unexpected situations and conflicts that can be of interest.
