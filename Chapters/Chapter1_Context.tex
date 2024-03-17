@@ -14,7 +14,9 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\chapabstract{This chapter provides more details about the context of my PhD by discussing related fields and works of \acrshort{hrc}. This chapter eventually highlights the gap in the literature that motivates my PhD work.}
+\chapabstract{This chapter provides more details about the context of my PhD. We describe the challenges linked to \acrshort{hrc} and how some of them can be tackled through task planning and simulation of human agents.}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -31,7 +33,7 @@ Overall, \acrfull{hri} focuses on developing robots that can interact with peopl
     \label{fig:hri_multi}
 \end{figure}
 
-As a result, by taking inspiration from \acrfull{hhi} and \acrfull{hci}, \acrshort{hri} is an endeavor that brings together ideas from a wide range of disciplines such as Engineering, Computer Science, Robotics, Psychology, Sociology, and Design.
+As a result, by taking inspiration from \acrfull{hhi} and \acrfull{hci}, \acrshort{hri} is an endeavor that brings together ideas from a wide range of disciplines such as \textit{Engineering}, \textit{Computer Science}, \textit{Robotics}, \textit{Psychology}, \textit{Sociology}, and \textit{Design}.
 In the following, we discuss some related aspects and works of the mentioned disciplines by categorizing them between \acrshort{hhi}, \acrshort{hci}, and \acrshort{hri} as depicted in figure~\ref{fig:hri_multi}.
 
 \subsection{Human-Human Interaction (HHI)}
@@ -46,7 +48,7 @@ We must first understand how humans interact with each other before making robot
 
 \subsection{Human-Computer Interaction (HCI)}
 
-A first step of artificial interaction and collaboration is the field of \acrfull{hci}. \acrshort{hci} is the field of study that focuses on optimizing how users and computers interact by designing interactive computer interfaces that satisfy users' needs. It is a multidisciplinary subject covering computer science, behavioral sciences, cognitive science, ergonomics, psychology, and design principles.
+A first step of artificial interaction and collaboration is the field of \acrfull{hci}. This field of study focuses on optimizing how users and computers interact by designing interactive computer interfaces that satisfy users' needs. It is a multidisciplinary subject covering computer science, behavioral sciences, cognitive science, ergonomics, psychology, and design principles.
 Today, \acrshort{hci} focuses on designing, implementing, and evaluating interactive interfaces that enhance user experience using computing devices. This includes user interface design, user-centered design, and user experience design. 
 
 This field is made up of four key components: 
@@ -59,7 +61,7 @@ To produce easy interaction with robots, the study of \acrshort{hci} is relevant
 
 \subsection{Human-Robot Interaction (HRI)}
 
-\acrfull{hri} is a field of study exploring the design, development, and evaluation of robots interacting with humans in various settings. \acrshort{hri} aims to create robots that can effectively and seamlessly collaborate with humans in domestic environments, workplaces, or other contexts. 
+\acrfull{hri} is a field of study exploring the design, development, and evaluation of robots interacting with humans in various settings. \acrshort{hri} aims to create robots that can effectively and seamlessly interact and collaborate with humans in domestic environments, workplaces, or other contexts. 
 \acrshort{hri} can be categorized in several domains, not necessarily exclusive. Here are some examples:
 
 \uline{Social robotics} focuses on social interactions with humans and, thus, explores how robots can understand and respond to human emotions, social cues, and communication styles.
@@ -119,7 +121,7 @@ It is important to remember that since a collaborative robot is issued from an i
 Despite developing distinct robotic components, the robot must be considered a whole. Each component cannot be studied entirely independently of other aspects of the complete system. As a result, optimizing how these components interact by design has been the focus of several works proposing robotic architectures.
 
 As Matthias Scheutz, Jack Harris, and Paul Schermerhorn put in \cite{scheutz_systematic_2013}, architectures for intelligent robots have improved steadily over the years. 
-Early works like \cite{alami_designing_1993,alami_architecture_1998,chatila_integrated_1992} propose architectures to provide autonomy to mobile robots, focusing on three levels: decision, execution, and functional. Diverse components that allow robots to negotiate increasingly more complex indoor and outdoor environments have been considered, and they have improved those architectures over the years. As a result, current robot architectures integrate multiple sophisticated algorithms for real-time perceptual, planning, and action processing, from 3D object recognition to simultaneous localization and mapping to navigation and task planning to action sequencing. However, classical robotic architectures like the ones mentioned above typically lack components for high-level cognition, such as general-purpose reasoning and problem-solving. 
+Early works like \cite{chatila_integrated_1992,alami_designing_1993,alami_architecture_1998} propose architectures to provide autonomy to mobile robots, focusing on three levels: decision, execution, and functional. Diverse components that allow robots to negotiate increasingly more complex indoor and outdoor environments have been considered, and they have improved those architectures over the years. As a result, current robot architectures integrate multiple sophisticated algorithms for real-time perceptual, planning, and action processing, from 3D object recognition to simultaneous localization and mapping to navigation and task planning to action sequencing. However, classical robotic architectures like the ones mentioned above typically lack components for high-level cognition, such as general-purpose reasoning and problem-solving. 
 To address this issue, studies on cognitive robot architecture began mainly with the SOAR (depicted in figure~\ref{fig:soar}) and ACT-R architectures \cite{laird_soar_1987,anderson2004integrated}.
 Often based on the structure of the human mind, such cognitive architectures aim to endow robots with high-level capabilities like learning, inferring, and reasoning about how to behave in response to complex goals in complex worlds. 
 
@@ -151,7 +153,7 @@ A robotic agent interacting with a human must coordinate its actions with them. 
     \label{fig:chakraborti_notations}
 \end{figure}
 
-Chakraborti \textit{et al.} introduced notations to differentiate between the models used in this thesis in their work~\cite{ChakrabortiBTZS15}, also used in Buisan's thesis~\cite{thesisBuisan21}. These notations summarize and differentiate elegantly the different models manipulated in the \acrshort{hri}/\acrshort{hrc} field. These notations are depicted in figure~\ref{fig:chakraborti_notations}. At the bottom are depicted the human agent (on the left) and the robot agent (on the right). When solving a task alone, the robot uses its own model referred to as $\mathcal{M}^R$. This case can be considered as a Classical Planning problem. 
+Chakraborti \textit{et al.} introduced notations to differentiate between the models~\cite{ChakrabortiBTZS15}. These notations summarize and differentiate elegantly the different models manipulated in the \acrshort{hri}/\acrshort{hrc} field. These notations are depicted in figure~\ref{fig:chakraborti_notations}. At the bottom are depicted the human agent (on the left) and the robot agent (on the right). When solving a task alone, the robot uses its own model referred to as $\mathcal{M}^R$. This case can be considered as a Classical Planning problem. 
 Then, $\mathcal{M}^H_r$ is an estimation by the robot of the model of the human. Finally, $\tilde{\mathcal{M}}^R_h$ is an estimation of the robot model the human has. These models are likely to include knowledge about the world from the agent's perspective, an action model describing the agent's capabilities, and an agenda capturing the goal and motivation of the agent.
 
 It is important to remember that when discussing a task planner, it is considered part of the robot. Thus, $\mathcal{M}^R$ is the robot's ground truth. As a consequence, if there is a belief divergence between $\mathcal{M}^H_r$ and $\mathcal{M}^R$, we always consider that $\mathcal{M}^R$ is the truth. Otherwise, it would make no sense to keep this information in $\mathcal{M}^R$ while having access to the one in $\mathcal{M}^H_r$.
@@ -166,7 +168,7 @@ A common way of representing human activity ($\mathcal{M}^H_r$) and interaction 
 In classical planning, each action of an agent is atomic and needs some conditions to hold in the environment to be executed, and then it changes the environment when applied. The planning process then has to find the right sequence of actions, applicable one after the other, to change the environment and reach a specific goal state. 
 
 However, humans tend to work more abstractly and decompose tasks hierarchically into smaller tasks until the action level is reached. In practice, using \acrfull{htn} allows the domain designer to help the plan search by inserting expert knowledge via a hierarchy linking the actions \cite{erol_complexity_1996}. A task network consists of tasks organized in a fully or partially ordered manner, and each task can be either abstract or primitive. Primitive tasks are elementary tasks that can be achieved by performing one associated action.
-On the other hand, abstract tasks are tasks that first need to be decomposed into other subtasks, ``more primitive''. The planner's goal is not to find the sequence of actions to reach a goal but to select recursively for each task the suitable decomposition ending (if possible) with a network of actions applicable from the initial state. Ghallab, Nau, and Traverso name such a process as \textit{planning with refinement methods} \cite{ghallab2016automated}. This planning hierarchy allows the domain designer to guide the search by inserting some expertise into the model and enhancing explainability as the decompositions often offer a semantic to their subtasks. The 'why' of a subtask can usually be answered by going up in the hierarchy, while the 'how' is answered by going down. 
+On the other hand, abstract tasks first need to be decomposed into other subtasks, ``more primitive''. The planner's goal is not to find the sequence of actions to reach a goal but to select recursively for each task the suitable decomposition ending (if possible) with a network of actions applicable from the initial state. Ghallab, Nau, and Traverso name such a process as \textit{planning with refinement methods} \cite{ghallab2016automated}. This planning hierarchy allows the domain designer to guide the search by inserting some expertise into the model and enhancing explainability as the decompositions often offer a semantic to their subtasks. The 'why' of a subtask can usually be answered by going up in the hierarchy, while the 'how' is answered by going down. 
 
 \begin{figure}
     \center
@@ -235,13 +237,13 @@ Additionally, one could think about a smart environment, e.g., a domotic house, 
 
 In my work, I studied the decision-making challenge, mainly in the field of task planning. 
 Nevertheless, I also worked on endowing simulated autonomous human agents with decision-making capabilities in order to test and challenge robotic systems.
-I propose a generic architecture to simulate such agents. Then, I describe two versions implemented for the navigation use case, simulating respectively a single and several agents. 
+I propose a generic architecture to simulate such agents. Then, I describe two systems based on this architecture and implemented for the navigation use case, simulating respectively a single and several agents. 
 
-To better understand these contributions, I discuss existing approaches to simulate human agents, present state-of-the-art robot navigation techniques, and finally, existing benchmarking tools, including simulated navigating human agents. 
+To better understand these contributions, I discuss simulation about \acrshort{hri}, including simulating human agents, present state-of-the-art robot navigation techniques, and finally, existing benchmarking tools, including simulated navigating human agents. 
 
 \subsection{Simulation for HRI \& Simulating Human Behavior}
 
-Studies in \acrshort{hri} quickly faced issues with testing and challenging the designed robotic systems, especially due to human interaction. Indeed, using a real robot and real human operator is burdensome, but it is often necessary to test an HRI robot system correctly. 
+Studies in \acrshort{hri} quickly faced issues with testing and challenging the designed robotic systems, primarily due to human interaction. Indeed, using a real robot and real human operator is burdensome, but it is often necessary to test an HRI robot system correctly. 
 Consequently, research on how to 
 simulate \acrshort{hri} scenarios is of growing interest. 
 
@@ -274,8 +276,8 @@ Also, finding a usable system that will effectively challenge a \acrfull{han} sy
     \label{fig:social_force_model}
 \end{figure}
 
-Typical approaches involve reactive-only techniques such as social force models \cite{helbing1995social,chen_social_2018}. 
+Typical approaches to simulate navigating human agents involve reactive-only techniques such as social force models \cite{helbing1995social,chen_social_2018}. 
 The social force model assumes that a sum of different forces can approximate pedestrians' acceleration, deceleration, and directional changes, each capturing a different desire or interaction effect. For instance, as depicted in figure \ref{fig:social_force_model}, one force corresponds to the acceleration towards the desired velocity of motion; second, repulsive forces reflect the agent keeping a certain distance from other agents and obstacles; third, attractive forces represent the goal and motivations of the agent. Eventually, using standard physics equations, the sum of these dynamic forces describes the agents' motion.
 Such reactive models are easy to use and efficient for crowd simulations. Interestingly, in crowded or evacuation scenarios, social force models exhibit several so-called ``self-organization phenomena'' such as lane formation, zipper effect, intermittent flow, or turbulence.
-Unfortunately, such a model can perform very poorly in intricate and non-crowded scenarios involving some decision-making. Thus, there was a lack of intelligent simulated agents to challenge effectively \acrshort{han} system.
+Unfortunately, as demonstrated in Chapter~\ref{chap:7}, such a model can perform very poorly in intricate and non-crowded scenarios involving some decision-making. Thus, there was a lack of intelligent simulated agents to challenge effectively \acrshort{han} system.
 A few recent works also propose simulating human agents endowed with some reasoning processes. However, I did not find the time to compare my contribution with theirs, and it remains an interesting possible future work. Nevertheless, this shows that this is a subject of interest. More related work will be discussed in Chapter~\ref{chap:7}.
