@@ -41,27 +41,27 @@ However, we exposed each participant to several scenarios, sometimes only slight
 
 \section{Study Protocol} \label{sec:study_protocol}
 
-\begin{figure}
+In this study, each participant is made to collaborate six times with a simulated robot to achieve a shared task. Each occurrence is referred to as a scenario. The robot exhibits different behaviors in each scenario. After each scenario, the participant evaluates the robot's behavior through the PeRDITA questionnaire \cite{devin_evaluating_2018}, and logs about the execution are saved. An overview of such protocol is shown in figure~\ref{fig:user_study_protocol}.  
+
+\begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{Chapter6/UserStudyProcedure.png}
+    \includegraphics[width=0.7\linewidth]{Chapter6/user_study_protocol.pdf}
     \caption{A scenario of the User Study Protocol. Each participant goes through six scenarios and answers six questionnaires to evaluate each different robot's behavior.}
     \label{fig:user_study_protocol}
 \end{figure}
 
 
-In this study, each participant is made to collaborate six times with a simulated robot to achieve a shared task. Each occurrence is referred to as a scenario. The robot exhibits different behaviors in each scenario. After each scenario, the participant evaluates the robot's behavior through the PeRDITA questionnaire \cite{devin_evaluating_2018}, and logs about the execution are saved.
-
-Beforehand, every participant answers a few demographic questions and is familiarized with the simulator functionalities through an integrated tutorial. Only then the participants start the six consecutive collaborative scenarios, answering a questionnaire to describe the interaction every time. Eventually, every participant is asked to share their general feelings and impressions about the overall interaction with the simulated robot, and they are asked to tell which scenario they preferred the most and the least.
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.8\linewidth]{Chapter6/task_description_study.png}
-    \caption{Description of the shared task to achieve in the study.}
-    \label{fig:task_description_study}
-\end{figure}
+Beforehand, every participant answers a few demographic questions and is familiarized with the simulator functionalities through an interactive tutorial. Only then the participants start the six consecutive collaborative scenarios, answering a questionnaire to describe the interaction every time. Eventually, they are asked to share their general impressions about the overall interaction with the simulated robot, and they are asked to tell which scenario they preferred the most and the least.
 
 We now provide details about the task, the scenarios, and how the different robot behaviors are generated. 
 The shared goal, which is stacking the cubes to match the given pattern, remains the same in all scenarios. The cube disposition on the table also does not change either. The task description is depicted in fig~\ref{fig:task_description_study}. For this problem, our planning approach generated a solution graph with 700 states/nodes leading to 6 different final states/leaves. This solution graph comprises $6839430$ different possible courses of action. The length of the plans is about $19.77 \pm 1.59$ steps, with a minimal length of $11$ steps and a maximal length of $23$ steps.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\linewidth]{Chapter6/task_description_study.pdf}
+    \caption{Description of the shared task to achieve in the study.}
+    \label{fig:task_description_study}
+\end{figure}
 
 To progress in the task, the agents can perform three different primitive actions, which are the following: \textit{pick} a cube, \textit{place} a cube in the stack, or \textit{drop} a cube back on the table.
 These actions have a few preconditions, more or less intuitive, that are communicated and experienced by the participant during the integrated tutorial.
@@ -134,7 +134,7 @@ In addition to the questionnaires, for each scenario, the interactive simulator 
 There are a few restrictions on the actions that can be performed. First, an agent can only pick cubes that can be placed immediately. This means that agents cannot pick cube in advance to anticipate each other's actions. Allowing such behavior could generate a very interesting scenario. However, here, we want to purposely generate some conflicts to evaluate the robot's behavior and reactions. Without this restriction, the agents would have too much flexibility in their actions and decisions, making it harder for conflicts to happen.  
 Additionally, when holding a cube, the agents can only place the cube in the stack on back to its original place. As a result, the agents cannot displace the cube on the table to make them reachable to the other agent. This restriction has been added for the same reasons as the first one and simplifies the conflict generation. 
 
-\begin{figure}
+\begin{figure}[h]
     \center
     \includegraphics[width=\linewidth]{Chapter6/participant-min.jpg}
     \caption{One scenario execution where a participant is collaborating with the simulated robot using the mouse. Once the task is completed, the participant is asked to fill the questionnaire on the desk with a pencil to transcribe their impressions.}
@@ -147,16 +147,16 @@ The participants were collaborating with the robot using a mouse. The simulation
 
 This section shares and analyzes some information about the $25$ participants involved in the study.
 
-\begin{figure}[h]
+\begin{figure}
     \center
     \includegraphics[width=0.9\linewidth]{Chapter6/age.pdf}
-    \caption{Participants' age.}
+    \caption{Participants' age: $29.64 \pm 10.67$ ($min=21$ and $max=62$)}
     \label{fig:age}
 \end{figure}
 
 The participants were aged of $29.64 \pm 10.67$ ($min=21$ and $max=62$), as depicted on figure~\ref{fig:age}. 
 
-\begin{figure}[h]
+\begin{figure}
     \center
     \includegraphics[width=0.4\linewidth]{Chapter6/gender.pdf}
     \caption{Participants' gender.}
@@ -218,7 +218,7 @@ This section is focused on analyzing the results obtained through the execution 
 
 \subsubsection*{Preferences Satisfaction (task completion time + time to be freed)}
 
-\begin{figure}
+\begin{figure}[h]
     \center
     \includegraphics[width=\linewidth]{Chapter6/preferences_sastisfaction.pdf}
     \caption{Human preference satisfaction. According to the scenarios, it corresponds either to completing the task as fast as possible (Pair A and B) or being free as soon as possible (Pair C). Using t-tests for paired samples, we can identify in pairs B and C that the criteria of preferences are significantly better satisfied. In pair A, the difference is not significant, but the completion time is slightly shorter when using RF.}
@@ -300,7 +300,7 @@ In pair B, S3 (HF) had lower values ($0.54 \pm 0.51$) than S4 (RF) ($0.62 \pm 0.
 
 In pair C, S5 (HF) had lower values ($0.56 \pm 0.11$) than S6 (RF) ($0.91 \pm 0.46$). This difference is statistically significant ($p=0.001$) with a medium effect ($d=0.76$).
 
-\begin{figure}
+\begin{figure}[h]
     \center
     \includegraphics[width=\linewidth]{Chapter6/decision_time.pdf}
     \caption{Average human decision time in the six scenarios. This decision time tends to be lower when using HF than with RF.}
