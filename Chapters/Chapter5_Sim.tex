@@ -39,12 +39,12 @@ This chapter first presents details about the refined joint action model and hig
 The model of execution presented in the last chapter was simplified and abstracted to be used to guide the planning algorithms and explore further relevant courses of action. This allows for anticipating possible coordination and compliance with online human decisions. 
 However, we need an execution controller to supervise the execution of the produced policy. Here, we propose a refined and implemented model, matching the abstraction previously made, to be able to execute the produced robot policy and supervise its execution by synchronizing with the human through social signals.
 
-The complete model is depicted in fig~\ref{fig:complete_model_exec}. On top of refining the `robot automaton' present in the abstracted version, it also models the human agent's behavior with another automaton that captures the possible decisions the human may make during execution. Additionally, this complete model makes all the social signals exchanged between the agents explicit and shows how they are used for coordination. These differences are discussed in detail below. This execution controller takes as input the solution \acrshort{dag} produced by the approach of Chapter~\ref{chap:4}. Then, the controller progresses from the initial state to a goal in the solution graph. The controller handles the state transitions, step by step, by sending and synchronizing on social cues. Thanks to this controller and the associated simulator, we now have a durative task execution that effectively affects a simulated environment.
+The next page depicts the complete model in fig~\ref{fig:complete_model_exec}. In addition to refining the `robot automaton' present in the abstracted version, it also models the human agent's behavior with another automaton that captures the possible decisions the human may make during execution. Additionally, this complete model makes all the social signals exchanged between the agents explicit and shows how they are used for coordination. These differences are discussed in detail below. This execution controller takes as input the solution \acrshort{dag} produced by the approach of Chapter~\ref{chap:4}. Then, the controller progresses from the initial state to a goal state in the solution graph. The controller handles the state transitions, step by step, by sending and synchronizing on social cues. Thanks to this controller and the associated simulator, we now have a durative task execution that effectively affects a simulated environment.
 
 \begin{sidewaysfigure}
     \centering
     \includegraphics[width=1.0\linewidth]{Chapter5/complete_automaton.pdf}
-    \caption{Complete Model of Execution - Dual Automaton. This version details the robot automaton and the assumed human automaton as well as the visual signals exchanges between the agents to synchronize themselves.}
+    \caption{Complete Model of Concurrent and Compliant Joint Action used as an execution scheme. This version details the robot automaton and the assumed human automaton as well as the visual signals exchanges between the agents to synchronize themselves.}
     \label{fig:complete_model_exec}
 \end{sidewaysfigure}
 
@@ -112,7 +112,7 @@ A dedicated controller has been developed to perform those head motions based on
 
 \subsection{Human Hand Motion}
 
-Moving the human hand requires a dedicated controller but is much simpler than the robot arm motion one. Here, the hand must either move to a position or perform a PASS signal. The PASS signal is a hand gesture indicating to the robot that the human desires to be passive for the current step. This motion is performed by simply rotating the hand back and forth at a constant speed. The PASS motion has a duration of 0.7s. 
+Moving the human hand requires a dedicated controller but is much simpler than the robot arm motion one. Here, the hand must either move to a position or perform a PASS signal. The PASS signal is a hand gesture indicating to the robot that the human desires to be passive for the current step. This motion is performed by simply rotating the hand back and forth at a constant speed. The PASS motion has a duration of $0.7s$. 
 On the other hand, we do not use a real motion planner to move the hand to a target position. We simply compute a straight line between the current hand pose and the target pose. Then, we update the hand position at $50Hz$ to move at a constant speed set to $0.25 m/s$. The planning time is thus negligible compared to the robot motion planning times.
 
 \subsection{Simulation}
