@@ -1,4 +1,6 @@
-\cleardoublepage
+\newpage
+\thispagestyle{empty}
+\mbox{}
 
 \ifdefined\included
 \else
@@ -24,12 +26,12 @@
     \label{fig:sally_and_anne_task}
 \end{figure}
 
-False belief tasks are commonly used as tests to acknowledge the presence of Theory of Mind reasoning. The most common test is the \textit{Sally and Anne} one, depicted in fig~\ref{fig:sally_and_anne_task}, and is used in developmental psychology to examine children's ``theory of mind'' understanding, which refers to their ability to understand how other people think, feel and behave. The test consists of describing the execution of a simple task involving non-observable facts and co-presence. Then, children are questioned about the beliefs of one of the characters. The task consists of the following. Sally and Anne are two co-present characters near a basket and a box. Sally puts her ball in the basket before going away. Then, in hindsight, Anne moves the ball from the basket to the box. Eventually, the following question is asked: ``Where will Sally look for the ball she left?''. As an observer of this scene, using Theory of Mind, we can naturally say that Sally will look for her ball in the basket because this is where she left it, and she is unaware of Anne's action. As observers, young children cannot understand that Sally has beliefs that are different from theirs, and thus, they are likely to answer that Sally will look in the box. 
+False belief tasks are commonly used as tests to acknowledge the presence of Theory of Mind reasoning. The most common test is the \textit{Sally and Anne} one, depicted in fig~\ref{fig:sally_and_anne_task}. It is used in developmental psychology to examine children's ``theory of mind'' understanding, which refers to their ability to understand how other people think, feel and behave. The test consists of describing the execution of a simple task involving non-observable facts and co-presence. Then, children are questioned about the beliefs of one of the characters. The task consists of the following. Sally and Anne are two co-present characters near a basket and a box. Sally puts her ball in the basket before going away. Then, in hindsight, Anne moves the ball from the basket to the box. Finally, Sally comes back to look for her ball. The following question is now asked: ``Where will Sally look for her ball?''. As an observer of this scene, using Theory of Mind, we can naturally say that Sally will look for her ball in the basket because this is where she left it, and she is unaware of Anne's action. Young children cannot understand that Sally has different beliefs from theirs and, thus, they are likely to answer that Sally will look in the box. 
 
-\acrfull{tom} reasoning is critical for interaction and collaboration between agents. Thus, it is reasonable and desirable to endow robots with such skills to enhance their interactions with humans. This is the motivation of the contribution presented in this chapter. We propose an extension of HATP/EHDA to maintain human beliefs during the planning process in a principled way and to tackle estimated false human beliefs that may be detrimental to task resolution.
+\acrfull{tom} reasoning is critical for interaction and collaboration between agents. Thus, it is reasonable and desirable to endow robots with such skills to enhance their interactions with humans. This is the motivation of the contribution presented in this chapter. We propose an extension of HATP/EHDA to maintain human beliefs during the planning process in a principled way in order to anticipate and tackle estimated false human beliefs that may be detrimental to task resolution.
 
 Some works consider \acrshort{tom} during execution to handle unexpected situations and contingencies like \cite{devin_implemented_2016}. 
-However, such reactive approaches are not always enough since there can be deadends requiring proactive decisions and actions to avoid. 
+However, such reactive approaches are not always enough since deadends can require proactive decisions and actions to be avoided. 
 
 We would want the robot to be able to reason and correctly maintain distinct human beliefs. Despite HATP/EHDA modeling distinct beliefs, this scheme does not maintain them automatically. The beliefs can only be updated in a scripted way through the description of action effects provided in the planning problem. We propose models and algorithms to integrate concepts of the Theory of Mind in the planning process of HATP/EHDA. This way, the robot can accurately estimate human beliefs and better predict their behavior. Moreover, we propose solutions for the robot when tackling estimated false human beliefs that may impact the task resolution.
 
@@ -55,9 +57,9 @@ We would want the robot to be able to reason and correctly maintain distinct hum
 
     It enables robots to make plans to achieve the required knowledge and to reason about the knowledge and capabilities of other agents, ensuring effective collaboration and coordination in human-robot interactions \cite{belle_epistemic_2023}.
 
-    Bolander et al. proposed the \acrfull{del} approach \cite{bolander_gentle_2017} and even implemented some Theory of Mind concepts in it. However, despite being more expressive than HATP/EHDA, like the latter, this approach still does not maintain human beliefs in a principled way. They tend to use domain-specific rules given in the problem specification, usually with conditional action effects. 
+    Bolander et al. proposed the \acrfull{del} approach \cite{bolander_gentle_2017} and even implemented some Theory of Mind concepts in it. However, despite being more expressive than HATP/EHDA, this approach does not maintain human beliefs in a principled way either. They tend to use domain-specific rules given in the problem specification, usually with conditional action effects. 
 
-    Muise et al. worked on multi-agent epistemic planning using a classical planning approach. Since involving nested beliefs is computationally demanding, their work proposes to convert and encode such problems into classical planning problems. Hence, state-of-the-art classical planning techniques can tackle nested beliefs of multiple agent problems. 
+    Muise et al. worked on multi-agent epistemic planning using a classical planning approach~\cite{muise_planning_2015}. Since involving nested beliefs is computationally demanding, their work proposes to convert and encode such problems into classical planning problems. Hence, state-of-the-art classical planning techniques can tackle nested beliefs of multiple agent problems. 
 
     
     \subsection{Communication in HRC}
@@ -86,7 +88,7 @@ As an example and for illustration purposes, let us consider cooking pasta as a 
 
 The robot has to turn on the stove (\textit{stoveOn}) and clean the counter (\textit{counterClean}), but the latter is not a part of the shared task. The human takes care of fetching the pasta while both agents can add salt into the water (\textit{saltIn}). Before pouring the pasta into the pot, the human must know the facts, \textit{stoveOn} and \textit{saltIn}. 
 Unlike \textit{stoveOn}, the facts \textit{saltIn} and \textit{counterClean} are not directly observable. 
-Hence, by acting while the human is away fetching the pasta, the robot may induce false beliefs, which may be detrimental to the shared task (e.g., the human adding salt again).
+Hence, by acting while the human is away fetching the pasta, the robot may induce false beliefs, which may be detrimental to the shared task (\textit{e.g.}, the human adding salt again).
 
 To describe this problem we start from the HATP/EHDA problem specification, which is the one described in Chapter~\ref{chap:2}. For our collaborative cooking example, the sets $B$ and $X$ for the collaborative cooking example are the following:
 {\small
@@ -137,7 +139,7 @@ The observability and location of the state-variable are internal to the robot b
 
 This new definition still consider the two agent states s.t. $\agentstate[\agent][i] = \{ \valf[\agent][i], \agenda[\agent][i], \partialplan[\agent][i] \}$. Now, in each state, we keep track of each state-variable's observability type and location, and we can reason on them to update the human beliefs ($\valf[H]$) accordingly. 
 
-We remind definition~\ref{def:false_belief} stating that a state $s_i \in S$ contains \textit{false beliefs}, or \textit{belief divergences}, if $\exists x_j \in X, \valf[H][i](x_j) \neq \valf[R][i](x_j)$. That is, if any state-variable has a different value in the human beliefs w.r.t. the robot one, we assume the human has a false belief about those particular state-variables. Since the planner is part of the robot, we assume the robot beliefs are true and correspond to the ground truth. Consequently, any divergence between the two beliefs is assumed to be a human false belief, as it would make no sense to keep false information in the robot's beliefs. 
+We remind definition~\ref{def:false_belief} stating that a state $s_i \in S$ contains \textbf{false beliefs}, or \textbf{belief divergences}, if $\exists x_j \in X, \valf[H][i](x_j) \neq \valf[R][i](x_j)$. That is, if any state-variable has a different value in the human beliefs \textit{w.r.t.} the robot one, we assume the human has a false belief about those particular state-variables. Since the planner is part of the robot, we assume the robot beliefs are true and correspond to the ground truth. Consequently, any divergence between the two beliefs is assumed to be a human false belief, as it would make no sense to keep false information in the robot's beliefs. 
 
 The initial state of our cooking example can be described as follows. There is no initial belief divergence, the initial partial plans are empty, and both agents perform the shared cooking task named $CookPasta$. In addition, the robot must clean the kitchen counter once the cooking is done. Hence, the task $CleanCounter$ is added to the initial robot agenda after the shared task. The only \textit{non-obversable} facts are the presence of salt in the pot and if the counter is clean. All entities, including the counter, the stove, and the salt, are in the kitchen. Only the pasta is in the adjacent room. More precisely, the initial state $s_0$ can be written like this: 
 
@@ -147,11 +149,11 @@ The initial state of our cooking example can be described as follows. There is n
 \noindent
 \begin{align*}
 &s_0 = \{\agentstate[R][0], \agentstate[H][0],~\obsf[0],~\locf[0]\} \\
-&\quad \partialplan[R][0] = \partialplan[H][0] = ()\\
+&\quad \partialplan[R][0] = \partialplan[H][0] = \varnothing \\
 &\quad \agenda[R][0] = (CookPasta, CleanCounter)\\
 &\quad \agenda[H][0] = (CookPasta)\\
 &\quad \valf[R][0] = \valf[H][0] = \{at(\textsf{R}) = at(\textsf{H}) = \textsf{kitchen},~at(\textsf{pasta})=\textsf{room},\\
-&\qquad \qquad \qquad \qquad \qquad \qquad \qquad \quad saltIn = \textsf{false},~stoveOn = \textsf{false},~counterClean = \textsf{false}\}\\
+&\qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \quad \quad saltIn = stoveOn =counterClean = \textsf{false}\}\\
 &\quad \obsf[0] = \{ (saltIn,\inferable),~(counterClean,\inferable),\\
 &\qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \quad \ (stoveOn,\observable),~(at(e),\observable) ~|~ e \in Entities\}\\
 &\quad \locf[0] = \{ (saltIn,\textsf{kitchen}),~(counterClean,\textsf{kitchen}),~(stoveOn,\textsf{kitchen}),\\
@@ -178,7 +180,7 @@ We now describe how the agents' beliefs are updated when executing a planned act
 \underline{Assumption 3}: Coming from the two previous assumptions, we assume that humans only make deterministic moves when not observed. Hence, regardless of being co-present, the robot's beliefs are always updated with the effects of the action.
 
 
-Thus, Assumption 3 indicates that $\forall x \in X$ we always have,
+Thus, Assumption 3 indicates that for an action $a$ we always have $\forall x \in X$:
 
 \begin{equation} \label{eq:apply_action_r}
     val_{i+1}(x) = \left\{ 
@@ -188,7 +190,7 @@ Thus, Assumption 3 indicates that $\forall x \in X$ we always have,
     \end{array}\right.
 \end{equation}
 
-The place associated with a state-variable can be modified by the action's effect, e.g., when an agent moves to another room while holding an object. However, this must be specified in the action's effects. 
+The place associated with a state-variable can be modified by the action's effect, \textit{e.g.}, when an agent moves to another room while holding an object. However, this must be specified in the action's effects. 
 In this work, we assume that the observability type of each fact is constant during the task. Adapting the approach to allow dynamic observability types is feasible, which will be discussed later.
 So, $\forall x \in X$,
 
@@ -209,7 +211,7 @@ The new estimated human beliefs $\valf[H][i+1]$ is the two-step result of our Si
 First, let us define the notions of \textit{co-presence} and \textit{co-location}, which will be key to maintaining the evolution of agents' beliefs as planning progresses.
 
 \begin{definition} \label{def:co-pre-loc}
-    \textbf{(Co-presence \& Co-location.)} In a state $s_i \in S$, two agents, $\agent_1$ and $\agent_2$, are considered to be \textit{co-present} if $val_i(at(\agent_1)) = val_i(at(\agent_2))$. This relation is noted $\agent_1 \curlywedge_i \agent_2$ in the rest of the paper. Similarly, we say that an agent $\agent_1$ is \textit{co-located} with a state-variable $x \in X$ if $val_i(at(\agent_1)) = loc_i(x)$, noted $\agent_1 \curlywedge_i x$.
+    \textbf{(Co-presence \& Co-location.)} In a state $s_i \in S$, two agents, $\agent_1$ and $\agent_2$, are considered to be \emph{co-present} if $val_i(at(\agent_1)) = val_i(at(\agent_2))$. This relation is noted $\agent_1 \curlywedge_i \agent_2$ in the rest of the paper. Similarly, we say that an agent $\agent_1$ is \textit{co-located} with a state-variable $x \in X$ if $val_i(at(\agent_1)) = loc_i(x)$, noted $\agent_1 \curlywedge_i x$.
 \end{definition}
 
 Now, we can define two \acrfull{sa} processes that will maintain the estimated human beliefs.
@@ -219,7 +221,7 @@ Now, we can define two \acrfull{sa} processes that will maintain the estimated h
     or by being the acting agent. If so, the agent infers the new values of every state-variable in the action's effects.
 \end{definition}
 
-Based on the above definition, the human beliefs are updated a first time as follows when action $a$ is executed in state $s_i$, 
+Based on the above definition, the human beliefs are updated a first time as follows when action $a$ is executed in state $s_i$:
 
 \begin{equation} \label{eq:apply_action_h}
 val'^H_{i+1}(x) = \left\{ 
@@ -234,7 +236,7 @@ val'^H_{i+1}(x) = \left\{
 To change its \textit{place} in the environment, agents would use a dedicated \textit{``move''} action, such that its effect only updates the agent's location. 
 
 \begin{definition} \label{def:observation_process}
-    \textbf{(Observation Process.)} An agent observes its surroundings and assesses the exact value of each state-variable located in the same place (i.e., each state-variable the agent is co-located with).
+    \textbf{(Observation Process.)} An agent observes its surroundings and assesses the exact value of each \emph{observable} state-variable located in the same place (\textit{i.e.}, each state-variable the agent is \emph{co-located} with).
 \end{definition}
 
 After applying the effects of an action with the equations~\ref{eq:apply_action_r} to obtain $\valf[][i+1]$, and running the inference process (def.~\ref{def:inference_process}) with equation~\ref{eq:apply_action_h} to obtain the partial human beliefs $val'^H_{i+1}$, the observation process (def.~\ref{def:observation_process}) is executed. It updates again the estimated human beliefs with the facts currently observable by the human and provides the human beliefs to store in the state $s_{i+1}$. We have, $\forall x \in X$:
@@ -250,10 +252,10 @@ val'^H_{i+1}(x), & \mbox{otherwise}
 
 Before starting the planning process, the observation process is executed once on the initial state $s_0$. This allows us to potentially correct the estimated human beliefs with the facts the human should initially be able to observe. 
 
-The definition of the set $Places$, i.e., how the environment is divided into different \textit{places}, is guided by the shape of our state transition function. Hence, a $place \in Places$ is an (symbolic) area in the environment such that, when situated in it, agents are aware of each other's activity, and they can assess every observable fact located in it. Agents cannot be aware of others' activity if not co-present with them, and they cannot assess observable facts if not co-located with the facts.
+The definition of the set $Places$, \textit{i.e.}, how the environment is divided into different \textit{places}, is guided by the shape of our state transition function. Hence, a $place \in Places$ is a (symbolic) area in the environment such that, when situated in it, agents are aware of each other's activity, and they can assess every observable fact located in it. Agents cannot be aware of others' activity if not co-present with them, and they cannot assess observable facts if not co-located with the facts.
 
 Note that unlike in \acrshort{del}~\cite{KR2021-12}, our knowledge representation is simple and prevents us from expressing agents being \textit{uncertain} about a fact. 
-In line with the classical closed-world assumptions, agents either know the truth or have a false belief w.r.t. the ground truth. 
+In line with the classical closed-world assumptions, agents either know the truth or have a false belief \textit{w.r.t.} the ground truth. 
 We consider a straightforward scenario in which the human is \textit{``unaware''} of non-observed changes in the environment. 
 This results in estimated false human beliefs, helping to detect whether a non-observed robot action can disrupt a seamless collaboration. 
 
@@ -269,10 +271,8 @@ In this section, we explain our procedure to detect \textit{when} a false human 
 The human and the robot carry individual distinct beliefs, while the two can be aligned or diverging when the human has a false belief. To produce a legal solution plan the robot is fine with such false human beliefs unless they are qualified as \textit{relevant} (Definition~\ref{def:relevant_false_belief}). In such cases, the relevant false belief needs to be tackled.
 
 \begin{definition} \label{def:relevant_false_belief}
-
-A \textbf{relevant false belief} is a false belief that influences the next action(s) the human is likely to perform in terms of number, name, parameters, or effects. This can be written as follows:
+(\textbf{Relevant False Belief.}) A \emph{relevant false belief} is a false belief that influences the next action(s) the human is likely to perform in terms of number, name, parameters, or effects. This can be written as follows:
 A state $s_i$ contains a relevant false belief if either (\ref{eq:rel_div_cond_1}) or (\ref{eq:rel_div_cond_2}) is true:
-
 \begin{equation} \label{eq:rel_div_cond_1}
 ref(tn^H_i, val^H_i) \neq ref(tn^H_i, val^R_i)
 \end{equation}
@@ -308,11 +308,11 @@ Hence, we explain a subroutine below with the three steps, describing how we ide
     \item 
     \textit{(Breadth-First Search.)} 
     The \textit{source} is $s_i$. Applying each $ca \in \mathit{CA}_{diff}$ generates a new state by aligning \textit{exactly} one state-variable in the human beliefs s.t. $s'_i = \gamma(s_i, ca )$. 
-    The search continues until the first state $s'_i$ selected to expand does not contain a relevant false belief. The communication actions used from the root until this selected state are \textit{retrieved} in a set $\mathit{CA}$.
+    The search continues until the first state $s'_i$ selected to expand does not contain a relevant false belief according to Definition~\ref{def:relevant_false_belief}. The communication actions used from the root until this selected state are \textit{retrieved} in a set $\mathit{CA}$.
 \end{enumerate}
 
 Once the above subroutine finishes, the retrieved communication actions in the set $\mathit{CA} = \{ ca_{R, H}(x_1,val^R_i(x_1)),..., ca_{R, H}(x_j,val^R_i(x_j)) \}$ must be inserted in the plan for belief alignment. 
-Thus, our definition of the conditional solution (def.~\ref{def:joint-sol-plan}) is redefined to be sound w.r.t. our approach. An edge can now either be a human action $a^h$ or a robot action $a^r$ with a set of communication action $CA$.
+Thus, our definition of the conditional solution (def.~\ref{def:joint-sol-plan}) is redefined to be sound \textit{w.r.t.} our approach. An edge can now either be a human action $a^h$ or a robot action $a^r$ with a set of communication action $CA$.
 At each step, humans perform \textit{Observation}, while the robot executes each communication action $ca \in \mathit{CA}$, making the human's belief to \textit{update instantaneously}.
 
 The set $\mathit{CA}$ is inserted before the diverging human actions and after the closest state where agents are co-present. 
@@ -321,14 +321,14 @@ However, it could be interesting to investigate using a better plan evaluation s
     %%% SUB-SECTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \subsection{Resolution by Delaying Non-Observed Robot Actions}
 
-So far, we relied on communication. However, communication can be cognitively demanding depending on the environment (e.g., noisy). 
+So far, we relied on communication. However, communication can be cognitively demanding depending on the environment (\textit{e.g.}, noisy). 
 Thus, when the relevant false belief is due to a non-observed robot action, we propose also considering implicit communication by postponing the pertinent robot action until the human is estimated to observe its execution. 
 This prevents false beliefs from even occurring.
 
 First, a branch using communication is explored, and the state-variables concerned by the relevant false beliefs are retrieved (through all $ca \in CA$).
 Then, we check if a non-observed action produces the divergence. For now, it is done by checking if the relevant divergence concerns only one inferable state-variable and if it was not present in the initial state.   
 After, we identify which action creates the divergence by regressing the current branch/trace sequentially. Hence, we can identify when the relevant divergence appears and which action should be delayed.
-Once identified, we create another branch in the plan just before the identified action. In this new branch, {\sc delay} actions are inserted in the robot's plan until the human is co-present. When the human is co-present again, the identified action is inserted and observed by the human. Then, the nominal planning process is resumed.  
+Once identified, we create another branch in the plan just before the identified action. In this new branch, {\sc delay} actions are inserted in the robot's plan until the human is co-present. When the human is co-present again, the identified action is inserted and observed by the human. Then, the nominal planning process is resumed. An example is described in the next section with empirical results.
 
 %%% SECTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Results}
@@ -366,7 +366,7 @@ The car's hood needs to be \textit{closed} by the human at last.
 \end{figure}
 
 Considering the cooking domain, we discuss in detail the plans obtained with our approach to a problem corresponding to the description given in the introduction. 
-I.e., there is no initial human false belief, agents both start in the kitchen, the pasta is in the adjacent room, the stove is off, and there is no salt in the water. The resulting plans are shown in Fig.~\ref{fig:cooking_plan}, and their detailed presentation explains how the approach works in practice. 
+That is, there is no initial human false belief, agents both start in the kitchen, the pasta is in the adjacent room, the stove is off, and there is no salt in the water. The resulting plans are shown in Fig.~\ref{fig:cooking_plan}, and their detailed presentation explains how the approach works in practice. 
 Since the human is uncontrollable and has different possible actions, the plan branches and the robot's actions differ in each case. 
 
 In (\textit{left}), the human first adds salt, and then the robot turns on the stove. In both cases, thanks to the inference process, we estimate that the human will be aware of both facts about the salt (\textit{acting}) and the stove (\textit{co-present}). Then, while the human is away to fetch the pasta, the robot cleans the counter. Since the human is not co-present, their beliefs are not updated and now contain a false belief about the counter state. Once back, since \textit{counterClean} is not \textit{observable}, the observation process does nothing, and the false belief remains. However, this false belief does not affect human actions (non-relevant). Hence, there is no need to align human beliefs.
@@ -422,9 +422,9 @@ However, dynamic observability types permit modeling scenarios like an agent pla
 
 The underlying scheme allows just a single agent to execute a \textit{``real''} action at a time. 
 However, a post-process can allow the execution of actions concurrently~\cite{CrosbyJR14}, however, note that the domain modeler has modeled $\mathcal{P}_{rh}$ as a sequential joint task. 
-Parallelism is not considered in the current modeling and planning process, which limits the potential for concurrent executions. This challenge is addressed in the contribution described in Chapter~\ref{chap:4}.
+Parallelism is not considered in the current modeling and planning process, which limits the potential for concurrent executions.
 
-We believe our modeling-level \acrshort{sa} proposals could fit in any other planning approach framing multi-party systems having one controllable agent while can only hypothesize remaining agents' behaviors (e.g., human-centered AI).
+We believe our modeling-level \acrshort{sa} proposals could fit in any other planning approach framing multi-party systems having one controllable agent while can only hypothesize remaining agents' behaviors (\textit{e.g.}, human-centered AI).
 
 Agents' \acrshort{sa} models cannot simply refute a false belief, they can only assess new true facts to correct them.
 For instance, assume the human \textit{wrongly} believes that the pasta is in \textsf{kitchen}. The \acrshort{sa} does not help refute this when the agent is in \textsf{kitchen}
@@ -433,12 +433,10 @@ However, such issues do not affect the completeness and, if necessary, our appro
 
 The relevance of estimated false human beliefs is challenging to determine. Currently, as soon as a divergence influences the next human actions, we assume that the divergence is likely detrimental to the goal and, thus, is relevant to be fixed. However, it would be interesting to find a method to evaluate the consequences of a divergence on the goal and plans in a principled way.
 
-We have planned a user study for the future to conform our framework with reality and validate the approach.
-
 We discussed earlier that \acrshort{del} knowledge representation is more expressive, flexible, and can handle uncertainty. However, it requires an augmented action schema to accurately maintain each agent's beliefs.
 Think of a specification for \textit{``move''} action manually listing all the environmental facts to be observed by an agent for managing their beliefs. In our case, it is implicitly maintained within a state.
 
-We can consider running a set of rules (e.g., \textit{graph-based ontology}) to bring new interesting facts in the state based on a set of known facts. We believe that this aspect opens up new possibilities in the future for integrating human-aware collaborative planning and ontology.
+We can consider running a set of rules (\textit{e.g.}, \textit{graph-based ontology}) to bring new interesting facts in the state based on a set of known facts. We believe that this aspect opens up new possibilities in the future for integrating human-aware collaborative planning and ontology.
 
 %%% SECTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \section{Epistemic Extension}
@@ -465,5 +463,4 @@ Our extension and contribution are, first, to integrate a \textit{Situation Asse
 Compared to existing epistemic planners, this simplifies the action descriptions by focusing on their effects on the world and not how they influence each agent's beliefs.
 In addition, we propose to detect false human beliefs and tackle only the necessary ones in a principled way. First, we propose minimal and proactive explicit communication. Second, when pertinent, 
 we propose an implicit communication by postponing the non-observed robot action until the human is co-present to observe it.  
-
 The relevance of false belief, when to optimally communicate, and parallelization are interesting future works.

@@ -1,3 +1,6 @@
+% \newpage
+% \thispagestyle{empty}
+% \mbox{}
 \cleardoublepage
 
 \ifdefined\included
@@ -7,7 +10,7 @@
 \faketableofcontents
 \fi
 
-\chapter{A Human-Aware Task Planner able to Emulate and Elicit Human Decisions and Actions (HATP/EHDA)}
+\chapter{A Human-Aware Task Planner able to Emulate Human Decisions and Actions (HATP/EHDA)}
 \chaptermark{HATP/EHDA}
 \label{chap:2}
 \minitoc
@@ -20,7 +23,7 @@ This planner has been the keystone of most of my work. Hence, the reader should 
 
 I was introduced to task planning with the work of a PhD student from my lab, Guilhem Buisan. I slightly contributed to the original version and then proposed two extensions of his work. However, Guilhem mainly designed and implemented this novel \textbf{H}uman-\textbf{A}ware \textbf{T}ask \textbf{P}lanning approach dedicated to \acrfull{hri}, which plans the robot's actions while estimating and \textbf{E}mulating the \textbf{H}uman \textbf{D}ecisions and \textbf{A}ctions, namely \textbf{HATP/EHDA}. 
 
-We believe this planning approach suits the needs of \acrshort{hri} scenarios well; thus, it became a laboratory to address relevant challenges of task planning for \acrshort{hrc}. 
+We believe this planning approach suits the needs of \acrshort{hri} scenarios well. Thus, it became a laboratory to address relevant challenges of task planning for \acrshort{hrc}. 
 Two of my main contributions include addressing such challenges and implementing the solutions as extensions of HATP/EHDA.   
 Consequently, it is essential to understand this work's motivation and methods well before introducing my proper contributions. This section introduces, motivates, and explains the HATP/EHDA approach as a background to the other chapters. 
 A detailed description of this prototypical planner is already given in Buisan's thesis~\cite{thesisBuisan21}. Thus, large parts of this section are directly retrieved from Buisan's thesis, but they are essential to have in mind. Some notations are adapted to match the descriptions of my contributions in the following chapters. 
@@ -31,9 +34,9 @@ My work and HATP/EHDA are part of a line of work that started with the \acrfull{
 
 Based on \acrfull{htn}, this planner can elaborate a multi-agent plan based on a single HTN tree. Moreover, it maintains one belief base per agent, allowing the writer to write task decomposition rules and action preconditions and effects in any agent belief base. This approach produces a joint plan that includes actions from all involved agents. 
 
-Finally, to make \acrshort{hatp} suitable to \acrshort{hri} scenarios, specific mechanisms to compute costs and filter plans have been included. To this end, \acrshort{hatp} allows balancing efficiency, wasted time, agent effort, intricacy, and undesirable states or sequences. This way, social rules can be defined to produce a collaborative plan that humans will likely accept. 
+To make \acrshort{hatp} suitable to \acrshort{hri} scenarios, specific mechanisms to compute costs and filter plans have been included. To this end, \acrshort{hatp} allows balancing efficiency, wasted time, agent effort, intricacy, and undesirable states or sequences. This way, social rules can be defined to produce a collaborative plan that humans will likely accept. 
 
-However, \acrshort{hatp} assumes a shared goal has been established between humans and robots before planning. The generated plan will be shared with and accepted by humans before execution. Indeed, HATP does not represent humans as agents having separate decision-making processes that may lead to diverging plans without robot communication. Hence, any human deviation from their generated stream of action needs supervision to perform repair action or request a replanning. Such an approach can work well, but it assumes that communication can easily be done at any point in the plan. However, this assumption is not always verified for various reasons, \textit{e.g.} noisy environments, making communication costly.
+However, \acrshort{hatp} assumes a shared goal has been established between humans and robots before planning. It is also based on the fact that the generated plan will be shared with and accepted by humans before execution. Indeed, HATP does not represent humans as agents having separate decision-making processes that may lead to diverging plans without robot communication. Hence, any human deviation from their generated stream of action needs supervision to perform repair action or request a replanning. Such an approach can work well, but it assumes that communication can easily be done at any point in the plan. However, this assumption is not always verified for various reasons, \textit{e.g.} noisy environments, making communication costly.
 Additionally, any human deviation, \textit{e.g.} due to inattention, will put the robot in a failure state, which needs to be fixed before continuing (replanning).
 
 \section{Rationales of the HATP/EHDA Approach}
@@ -71,8 +74,7 @@ As a result, some approaches started to consider a distinct human model $\mathca
 A first approach, described in \cite{hoffman_effects_2007}, proposes an adaptive action selection mechanism for a robotic teammate, making anticipatory decisions based on the confidence of their validity and their relative risk. They demonstrate improved task efficiency and fluency compared to a purely reactive process. The human behavior is modeled with a First-Order Markov Process and learned through Bayesian estimate. The probabilities constituting the human model are used in the cost evaluation of different plans, eventually leading to a robot action selection, producing an adaptive and proactive robot plan. 
 In \cite{unhelkar2020decision} is proposed an approach based on \acrfull{pomdp} called CommPlan. The \acrshort{pomdp} is built using a user-defined \acrfull{mdp} representing the collaborative task and an \acrfull{amm} representing the human decision-making process. Solving this \acrshort{pomdp} produces a robot policy that decides when the robot has to communicate about its beliefs, when to question the human about theirs, and when to ask the human to perform an action. Besides, the \acrshort{amm} is not only specified by an expert modeler but also refined during the interaction via learning. However, the approach considers the human model as an oracle on which reasoning is hardly possible.
 
-Other works extend the use of a distinct human model to explicitly predict and anticipate the actions the human is likely to perform. Then, for each possible human action, the best robot's actions are determined to account for human unpredictability. This is the approach used in HATP/EHDA.
-This other work \cite{buckingham_robot_2020} also uses this approach. They propose a unified scheme to cope with collaborative, adversarial, and non-involved human agents. This scheme considers given mental models for each human co-present with the robot, which might interact with the latter. These mental models are queried to estimate a set of actions each agent is likely to perform given a state. The robot's actions are planned according to these estimated actions to reach the robot's goal and potentially achieve the human agents' goal. In doing so, the robot's actions can influence the human ones without explicit communication, helping the robot achieve its goal. HATP/EHDA similarly queries a human mental model and uses an AND/OR graph where OR nodes represent possible robot actions in a state and AND nodes represent the possible human actions estimated by the models. However, despite saying the model can be generic, this work uses a basic breadth-first search planner to produce a set of minimal-cost plans solving the estimated human goal. Then, they extract the first actions of each plan to produce a set of actions the human is likely to perform. No details are given on the cost evaluation. This approach does not seem to consider human actions that are sub-optimal but still probable, which can be due to inattention. Moreover, the robot actions are selected by using a Min-Max approach on the AND/OR graph, minimizing the worst-case. This approach works well in adversarial setups and still allows cooperative human interventions. However, it is unclear how these cooperative actions are taken into account in the robot decision process. Assuming that the human will be adversarial, the robot might make ``wrong'' decisions, possibly preventing an efficient and optimal cooperative execution. HATP/EHDA minimizes the average cost of all possible human decisions, optimizing uniformly for any human decisions. This approach considers humans congruent, rational, and cooperative but not necessarily involved in the robot's task. Hence, HATP/EHDA does not account for adversarial humans but addresses the other cooperation types better.
+Other works extend the use of a distinct human model to explicitly predict and anticipate the actions the human is likely to perform. Then, for each possible human action, the best robot's actions are determined to account for human unpredictability. This approach is used in HATP/EHDA and in another similar work~\cite{buckingham_robot_2020}. In the latter, they propose a unified scheme to cope with collaborative, adversarial, and non-involved human agents. This scheme considers given mental models for each human co-present with the robot, which might interact with the latter. These mental models are queried to estimate a set of actions each agent is likely to perform given a state. The robot's actions are planned according to these estimated actions to reach the robot's goal and potentially achieve the human agents' goal. In doing so, the robot's actions can influence the human ones without explicit communication, helping the robot achieve its goal. HATP/EHDA similarly queries a human mental model and uses an AND/OR graph where OR nodes represent possible robot actions in a state and AND nodes represent the possible human actions estimated by the models. However, despite saying the model can be generic, this work uses a basic breadth-first search planner to produce a set of minimal-cost plans solving the estimated human goal. Then, they extract the first actions of each plan to produce a set of actions the human is likely to perform. No details are given on the cost evaluation. This approach does not seem to consider sub-optimal human actions that are still probable or due to inattention. Moreover, the robot actions are selected by using a Min-Max approach on the AND/OR graph, minimizing the worst-case. This approach works well in adversarial setups and still allows cooperative human interventions. However, it is unclear how these cooperative actions are taken into account in the robot decision process. Assuming that the human will be adversarial, the robot might make ``wrong'' decisions, possibly preventing an efficient and optimal cooperative execution. HATP/EHDA minimizes the average cost of all possible human decisions, optimizing uniformly for any human decisions. This approach considers humans congruent, rational, and cooperative but not necessarily involved in the robot's task. Hence, HATP/EHDA does not account for adversarial humans but addresses the other cooperation types better.
 \cite{koppula2016anticipatory} also explicitly estimated the most likely human actions to generate the robot policy, but they use a probabilistic and learning approach. They propose a two agent collaborative \acrshort{mdp} model and learn robot policies by taking into account the actions that can be performed by the human. They represent the environment in terms of the object affordances and learn the activity model from RGB-D videos of a human performing the activities. Then, they use this learned task model in a distributed Q-learning algorithm to learn the robot policy for a given new environment. 
 The human capabilities are captured in a \acrshort{mdp}. Thus, the possible human actions are estimated by balancing the human habits and the best ($\epsilon$-optimal) action given by the \acrshort{mdp}. 
 
@@ -91,7 +93,7 @@ In their approach, the \textit{agent state} is sensed and updated during executi
 
 \section{A BlocksWorld Running Example}
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=\linewidth]{Chapter2/scenarios.png}
     \caption{Cube stacking scene: A different plan is selected for each scenario, involving nearby humans in the least disturbing way possible}.
@@ -136,12 +138,12 @@ Here is the description of the sets $B$ and $X$ for the stacking example given i
 &\quad Agents      = \{ \textsf{R}, \textsf{H} \} ~~ \backslash\backslash~\textsf{R}:robot,~\textsf{H}:human\\
 &\quad Cubes     = \{ \textsf{red1}, \textsf{red2}, \textsf{green1}, \textsf{blue1}, \textsf{yellow1} \}\\
 &\quad Locations     = \{ \textsf{base1}, \textsf{base2}, \textsf{bridge}, \textsf{top1}, \textsf{top2} \}\\
-&\quad Reachability     = \{ \textsf{middle}, \textsf{side\_h}, \textsf{side\_r} \}\\
+&\quad Reachability     = \{ \textsf{middle}, \textsf{sideH}, \textsf{sideR} \}\\
 &\quad Booleans    = \{ \textsf{true},\textsf{false} \}\\
 &\\
 &X = \{ at(e), holding(a), solution(l) ~ | ~ e \in Entities, \agent \in Agents, l \in StackLocations\}\\
 &\quad \textit{Range}(holding(\agent) ~|~ \agent \in Agents) = Cubes \cup \{\textsf{nil}\} \\
-&\quad \textit{Range}(at(\agent) ~|~ \agent \in Agents) = \{ \textsf{side\_h}, \textsf{side\_r} \}\\
+&\quad \textit{Range}(at(\agent) ~|~ \agent \in Agents) = \{ \textsf{sideH}, \textsf{sideR} \}\\
 &\quad \textit{Range}(at(c) ~|~ c \in Cubes) = Reachability \cup Locations\\
 &\quad \textit{Range}(solution(l) ~|~ l \in StackLocations) = Cubes \\
 \end{align*}
@@ -174,7 +176,7 @@ The problem specification of HATP/EHDA is a pair of two distinct human and robot
     
     \item \textbf{Partial Plan} ($\partialplan[\agent]$): storing the current partial plan on an agent. This is empty at the beginning and filled during the planning process.
     
-    \item \textbf{Action Model} ($\Lambda^{\agent}$): encoding the capabilities of the agent and used to estimate the next actions of the agent given a goal and a world state. Here, it is described by a \acrfull{htn} and thus a set of operators and methods. 
+    \item \textbf{Action Model} ($\Lambda^{\agent}$): encoding the capabilities of the agent and used to estimate the next actions of the agent according to their agenda and beliefs. Here, it is described by a \acrfull{htn} and thus a set of operators and methods. 
     
     \item \textbf{Triggers} ($Tr^{\agent}$): describes the reactions the agent may have which might update their agenda. The agent may react to a specific world state, event sequence, or explicit communication. For instance, consider a scenario where another agent is suddenly handing over an object to the agent. This event has nothing to do with the agent's goal, and thus, the next agent action extracted from the Action Model might not consider the other agent. However, a natural reaction to this situation is to grab the handed object. Thanks to the Triggers mechanic, we can model and predict that whatever the agent is doing, the agent will grab the object when given.  
 \end{itemize}
@@ -188,7 +190,7 @@ That is why we define specifically an \textbf{agent state} in Definition~\ref{de
 \end{definition}
 
 \begin{definition}
-    \textbf{(Agent model $\agentmodel$.)} An \emph{agent model} $\agentmodel[\agent]$ comprises all information regarding an agent $\agent$. It consists of the static information, such as the agent's name, action model, and triggers, and the dynamic information gathered in the \emph{agent state}. Hence,  an \emph{agent model} is formalized as $\agentmodel[\agent] = \{ name^{\agent}, \agentstate[\agent], \Lambda^{\agent}, Tr^{\agent} \}$.
+    \textbf{(Agent model $\agentmodel$.)} An \emph{agent model} $\agentmodel[\agent]$ comprises all information regarding an agent $\agent$. It consists of the static information, such as the agent's name, action model, and triggers, and the dynamic information gathered in the \emph{agent state}. Hence,  an \emph{agent model} is formalized as $\agentmodel[\agent] = \{ name^{\agent}, \Lambda^{\agent}, Tr^{\agent}, \agentstate[\agent], \}$.
     \label{def:agent_model}
 \end{definition}
 
@@ -203,7 +205,7 @@ It is also important to remember that the two agents are not equivalent. The rob
 \end{definition}
  
 
-From the robot's perspective, the state of the world is captured by the variable value assignment function $\valf[R][i] \in \\agentstate[R][i]$. Since the planner is assumed to be part of the robot, the robot's beliefs are assumed to be the ground truth and are sometimes noted as $\valf[][i]$. 
+From the robot's perspective, the state of the world is captured by the variable value assignment function $\valf[R][i] \in \agentstate[R][i]$. Since the planner is assumed to be part of the robot, the robot's beliefs are assumed to be the ground truth and are sometimes noted as $\valf[][i]$. 
 Similarly, $\valf[H][i] \in \agentstate[H][i]$ represents the estimation of $val_i$ from the human's perspective, also called the estimated human beliefs. 
 Therefore, we can define estimated human \textbf{false belief} in Definition~\ref{def:false_belief}.
 
@@ -223,17 +225,20 @@ As an example, considering the presented stacking example, the associated initia
 \begin{align*}
 &s_0 = \{\agentstate[R][0], \agentstate[H][0]\} \\
 &\quad \agentstate[R][0] = \{ \valf[R][0], \agenda[R][0], \partialplan[R][0] \}, \quad \agentstate[H][0] = \{ \valf[H][0], \agenda[H][0], \partialplan[H][0] \} \\
-&\quad \agenda[R][0] = \{ Stack \}, \quad \agenda[H][0] = \{  \} \\
-&\quad \partialplan[R][0] = \partialplan[H][0] = \{  \} \\
-&\quad \valf[R][0] = \valf[H][0] = \{at(\textsf{R}) = \textsf{side\_r},~at(\textsf{H}) = \textsf{side\_h}, ~at(\textsf{red1}) = \textsf{side\_r}, \\
-&\quad \quad \quad at(\textsf{red2}) = \textsf{side\_h}, ~at(c) = \textsf{middle} ~|~ c \in Cubes\backslash\{ \textsf{red1}, \textsf{red2} \}, \\
-&\quad \quad \quad holding(\textsf{R}) = holding(\textsf{H}) = \textsf{nil}, \\
-&\quad \quad \quad solution(\textsf{base1}) = \textsf{red}, ~solution(\textsf{base2} = \textsf{red}), ~solution(\textsf{bridge} = \textsf{green}),   \\
-&\quad \quad \quad solution(\textsf{top1}) = \textsf{blue}, ~solution(\textsf{top2} = \textsf{yellow}) \}  \\
+&\quad \agenda[R][0] = ( Stack ), \quad \agenda[H][0] = \varnothing \\
+&\quad \partialplan[R][0] = \partialplan[H][0] = \varnothing \\
+&\quad \valf[R][0] = \valf[H][0] = \{ at(\textsf{R}) = at(\textsf{red1}) = \textsf{sideR}, \\
+&\quad \quad \quad \quad \quad \quad \quad \quad at(\textsf{H}) = at(\textsf{red2}) = \textsf{sideH}, \\
+&\quad \quad \quad \quad \quad \quad \quad \quad at(\textsf{green1}) = at(\textsf{blue1}) = at(\textsf{yellow1}) = \textsf{middle}, \\
+&\quad \quad \quad \quad \quad \quad \quad \quad holding(\textsf{R}) = holding(\textsf{H}) = \textsf{nil}, \\
+&\quad \quad \quad \quad \quad \quad \quad \quad solution(\textsf{base1}) = solution(\textsf{base2}) = \textsf{red}, \\
+&\quad \quad \quad \quad \quad \quad \quad \quad solution(\textsf{bridge}) = \textsf{green},   \\
+&\quad \quad \quad \quad \quad \quad \quad \quad solution(\textsf{top1}) = \textsf{blue}, \\
+&\quad \quad \quad \quad \quad \quad \quad \quad solution(\textsf{top2}) = \textsf{yellow} \}  \\
 \end{align*}
 }
 
-Note that our model permits interaction with only one human at a time. Hence, in scenario (a) on figure~\ref{fig:scenarios}, $\agentmodel[H]$ corresponds to \textit{H1}. In all other scenarios, it corresponds to \textit{H2}.
+Note that our model permits interaction with only one human at a time. Hence, in scenario (a) on figure~\ref{fig:scenarios}, $\agentmodel[H]$ corresponds to \textit{H1}. In all other scenarios, \textit{H1} only initializes the robot's agenda. Thus, in such cases, $\agentmodel[H]$ corresponds to \textit{H2}.
 Therefore, $d^H_0$ is empty except in scenario (a), where \textit{H1} establishes a shared goal. Also, the sets $B$ and $X$ have been slightly modified for legibility reasons because the cubes are, in fact, explicitly associated with colors used in the task decompositions. As a result, the solution is expressed using colors and not the cube names. Finding the exact cube to place is described in the action models.
 
 \subsection*{Planning and Estimating Actions}
@@ -279,7 +284,7 @@ HATP/EHDA produces a robot policy extracted from an implicitly coordinated joint
     \end{definition}
     
 In practice, it produces a tree of sequential actions where every human action is succeeded by one optimal robot action. Additionally, a new branch is created for every estimated possible human action, ensuring it covers all possible human choices. Each branch is a possible course of alternating robot and human actions leading to the goal.
-Each branch in the solution tree is a sequence of primitive actions, say $\pi=(a_1^h,a_2^r,a_3^h,...,a_{k-1}^h,a_k^r)$, that must satisfy all the solution conditions of $^mathcal{P}$. 
+Each branch in the solution tree is a sequence of primitive actions, say $\pi=(a_1^h,a_2^r,a_3^h,...,a_{k-1}^h,a_k^r)$, that must satisfy all the solution conditions of $\mathcal{P}$. 
 Here, each $a_i^h$ represents a choice, often out of several, the human could make. And each $a_{i+1}^r$ is the optimal robot action according to $a_i^h$.
 
 
@@ -330,18 +335,16 @@ I implemented in HATP/EHDA a way to specify and take into account undesired stat
 In HATP/EHDA, once the exhaustive exploration has been done, the result is a valid plan tree of alternating feasible robot and human actions along with their current beliefs leading to task completion. This second planning step aims to select robot actions, such as each human action in the plan has only one robot action as a child.
 To do so, we define a cost function $cost: S \times Op \mapsto \mathbb{R}^+$ representing the cost of an action in a specific state. The data structure is now similar to a two-player game tree. However, \textit{MinMax} approaches are unsuitable here, as we are not in an adversarial setup but more in a collaborative one. Indeed, trying to minimize the maximum possible cost assumes that humans will always do the actions that lead to the worst plan. This defensive behavior could lead to non-optimal plans. We thus propose to explore this tree differently.
 
-Moreover, like in \acrshort{hatp}, we can define \textit{social costs} functions. These functions take a complete human and robot sequence of actions ($\pi^R$ and $\pi^H$) and return a cost ($\mathbb{R}^+$) which is added to the cost of the plan previously determined. By doing so, we can penalize non-acceptable sequence of robot actions (\textit{e.g.}serving a meal just after taking out the trash) or non-satisfactory human required contribution (\textit{e.g.}the robot requesting the human to perform small tasks multiple times instead of giving the big picture of the actual task to perform).
+Moreover, like in \acrshort{hatp}, we can define \textit{social costs} functions. These functions take a complete human and robot sequence of actions ($\pi^R$ and $\pi^H$) and return a cost ($\mathbb{R}^+$) which is added to the cost of the plan previously determined. By doing so, we can penalize non-acceptable sequence of robot actions (\textit{e.g.} serving a meal just after taking out the trash) or non-satisfactory human required contribution (\textit{e.g.} the robot requesting the human to perform small tasks multiple times instead of giving the big picture of the actual task to perform).
 
 The approach we propose for plan selection is to minimize the average cost. It represents the human potentially selecting any course of action in their stream (while still respecting the action model defined in their HTN).
 The algorithm is given the root action of the plan tree previously generated. It returns the cost of the conditional plan selected while selecting the robot actions in the plan tree to minimize the average plan cost.
 
 \section{Qualitative Results}
 
-Each scenario is commented on below with their corresponding selected plan shown in TABLE~\ref{tab:plans}.
+Each scenario is commented on below with their corresponding selected plan shown in TABLE~\ref{tab:plans}. The partial robot and human action models and their exploration are presented in Fig.~\ref{fig:plans}.
 
-The partial robot and human action models and their exploration are presented in Fig.~\ref{fig:plans}.
-
-\begin{table}
+\begin{table}[h]
 \small
 \begin{tabularx}{0.98\textwidth}{|X||X|}
     \hline
@@ -386,7 +389,7 @@ First, the human sets a shared goal by asking the robot to stack cubes with him.
 This time, the human asks the robot to stack the cubes but then leaves the scene, and the robot must act alone. Hence, the only applicable method to make the second red cube reachable is to move to the other side even though the movement action is expensive (we can imagine a table way longer than shown in the figure).
 
 \paragraph{(c) \textit{R} asks punctual help}
-The first human (\textit{H1}) requests the robot to complete the task, and another uninvolved human ($h2$) is present. The robot starts exploring its \acrshort{htn} and, thanks to the presence of the other human, a new method is applicable, allowing the robot to ask for help. It can ask for punctual help or a complete commitment of \textit{H2} to the task. Of course, asking for help for one cube is less costly than building the whole stack together. However, asking for help from someone not already involved in a common task is still expensive since they must put themselves in the task's context. 
+The first human (\textit{H1}) requests the robot to complete the task, and another uninvolved human (\textit{H2}) is present. The robot starts exploring its \acrshort{htn} and, thanks to the presence of the other human, a new method is applicable, allowing the robot to ask for help. It can ask for punctual help or a complete commitment of \textit{H2} to the task. Of course, asking for help for one cube is less costly than building the whole stack together. However, asking for help from someone not already involved in a common task is still expensive since they must put themselves in the task's context. 
 Nevertheless, this punctual help is less costly for the robot than moving to the other side, so this solution is selected. Note that we model that after being asked to help punctually, the human can either stack the cube themself or make it reachable to the robot by placing it in the middle. Only the first branch is shown in table~\ref{tab:plans}(c), but the selected plan is in fact conditional with two branches as depicted in Fig.~\ref{fig:plans}.
 
 \paragraph{(d) \textit{R} invites \textit{H2} to share a goal}
