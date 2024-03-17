@@ -9,9 +9,9 @@
 
 \mysection{Contributions}
 
-In this thesis, we addressed the challenge of enhancing the decision-making of robots to ensure seamless collaboration with a human partner. Several contributions have been proposed, contributing to robotic human-aware task planning on the one hand and to robot navigation by simulating social interactive agents on the other. 
+In this thesis, we addressed the challenge of enhancing the decision-making of robots to ensure seamless collaboration with a human partner. Several contributions have been proposed, contributing to robotic human-aware task planning on the one hand and to robot navigation by simulating intelligent social agents on the other. 
 
-To better capture my contributions, we presented in Chapter~\ref{chap:1} the specificities and the multidisciplinarity of the Human-Robot Interaction field and the Human-Robot Collaboration subfield. Eventually, we presented state-of-the-art approaches in HRC task planning and robot navigation. 
+To better capture my contributions, we presented in Chapter~\ref{chap:1} the specificities and the multidisciplinarity of the Human-Robot Interaction field and the Human-Robot Collaboration subfield. Eventually, we presented state-of-the-art approaches in task planning and simulation for \acrshort{hrc}. 
 
 \subsection*{Task Planning Conclusions}
 
@@ -37,12 +37,15 @@ This policy indicates the best concurrent robot action to satisfy the estimated 
 Moreover, this extraction is light and can be done online. As a result, as the execution progresses, the estimated human preferences can be reevaluated, and the robot policy can be updated accordingly on the fly.
 To evaluate our approach, we used BlocksWorld scenarios where the human and the robot had to collaborate to stack colored cubes to match a given goal pattern. 
 As a first step, we evaluate the approach by symbolically simulating possible executions, following the abstracted model of execution proposed. To highlight the compliance endowed to the robot, we simulated erroneous estimations of the human preferences, making the robot's behavior more or less adversarial to the human preferences. However, despite contributing to the shared task, the robot may not necessarily achieve the task as the human would have preferred. The results showed that despite erroneously estimated human preferences, the actual human preferences are correctly satisfied overall because the robot constantly adapts to and follows human decisions. 
-To further validate the approach, we presented the user study we conducted in Chapter~\ref{chap:6}. This study is based on an interactive simulator created explicitly for this purpose presented in Chapter~\ref{chap:5}. This simulator includes a refined and implemented version of the joint action model used as an execution controller to supervise the robot's policy execution. This simulator allowed human participants to collaborate with a simulated Tiago robot through mouse control. We compared our approach with a contrasting baseline where the robot always imposes its decisions on humans. By recording execution data and requesting participants to answer a questionnaire, we showed that our approach performed and was appreciated significantly better than the baseline. Over the different scenarios, our approach satisfied the human preferences significantly better and the baseline. 
+
+As another contribution in Chapter~\ref{chap:5} and \ref{chap:6}, 
+we implemented our proposed joint action model as an execution scheme into an interactive simulator permitting collaboration with a robot executing policies produced by our approach. 
+Using this simulator, we conducted a user study with 25 participants and compared our approach with a contrasting baseline where the robot always imposes its decisions on humans. By recording execution data and requesting participants to answer a questionnaire, we showed that our approach performed and was appreciated significantly better than the baseline. Over the different scenarios, our approach satisfied the human preferences significantly better and the baseline. 
 Moreover, the most significant differences using our approach are that the participant perceived the Interaction as more Positive, the Collaboration as more Adaptive and Efficient, and the Robot's Decisions as more Appropriate and Accommodating.    
 
-\subsection*{Simulating Intelligent Autonomous Agents Conclusions}
+\subsection*{Simulating Intelligent Human Agents Conclusions}
 
-On the other hand, navigation is a fundamental skill for a robot. State-of-the-art methods are efficient for static, dynamic, and unknown environments. However, navigating in human-populate environments is still challenging. Various approaches address the human-aware navigation subject, but only a few recent works propose tools to challenge, test, debug, and evaluate robot human-aware navigation systems. Without such simulation tools, preliminary experimentation and debugging must be achieved using a real robot, which is slow and burdensome. 
+It is challenging to test and evaluate \acrshort{hri} systems. To tackle this issue, we proposed a generic architecture capable of simulating intelligent human agents to interact and challenge robot systems. We presented and evaluated an implementation of such architecture for the navigation use case. Various approaches address the human-aware navigation subject, but only a few recent works propose tools to challenge, test, debug, and evaluate robot human-aware navigation systems. Without such simulation tools, preliminary experimentation and debugging must be achieved using a real robot, which is slow and burdensome. 
 Most existing simulated interactive agents are based only on reactive approaches, making them suitable for crowded scenarios but limited and unrealistic in intricate ones. 
 Thus, there is a lack of simulated interactive agents endowed with some decision-making processes allowing them to resolve more realistically intricate scenarios, like path blockage or narrow corridor crossing.
 

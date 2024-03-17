@@ -90,7 +90,7 @@ Time-step ($t_i$) in figure \ref{fig:diagram} means ``\emph{choreography steps}'
 
 This is the type of simulation that the tool should be able to generate. Figure~\ref{fig:imhus_architecture} shows the general architectural framework. This tool receives the definitions of the social scenarios in a definition file (an XML in its current version). It then manages the simulation, obtains the simulation data, uses existing libraries and other tools (such as $move\_base$ to calculate trajectories in \acrshort{ros}), and finally generates the log data for evaluation.
 
-\begin{figure}[h!]%
+\begin{figure}
     \centering
     \includegraphics[width=\textwidth]{Chapter8/architecture.png}
     \caption{Global simulation architecture. Red signifies existing tools. Blue components are those described in this paper. Green signifies ongoing development. Uncolored boxes are alternative simulators under consideration.}
@@ -221,7 +221,7 @@ At this point, two different things can happen. If there is no human close enoug
 
 The \textit{tested robot} repeats the request every five seconds until human\_2 enters an idle state and responds to the request. Figure~\ref{fig:take_elevator_video_3} shows this moment of the simulation. When an asynchronous action request is triggered, IMHuS periodically checks if one human is able to respond. The requirements for a human agent to respond are to be in the idle state and within a $3m$ radius from the \textit{tested robot} position when it requested the action. If several human agents can accept the task, the task will be assigned to the closest human.
 
-\begin{figure}[!ht]
+\begin{figure}[h]
   \centering
   {\includegraphics[width=1\textwidth]{Chapter8/seq3.png}}\\
   \caption{Request accepted by human2.}
@@ -230,12 +230,14 @@ The \textit{tested robot} repeats the request every five seconds until human\_2 
 
 Figure~\ref{fig:take_elevator_video_4} shows the final situation where the \textit{tested robot} has reached the second floor, simulated in the scenario as the room on the other side of the elevator.
 
-\begin{figure}[!ht]
+\begin{figure}[h]
   \centering
   {\includegraphics[width=1\textwidth]{Chapter8/seq4.png}}\\
   \caption{Final situation. \textit{Tested robot} in second floor.}
   \label{fig:take_elevator_video_4}
 \end{figure}
+
+\clearpage
 
 \section{Conclusions and Future Work}
 \label{sec:conclusions}
