@@ -1,0 +1,1 @@
+{"rule":"FR_SPELLING_RULE","sentence":"^\\QTout d'abord, je souhaite remercier mon directeur de thèse Rachid Alami qui a joué un rôle crucial dans ce parcours.\\E$"}
