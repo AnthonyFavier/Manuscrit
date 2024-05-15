@@ -28,11 +28,11 @@
 \begin{document}
 
 %%%%%%%%%%%%%%% Uncomment this to show new Cover page %%%%%%%%%
-\makeflyleaf
+% \makeflyleaf
 %%%%%%%%%%%%%%% Uncomment this to show new Cover page %%%%%%%%%
 
 %%%%%%%%%%%%%%% Uncomment this to show custom Cover page %%%%%%%%%
-% \includepdf[pages=-]{couverture_these_perso.pdf} %
+\includepdf[pages=-]{couverture_these_perso_new.pdf} %
 %%%%%%%%%%%%%%% Uncomment this to show custom Cover page %%%%%%%%%
 
 
@@ -41,11 +41,11 @@
 \dominitoc
 \pagenumbering{roman}
 
-% \cleardoublepage %
+\cleardoublepage %
 
 %%%% Acknowledgments %%%%%
 %%% Needs an update before and after the defence, write last
-% \include{Acknowledgments/Acknowledgments}%
+\include{Acknowledgments/Acknowledgments}%
 
 \cleardoublepage
 
@@ -54,6 +54,9 @@
 \include{Abstract/English} %
 \include{Abstract/French} %
 
+\newpage
+\thispagestyle{empty}
+\mbox{}
 % \cleardoublepage
 
 \tableofcontents
@@ -91,6 +94,10 @@
 \include{Chapters/Chapter8_IMHuS}
 
 \include{Chapters/General_Conclusion}
+
+\newpage
+\thispagestyle{empty}
+\mbox{}
 
 \part{Appendix}
 \appendix
