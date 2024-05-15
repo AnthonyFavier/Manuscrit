@@ -733,6 +733,7 @@
 \newif\if@showCotutelle\@showCotutellefalse 
 % SIMPLE STRING
 \def\defencedate#1{\gdef\@defencedate{#1}}
+\def\Ftitle#1{\gdef\@Ftitle{#1}}
 \def\lab#1{\gdef\@lab{#1}}
 \def\cotutelle#1{\gdef\@cotutelle{\textit{#1}}}
 % Boss
@@ -829,7 +830,15 @@
                         \vspace*{3pt}
 
                         {\large\bfseries\@title}
-                        
+
+                        \ifx\@Ftitle\undefined\else
+                            \vspace*{-5pt}
+                            ~{\color{pdgred}\rule{1.2\RuleWidth}{0.8pt}}
+                            \vspace*{3pt}
+                            
+                            {\itshape \@Ftitle}
+                        \fi
+
                         \rule{\textwidth}{1.2pt}
                         
                         \vspace{-1.6ex}
