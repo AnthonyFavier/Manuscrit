@@ -296,7 +296,8 @@ We note $s_i^j$ the $j$-th partial state of the state $s_i$. A partial state $s_
 Every partial state is followed by several compliant concurrent robot actions considered as OR edges, leading to other states.
 
 \begin{figure}[h]
-    \includegraphics{Chapter4/and_or_tree.pdf}
+    \center
+    \includegraphics[width=\linewidth]{Chapter4/and_or_tree.pdf}
     \caption{AND-OR graph representation of the action pairs. 
     This representation highlights the possible human decision (AND nodes) to identify the best concurrent and compliant robot action (OR nodes) to put in the robot's policy. 
     }
@@ -340,6 +341,7 @@ Being aware of this, we use the estimated human preferences as a guide for the r
 Generating the robot policy $\Pi$ from the \acrshort{dag} consists of repeating two processes, namely, \textit{Propagation} and \textit{Selection}. The overall process is depicted in figure~\ref{fig:policy_generation} and summarized below before being detailed in the following subsections. Since the \acrshort{dag}'s nodes correspond to \textit{states}, both names will appear and be mixed in the following descriptions. 
 
 \begin{figure}[h]
+    \center
     \includegraphics[width=\linewidth]{Chapter4/policy_generation.pdf}
     \caption{Policy generation process illustration on an arbitrary search graph. \textit{Propagation} and \textit{Selection} processes repeat until there are no more nodes to propagate or for selection. Overall, it consists of identifying the best child action pair for every node by comparing the propagated set of metrics.}
     \label{fig:policy_generation}
@@ -535,6 +537,7 @@ However, the estimation of human preferences can be more or less accurate, causi
 Despite the robot trying to maximize its R-score, it is essential to note that reaching a low R-score is fine as long as a high H-score is attained.
 
 \begin{figure}
+    \center
     \includegraphics[width=\linewidth]{Chapter4/all_corr.png}
     \caption{
     Correlation between the H-score and R-score according to different robot estimations. Four pairs of human preferences and their estimation are considered. For each pair, all possible traces are plotted as blue crosses according to their H-score and R-score. \textit{(1)} show a correct estimation while the others show incorrect estimations. \textit{(3)} and \textit{(4)} depict \textit{adversarial} estimations.
